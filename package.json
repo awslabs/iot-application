@@ -16,7 +16,9 @@
     "test:ui": "vitest --ui",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "prebuild": "eslint . && vitest run && tsc",
+    "test:e2e": "playwright test",
+    "test:e2e:report": "playwright show-report",
+    "prebuild": "eslint . && tsc && vitest run && playwright test",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -27,6 +29,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.28.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
