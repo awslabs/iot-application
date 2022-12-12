@@ -8,6 +8,7 @@ export default defineConfig({
   test: {
     environment: "happy-dom",
     globals: true,
-    setupFiles: "./tests/setup.js",
+    setupFiles: "./tests/unit/setup.js",
+    exclude: ["**/e2e/**"],
   },
 });
