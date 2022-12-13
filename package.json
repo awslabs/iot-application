@@ -18,7 +18,7 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:report": "playwright show-report",
-    "prebuild": "eslint . && tsc && vitest run && playwright test",
+    "prebuild": "eslint . && tsc && vitest run --coverage && playwright test",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -39,6 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
     "@vitejs/plugin-react-swc": "^3.0.0",
+    "@vitest/coverage-c8": "^0.25.8",
     "@vitest/ui": "^0.25.8",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
