@@ -1,11 +1,20 @@
-## My Project
+# IoT Application
 
-TODO: Fill this README out!
+Visualize your AWS IoT data with the IoT Application.
 
-Be sure to:
+## Getting Started
 
-- Change the title in this README
-- Edit your repository description on GitHub
+Use pnpm to install the application dependencies.
+
+```sh
+pnpm install
+```
+
+Start the development server.
+
+```sh
+pnpm run dev
+```
 
 ## Security
 
