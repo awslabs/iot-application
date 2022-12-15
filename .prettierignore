@@ -1,2 +1,4 @@
 dist/
 pnpm-lock.yaml
+coverage
+playwright-report

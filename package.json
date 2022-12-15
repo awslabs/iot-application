@@ -23,6 +23,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-sdk/client-iotsitewise": "^3.231.0",
     "@cloudscape-design/components": "^3.0.139",
     "@cloudscape-design/global-styles": "^1.0.6",
     "react": "^18.2.0",
