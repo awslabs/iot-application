@@ -4,16 +4,25 @@ Visualize your AWS IoT data with the IoT Application.
 
 ## Getting Started
 
-Use pnpm to install the application dependencies.
+1. Install [Volta](https://docs.volta.sh/guide/getting-started).
+2. Install [Node.js@18 with Volta](https://docs.volta.sh/guide/#features).
+3. Install [pnpm](https://pnpm.io/installation).
+4. Install global dependencies:
+
+```sh
+pnpm add -g nest turbo typescript
+```
+
+5. Install application dependencies:
 
 ```sh
 pnpm install
 ```
 
-Start the development server.
+6. Start development server:
 
 ```sh
-pnpm run dev
+turbo run dev
 ```
 
 ## Security
