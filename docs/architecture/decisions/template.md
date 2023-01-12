@@ -1,4 +1,5 @@
 # Decision record template
+
 https://github.com/joelparkerhenderson/architecture-decision-record
 
 # Title

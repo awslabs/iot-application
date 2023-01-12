@@ -1,5 +1,0 @@
-**/*.js
-dist/
-*.config.ts
-tests/e2e/example.spec.ts
-tests/e2e/tests-examples/demo-todo-app.spec.ts

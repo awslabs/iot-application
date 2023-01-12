@@ -1,0 +1,33 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "vite",
+    "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts*\"",
+    "preview": "vite preview",
+    "test": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@cloudscape-design/components": "^3.0.139",
+    "@cloudscape-design/global-styles": "^1.0.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@types/testing-library__jest-dom": "^5.14.5",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "eslint-config-custom": "workspace:*",
+    "happy-dom": "^8.1.0",
+    "tsconfig": "workspace:*"
+  }
+}

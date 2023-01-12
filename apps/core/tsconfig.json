@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "exclude": ["node_modules"],
+  "extends": "tsconfig/nest.json",
+  "ts-node": {
+    "swc": true,
+    "transpileOnly": true
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "incremental": true,
+    "outDir": "./dist",
+    "types": ["vite/client"]
+  },
+  "include": ["src", "test"]
+}

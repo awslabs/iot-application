@@ -1,0 +1,17 @@
+{
+  "name": "eslint-config-custom",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-turbo": "latest"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "eslint-plugin-prettier": "^4.2.1"
+  }
+}
