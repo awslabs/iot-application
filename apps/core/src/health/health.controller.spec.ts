@@ -1,10 +1,10 @@
-import { Test } from "@nestjs/testing";
-import { HealthController } from "./health.controller";
-import { TerminusModule } from "@nestjs/terminus";
-import { HttpService } from "@nestjs/axios";
-import { of } from "rxjs";
+import { Test } from '@nestjs/testing';
+import { HealthController } from './health.controller';
+import { TerminusModule } from '@nestjs/terminus';
+import { HttpService } from '@nestjs/axios';
+import { of } from 'rxjs';
 
-describe("HealthController", () => {
+describe('HealthController', () => {
   let controller: HealthController;
 
   beforeEach(async () => {
@@ -16,8 +16,8 @@ describe("HealthController", () => {
           provide: HttpService,
           useValue: {
             // required to effectively mock HttpService
-            get: jest.fn(() => of({ core: { status: "up" } })),
-            request: jest.fn(() => of({ status: "ok" })),
+            get: jest.fn(() => of({ core: { status: 'up' } })),
+            request: jest.fn(() => of({ status: 'ok' })),
           },
         },
       ],
@@ -26,21 +26,21 @@ describe("HealthController", () => {
     controller = await module.resolve(HealthController);
   });
 
-  describe("check", () => {
-    test("application status is returned", async () => {
+  describe('check', () => {
+    test('application status is returned', async () => {
       const status = await controller.check();
 
       expect(status).toEqual({
-        status: "ok",
+        status: 'ok',
         info: {
           core: {
-            status: "up",
+            status: 'up',
           },
         },
         error: {},
         details: {
           core: {
-            status: "up",
+            status: 'up',
           },
         },
       });

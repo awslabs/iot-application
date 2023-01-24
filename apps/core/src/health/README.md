@@ -30,4 +30,19 @@ When the application is not healthy, the application is returned:
 
 ```
 HTTP/1.1 503 Service Unavailable
+
+{
+  "status": "error",
+  "info": {},
+  "error": {
+    "core": {
+      "status": "down"
+    }
+  },
+  "details": {
+    "core": {
+      "status": "down"
+    } 
+  }
+}
 ```
