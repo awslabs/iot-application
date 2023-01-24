@@ -5,22 +5,15 @@ import {
 } from "@nestjs/platform-fastify";
 import { AppModule } from "./app.module";
 
-const createApp = async () => {
-  return NestFactory.create<NestFastifyApplication>(
+/** Main() for Core System */
+const bootstrap = async () => {
+  const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
   );
-};
 
-const main = async () => {
-  const app = await createApp();
   await app.listen(3000);
+  console.log(`Application is running on: ${await app.getUrl()}`);
 };
 
-export let coreViteApp: ReturnType<(typeof NestFactory)["create"]>;
-
-if (import.meta.env.PROD) {
-  void main();
-} else {
-  coreViteApp = createApp();
-}
+bootstrap();
