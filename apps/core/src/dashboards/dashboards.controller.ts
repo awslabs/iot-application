@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
 } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { DashboardsService } from "./dashboards.service";
 import { CreateDashboardDto } from "./dto/create-dashboard.dto";
 import { UpdateDashboardDto } from "./dto/update-dashboard.dto";
 
+@ApiTags("dashboards")
 @Controller("dashboards")
 export class DashboardsController {
   constructor(private readonly dashboardsService: DashboardsService) {}
