@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .turbo
+.nestjs_repl_history
 
 # Editor directories and files
 .vscode/*
