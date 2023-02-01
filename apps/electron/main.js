@@ -1,8 +1,25 @@
 const electron = require('electron')
 const waitOn = require('wait-on');
 const path = require('path')
+const { execSync } = require("child_process");
+const log = require('electron-log');
 
 const { app, BrowserWindow, utilityProcess } = electron;
+
+// required to get npm on path
+if (!process.env.NODE_ENV) {
+  const fixPath = require('fix-path');
+  fixPath();
+}
+
+// bootstrapping commands
+try {
+  execSync(`
+    npm install -g pnpm
+  `);
+} catch (e) {
+  log.error(e)
+}
 
 /**
  * Asynchronously start server and client

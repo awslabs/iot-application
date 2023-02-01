@@ -1,13 +1,14 @@
 const { exec } = require("child_process");
+const log = require('electron-log')
 
 exec("cd ../.. && npm run dev", (error, stdout, stderr) => {
     if (error) {
-        console.log(`error: ${error.message}`);
+        log.error(`error: ${error.message}`)
         return;
     }
     if (stderr) {
-        console.log(`stderr: ${stderr}`);
+        log.error(`error: ${stderr}`)
         return;
     }
-    console.log(`stdout: ${stdout}`);
+    log.info(`stdout: ${stdout}`);
 });

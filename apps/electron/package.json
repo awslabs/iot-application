@@ -4,11 +4,22 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "devDependencies": {
-    "electron": "^22.1.0",
-    "eslint-config-custom": "workspace:*",
+    "@electron-forge/cli": "^6.0.4",
+    "@electron-forge/maker-deb": "^6.0.4",
+    "@electron-forge/maker-rpm": "^6.0.4",
+    "@electron-forge/maker-squirrel": "^6.0.4",
+    "@electron-forge/maker-zip": "^6.0.4",
+    "electron": "22.2.0"
+  },
+  "dependencies": {
+    "electron-log": "5.0.0-beta.15",
+    "electron-squirrel-startup": "^1.0.0",
+    "fix-path": "^3.0.0",
     "wait-on": "^7.0.1"
   }
 }
