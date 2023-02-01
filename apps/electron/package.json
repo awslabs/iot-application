@@ -1,0 +1,14 @@
+{
+  "name": "electron-wrapper",
+  "version": "0.0.1",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^22.1.0",
+    "eslint-config-custom": "workspace:*",
+    "wait-on": "^7.0.1"
+  }
+}
