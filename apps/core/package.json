@@ -5,7 +5,7 @@
   "scripts": {
     "build": "nest build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "nest start --watch",
+    "dev": "nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -35,20 +35,29 @@
     "@types/node": "18.11.18",
     "eslint-config-custom-server": "workspace:*",
     "jest": "29.3.1",
+    "run-script-webpack-plugin": "^0.1.1",
     "source-map-support": "^0.5.20",
     "ts-jest": "29.0.3",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "webpack": "^5.75.0",
+    "webpack-node-externals": "^3.0.0"
   },
   "jest": {
-    "moduleFileExtensions": ["js", "json", "ts"],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "collectCoverageFrom": ["**/*.(t|j)s"],
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   }

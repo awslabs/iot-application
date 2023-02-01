@@ -69,6 +69,9 @@ const bootstrapDocs = (app: NestFastifyApplication) => {
   SwaggerModule.setup("/docs", app, document);
 };
 
+/** Webpack module (value is injected at runtime by Webpack) */
+declare const module: any;
+
 /**
  * Main() for Core
  *
@@ -81,8 +84,9 @@ const bootstrapDocs = (app: NestFastifyApplication) => {
  * agnostic by default. When possible, avoid directly importing Fastify or
  * interacting with the HTTP layer directly when possible.
  *
- * @see {@link https://docs.nestjs.com/first-steps}
- * @see {@link https://docs.nestjs.com/techniques/performance}
+ * @see {@link https://docs.nestjs.com/first-steps | Nest First Steps}
+ * @see {@link https://docs.nestjs.com/techniques/performance | Fastify in Nest}
+ * @see {@link https://docs.nestjs.com/recipes/hot-reload | Hot Reload}
  *
  * @internal
  */
@@ -98,6 +102,12 @@ const bootstrap = async () => {
 
   await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
+
+  // enable Hot-Module Replacement (HMR)
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 };
 
 bootstrap();
