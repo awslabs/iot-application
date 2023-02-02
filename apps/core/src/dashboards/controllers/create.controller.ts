@@ -37,7 +37,7 @@ export class CreateDashboardController {
   constructor(private readonly dashboardsService: DashboardsService) {}
 
   @Post()
-  public async create(@Body() createDashboardDto: CreateDashboardDto) {
+  public create(@Body() createDashboardDto: CreateDashboardDto) {
     return this.dashboardsService.create(createDashboardDto.name);
   }
 }

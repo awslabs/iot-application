@@ -8,7 +8,7 @@ export class DashboardsService {
   private readonly logger = new Logger(DashboardsService.name);
   private dashboards: Dashboard[] = [];
 
-  public async create(name: Dashboard["name"]) {
+  public create(name: Dashboard["name"]) {
     this.logger.log("Creating dashboard...");
 
     try {
@@ -25,7 +25,7 @@ export class DashboardsService {
     }
   }
 
-  public async list() {
+  public list() {
     this.logger.log("Finding all dashboards...");
 
     try {
@@ -38,7 +38,7 @@ export class DashboardsService {
     }
   }
 
-  public async read(id: Dashboard["id"]) {
+  public read(id: Dashboard["id"]) {
     this.logger.log(`Finding dashboard ${id}...`);
 
     try {
@@ -53,7 +53,7 @@ export class DashboardsService {
     }
   }
 
-  public async update(dashboard: Dashboard) {
+  public update(dashboard: Dashboard) {
     this.logger.log(`Updating dashboard ${dashboard.id}...`);
 
     try {
@@ -69,7 +69,7 @@ export class DashboardsService {
     }
   }
 
-  public async delete(id: Dashboard["id"]) {
+  public delete(id: Dashboard["id"]) {
     this.logger.log(`Deleting dashboard ${id}...`);
 
     try {

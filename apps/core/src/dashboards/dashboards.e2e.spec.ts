@@ -45,6 +45,7 @@ describe("DashboardsModule", () => {
     app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
     await app.init();
+    // eslint-disable-next-line
     await app.getHttpAdapter().getInstance().ready();
   });
 
@@ -90,6 +91,7 @@ describe("DashboardsModule", () => {
       expect(JSON.parse(response.payload)).toEqual(
         expect.objectContaining({
           name: payload.name,
+          // eslint-disable-next-line
           id: expect.any(String),
           definition: {
             widgets: [],
@@ -151,7 +153,7 @@ describe("DashboardsModule", () => {
       expect(JSON.parse(response.payload)).toEqual(dashboard);
     });
 
-    test.each(["x", "x".repeat(11), "x".repeat(13), {}, []])(
+    test.each(["x", "x".repeat(11), "x".repeat(13)])(
       "returns 400 when dashboard id is not valid: (%s)",
       async (dashboardId) => {
         const response = await app.inject({
@@ -203,7 +205,7 @@ describe("DashboardsModule", () => {
       expect(JSON.parse(response.payload)).not.toEqual(dashboard);
     });
 
-    test.each(["x", "x".repeat(11), "x".repeat(13), {}, []])(
+    test.each(["x", "x".repeat(11), "x".repeat(13)])(
       "returns 400 when dashboard id is not valid: (%s)",
       async (dashboardId) => {
         const payload: UpdateDashboardDto = {

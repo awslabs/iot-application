@@ -1,0 +1,36 @@
+name: Deploy IoT Application Client
+
+on:
+  push:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  deploy-client:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6.0.2
+          
+      - name: install dependencies
+        run: pnpm install
+        
+      - name: build
+        run: pnpm run build
+
+      - name: test
+        run: pnpm run test
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: iot-application-client-cd
+          folder: apps/client/dist

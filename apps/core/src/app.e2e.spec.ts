@@ -21,6 +21,7 @@ describe("App", () => {
     );
 
     await app.init();
+    // eslint-disable-next-line
     await app.getHttpAdapter().getInstance().ready();
   });
 

@@ -110,4 +110,4 @@ const bootstrap = async () => {
   }
 };
 
-bootstrap();
+bootstrap().catch((e) => console.log(e));
