@@ -1,19 +1,29 @@
 import { useState } from "react";
 import Button from "@cloudscape-design/components/button";
-import Container from "@cloudscape-design/components/container";
 import Header from "@cloudscape-design/components/header";
 import Input from "@cloudscape-design/components/input";
 import SpaceBetween from "@cloudscape-design/components/space-between";
+import AppLayout from  "@cloudscape-design/components/app-layout";
+import { SignOut } from "@aws-amplify/ui-react";
 
-function App() {
+export interface AppProps {
+  signOut?: SignOut;
+};
+
+function App({ signOut }: AppProps) {
   const [value, setValue] = useState("");
-
+  
   return (
-    <SpaceBetween size="m">
-      <Header variant="h1">IoT Application</Header>
-
-      <Container>
+    <AppLayout
+      content={
         <SpaceBetween size="s">
+          <Header
+            variant="h1"
+            actions={
+              signOut && <Button key={"signout"} onClick={signOut}>Sign out</Button>
+            }
+          >IoT Application</Header>
+
           <span>Start editing to see some magic happen</span>
           <Input
             value={value}
@@ -21,8 +31,10 @@ function App() {
           ></Input>
           <Button variant="primary">Click me</Button>
         </SpaceBetween>
-      </Container>
-    </SpaceBetween>
+      }
+      navigationHide={true}
+      toolsHide={true}
+    />
   );
 }
 
