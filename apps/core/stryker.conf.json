@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "checkers": ["typescript"],
+  "coverageAnalysis": "perTest",
+  "plugins": [
+    "@stryker-mutator/jest-runner",
+    "@stryker-mutator/typescript-checker"
+  ],
+  "reporters": ["html", "clear-text", "progress"],
+  "testRunner": "jest",
+  "tsconfigFile": "tsconfig.json"
+}
