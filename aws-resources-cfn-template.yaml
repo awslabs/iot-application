@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: AWS Resources for IoT Application
+
+
+Resources:
+  UserPool:
+    Type: 'AWS::Cognito::UserPool'
+    Properties:
+      UsernameConfiguration:
+        CaseSensitive: false
+
+  UserPoolClientWeb:
+    Type: 'AWS::Cognito::UserPoolClient'
+    Properties:
+      UserPoolId: !Ref UserPool
+    DependsOn:
+      - UserPool
+
+  IdentityPool:
+    Type: 'AWS::Cognito::IdentityPool'
+    Properties:
+      AllowUnauthenticatedIdentities: false
+      CognitoIdentityProviders:
+        - ClientId: !Ref UserPoolClientWeb
+          ProviderName: !Sub 'cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}'
+
+  IdentityPoolRoleMap:
+    Type: 'AWS::Cognito::IdentityPoolRoleAttachment'
+    Properties:
+      IdentityPoolId: !Ref IdentityPool
+      Roles:
+        authenticated: !GetAtt 
+          - AuthenticatedRole
+          - Arn
+      RoleMappings:
+        cognito-user-pool:
+          IdentityProvider: !Sub >-
+            cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}:${UserPoolClientWeb}
+          Type: Token
+          AmbiguousRoleResolution: AuthenticatedRole
+    DependsOn:
+      - IdentityPool
+
+  AuthenticatedRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Federated: cognito-identity.amazonaws.com
+            Action: 'sts:AssumeRoleWithWebIdentity'
+            Condition:
+              StringEquals:
+                'cognito-identity.amazonaws.com:aud': !Ref IdentityPool
+              'ForAnyValue:StringLike':
+                'cognito-identity.amazonaws.com:amr': authenticated
+      Policies:
+        # TODO: tighten the admin-group-policy policy permissions to require actions only
+        - PolicyName: admin-group-policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Sid: SiteWisePermissions
+                Effect: Allow
+                Action:
+                  - 'iotsitewise:*'
+                Resource:
+                  - '*'
