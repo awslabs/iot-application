@@ -1,9 +1,9 @@
 module.exports = {
-  extends: ["custom"],
+  extends: ['custom'],
   parserOptions: {
     ecmaVersion: 2020,
-    project: "tsconfig.json",
-    sourceType: "module",
+    project: 'tsconfig.json',
+    sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
     },
