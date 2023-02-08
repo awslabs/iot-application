@@ -7,32 +7,44 @@ const DashboardList: React.FC = () => {
   // TODO: Retrieve this from the dashboard api
   const dashboards = [
     {
-      link: <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 1</Link>,
+      link: (
+        <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 1</Link>
+      ),
       name: 'Dashboard 1',
       id: '56c53d6e-a599-11ed-afa1-0242ac120002',
     },
     {
-      link: <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 2</Link>,
+      link: (
+        <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 2</Link>
+      ),
       name: 'Dashboard 2',
       id: '56c54570-a599-11ed-afa1-0242ac120002',
     },
     {
-      link: <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 3</Link>,
+      link: (
+        <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 3</Link>
+      ),
       name: 'Dashboard 3',
       id: '56c546f6-a599-11ed-afa1-0242ac120002',
     },
     {
-      link: <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 4</Link>,
+      link: (
+        <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 4</Link>
+      ),
       name: 'Dashboard 4',
       id: '56c54886-a599-11ed-afa1-0242ac120002',
     },
     {
-      link: <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 5</Link>,
+      link: (
+        <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 5</Link>
+      ),
       name: 'Dashboard 5',
       id: '56c549bc-a599-11ed-afa1-0242ac120002',
     },
     {
-      link: <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 6</Link>,
+      link: (
+        <Link to={'56c53d6e-a599-11ed-afa1-0242ac120002'}>Dashboard 6</Link>
+      ),
       name: 'Dashboard 6',
       id: '56c54ad4-a599-11ed-afa1-0242ac120002',
     },
@@ -44,18 +56,14 @@ const DashboardList: React.FC = () => {
         {
           id: 'link',
           header: 'Dashboard',
-          cell: e => e.link,
-          sortingField: 'name'
+          cell: (e) => e.link,
+          sortingField: 'name',
         },
       ]}
       items={dashboards}
-      header={
-        <Header>
-          Dashboards
-        </Header>
-      }
+      header={<Header>Dashboards</Header>}
     />
   );
-}
+};
 
 export default DashboardList;

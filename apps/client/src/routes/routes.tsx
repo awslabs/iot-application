@@ -4,11 +4,11 @@ import Dashboard from '../pages/Dashboard';
 const routes = [
   {
     path: '/dashboards',
-    element: <DashboardList/>,
+    element: <DashboardList />,
   },
   {
     path: '/dashboards/:id',
-    element: <Dashboard/>,
+    element: <Dashboard />,
   },
 ];
 

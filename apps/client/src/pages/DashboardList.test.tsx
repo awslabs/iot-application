@@ -12,8 +12,9 @@ it('renders', () => {
 });
 
 it('navigates to dashboard view', async () => {
-  const user = userEvent.setup();
   renderRouter('/dashboards');
+
+  const user = userEvent.setup();
 
   await user.click(screen.getByText('Dashboard 1'));
 
