@@ -1,12 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "exclude": ["node_modules"],
-  "extends": "tsconfig/react.json",
   "compilerOptions": {
     "baseUrl": "./",
+    "jsx": "react-jsx",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "types": ["@testing-library/jest-dom"],
-  "include": ["src"]
+  "display": "Client",
+  "exclude": ["node_modules"],
+  "extends": "tsconfig/base.json",
+  "include": ["src"],
+  "types": ["@testing-library/jest-dom"]
 }

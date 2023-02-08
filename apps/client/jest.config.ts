@@ -1,31 +1,25 @@
-import type { Config } from "jest";
+import type { Config } from 'jest';
 
-import reactConfig from "jest-config/react";
+import baseConfig from 'jest-config/base';
 
 const config: Config = {
-  ...reactConfig,
-  displayName: "Client",
-  testEnvironment: "jsdom",
-  setupFilesAfterEnv: ["<rootDir>/jest-setup.ts"],
-  moduleDirectories: ["node_modules", "<rootDir>"],
+  ...baseConfig,
+  collectCoverageFrom: ['**/src/**/*.{js,ts,jsx,tsx}'],
+  displayName: 'Client',
+  moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
+  // required to handle CSS
   moduleNameMapper: {
-    "\\.(css|scss)$": "identity-obj-proxy",
+    '\\.(css|scss)$': 'identity-obj-proxy',
   },
-  preset: "ts-jest",
-  testPathIgnorePatterns: ["node_modules", "dist"],
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
+  testEnvironment: 'jsdom',
   transform: {
-    ".+\\.ts$": "ts-jest",
-    "^.+\\.tsx?$": "ts-jest",
-    "^.+\\.(js|jsx)$": "babel-jest",
+    '^.+\\.tsx?$': 'ts-jest',
+    // required to handle Cloudscape components
+    '^.+\\.(js|jsx)$': 'babel-jest',
   },
-  transformIgnorePatterns: [
-    "node_modules/(?!@awsui/components-react)/",
-    "<rootDir>/coverage",
-    "<rootDir>/dist",
-    "<rootDir>/node_modules",
-  ],
-  roots: ["<rootDir>/src/", "<rootDir>/node_modules/"],
-  verbose: true,
+  // required to handle Cloudscape components
+  transformIgnorePatterns: ['node_modules/(?!@awsui/components-react)/'],
 };
 
 export default config;

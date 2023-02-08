@@ -7,7 +7,7 @@ import {
 import routes from '../routes/routes';
 
 const renderRouter = (route: string, routesOverride?: RouteObject[]) => {
-  const router = createMemoryRouter(routesOverride || routes, {
+  const router = createMemoryRouter(routesOverride ?? routes, {
     initialEntries: [route],
   });
 

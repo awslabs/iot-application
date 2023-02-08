@@ -1,8 +1,8 @@
-import { Body, Controller, Post } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-import { DashboardsService } from "../dashboards.service";
-import { CreateDashboardDto } from "../dto/create-dashboard.dto";
+import { DashboardsService } from '../dashboards.service';
+import { CreateDashboardDto } from '../dto/create-dashboard.dto';
 
 /**
  * Create dashboard HTTP controller
@@ -31,8 +31,8 @@ import { CreateDashboardDto } from "../dto/create-dashboard.dto";
  * }
  * ```
  */
-@ApiTags("dashboards")
-@Controller("dashboards")
+@ApiTags('dashboards')
+@Controller('dashboards')
 export class CreateDashboardController {
   constructor(private readonly dashboardsService: DashboardsService) {}
 

@@ -1,7 +1,9 @@
-import { Module } from "@nestjs/common";
-import { DashboardsModule } from "./dashboards/dashboards.module";
+import { Module } from '@nestjs/common';
+import { DashboardsModule } from './dashboards/dashboards.module';
 
 @Module({
   imports: [DashboardsModule],
 })
-export class AppModule {}
+export class AppModule {
+  /** noop */
+}

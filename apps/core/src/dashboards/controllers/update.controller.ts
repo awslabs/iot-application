@@ -4,12 +4,12 @@ import {
   NotFoundException,
   Param,
   Put,
-} from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-import { DashboardsService } from "../dashboards.service";
-import { UpdateDashboardDto } from "../dto/update-dashboard.dto";
-import { UpdateDashboardParams } from "../params/update-dashboard.params";
+import { DashboardsService } from '../dashboards.service';
+import { UpdateDashboardDto } from '../dto/update-dashboard.dto';
+import { UpdateDashboardParams } from '../params/update-dashboard.params';
 
 /**
  * Update dashboard HTTP controller
@@ -41,12 +41,12 @@ import { UpdateDashboardParams } from "../params/update-dashboard.params";
  * }
  * ```
  */
-@ApiTags("dashboards")
-@Controller("dashboards")
+@ApiTags('dashboards')
+@Controller('dashboards')
 export class UpdateDashboardController {
   constructor(private readonly dashboardsService: DashboardsService) {}
 
-  @Put(":id")
+  @Put(':id')
   public update(
     @Param() params: UpdateDashboardParams,
     @Body() updateDashboardDto: UpdateDashboardDto,

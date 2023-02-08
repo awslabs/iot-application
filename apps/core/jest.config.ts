@@ -1,17 +1,21 @@
-import type { Config } from "jest";
+import type { Config } from 'jest';
 
-import nestConfig from "jest-config/nest";
+import baseConfig from 'jest-config/base';
 
 const config: Config = {
-  ...nestConfig,
+  ...baseConfig,
   collectCoverageFrom: [
-    ...(nestConfig.collectCoverageFrom as string[]),
-    "!./src/main.ts",
-    "!./src/repl.ts",
-    "!./src/app.module.ts",
+    '**/src/**/*.{js,ts}',
+    '!./src/main.ts',
+    '!./src/repl.ts',
+    '!./src/app.module.ts',
   ],
-  displayName: "Core",
-  rootDir: ".",
+  displayName: 'Core',
+  moduleFileExtensions: ['js', 'json', 'ts'],
+  testEnvironment: 'node',
+  transform: {
+    '^.*\\.ts$': 'ts-jest',
+  },
 };
 
 export default config;

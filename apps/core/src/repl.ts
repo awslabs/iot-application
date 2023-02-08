@@ -1,5 +1,5 @@
-import { repl } from "@nestjs/core";
-import { AppModule } from "./app.module";
+import { repl } from '@nestjs/core';
+import { AppModule } from './app.module';
 
 /**
  * Main() for Core REPL
@@ -20,7 +20,7 @@ async function bootstrap() {
   const replServer = await repl(AppModule);
 
   // enables persistence of REPL commands
-  replServer.setupHistory(".nestjs_repl_history", (err) => {
+  replServer.setupHistory('.nestjs_repl_history', (err) => {
     if (err) {
       console.error(err);
     }

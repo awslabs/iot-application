@@ -1,11 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Core",
   "exclude": ["node_modules"],
-  "extends": "tsconfig/nest.json",
+  "extends": "tsconfig/base.json",
   "compilerOptions": {
     "baseUrl": "./",
+    "lib": ["es2022"],
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "strictPropertyInitialization": false,
+    "target": "es2022"
   },
   "include": ["src"]
 }

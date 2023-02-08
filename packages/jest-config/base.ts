@@ -1,8 +1,8 @@
-import type { Config } from "jest";
+import type { Config } from 'jest';
 
 const config: Config = {
   collectCoverage: true,
-  coverageDirectory: "./coverage",
+  coverageDirectory: './coverage',
   coverageThreshold: {
     global: {
       branches: 60,
@@ -11,9 +11,9 @@ const config: Config = {
       statements: 60,
     },
   },
-  moduleDirectories: ["node_modules"],
+  preset: 'ts-jest',
   notify: true,
-  reporters: [["github-actions", { silent: false }], "summary"],
+  reporters: [['github-actions', { silent: false }], 'summary'],
 };
 
 export default config;
