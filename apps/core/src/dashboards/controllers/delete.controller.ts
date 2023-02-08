@@ -4,11 +4,11 @@ import {
   HttpCode,
   NotFoundException,
   Param,
-} from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-import { DashboardsService } from "../dashboards.service";
-import { DeleteDashboardParams } from "../params/delete-dashboard.params";
+import { DashboardsService } from '../dashboards.service';
+import { DeleteDashboardParams } from '../params/delete-dashboard.params';
 
 /**
  * Delete dashboard HTTP controller
@@ -25,13 +25,13 @@ import { DeleteDashboardParams } from "../params/delete-dashboard.params";
  * HTTP/1.1 204 No Content
  * ```
  */
-@ApiTags("dashboards")
-@Controller("dashboards")
+@ApiTags('dashboards')
+@Controller('dashboards')
 export class DeleteDashboardController {
   constructor(private readonly dashboardsService: DashboardsService) {}
 
   @HttpCode(204)
-  @Delete(":id")
+  @Delete(':id')
   public delete(@Param() params: DeleteDashboardParams) {
     const dashboard = this.dashboardsService.delete(params.id);
 

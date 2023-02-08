@@ -1,15 +1,15 @@
-import { Injectable, Logger } from "@nestjs/common";
-import { nanoid } from "nanoid";
+import { Injectable, Logger } from '@nestjs/common';
+import { nanoid } from 'nanoid';
 
-import { Dashboard } from "./entities/dashboard.entity";
+import { Dashboard } from './entities/dashboard.entity';
 
 @Injectable()
 export class DashboardsService {
   private readonly logger = new Logger(DashboardsService.name);
   private dashboards: Dashboard[] = [];
 
-  public create(name: Dashboard["name"]) {
-    this.logger.log("Creating dashboard...");
+  public create(name: Dashboard['name']) {
+    this.logger.log('Creating dashboard...');
 
     try {
       const dashboard = this.createDashboard(name);
@@ -21,28 +21,28 @@ export class DashboardsService {
 
       return dashboard;
     } catch {
-      this.logger.warn("Failed to create dashboard");
+      this.logger.warn('Failed to create dashboard');
 
       return undefined;
     }
   }
 
   public list() {
-    this.logger.log("Finding all dashboards...");
+    this.logger.log('Finding all dashboards...');
 
     try {
-      this.logger.log("Found all dashboards");
+      this.logger.log('Found all dashboards');
       this.logger.log(this.dashboards);
 
       return this.dashboards;
     } catch {
-      this.logger.warn("Failed to find all dashboards");
+      this.logger.warn('Failed to find all dashboards');
 
       return undefined;
     }
   }
 
-  public read(id: Dashboard["id"]) {
+  public read(id: Dashboard['id']) {
     this.logger.log(`Finding dashboard ${id}...`);
 
     try {
@@ -77,14 +77,14 @@ export class DashboardsService {
     }
   }
 
-  public delete(id: Dashboard["id"]) {
+  public delete(id: Dashboard['id']) {
     this.logger.log(`Deleting dashboard ${id}...`);
 
     try {
       const dashboard = this.find(id);
 
       if (dashboard === undefined) {
-        throw Error;
+        throw new Error();
       }
 
       this.dashboards = this.withoutDashboard(dashboard);
@@ -99,7 +99,7 @@ export class DashboardsService {
     }
   }
 
-  private createDashboard(name: Dashboard["name"]): Dashboard {
+  private createDashboard(name: Dashboard['name']): Dashboard {
     const id = nanoid(12);
 
     return {
@@ -119,7 +119,7 @@ export class DashboardsService {
     return this.dashboards.filter((d) => d.id !== dashboard.id);
   }
 
-  private find(id: Dashboard["id"]) {
+  private find(id: Dashboard['id']) {
     return this.dashboards.find((d) => d.id === id);
   }
 }

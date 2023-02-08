@@ -1,8 +1,8 @@
-import { Controller, Get, NotFoundException, Param } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-import { DashboardsService } from "../dashboards.service";
-import { ReadDashboardParams } from "../params/read-dashboard.params";
+import { DashboardsService } from '../dashboards.service';
+import { ReadDashboardParams } from '../params/read-dashboard.params';
 
 /**
  * Read dashboard HTTP controller
@@ -27,12 +27,12 @@ import { ReadDashboardParams } from "../params/read-dashboard.params";
  * }
  * ```
  */
-@ApiTags("dashboards")
-@Controller("dashboards")
+@ApiTags('dashboards')
+@Controller('dashboards')
 export class ReadDashboardController {
   constructor(private readonly dashboardsService: DashboardsService) {}
 
-  @Get(":id")
+  @Get(':id')
   public read(@Param() params: ReadDashboardParams) {
     const dashboard = this.dashboardsService.read(params.id);
 

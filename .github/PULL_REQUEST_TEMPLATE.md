@@ -29,6 +29,6 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
 
-
 ## Legal
+
 This project is available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).

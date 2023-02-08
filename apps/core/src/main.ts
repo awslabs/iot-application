@@ -1,11 +1,11 @@
-import { NestFactory } from "@nestjs/core";
-import { ValidationPipe } from "@nestjs/common";
+import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import {
   FastifyAdapter,
   NestFastifyApplication,
-} from "@nestjs/platform-fastify";
-import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
-import { AppModule } from "./app.module";
+} from '@nestjs/platform-fastify';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { AppModule } from './app.module';
 
 /**
  * Setup Core validation and transformation of incoming data
@@ -60,23 +60,23 @@ const bootstrapValidation = (app: NestFastifyApplication) => {
  */
 const bootstrapDocs = (app: NestFastifyApplication) => {
   const config = new DocumentBuilder()
-    .setTitle("IoT Application Core")
-    .setDescription("Core API documentation")
-    .setVersion("1.0")
-    .addTag("dashboards")
+    .setTitle('IoT Application Core')
+    .setDescription('Core API documentation')
+    .setVersion('1.0')
+    .addTag('dashboards')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup("/docs", app, document);
+  SwaggerModule.setup('/docs', app, document);
 };
 
-type HotModule = {
-  hot: {
+interface MaybeHotModule {
+  hot?: {
     accept(): void;
     dispose(cb: () => Promise<void>): void;
   };
-};
+}
 /** Webpack module (value is injected at runtime by Webpack) */
-declare const module: HotModule;
+declare const module: MaybeHotModule;
 
 /**
  * Main() for Core

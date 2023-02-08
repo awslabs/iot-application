@@ -1,15 +1,15 @@
-import { IsEnum, IsString, Length } from "class-validator";
+import { IsEnum, IsString, Length } from 'class-validator';
 
 export type DashboardWidgetTitle = string;
 
 export enum DashboardWidgetType {
-  Line = "line",
-  Scatter = "scatter",
-  Bar = "bar",
-  StatusGrid = "status-grid",
-  StatusTimeline = "status-timeline",
-  Kpi = "kpi",
-  Table = "table",
+  Line = 'line',
+  Scatter = 'scatter',
+  Bar = 'bar',
+  StatusGrid = 'status-grid',
+  StatusTimeline = 'status-timeline',
+  Kpi = 'kpi',
+  Table = 'table',
 }
 
 export class DashboardWidget {

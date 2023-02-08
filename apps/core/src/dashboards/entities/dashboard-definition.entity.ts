@@ -1,12 +1,12 @@
-import { Type } from "class-transformer";
+import { Type } from 'class-transformer';
 import {
   ArrayMaxSize,
   IsArray,
   IsObject,
   ValidateNested,
-} from "class-validator";
+} from 'class-validator';
 
-import { DashboardWidget } from "./dashboard-widget.entity";
+import { DashboardWidget } from './dashboard-widget.entity';
 
 export class DashboardDefinition {
   @IsArray()

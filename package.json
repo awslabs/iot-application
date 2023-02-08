@@ -2,10 +2,7 @@
   "name": "iot-application",
   "private": true,
   "version": "0.0.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "build": "turbo run build",
     "clean": "turbo run clean && rm -rf .turbo && rm -rf node_modules",
@@ -24,7 +21,6 @@
     "eslint": "^8.29.0",
     "eslint-config-custom": "*",
     "jest": "29.4.2",
-    "jest-environment-jsdom": "27.5.1",
     "jest-watch-typeahead": "^2.2.2",
     "node-notifier": "^10.0.1",
     "prettier": "^2.8.1",
@@ -33,7 +29,7 @@
     "turbo": "latest",
     "typescript": "^4.9.3"
   },
-  "packageManager": "yarn@3.4.1",
+  "packageManager": "yarn@1.22.19",
   "volta": {
     "node": "18.14.0",
     "yarn": "1.22.19"

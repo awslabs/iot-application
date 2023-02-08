@@ -1,7 +1,7 @@
-import { Type } from "class-transformer";
-import { IsObject, IsString, Length, ValidateNested } from "class-validator";
+import { Type } from 'class-transformer';
+import { IsObject, IsString, Length, ValidateNested } from 'class-validator';
 
-import { DashboardDefinition } from "./dashboard-definition.entity";
+import { DashboardDefinition } from './dashboard-definition.entity';
 
 export type DashboardId = string;
 export type DashboardName = string;

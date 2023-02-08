@@ -1,7 +1,7 @@
-import { Controller, Get } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { Controller, Get } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
-import { DashboardsService } from "../dashboards.service";
+import { DashboardsService } from '../dashboards.service';
 
 /**
  * List dashboards HTTP controller
@@ -33,8 +33,8 @@ import { DashboardsService } from "../dashboards.service";
  * }]
  * ```
  */
-@ApiTags("dashboards")
-@Controller("dashboards")
+@ApiTags('dashboards')
+@Controller('dashboards')
 export class ListDashboardsController {
   constructor(private readonly dashboardsService: DashboardsService) {}
 

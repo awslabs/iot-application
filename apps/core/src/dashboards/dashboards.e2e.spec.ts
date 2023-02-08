@@ -1,27 +1,27 @@
-import { ValidationPipe } from "@nestjs/common";
+import { ValidationPipe } from '@nestjs/common';
 import {
   FastifyAdapter,
   NestFastifyApplication,
-} from "@nestjs/platform-fastify";
-import { Test } from "@nestjs/testing";
+} from '@nestjs/platform-fastify';
+import { Test } from '@nestjs/testing';
 
-import { DashboardsModule } from "./dashboards.module";
-import { CreateDashboardDto } from "./dto/create-dashboard.dto";
-import { UpdateDashboardDto } from "./dto/update-dashboard.dto";
-import { Dashboard } from "./entities/dashboard.entity";
-import { DashboardWidgetType } from "./entities/dashboard-widget.entity";
+import { DashboardsModule } from './dashboards.module';
+import { CreateDashboardDto } from './dto/create-dashboard.dto';
+import { UpdateDashboardDto } from './dto/update-dashboard.dto';
+import { Dashboard } from './entities/dashboard.entity';
+import { DashboardWidgetType } from './entities/dashboard-widget.entity';
 
-const dummyId = "zckYx-InI8_f"; // 12 character
+const dummyId = 'zckYx-InI8_f'; // 12 character
 
 const seedTestDashboard = async (
   app: NestFastifyApplication,
-  name: CreateDashboardDto["name"],
+  name: CreateDashboardDto['name'],
 ) => {
   const payload: CreateDashboardDto = { name };
   const response = await app.inject({
-    method: "POST",
+    method: 'POST',
     payload: payload,
-    url: "/dashboards",
+    url: '/dashboards',
   });
 
   const dashboard = JSON.parse(response.payload) as unknown as Dashboard;
@@ -29,7 +29,7 @@ const seedTestDashboard = async (
   return dashboard;
 };
 
-describe("DashboardsModule", () => {
+describe('DashboardsModule', () => {
   let app: NestFastifyApplication;
 
   beforeAll(async () => {
@@ -56,24 +56,24 @@ describe("DashboardsModule", () => {
     await app.close();
   });
 
-  describe("GET /dashboards HTTP/1.1", () => {
-    test("returns empty dashboard list on success", async () => {
+  describe('GET /dashboards HTTP/1.1', () => {
+    test('returns empty dashboard list on success', async () => {
       const response = await app.inject({
-        method: "GET",
-        url: "/dashboards",
+        method: 'GET',
+        url: '/dashboards',
       });
 
       expect(response.statusCode).toBe(200);
       expect(JSON.parse(response.payload)).toEqual([]);
     });
 
-    test("returns dashboard list on success", async () => {
-      const dashboard1 = await seedTestDashboard(app, "dashboard 1 name");
-      const dashboard2 = await seedTestDashboard(app, "dashboard 2 name");
+    test('returns dashboard list on success', async () => {
+      const dashboard1 = await seedTestDashboard(app, 'dashboard 1 name');
+      const dashboard2 = await seedTestDashboard(app, 'dashboard 2 name');
 
       const response = await app.inject({
-        method: "GET",
-        url: "/dashboards",
+        method: 'GET',
+        url: '/dashboards',
       });
 
       expect(response.statusCode).toBe(200);
@@ -81,13 +81,13 @@ describe("DashboardsModule", () => {
     });
   });
 
-  describe("POST /dashboards HTTP/1.1", () => {
-    test("returns newly created dashboard on success", async () => {
-      const payload: CreateDashboardDto = { name: "name" };
+  describe('POST /dashboards HTTP/1.1', () => {
+    test('returns newly created dashboard on success', async () => {
+      const payload: CreateDashboardDto = { name: 'name' };
       const response = await app.inject({
-        method: "POST",
+        method: 'POST',
         payload,
-        url: "/dashboards",
+        url: '/dashboards',
       });
 
       const dashboard = JSON.parse(response.payload) as unknown as Dashboard;
@@ -104,52 +104,52 @@ describe("DashboardsModule", () => {
       );
     });
 
-    test.each(["x", "x".repeat(10), "x".repeat(100)])(
-      "returns 201 when name is valid: (%s)",
+    test.each(['x', 'x'.repeat(10), 'x'.repeat(100)])(
+      'returns 201 when name is valid: (%s)',
       async (dashboardName) => {
         const payload = { name: dashboardName };
         const response = await app.inject({
-          method: "POST",
+          method: 'POST',
           payload,
-          url: "/dashboards",
+          url: '/dashboards',
         });
 
         expect(response.statusCode).toBe(201);
       },
     );
 
-    test.each(["", "x".repeat(101), 1, {}, []])(
-      "returns 400 when name is not valid: (%s)",
+    test.each(['', 'x'.repeat(101), 1, {}, []])(
+      'returns 400 when name is not valid: (%s)',
       async (dashboardName) => {
         const payload = { name: dashboardName };
         const response = await app.inject({
-          method: "POST",
+          method: 'POST',
           payload,
-          url: "/dashboards",
+          url: '/dashboards',
         });
 
         expect(response.statusCode).toBe(400);
       },
     );
 
-    test("returns 400 when name is missing", async () => {
+    test('returns 400 when name is missing', async () => {
       const payload = {};
       const response = await app.inject({
-        method: "POST",
+        method: 'POST',
         payload,
-        url: "/dashboards",
+        url: '/dashboards',
       });
 
       expect(response.statusCode).toBe(400);
     });
   });
 
-  describe("GET /dashboards/{dashboardId} HTTP/1.1", () => {
-    test("returns dashboard on success", async () => {
-      const dashboard = await seedTestDashboard(app, "name");
+  describe('GET /dashboards/{dashboardId} HTTP/1.1', () => {
+    test('returns dashboard on success', async () => {
+      const dashboard = await seedTestDashboard(app, 'name');
 
       const response = await app.inject({
-        method: "GET",
+        method: 'GET',
         url: `/dashboards/${dashboard.id}`,
       });
 
@@ -157,11 +157,11 @@ describe("DashboardsModule", () => {
       expect(JSON.parse(response.payload)).toEqual(dashboard);
     });
 
-    test.each(["x", "x".repeat(11), "x".repeat(13), "{}", "[]"])(
-      "returns 400 when dashboard id is not valid: (%s)",
-      async (dashboardId: Dashboard["id"]) => {
+    test.each(['x', 'x'.repeat(11), 'x'.repeat(13), '{}', '[]'])(
+      'returns 400 when dashboard id is not valid: (%s)',
+      async (dashboardId: Dashboard['id']) => {
         const response = await app.inject({
-          method: "GET",
+          method: 'GET',
           url: `/dashboards/${dashboardId}`,
         });
 
@@ -169,9 +169,9 @@ describe("DashboardsModule", () => {
       },
     );
 
-    test("returns 404 when dashboard not found", async () => {
+    test('returns 404 when dashboard not found', async () => {
       const response = await app.inject({
-        method: "GET",
+        method: 'GET',
         url: `/dashboards/${dummyId}`,
       });
 
@@ -179,16 +179,16 @@ describe("DashboardsModule", () => {
     });
   });
 
-  describe("PUT /dashboards/{dashboardId} HTTP/1.1", () => {
-    test("returns updated dashboard on success", async () => {
-      const dashboard = await seedTestDashboard(app, "name");
+  describe('PUT /dashboards/{dashboardId} HTTP/1.1', () => {
+    test('returns updated dashboard on success', async () => {
+      const dashboard = await seedTestDashboard(app, 'name');
 
       const payload: UpdateDashboardDto = {
-        name: "new name",
+        name: 'new name',
         definition: {
           widgets: [
             {
-              title: "widget title",
+              title: 'widget title',
               type: DashboardWidgetType.Line,
             },
           ],
@@ -196,7 +196,7 @@ describe("DashboardsModule", () => {
       };
 
       const response = await app.inject({
-        method: "PUT",
+        method: 'PUT',
         payload: payload,
         url: `/dashboards/${dashboard.id}`,
       });
@@ -209,15 +209,15 @@ describe("DashboardsModule", () => {
       expect(JSON.parse(response.payload)).not.toEqual(dashboard);
     });
 
-    test.each(["x", "x".repeat(11), "x".repeat(13), "{}", "[]"])(
-      "returns 400 when dashboard id is not valid: (%s)",
-      async (dashboardId: Dashboard["id"]) => {
+    test.each(['x', 'x'.repeat(11), 'x'.repeat(13), '{}', '[]'])(
+      'returns 400 when dashboard id is not valid: (%s)',
+      async (dashboardId: Dashboard['id']) => {
         const payload: UpdateDashboardDto = {
-          name: "new name",
+          name: 'new name',
           definition: {
             widgets: [
               {
-                title: "widget title",
+                title: 'widget title',
                 type: DashboardWidgetType.Line,
               },
             ],
@@ -225,7 +225,7 @@ describe("DashboardsModule", () => {
         };
 
         const response = await app.inject({
-          method: "PUT",
+          method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboardId}`,
         });
@@ -234,10 +234,10 @@ describe("DashboardsModule", () => {
       },
     );
 
-    test.each(["", "x".repeat(101), 1, {}, []])(
-      "returns 400 when dashboard name is not valid: (%s)",
+    test.each(['', 'x'.repeat(101), 1, {}, []])(
+      'returns 400 when dashboard name is not valid: (%s)',
       async (dashboardName) => {
-        const dashboard = await seedTestDashboard(app, "name");
+        const dashboard = await seedTestDashboard(app, 'name');
 
         const payload = {
           name: dashboardName,
@@ -245,7 +245,7 @@ describe("DashboardsModule", () => {
         };
 
         const response = await app.inject({
-          method: "PUT",
+          method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboard.id}`,
         });
@@ -253,7 +253,7 @@ describe("DashboardsModule", () => {
         expect(response.statusCode).toBe(400);
 
         const getResponse = await app.inject({
-          method: "GET",
+          method: 'GET',
           url: `/dashboards/${dashboard.id}`,
         });
 
@@ -264,20 +264,20 @@ describe("DashboardsModule", () => {
       },
     );
 
-    test.each(["widgets", 1, {}])(
-      "returns 400 when widgets is not valid: (%s)",
+    test.each(['widgets', 1, {}])(
+      'returns 400 when widgets is not valid: (%s)',
       async (widgetsValue) => {
-        const dashboard = await seedTestDashboard(app, "name");
+        const dashboard = await seedTestDashboard(app, 'name');
 
         const payload = {
-          name: "new name",
+          name: 'new name',
           definition: {
             widgets: widgetsValue,
           },
         };
 
         const response = await app.inject({
-          method: "PUT",
+          method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboard.id}`,
         });
@@ -285,7 +285,7 @@ describe("DashboardsModule", () => {
         expect(response.statusCode).toBe(400);
 
         const getResponse = await app.inject({
-          method: "GET",
+          method: 'GET',
           url: `/dashboards/${dashboard.id}`,
         });
 
@@ -296,13 +296,13 @@ describe("DashboardsModule", () => {
       },
     );
 
-    test.each(["", "x".repeat(101), 1, {}, []])(
-      "returns 400 when widget title is not valid: (%s)",
+    test.each(['', 'x'.repeat(101), 1, {}, []])(
+      'returns 400 when widget title is not valid: (%s)',
       async (widgetTitle) => {
-        const dashboard = await seedTestDashboard(app, "name");
+        const dashboard = await seedTestDashboard(app, 'name');
 
         const payload = {
-          name: "new name",
+          name: 'new name',
           definition: {
             widgets: [
               {
@@ -314,7 +314,7 @@ describe("DashboardsModule", () => {
         };
 
         const response = await app.inject({
-          method: "PUT",
+          method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboard.id}`,
         });
@@ -322,7 +322,7 @@ describe("DashboardsModule", () => {
         expect(response.statusCode).toBe(400);
 
         const getResponse = await app.inject({
-          method: "GET",
+          method: 'GET',
           url: `/dashboards/${dashboard.id}`,
         });
 
@@ -333,11 +333,11 @@ describe("DashboardsModule", () => {
       },
     );
 
-    test("returns 400 when widget title is missing", async () => {
-      const dashboard = await seedTestDashboard(app, "name");
+    test('returns 400 when widget title is missing', async () => {
+      const dashboard = await seedTestDashboard(app, 'name');
 
       const payload = {
-        name: "new name",
+        name: 'new name',
         definition: {
           widgets: [
             {
@@ -348,7 +348,7 @@ describe("DashboardsModule", () => {
       };
 
       const response = await app.inject({
-        method: "PUT",
+        method: 'PUT',
         payload: payload,
         url: `/dashboards/${dashboard.id}`,
       });
@@ -356,7 +356,7 @@ describe("DashboardsModule", () => {
       expect(response.statusCode).toBe(400);
 
       const getResponse = await app.inject({
-        method: "GET",
+        method: 'GET',
         url: `/dashboards/${dashboard.id}`,
       });
 
@@ -374,15 +374,15 @@ describe("DashboardsModule", () => {
       DashboardWidgetType.StatusTimeline,
       DashboardWidgetType.Kpi,
       DashboardWidgetType.Table,
-    ])("returns 200 when widget type is valid: (%s)", async (widgetType) => {
-      const dashboard = await seedTestDashboard(app, "name");
+    ])('returns 200 when widget type is valid: (%s)', async (widgetType) => {
+      const dashboard = await seedTestDashboard(app, 'name');
 
       const payload = {
-        name: "new name",
+        name: 'new name',
         definition: {
           widgets: [
             {
-              title: "widget title",
+              title: 'widget title',
               type: widgetType,
             },
           ],
@@ -390,7 +390,7 @@ describe("DashboardsModule", () => {
       };
 
       const response = await app.inject({
-        method: "PUT",
+        method: 'PUT',
         payload: payload,
         url: `/dashboards/${dashboard.id}`,
       });
@@ -398,7 +398,7 @@ describe("DashboardsModule", () => {
       expect(response.statusCode).toBe(200);
 
       const getResponse = await app.inject({
-        method: "GET",
+        method: 'GET',
         url: `/dashboards/${dashboard.id}`,
       });
 
@@ -409,36 +409,36 @@ describe("DashboardsModule", () => {
     });
 
     test.each([
-      "",
-      "no-exist",
+      '',
+      'no-exist',
       1,
       {},
       [],
       [{}],
-      [{ title: "widget title" }],
+      [{ title: 'widget title' }],
       [{ type: DashboardWidgetType.Line }],
       [
         {
-          title: "valid widget",
+          title: 'valid widget',
           type: DashboardWidgetType.Line,
         },
-        { title: "invalid widget" },
+        { title: 'invalid widget' },
         {
-          title: "valid widget",
+          title: 'valid widget',
           type: DashboardWidgetType.Line,
         },
       ],
     ])(
-      "returns 400 when widget type is not valid: (%s)",
+      'returns 400 when widget type is not valid: (%s)',
       async (widgetType) => {
-        const dashboard = await seedTestDashboard(app, "name");
+        const dashboard = await seedTestDashboard(app, 'name');
 
         const payload = {
-          name: "new name",
+          name: 'new name',
           definition: {
             widgets: [
               {
-                title: "widget title",
+                title: 'widget title',
                 type: widgetType,
               },
             ],
@@ -446,7 +446,7 @@ describe("DashboardsModule", () => {
         };
 
         const response = await app.inject({
-          method: "PUT",
+          method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboard.id}`,
         });
@@ -454,7 +454,7 @@ describe("DashboardsModule", () => {
         expect(response.statusCode).toBe(400);
 
         const getResponse = await app.inject({
-          method: "GET",
+          method: 'GET',
           url: `/dashboards/${dashboard.id}`,
         });
 
@@ -465,20 +465,20 @@ describe("DashboardsModule", () => {
       },
     );
 
-    test("returns 404 when dashboard not found", async () => {
+    test('returns 404 when dashboard not found', async () => {
       const payload: UpdateDashboardDto = {
-        name: "new name",
+        name: 'new name',
         definition: {
           widgets: [
             {
-              title: "widget title",
+              title: 'widget title',
               type: DashboardWidgetType.Line,
             },
           ],
         },
       };
       const response = await app.inject({
-        method: "PUT",
+        method: 'PUT',
         payload: payload,
         url: `/dashboards/${dummyId}`,
       });
@@ -487,30 +487,30 @@ describe("DashboardsModule", () => {
     });
   });
 
-  describe("DELETE /dashboards/{dashboardId} HTTP/1.1", () => {
-    test("returns 204 on success", async () => {
-      const dashboard = await seedTestDashboard(app, "name");
+  describe('DELETE /dashboards/{dashboardId} HTTP/1.1', () => {
+    test('returns 204 on success', async () => {
+      const dashboard = await seedTestDashboard(app, 'name');
 
       const deleteResponse = await app.inject({
-        method: "DELETE",
+        method: 'DELETE',
         url: `/dashboards/${dashboard.id}`,
       });
 
       expect(deleteResponse.statusCode).toBe(204);
 
       const getResponse = await app.inject({
-        method: "GET",
+        method: 'GET',
         url: `/dashboards/${dashboard.id}`,
       });
 
       expect(getResponse.statusCode).toBe(404);
     });
 
-    test.each(["", "x".repeat(11), "x".repeat(13)])(
-      "returns 400 when dashboard id is not valid",
+    test.each(['', 'x'.repeat(11), 'x'.repeat(13)])(
+      'returns 400 when dashboard id is not valid',
       async (dashboardId) => {
         const response = await app.inject({
-          method: "DELETE",
+          method: 'DELETE',
           url: `/dashboards/${dashboardId}`,
         });
 
@@ -518,9 +518,9 @@ describe("DashboardsModule", () => {
       },
     );
 
-    test("returns 404 when dashboard not found", async () => {
+    test('returns 404 when dashboard not found', async () => {
       const response = await app.inject({
-        method: "DELETE",
+        method: 'DELETE',
         url: `/dashboards/${dummyId}`,
       });
 
