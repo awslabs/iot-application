@@ -3,7 +3,7 @@ import { Link, useMatches } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
   const matches = useMatches();
-  const dashboardId = matches[matches.length - 1]?.id ?? '';
+  const dashboardId = matches[matches.length - 1]?.params.id;
 
   return (
     <div>

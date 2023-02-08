@@ -1,12 +1,12 @@
 import Login from '../pages/Login';
 import ErrorPage from '../pages/ErrorPage';
-import routes from './routes'
+import routes from './routes';
 
 const protectedRoutes = [
   {
     path: '/',
-    element: <Login/>,
-    errorElement: <ErrorPage/>,
+    element: <Login />,
+    errorElement: <ErrorPage />,
     children: routes,
   },
 ];
