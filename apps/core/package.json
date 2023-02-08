@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "nest build",
+    "build": "nest build core",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "start": "nest start",
@@ -37,6 +37,7 @@
     "source-map-support": "^0.5.20",
     "ts-loader": "^9.2.3",
     "tsconfig": "*",
+    "tsconfig-paths": "^4.1.2",
     "webpack": "^5.75.0",
     "webpack-node-externals": "^3.0.0"
   }
