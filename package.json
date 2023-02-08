@@ -2,7 +2,10 @@
   "name": "iot-application",
   "private": true,
   "version": "0.0.0",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build",
     "clean": "turbo run clean && rm -rf .turbo && rm -rf node_modules",
@@ -30,7 +33,7 @@
     "turbo": "latest",
     "typescript": "^4.9.3"
   },
-  "packageManager": "yarn@1.22.19",
+  "packageManager": "yarn@3.4.1",
   "volta": {
     "node": "18.14.0",
     "yarn": "1.22.19"
