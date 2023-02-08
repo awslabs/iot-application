@@ -1,17 +1,21 @@
-import { it, expect } from 'vitest';
-import { fireEvent, screen } from '@testing-library/react';
-import renderRouter  from '../testing/routes';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-it('renders', async () => {
+import renderRouter from '../testing/routes';
+
+it('renders', () => {
   renderRouter('/dashboards/123');
 
-  expect(screen.getByRole('heading')).toHaveTextContent('dashboard view for 123');
+  expect(screen.getByRole('heading')).toHaveTextContent(
+    'dashboard view for 123',
+  );
 });
 
 it('navigates to dashboard list', async () => {
+  const user = userEvent.setup();
   renderRouter('/dashboards/123');
 
-  fireEvent.click(screen.getByText('Dashboard list'));
+  await user.click(screen.getByText('Dashboard list'));
 
   expect(screen.getByRole('heading')).toHaveTextContent('Dashboards');
 });

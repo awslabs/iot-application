@@ -39,7 +39,7 @@ export class ListDashboardsController {
   constructor(private readonly dashboardsService: DashboardsService) {}
 
   @Get()
-  public async list() {
+  public list() {
     return this.dashboardsService.list();
   }
 }

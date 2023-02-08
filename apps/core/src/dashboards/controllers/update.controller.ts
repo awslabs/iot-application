@@ -47,11 +47,11 @@ export class UpdateDashboardController {
   constructor(private readonly dashboardsService: DashboardsService) {}
 
   @Put(":id")
-  public async update(
+  public update(
     @Param() params: UpdateDashboardParams,
     @Body() updateDashboardDto: UpdateDashboardDto,
   ) {
-    const dashboard = await this.dashboardsService.update({
+    const dashboard = this.dashboardsService.update({
       ...updateDashboardDto,
       ...params,
     });

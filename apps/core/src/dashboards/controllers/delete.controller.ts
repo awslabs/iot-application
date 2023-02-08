@@ -32,8 +32,8 @@ export class DeleteDashboardController {
 
   @HttpCode(204)
   @Delete(":id")
-  public async delete(@Param() params: DeleteDashboardParams) {
-    const dashboard = await this.dashboardsService.delete(params.id);
+  public delete(@Param() params: DeleteDashboardParams) {
+    const dashboard = this.dashboardsService.delete(params.id);
 
     if (dashboard === undefined) {
       throw new NotFoundException();

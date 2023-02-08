@@ -1,15 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "exclude": ["node_modules"],
-  "extends": "tsconfig/vite-react.json",
+  "extends": "tsconfig/react.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "rootDir": "./src",
-    "outDir": "./dir",
-    "types": [
-      "vite/client",
-      "@testing-library/jest-dom"
-    ]
+    "baseUrl": "./",
+    "outDir": "./dist",
+    "rootDir": "./src"
   },
-  "include": ["src"],
+  "types": ["@testing-library/jest-dom"],
+  "include": ["src"]
 }
