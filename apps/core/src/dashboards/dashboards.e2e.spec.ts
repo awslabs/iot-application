@@ -25,7 +25,6 @@ const seedTestDashboard = async (
   });
 
   const dashboard = JSON.parse(response.payload) as unknown as Dashboard;
-  console.log(dashboard);
 
   return dashboard;
 };
@@ -45,7 +44,12 @@ describe("DashboardsModule", () => {
     app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
     await app.init();
-    await app.getHttpAdapter().getInstance().ready();
+
+    const instance = app.getHttpAdapter().getInstance() as unknown as {
+      ready(): Promise<void>;
+    };
+
+    await instance.ready();
   });
 
   afterAll(async () => {
@@ -86,11 +90,13 @@ describe("DashboardsModule", () => {
         url: "/dashboards",
       });
 
+      const dashboard = JSON.parse(response.payload) as unknown as Dashboard;
+
       expect(response.statusCode).toBe(201);
-      expect(JSON.parse(response.payload)).toEqual(
+      expect(dashboard).toEqual(
         expect.objectContaining({
           name: payload.name,
-          id: expect.any(String),
+          id: expect.stringMatching(/^[a-zA-Z0-9_-]{12}$/) as string,
           definition: {
             widgets: [],
           },
@@ -151,9 +157,9 @@ describe("DashboardsModule", () => {
       expect(JSON.parse(response.payload)).toEqual(dashboard);
     });
 
-    test.each(["x", "x".repeat(11), "x".repeat(13), {}, []])(
+    test.each(["x", "x".repeat(11), "x".repeat(13), "{}", "[]"])(
       "returns 400 when dashboard id is not valid: (%s)",
-      async (dashboardId) => {
+      async (dashboardId: Dashboard["id"]) => {
         const response = await app.inject({
           method: "GET",
           url: `/dashboards/${dashboardId}`,
@@ -203,9 +209,9 @@ describe("DashboardsModule", () => {
       expect(JSON.parse(response.payload)).not.toEqual(dashboard);
     });
 
-    test.each(["x", "x".repeat(11), "x".repeat(13), {}, []])(
+    test.each(["x", "x".repeat(11), "x".repeat(13), "{}", "[]"])(
       "returns 400 when dashboard id is not valid: (%s)",
-      async (dashboardId) => {
+      async (dashboardId: Dashboard["id"]) => {
         const payload: UpdateDashboardDto = {
           name: "new name",
           definition: {

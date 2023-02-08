@@ -31,34 +31,13 @@
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
-    "@types/jest": "29.2.4",
-    "@types/node": "18.11.18",
-    "eslint-config-custom-server": "workspace:*",
-    "jest": "29.3.1",
+    "eslint-config-custom-server": "*",
+    "jest-config": "*",
     "run-script-webpack-plugin": "^0.1.1",
     "source-map-support": "^0.5.20",
-    "ts-jest": "29.0.3",
     "ts-loader": "^9.2.3",
-    "ts-node": "^10.0.0",
-    "tsconfig": "workspace:*",
+    "tsconfig": "*",
     "webpack": "^5.75.0",
     "webpack-node-externals": "^3.0.0"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   }
 }

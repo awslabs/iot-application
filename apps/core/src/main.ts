@@ -69,8 +69,14 @@ const bootstrapDocs = (app: NestFastifyApplication) => {
   SwaggerModule.setup("/docs", app, document);
 };
 
+type HotModule = {
+  hot: {
+    accept(): void;
+    dispose(cb: () => Promise<void>): void;
+  };
+};
 /** Webpack module (value is injected at runtime by Webpack) */
-declare const module: any;
+declare const module: HotModule;
 
 /**
  * Main() for Core
@@ -110,4 +116,4 @@ const bootstrap = async () => {
   }
 };
 
-bootstrap();
+void bootstrap();

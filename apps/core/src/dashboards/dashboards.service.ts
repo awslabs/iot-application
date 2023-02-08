@@ -8,7 +8,7 @@ export class DashboardsService {
   private readonly logger = new Logger(DashboardsService.name);
   private dashboards: Dashboard[] = [];
 
-  public async create(name: Dashboard["name"]) {
+  public create(name: Dashboard["name"]) {
     this.logger.log("Creating dashboard...");
 
     try {
@@ -22,10 +22,12 @@ export class DashboardsService {
       return dashboard;
     } catch {
       this.logger.warn("Failed to create dashboard");
+
+      return undefined;
     }
   }
 
-  public async list() {
+  public list() {
     this.logger.log("Finding all dashboards...");
 
     try {
@@ -35,10 +37,12 @@ export class DashboardsService {
       return this.dashboards;
     } catch {
       this.logger.warn("Failed to find all dashboards");
+
+      return undefined;
     }
   }
 
-  public async read(id: Dashboard["id"]) {
+  public read(id: Dashboard["id"]) {
     this.logger.log(`Finding dashboard ${id}...`);
 
     try {
@@ -50,10 +54,12 @@ export class DashboardsService {
       return this.find(id);
     } catch {
       this.logger.warn(`Failed to find dashboard ${id}`);
+
+      return undefined;
     }
   }
 
-  public async update(dashboard: Dashboard) {
+  public update(dashboard: Dashboard) {
     this.logger.log(`Updating dashboard ${dashboard.id}...`);
 
     try {
@@ -66,14 +72,21 @@ export class DashboardsService {
       return updatedDashboard;
     } catch {
       this.logger.warn(`Failed to update dashboard ${dashboard.id}`);
+
+      return undefined;
     }
   }
 
-  public async delete(id: Dashboard["id"]) {
+  public delete(id: Dashboard["id"]) {
     this.logger.log(`Deleting dashboard ${id}...`);
 
     try {
       const dashboard = this.find(id);
+
+      if (dashboard === undefined) {
+        throw Error;
+      }
+
       this.dashboards = this.withoutDashboard(dashboard);
 
       this.logger.log(`Deleted dashboard ${id}`);
@@ -81,6 +94,8 @@ export class DashboardsService {
       return dashboard;
     } catch {
       this.logger.warn(`Failed to delete dashboard ${id}`);
+
+      return undefined;
     }
   }
 

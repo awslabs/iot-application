@@ -33,8 +33,8 @@ export class ReadDashboardController {
   constructor(private readonly dashboardsService: DashboardsService) {}
 
   @Get(":id")
-  public async read(@Param() params: ReadDashboardParams) {
-    const dashboard = await this.dashboardsService.read(params.id);
+  public read(@Param() params: ReadDashboardParams) {
+    const dashboard = this.dashboardsService.read(params.id);
 
     if (dashboard === undefined) {
       throw new NotFoundException();

@@ -1,11 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Nest",
+  "Display": "React",
   "extends": "./base.json",
   "compilerOptions": {
-    "lib": ["es2022"],
-    "target": "es2022",
-
-    "strictPropertyInitialization": false
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react-jsx"
   }
 }
