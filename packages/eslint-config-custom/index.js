@@ -13,5 +13,5 @@ module.exports = {
   ],
   ignorePatterns: ['.eslintrc.js'],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'jest'],
 };

@@ -11,5 +11,16 @@ module.exports = {
       jsx: true,
     },
   },
+  overrides: [
+    // https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/unbound-method.md
+    {
+      files: ['*.spec.ts', '*.test.ts'],
+      plugins: ['jest'],
+      rules: {
+        '@typescript-eslint/unbound-method': 'off',
+        'jest/unbound-method': 'error',
+      },
+    },
+  ],
   root: true,
 };
