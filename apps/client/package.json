@@ -7,13 +7,17 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf build",
     "dev": "react-scripts start",
     "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts*\" --max-warnings 0",
+    "lint:fix": "eslint \"src/**/*.ts*\" --fix",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^4.3.6",
+    "@aws-sdk/client-iotsitewise": "^3.267.0",
     "@cloudscape-design/components": "^3.0.139",
     "@cloudscape-design/global-styles": "^1.0.6",
+    "@iot-app-kit/dashboard": "^3.0.0-alpha.3",
+    "@iot-app-kit/source-iotsitewise": "^2.6.5",
     "aws-amplify": "^5.0.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -43,7 +47,11 @@
     "tsconfig": "*"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",

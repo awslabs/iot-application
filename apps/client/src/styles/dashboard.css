@@ -1,0 +1,10 @@
+.dashboard {
+  position: absolute;
+  left: 0;
+}
+
+/* clash with amplify style */
+.palette-component-draggable svg {
+    width: 42px;
+    height: 42px;
+}

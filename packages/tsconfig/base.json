@@ -13,7 +13,6 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "composite": false,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": true,
