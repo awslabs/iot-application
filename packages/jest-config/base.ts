@@ -13,7 +13,6 @@ const config: Config = {
   },
   preset: 'ts-jest',
   notify: true,
-  reporters: [['github-actions', { silent: false }], 'summary'],
 };
 
 export default config;
