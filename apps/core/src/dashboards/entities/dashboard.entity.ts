@@ -5,6 +5,9 @@ import { DashboardDefinition } from './dashboard-definition.entity';
 
 export type DashboardId = string;
 export type DashboardName = string;
+export type DashboardDescription = string;
+export type DashboardCreationDate = Date;
+export type DashboardLastUpdateDate = Date;
 
 export class Dashboard {
   /**
@@ -20,6 +23,13 @@ export class Dashboard {
   @IsString()
   @Length(1, 100)
   public readonly name: DashboardName;
+
+  /**
+   * @example "Wind Farm 4 Description"
+   */
+  @IsString()
+  @Length(1, 1024)
+  public readonly description: DashboardDescription;
 
   @IsObject()
   @ValidateNested()
