@@ -7,7 +7,7 @@ import { ReadDashboardController } from './controllers/read.controller';
 import { UpdateDashboardController } from './controllers/update.controller';
 import { DashboardsService } from './dashboards.service';
 
-/** Dashboards Core Module */
+/** Core Dashboards Module */
 @Module({
   controllers: [
     CreateDashboardController,
