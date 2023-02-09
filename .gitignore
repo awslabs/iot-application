@@ -12,6 +12,7 @@ build
 dist
 dist-ssr
 *.local
+*.tsbuildinfo
 .turbo
 .nestjs_repl_history
 
