@@ -21,6 +21,7 @@ import { UpdateDashboardParams } from '../params/update-dashboard.params';
  *
  * {
  *   "name": "Wind Farm 4",
+ *   "description": "Wind Farm 4 Description",
  *   "definition": {
  *     "widgets": []
  *   }
@@ -35,6 +36,7 @@ import { UpdateDashboardParams } from '../params/update-dashboard.params';
  * {
  *   "id": {dashboardId},
  *   "name": "Wind Farm 4",
+ *   "description": "Wind Farm 4 Description",
  *   "definition": {
  *     "widgets": []
  *   }
@@ -47,11 +49,11 @@ export class UpdateDashboardController {
   constructor(private readonly dashboardsService: DashboardsService) {}
 
   @Put(':id')
-  public update(
+  public async update(
     @Param() params: UpdateDashboardParams,
     @Body() updateDashboardDto: UpdateDashboardDto,
   ) {
-    const dashboard = this.dashboardsService.update({
+    const dashboard = await this.dashboardsService.update({
       ...updateDashboardDto,
       ...params,
     });

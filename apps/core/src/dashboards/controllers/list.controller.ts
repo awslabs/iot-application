@@ -20,16 +20,12 @@ import { DashboardsService } from '../dashboards.service';
  * [{
  *   "id": {dashboardId},
  *   "name": "Wind Farm 1",
- *   "definition": {
- *     "widgets": []
- *   }
+ *   "description": "Wind Farm 1 Description"
  * },
  * {
  *   "id": {dashboardId},
  *   "name": "Wind Farm 2",
- *   "definition": {
- *     "widgets": []
- *   }
+ *   "description": "Wind Farm 2 Description"
  * }]
  * ```
  */
