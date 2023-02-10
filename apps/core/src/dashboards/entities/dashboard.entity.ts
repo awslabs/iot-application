@@ -6,8 +6,6 @@ import { DashboardDefinition } from './dashboard-definition.entity';
 export type DashboardId = string;
 export type DashboardName = string;
 export type DashboardDescription = string;
-export type DashboardCreationDate = Date;
-export type DashboardLastUpdateDate = Date;
 
 export class Dashboard {
   /**
