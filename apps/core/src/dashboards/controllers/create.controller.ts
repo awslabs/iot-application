@@ -13,7 +13,11 @@ import { CreateDashboardDto } from '../dto/create-dashboard.dto';
  * POST /dashboards HTTP/1.1
  *
  * {
- *   "name": "Wind Farm 4"
+ *   "name": "Wind Farm 4",
+ *   "description": "Wind Farm 4 Description",
+ *   "definition": {
+ *     "widgets": []
+ *   }
  * }
  * ```
  *
@@ -25,6 +29,7 @@ import { CreateDashboardDto } from '../dto/create-dashboard.dto';
  * {
  *   "id": {dashboardId},
  *   "name": "Wind Farm 4",
+ *   "description": "Wind Farm 4 Description",
  *   "definition": {
  *     "widgets": []
  *   }
@@ -38,6 +43,6 @@ export class CreateDashboardController {
 
   @Post()
   public create(@Body() createDashboardDto: CreateDashboardDto) {
-    return this.dashboardsService.create(createDashboardDto.name);
+    return this.dashboardsService.create(createDashboardDto);
   }
 }

@@ -29,9 +29,7 @@ Resources:
     Properties:
       IdentityPoolId: !Ref IdentityPool
       Roles:
-        authenticated: !GetAtt 
-          - AuthenticatedRole
-          - Arn
+        authenticated: !GetAtt AuthenticatedRole.Arn
       RoleMappings:
         cognito-user-pool:
           IdentityProvider: !Sub >-
@@ -58,8 +56,8 @@ Resources:
               'ForAnyValue:StringLike':
                 'cognito-identity.amazonaws.com:amr': authenticated
       Policies:
-        # TODO: tighten the admin-group-policy policy permissions to require actions only
-        - PolicyName: admin-group-policy
+        # TODO: tighten the authenticated-role-policy policy permissions to require actions only
+        - PolicyName: authenticated-role-policy
           PolicyDocument:
             Version: 2012-10-17
             Statement:
@@ -69,3 +67,31 @@ Resources:
                   - 'iotsitewise:*'
                 Resource:
                   - '*'
+  
+  ApiResourceTable:
+    Type: 'AWS::DynamoDB::Table'
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: resourceType
+          AttributeType: S
+        - AttributeName: lastUpdateDate
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+        - AttributeName: resourceType
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      GlobalSecondaryIndexes:
+        - IndexName: resourceTypeIndex
+          KeySchema:
+            - AttributeName: resourceType
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
