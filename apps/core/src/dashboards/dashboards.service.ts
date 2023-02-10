@@ -17,7 +17,7 @@ import { CreateDashboardDto } from './dto/create-dashboard.dto';
 import { DashboardSummary } from './entities/dashboard-summary.entity';
 import { Dashboard } from './entities/dashboard.entity';
 import { ConfigType } from '@nestjs/config';
-import databaseConfig from 'src/config/database.config';
+import { databaseConfig } from './config/database.config';
 
 @Injectable()
 export class DashboardsService {
@@ -25,7 +25,9 @@ export class DashboardsService {
   private dbDocClient: DynamoDBDocumentClient;
   private tableName: string;
 
-  constructor(@Inject(databaseConfig.KEY) dbConfig: ConfigType<typeof databaseConfig>,) {
+  constructor(
+    @Inject(databaseConfig.KEY) dbConfig: ConfigType<typeof databaseConfig>,
+  ) {
     this.dbDocClient = DynamoDBDocumentClient.from(
       new DynamoDBClient({ endpoint: dbConfig.endpoint }),
       {
@@ -102,7 +104,7 @@ export class DashboardsService {
       const updatedDashboard = await this.updateDashboard(dashboard);
       const { id } = dashboard;
 
-      if (dashboard === undefined) {
+      if (updatedDashboard !== undefined) {
         this.logger.log(`Updated dashboard ${id}`);
         this.logger.log(updatedDashboard);
       } else {
@@ -159,8 +161,6 @@ export class DashboardsService {
                 id,
                 resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
                 definition,
-                creationDate,
-                lastUpdateDate,
               },
               ConditionExpression: 'attribute_not_exists(id)',
             },
@@ -213,13 +213,11 @@ export class DashboardsService {
                   resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
                 },
                 // Capture the DDB reserved words, see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
-                UpdateExpression:
-                  'set #definition = :definition, lastUpdateDate = :lastUpdateDate',
+                UpdateExpression: 'set #definition = :definition',
                 ExpressionAttributeValues: {
                   ':id': id,
                   ':resourceType': RESOURCE_TYPES.DASHBOARD_DEFINITION,
                   ':definition': definition,
-                  ':lastUpdateDate': lastUpdateDate,
                 },
                 ExpressionAttributeNames: {
                   '#definition': 'definition',
@@ -382,7 +380,7 @@ export class DashboardsService {
 
   private async listDashboards(): Promise<DashboardSummary[]> {
     let dashboards: DashboardSummary[] = [];
-    let lastEvaluatedKey: Record<string, unknown> | undefined = undefined;
+    let lastEvaluatedKey: Record<string, unknown> | undefined;
 
     do {
       const queryOutput: QueryCommandOutput = await this.dbDocClient.send(
@@ -393,9 +391,11 @@ export class DashboardsService {
             ':resourceType': RESOURCE_TYPES.DASHBOARD_DATA,
           },
           IndexName: DATABASE_GSI.RESOURCE_TYPE,
-          ...(lastEvaluatedKey === undefined ? {} :{
-            ExclusiveStartKey: lastEvaluatedKey,
-          })
+          ...(lastEvaluatedKey === undefined
+            ? {}
+            : {
+                ExclusiveStartKey: lastEvaluatedKey,
+              }),
         }),
       );
 
@@ -407,7 +407,7 @@ export class DashboardsService {
             const id = item.id;
             const name = item.name;
             const description = item.description;
-  
+
             return plainToClass(DashboardSummary, {
               id,
               name,
@@ -426,8 +426,12 @@ export class DashboardsService {
   }
 
   private conditionalCheckFailed(error: TransactionCanceledException): boolean {
-    return error?.CancellationReasons !== undefined && error.CancellationReasons.some((reason) => {
-      return reason.Code === BatchStatementErrorCodeEnum.ConditionalCheckFailed;
-    });
+    return error.CancellationReasons
+      ? error.CancellationReasons.some((reason) => {
+          return (
+            reason.Code === BatchStatementErrorCodeEnum.ConditionalCheckFailed
+          );
+        })
+      : false;
   }
 }

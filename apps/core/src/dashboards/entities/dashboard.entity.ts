@@ -28,7 +28,7 @@ export class Dashboard {
    * @example "Wind Farm 4 Description"
    */
   @IsString()
-  @Length(1, 1024)
+  @Length(0, 1024)
   public readonly description: DashboardDescription;
 
   @IsObject()
