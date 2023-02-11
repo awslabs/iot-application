@@ -17,7 +17,6 @@ Visualize your AWS IoT data with the IoT Application.
    yarn install
    ```
 1. Update the [apps/client/aws-resources.js](apps/client/aws-resources.js) file with AWS resources created from step 1
-1. [Download](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html) and run the DynamoDB local at port `:8000`
 1. Start development server:
    ```sh
    yarn dev
