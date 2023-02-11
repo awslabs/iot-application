@@ -17,7 +17,7 @@ import { CreateDashboardDto } from './dto/create-dashboard.dto';
 import { DashboardSummary } from './entities/dashboard-summary.entity';
 import { Dashboard } from './entities/dashboard.entity';
 import { ConfigType } from '@nestjs/config';
-import { databaseConfig } from './config/database.config';
+import { databaseConfig } from '../config/database.config';
 
 @Injectable()
 export class DashboardsService {
@@ -62,7 +62,7 @@ export class DashboardsService {
     this.logger.log('Finding all dashboards...');
 
     try {
-      const dashboards = this.listDashboards();
+      const dashboards = await this.listDashboards();
       this.logger.log('Found all dashboards');
       this.logger.log(dashboards);
 
