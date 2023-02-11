@@ -35,6 +35,7 @@
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
     "@shelf/jest-dynamodb": "^3.4.1",
+    "dynamodb-local": "^0.0.31",
     "eslint-config-custom-server": "*",
     "jest-config": "*",
     "run-script-webpack-plugin": "^0.1.1",
