@@ -80,8 +80,6 @@ Resources:
           AttributeType: S
         - AttributeName: resourceType
           AttributeType: S
-        - AttributeName: lastUpdateDate
-          AttributeType: S
       KeySchema:
         - AttributeName: id
           KeyType: HASH
