@@ -8,3 +8,8 @@
     width: 42px;
     height: 42px;
 }
+
+/* TODO: fix this in SC/AppKit */
+sc-webgl-context {
+  position: fixed !important;
+}
