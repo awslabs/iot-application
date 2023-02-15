@@ -1,0 +1,1 @@
+export { useCore } from './hooks';
