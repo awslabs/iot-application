@@ -11,7 +11,9 @@ const renderRouter = (route: string, routesOverride?: RouteObject[]) => {
     initialEntries: [route],
   });
 
-  render(<RouterProvider router={router} />);
+  const { container } = render(<RouterProvider router={router} />);
+
+  return { container, router };
 };
 
 export default renderRouter;

@@ -1,0 +1,16 @@
+.dashboard {
+  position: absolute;
+  left: 0;
+  top: 150px;
+}
+
+/* clash with amplify style */
+.palette-component-draggable svg {
+    width: 42px;
+    height: 42px;
+}
+
+/* TODO: fix this in SC/AppKit */
+sc-webgl-context {
+  position: fixed !important;
+}

@@ -21,6 +21,18 @@ module.exports = {
         'jest/unbound-method': 'error',
       },
     },
+    // https://github.com/typescript-eslint/typescript-eslint/issues/4619
+    {
+      files: ['*.tsx'],
+      rules: {
+        '@typescript-eslint/no-misused-promises': [
+          'error',
+          {
+            checksVoidReturn: false,
+          },
+        ],
+      },
+    },
   ],
   root: true,
 };

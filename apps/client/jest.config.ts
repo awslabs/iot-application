@@ -10,6 +10,7 @@ const config: Config = {
   // required to handle CSS
   moduleNameMapper: {
     '\\.(css|scss)$': 'identity-obj-proxy',
+    'src/(.*)': '<rootDir>/src/$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
   testEnvironment: 'jsdom',

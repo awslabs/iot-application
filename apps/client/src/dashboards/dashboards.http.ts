@@ -22,10 +22,16 @@ export class DashboardsHttp {
   }
 
   /** Create a dashboard in Core */
-  public async create(name: string): Promise<Dashboard | never> {
+  public async create(
+    name: string,
+    description: string,
+    definition: object,
+  ): Promise<Dashboard | never> {
     try {
       const response = await this.http.post<Dashboard>(this.CORE_MODULE_PATH, {
         name,
+        description,
+        definition,
       });
 
       return response.data;
@@ -56,12 +62,17 @@ export class DashboardsHttp {
   public async update(
     id: string,
     name: string,
-    definition: string,
+    description: string,
+    definition: object,
   ): Promise<Dashboard | never> {
     try {
       const response = await this.http.put<Dashboard>(
         this.createDashboardUri(id),
-        { name, definition },
+        {
+          name,
+          description,
+          definition,
+        },
       );
 
       return response.data;

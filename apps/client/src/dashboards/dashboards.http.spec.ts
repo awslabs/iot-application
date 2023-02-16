@@ -51,12 +51,14 @@ describe('DashboardsHttp', () => {
     const http = createHttpClient();
     const client = createDashboardsHttpClient(http);
     const name = 'dashboard name';
+    const description = 'dashboard description';
+    const definition = {};
 
-    await client.create(name);
+    await client.create(name, description, definition);
 
     expect(http.post).toHaveBeenCalledWith(
       expect.any(String),
-      expect.objectContaining({ name }),
+      expect.objectContaining({ name, description, definition }),
     );
   });
 
@@ -64,8 +66,12 @@ describe('DashboardsHttp', () => {
     const http = createFailingHttpClient();
     const client = createDashboardsHttpClient(http);
     const name = 'dashboard name';
+    const description = 'dashboard description';
+    const definition = {};
 
-    await expect(client.create(name)).rejects.toThrow();
+    await expect(
+      client.create(name, description, definition),
+    ).rejects.toThrow();
   });
 
   it('reads a dashboard', async () => {
@@ -91,9 +97,10 @@ describe('DashboardsHttp', () => {
     const client = createDashboardsHttpClient(http);
     const id = 'x_3fsS-r7d1l';
     const name = 'new dashboard name';
-    const definition = '';
+    const description = 'dashboard description';
+    const definition = {};
 
-    await client.update(id, name, definition);
+    await client.update(id, name, description, definition);
 
     expect(http.put).toHaveBeenCalledWith(
       expect.stringContaining(id),
@@ -106,9 +113,12 @@ describe('DashboardsHttp', () => {
     const client = createDashboardsHttpClient(http);
     const id = 'x_3fsS-r7d1l';
     const name = 'new dashboard name';
-    const definition = '';
+    const description = 'dashboard description';
+    const definition = {};
 
-    await expect(client.update(id, name, definition)).rejects.toThrow();
+    await expect(
+      client.update(id, name, description, definition),
+    ).rejects.toThrow();
   });
 
   it('deletes a dashboard', async () => {

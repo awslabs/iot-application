@@ -25,7 +25,7 @@ const setup = () => {
 
 it('updates the inputs', () => {
   const { userName, password } = setup();
-  renderRouter('/');
+  renderRouter('/login');
 
   fireEvent.change(userName, { target: { value: 'user' } });
   fireEvent.change(password, { target: { value: 'password' } });
@@ -36,7 +36,7 @@ it('updates the inputs', () => {
 
 it('submits the form', () => {
   const { userName, password, submitButton, handleSubmit } = setup();
-  renderRouter('/');
+  renderRouter('/login');
 
   fireEvent.change(userName, { target: { value: 'user' } });
   fireEvent.change(password, { target: { value: 'password' } });
