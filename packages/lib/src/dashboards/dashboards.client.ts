@@ -5,7 +5,7 @@ import {
   ReadDashboardParams,
   UpdateDashboardDto,
   UpdateDashboardParams,
-} from 'core/src/types';
+} from 'types';
 import type { ListDashboardsRequest } from './requests/list-dashboards.request';
 import type { CreateDashboardRequest } from './requests/create-dashboard.request';
 import type { ReadDashboardRequest } from './requests/read-dashboard.request';

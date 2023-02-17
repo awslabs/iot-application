@@ -1,14 +1,20 @@
-interface ResultMatchers<T, E, U, V> {
+export interface ResultMatchers<T, E, U, V> {
   ok: (value: T) => U;
   err: (value: E) => V;
 }
+export interface TaggedOkResultValue<T> {
+  value: T;
+  kind: 'ok';
+}
+export interface TaggedErrResultValue<E> {
+  value: E;
+  kind: 'err';
+}
+export type TaggedResultValue<T, E> =
+  | TaggedOkResultValue<T>
+  | TaggedErrResultValue<E>;
 
-const isError = <T, E>(value: T | E): value is E => {
-  return value instanceof Error;
-};
-type TaggedOkResultValue<T> = { value: T; kind: 'ok' };
-type TaggedErrResultValue<E> = { value: E; kind: 'err' };
-type TaggedResultValue<T, E> = TaggedOkResultValue<T> | TaggedErrResultValue<E>;
+const isError = <T, E>(value: T | E): value is E => value instanceof Error;
 
 export class Result<T, E> {
   constructor(private taggedValue: TaggedResultValue<T, E>) {}

@@ -1,5 +1,5 @@
-import { Dashboard } from 'core/src/types';
 import { validateOrReject } from 'class-validator';
+import { Dashboard } from 'types';
 
 export class DashboardsValidator {
   async validate(dashboard: Dashboard | Object): Promise<void | never> {

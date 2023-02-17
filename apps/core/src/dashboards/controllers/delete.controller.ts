@@ -8,7 +8,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import { DashboardsService } from '../dashboards.service';
-import { DeleteDashboardParams } from '../params/delete-dashboard.params';
+import { DeleteDashboardParams } from 'types';
 
 /**
  * Delete dashboard HTTP controller

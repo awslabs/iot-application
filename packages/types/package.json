@@ -1,0 +1,14 @@
+{
+  "name": "types",
+  "private": true,
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts\" --max-warnings 0"
+  },
+  "dependencies": {
+    "eslint-config-custom": "*",
+    "tsconfig": "*"
+  }
+}

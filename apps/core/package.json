@@ -21,14 +21,11 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.0",
     "@nestjs/core": "^9.0.0",
-    "@nestjs/mapped-types": "*",
     "@nestjs/platform-fastify": "^9.2.1",
-    "@nestjs/swagger": "^6.1.4",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.0",
+    "@nestjs/swagger": "^6.2.1",
     "nanoid": "3",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "types": "*"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -36,13 +33,12 @@
     "@nestjs/testing": "^9.0.0",
     "@shelf/jest-dynamodb": "^3.4.1",
     "dynamodb-local": "^0.0.31",
-    "eslint-config-custom-server": "*",
+    "eslint-config-custom": "*",
     "jest-config": "*",
     "run-script-webpack-plugin": "^0.1.1",
     "source-map-support": "^0.5.20",
     "ts-loader": "^9.2.3",
     "tsconfig": "*",
-    "tsconfig-paths": "^4.1.2",
     "webpack": "^5.75.0",
     "webpack-node-externals": "^3.0.0"
   }

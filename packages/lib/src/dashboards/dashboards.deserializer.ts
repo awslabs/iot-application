@@ -1,6 +1,6 @@
 import { plainToInstance } from 'class-transformer';
 
-import { Dashboard } from 'core/src/types';
+import { Dashboard } from 'types';
 
 export class DashboardsDeserializer {
   public deserialize(json: unknown): Dashboard {

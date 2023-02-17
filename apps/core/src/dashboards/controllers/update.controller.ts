@@ -8,8 +8,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import { DashboardsService } from '../dashboards.service';
-import { UpdateDashboardDto } from '../dto/update-dashboard.dto';
-import { UpdateDashboardParams } from '../params/update-dashboard.params';
+import { UpdateDashboardDto, UpdateDashboardParams } from 'types';
 
 /**
  * Update dashboard HTTP controller

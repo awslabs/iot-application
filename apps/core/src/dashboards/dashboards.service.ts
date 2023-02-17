@@ -10,13 +10,12 @@ import {
   BatchStatementErrorCodeEnum,
 } from '@aws-sdk/client-dynamodb';
 import { Inject, Injectable, Logger } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
 import { plainToClass } from 'class-transformer';
 import { nanoid } from 'nanoid';
+import { CreateDashboardDto, Dashboard, DashboardSummary } from 'types';
+
 import { DATABASE_GSI, MESSAGES, RESOURCE_TYPES } from './dashboard.constants';
-import { CreateDashboardDto } from './dto/create-dashboard.dto';
-import { DashboardSummary } from './entities/dashboard-summary.entity';
-import { Dashboard } from './entities/dashboard.entity';
-import { ConfigType } from '@nestjs/config';
 import { databaseConfig } from '../config/database.config';
 
 @Injectable()

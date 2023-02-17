@@ -44,7 +44,8 @@
     "jest-environment-jsdom": "^29.4.2",
     "jest-fetch-mock": "^3.0.3",
     "react-scripts": "^5.0.1",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "tsconfig-paths": "^4.1.2"
   },
   "browserslist": {
     "production": [

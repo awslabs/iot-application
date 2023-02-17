@@ -29,6 +29,7 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "strictPropertyInitialization": false
   }
 }

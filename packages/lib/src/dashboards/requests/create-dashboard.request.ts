@@ -1,4 +1,4 @@
-import { CreateDashboardDto } from 'core/src/types';
+import { CreateDashboardDto } from 'types';
 import type { HttpService } from '../../http/http.service';
 import type { DashboardsValidator } from '../dashboards.validator';
 import type { DashboardsDeserializer } from '../dashboards.deserializer';

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "types",
+  "exclude": ["node_modules"],
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "lib": ["es2022"],
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "rootDir": "./src",
+    "target": "es2022"
+  },
+  "include": ["src"]
+}

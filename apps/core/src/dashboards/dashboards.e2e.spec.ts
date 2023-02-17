@@ -16,11 +16,13 @@ import { nanoid } from 'nanoid';
 import { RESOURCE_TYPES } from './dashboard.constants';
 
 import { dashboardsModuleMetadata } from './dashboards.module';
-import { CreateDashboardDto } from './dto/create-dashboard.dto';
-import { UpdateDashboardDto } from './dto/update-dashboard.dto';
-import { DashboardDefinition } from './entities/dashboard-definition.entity';
-import { DashboardWidgetType } from './entities/dashboard-widget.entity';
-import { Dashboard } from './entities/dashboard.entity';
+import {
+  CreateDashboardDto,
+  Dashboard,
+  DashboardDefinition,
+  DashboardWidgetType,
+  UpdateDashboardDto,
+} from 'types';
 
 const dummyId = 'zckYx-InI8_f'; // 12 character
 const dummyName = 'dashboard name';

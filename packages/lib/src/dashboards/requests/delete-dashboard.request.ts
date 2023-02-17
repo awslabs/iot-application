@@ -1,5 +1,5 @@
 import type { HttpService } from '../../http/http.service';
-import { DeleteDashboardParams } from 'core/src/types';
+import { DeleteDashboardParams } from 'types';
 
 export class DeleteDashboardRequest {
   constructor(private readonly del: HttpService['delete']) {}
