@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "main": "./src/index.ts",
   "scripts": {
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "clean": "rimraf .turbo && rimraf node_modules",
     "lint": "tsc --noEmit && TIMING=1 eslint \"{src,test}/**/*.ts\" --max-warnings 0",
     "test": "jest --coverage",
     "test:watch": "jest --watch"

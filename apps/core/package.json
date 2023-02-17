@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nest build core",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist",
     "dev": "nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
@@ -35,6 +35,7 @@
     "dynamodb-local": "^0.0.31",
     "eslint-config-custom": "*",
     "jest-config": "*",
+    "rimraf": "^4.1.2",
     "run-script-webpack-plugin": "^0.1.1",
     "source-map-support": "^0.5.20",
     "ts-loader": "^9.2.3",
