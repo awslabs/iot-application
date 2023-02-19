@@ -3,7 +3,13 @@
   "pipeline": {
     "build": {
       "outputs": ["build/**"],
-      "dependsOn": ["lint", "test", "^build"]
+      "dependsOn": ["lint", "test", "^build"],
+      "env": [
+        "DATABASE_ENDPOINT",
+        "DATABASE_NAME",
+        "DATABASE_PORT",
+        "DATABASE_LAUNCH_LOCAL"
+      ]
     },
     "clean": {
       "cache": false

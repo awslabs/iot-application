@@ -13,6 +13,8 @@ const config: Config = {
     '!./src/main.ts',
     '!./src/repl.ts',
     '!./src/app.module.ts',
+    '!./src/lifecycle-hooks/dynamodb-local-setup.ts',
+    '!./src/config/local-cognito-jwt-verifier.ts',
   ],
   displayName: 'Core',
   moduleFileExtensions: ['js', 'json', 'ts'],
