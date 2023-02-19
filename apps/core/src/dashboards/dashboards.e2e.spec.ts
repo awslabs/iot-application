@@ -1,3 +1,8 @@
+import {
+  CognitoIdentityProviderClient,
+  InitiateAuthCommand,
+  AuthFlowType,
+} from '@aws-sdk/client-cognito-identity-provider';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
@@ -5,7 +10,6 @@ import {
   TransactWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
 import { ValidationPipe } from '@nestjs/common';
-import { ConfigModule, registerAs } from '@nestjs/config';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -14,13 +18,12 @@ import { Test } from '@nestjs/testing';
 import { instanceToPlain, plainToClass } from 'class-transformer';
 import { nanoid } from 'nanoid';
 import { RESOURCE_TYPES } from './dashboard.constants';
-
-import { dashboardsModuleMetadata } from './dashboards.module';
 import { CreateDashboardDto } from './dto/create-dashboard.dto';
 import { UpdateDashboardDto } from './dto/update-dashboard.dto';
 import { DashboardDefinition } from './entities/dashboard-definition.entity';
 import { DashboardWidgetType } from './entities/dashboard-widget.entity';
 import { Dashboard } from './entities/dashboard.entity';
+import { AppModule } from '../app.module';
 
 const dummyId = 'zckYx-InI8_f'; // 12 character
 const dummyName = 'dashboard name';
@@ -144,18 +147,38 @@ const omitProperty = (key: string, obj: Record<string, unknown>): unknown => {
   return rest;
 };
 
-const databaseConfigOverride = registerAs('database', () => ({
-  endpoint: databaseEndpoint,
-  tableName: databaseTableName,
-}));
+const cognitoEndpoint = 'http://localhost:9229';
+const cognitoClient = new CognitoIdentityProviderClient({
+  endpoint: cognitoEndpoint,
+});
+const getBearerToken = async (): Promise<string> => {
+  const output = await cognitoClient.send(
+    new InitiateAuthCommand({
+      AuthFlow: AuthFlowType.USER_PASSWORD_AUTH,
+      AuthParameters: {
+        USERNAME: 'test-user',
+        PASSWORD: 'test-Password!',
+      },
+      ClientId: '9cehli62qxmki9mg5adjmucuq',
+    }),
+  );
+
+  return output.AuthenticationResult?.AccessToken ?? '';
+};
 
 describe('DashboardsModule', () => {
+  let bearerToken = '';
   let app: NestFastifyApplication;
 
   beforeAll(async () => {
+    // TODO: global config to override the environment for test environment
+    process.env.DATABASE_PORT = '8001';
+    process.env.DATABASE_ENDPOINT = 'http://localhost:8001';
+    process.env.DATABASE_TABLE_NAME = 'dashboard-api-e2e-test';
+    process.env.DATABASE_LAUNCH_LOCAL = 'false';
+
     const moduleRef = await Test.createTestingModule({
-      ...dashboardsModuleMetadata,
-      imports: [ConfigModule.forFeature(databaseConfigOverride)],
+      imports: [AppModule],
     }).compile();
 
     app = moduleRef.createNestApplication<NestFastifyApplication>(
@@ -171,6 +194,8 @@ describe('DashboardsModule', () => {
     };
 
     await instance.ready();
+
+    bearerToken = await getBearerToken();
   });
 
   afterAll(async () => {
@@ -180,6 +205,9 @@ describe('DashboardsModule', () => {
   describe('GET /dashboards HTTP/1.1', () => {
     test('returns empty dashboard list on success', async () => {
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'GET',
         url: '/dashboards',
       });
@@ -195,6 +223,9 @@ describe('DashboardsModule', () => {
       const dashboardSummary2 = omitProperty('definition', dashboard2);
 
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'GET',
         url: '/dashboards',
       });
@@ -217,6 +248,9 @@ describe('DashboardsModule', () => {
         definition: dummyDefinition,
       };
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'POST',
         payload,
         url: '/dashboards',
@@ -238,6 +272,9 @@ describe('DashboardsModule', () => {
         definition: dummyDefinition,
       };
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'POST',
         payload,
         url: '/dashboards',
@@ -266,6 +303,9 @@ describe('DashboardsModule', () => {
           definition: dummyDefinition,
         };
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'POST',
           payload,
           url: '/dashboards',
@@ -284,6 +324,9 @@ describe('DashboardsModule', () => {
           definition: dummyDefinition,
         };
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'POST',
           payload,
           url: '/dashboards',
@@ -299,6 +342,9 @@ describe('DashboardsModule', () => {
         definition: dummyDefinition,
       };
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'POST',
         payload,
         url: '/dashboards',
@@ -316,6 +362,9 @@ describe('DashboardsModule', () => {
           definition: dummyDefinition,
         };
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'POST',
           payload,
           url: '/dashboards',
@@ -334,6 +383,9 @@ describe('DashboardsModule', () => {
           definition: dummyDefinition,
         };
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'POST',
           payload,
           url: '/dashboards',
@@ -349,6 +401,9 @@ describe('DashboardsModule', () => {
         definition: dummyDefinition,
       };
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'POST',
         payload,
         url: '/dashboards',
@@ -368,6 +423,9 @@ describe('DashboardsModule', () => {
           },
         };
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'POST',
           payload,
           url: '/dashboards',
@@ -393,6 +451,9 @@ describe('DashboardsModule', () => {
           },
         };
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'POST',
           payload,
           url: '/dashboards',
@@ -416,6 +477,9 @@ describe('DashboardsModule', () => {
       };
 
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'POST',
         payload,
         url: '/dashboards',
@@ -447,6 +511,9 @@ describe('DashboardsModule', () => {
       };
 
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'POST',
         payload,
         url: '/dashboards',
@@ -495,6 +562,9 @@ describe('DashboardsModule', () => {
         };
 
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'POST',
           payload,
           url: '/dashboards',
@@ -510,6 +580,9 @@ describe('DashboardsModule', () => {
       const dashboard = await seedTestDashboard('name');
 
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'GET',
         url: `/dashboards/${dashboard.id}`,
       });
@@ -522,6 +595,9 @@ describe('DashboardsModule', () => {
       'returns 400 when dashboard id is not valid: (%s)',
       async (dashboardId: Dashboard['id']) => {
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'GET',
           url: `/dashboards/${dashboardId}`,
         });
@@ -532,6 +608,9 @@ describe('DashboardsModule', () => {
 
     test('returns 404 when dashboard not found', async () => {
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'GET',
         url: `/dashboards/${dummyId}`,
       });
@@ -558,6 +637,9 @@ describe('DashboardsModule', () => {
       };
 
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'PUT',
         payload: payload,
         url: `/dashboards/${dashboard.id}`,
@@ -589,6 +671,9 @@ describe('DashboardsModule', () => {
       };
 
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'PUT',
         payload: payload,
         url: `/dashboards/${dashboard.id}`,
@@ -618,6 +703,9 @@ describe('DashboardsModule', () => {
         };
 
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboardId}`,
@@ -639,6 +727,9 @@ describe('DashboardsModule', () => {
         };
 
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboard.id}`,
@@ -667,6 +758,9 @@ describe('DashboardsModule', () => {
         };
 
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboard.id}`,
@@ -688,6 +782,9 @@ describe('DashboardsModule', () => {
         };
 
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboard.id}`,
@@ -713,6 +810,9 @@ describe('DashboardsModule', () => {
       };
 
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'PUT',
         payload: payload,
         url: `/dashboards/${dashboard.id}`,
@@ -742,6 +842,9 @@ describe('DashboardsModule', () => {
         };
 
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboard.id}`,
@@ -777,6 +880,9 @@ describe('DashboardsModule', () => {
         };
 
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboard.id}`,
@@ -809,6 +915,9 @@ describe('DashboardsModule', () => {
       };
 
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'PUT',
         payload: payload,
         url: `/dashboards/${dashboard.id}`,
@@ -849,6 +958,9 @@ describe('DashboardsModule', () => {
       };
 
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'PUT',
         payload: payload,
         url: `/dashboards/${dashboard.id}`,
@@ -901,6 +1013,9 @@ describe('DashboardsModule', () => {
         };
 
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'PUT',
           payload: payload,
           url: `/dashboards/${dashboard.id}`,
@@ -931,6 +1046,9 @@ describe('DashboardsModule', () => {
         description: 'new description',
       };
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'PUT',
         payload: payload,
         url: `/dashboards/${dummyId}`,
@@ -945,6 +1063,9 @@ describe('DashboardsModule', () => {
       const dashboard = await seedTestDashboard('name');
 
       const deleteResponse = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'DELETE',
         url: `/dashboards/${dashboard.id}`,
       });
@@ -952,6 +1073,9 @@ describe('DashboardsModule', () => {
       expect(deleteResponse.statusCode).toBe(204);
 
       const getResponse = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'GET',
         url: `/dashboards/${dashboard.id}`,
       });
@@ -963,6 +1087,9 @@ describe('DashboardsModule', () => {
       'returns 400 when dashboard id is not valid',
       async (dashboardId) => {
         const response = await app.inject({
+          headers: {
+            Authorization: `Bearer ${bearerToken}`,
+          },
           method: 'DELETE',
           url: `/dashboards/${dashboardId}`,
         });
@@ -973,6 +1100,9 @@ describe('DashboardsModule', () => {
 
     test('returns 404 when dashboard not found', async () => {
       const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
         method: 'DELETE',
         url: `/dashboards/${dummyId}`,
       });

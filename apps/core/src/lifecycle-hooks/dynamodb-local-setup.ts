@@ -30,6 +30,9 @@ export class DynamoDbLocalSetupService implements OnApplicationBootstrap {
   ) {}
 
   async onApplicationBootstrap() {
+    if (!this.dbConfig.launchLocal) {
+      return;
+    }
     this.logger.log('Launching DynamoDB local instance');
     await ddbLocalLaunch(this.dbConfig.port);
     this.logger.log('DynamoDB local instance launched');
