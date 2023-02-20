@@ -6,12 +6,14 @@ import { DynamoDbLocalSetupService } from './lifecycle-hooks/dynamodb-local-setu
 import { APP_GUARD } from '@nestjs/core';
 import { CognitoJwtAuthGuard } from './auth/cognito-jwt-auth.guard';
 import { authConfig } from './config/auth.config';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ load: [databaseConfig], isGlobal: true }),
     ConfigModule.forRoot({ load: [authConfig], isGlobal: true }),
     DashboardsModule,
+    ThrottlerModule.forRoot({ ttl: 10, limit: 100 }),
   ],
   providers: [
     DynamoDbLocalSetupService,
