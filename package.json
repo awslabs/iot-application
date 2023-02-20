@@ -5,12 +5,15 @@
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "build": "turbo run build",
-    "clean": "turbo run clean && rm -rf .turbo && rm -rf node_modules",
-    "dev": "turbo run dev --no-cache --continue",
+    "clean": "turbo run clean && rm -rf .turbo && rm -rf node_modules && rm -rf *.tsbuildinfo",
+    "dev": "turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch"
+  },
+  "dependencies": {
+    "core-types": "*"
   },
   "devDependencies": {
     "@playwright/test": "^1.28.1",

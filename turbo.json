@@ -2,8 +2,8 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "outputs": ["build/**"],
-      "dependsOn": ["lint", "test", "^build"],
+      "outputs": ["build/**", "dist/**"],
+      "dependsOn": ["^build"],
       "env": [
         "DATABASE_ENDPOINT",
         "DATABASE_TABLE_NAME",
@@ -16,10 +16,14 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "dependsOn": ["^build"]
     },
-    "lint": {},
+    "lint": {
+      "dependsOn": ["^build"]
+    },
     "test": {
+      "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
     },
     "test:watch": {

@@ -1,11 +1,6 @@
-import { HttpClient } from './interfaces/http.interface';
+import { Dashboard } from 'core-types';
 
-// TODO: Use same type as Core
-interface Dashboard {
-  id: string;
-  name: string;
-  definition: string;
-}
+import { HttpClient } from './interfaces/http.interface';
 
 /** HTTP client for Core `DashboardsModule` */
 export class DashboardsHttp {

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nest build core",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf *.tsbuildinfo",
     "dev": "yarn cognito-local & nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
@@ -21,12 +21,10 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.0",
     "@nestjs/core": "^9.0.0",
-    "@nestjs/mapped-types": "*",
     "@nestjs/platform-fastify": "^9.2.1",
-    "@nestjs/swagger": "^6.1.4",
+    "@nestjs/swagger": "^6.2.1",
     "aws-jwt-verify": "^3.4.0",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.0",
+    "core-types": "*",
     "nanoid": "3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
@@ -39,13 +37,12 @@
     "@shelf/jest-dynamodb": "^3.4.1",
     "cognito-local": "^3.21.1",
     "dynamodb-local": "^0.0.31",
-    "eslint-config-custom-server": "*",
+    "eslint-config-custom": "*",
     "jest-config": "*",
     "run-script-webpack-plugin": "^0.1.1",
     "source-map-support": "^0.5.20",
     "ts-loader": "^9.2.3",
     "tsconfig": "*",
-    "tsconfig-paths": "^4.1.2",
     "webpack": "^5.75.0",
     "webpack-node-externals": "^3.0.0"
   }

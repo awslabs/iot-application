@@ -1,8 +1,8 @@
 import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { ReadDashboardParams } from 'core-types';
 
 import { DashboardsService } from '../dashboards.service';
-import { ReadDashboardParams } from '../params/read-dashboard.params';
 
 /**
  * Read dashboard HTTP controller

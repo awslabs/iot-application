@@ -1,22 +1,22 @@
-import { DynamoDBClient, QueryCommandOutput } from '@aws-sdk/client-dynamodb';
+import {
+  BatchStatementErrorCodeEnum,
+  DynamoDBClient,
+  QueryCommandOutput,
+  TransactionCanceledException,
+} from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
   QueryCommand,
   TransactGetCommand,
   TransactWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
-import {
-  TransactionCanceledException,
-  BatchStatementErrorCodeEnum,
-} from '@aws-sdk/client-dynamodb';
 import { Inject, Injectable, Logger } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
+import { CreateDashboardDto, Dashboard, DashboardSummary } from 'core-types';
 import { plainToClass } from 'class-transformer';
 import { nanoid } from 'nanoid';
+
 import { DATABASE_GSI, MESSAGES, RESOURCE_TYPES } from './dashboard.constants';
-import { CreateDashboardDto } from './dto/create-dashboard.dto';
-import { DashboardSummary } from './entities/dashboard-summary.entity';
-import { Dashboard } from './entities/dashboard.entity';
-import { ConfigType } from '@nestjs/config';
 import { databaseConfig } from '../config/database.config';
 
 @Injectable()
