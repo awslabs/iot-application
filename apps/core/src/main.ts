@@ -1,3 +1,5 @@
+import fastifyCookie from '@fastify/cookie';
+import fastifyCsrf from '@fastify/csrf-protection';
 import helmet from '@fastify/helmet';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
@@ -107,6 +109,8 @@ const bootstrap = async () => {
 
   app.enableCors();
   await app.register(helmet);
+  await app.register(fastifyCookie);
+  await app.register(fastifyCsrf);
 
   bootstrapValidation(app);
   bootstrapDocs(app);
