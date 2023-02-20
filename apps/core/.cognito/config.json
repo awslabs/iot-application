@@ -1,0 +1,5 @@
+{
+  "TokenConfig": {
+    "IssuerDomain": "https://cognito-idp.us-west-2.amazonaws.com"
+  }
+}

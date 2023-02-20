@@ -6,13 +6,15 @@
     "build": "nest build core",
     "clean": "rimraf .turbo && rimraf node_modules && rimraf dist",
     "dev": "nest build --webpack --webpackPath webpack-hmr.config.js --watch",
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist",
+    "dev": "yarn cognito-local & nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "tsc --noEmit && TIMING=1 eslint \"{src,test}/**/*.ts\" --max-warnings 0",
     "repl": "nest start --entryFile repl --watch",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test": "yarn cognito-local & jest --coverage",
+    "test:watch": "yarn cognito-local & jest --watch"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.259.0",
@@ -24,6 +26,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-fastify": "^9.2.1",
     "@nestjs/swagger": "^6.1.4",
+    "aws-jwt-verify": "^3.4.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "nanoid": "3",
@@ -31,10 +34,12 @@
     "rxjs": "^7.2.0"
   },
   "devDependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.272.0",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
     "@shelf/jest-dynamodb": "^3.4.1",
+    "cognito-local": "^3.21.1",
     "dynamodb-local": "^0.0.31",
     "eslint-config-custom-server": "*",
     "jest-config": "*",
