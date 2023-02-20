@@ -5,7 +5,7 @@
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "build": "turbo run build",
-    "clean": "turbo run clean && rm -rf .turbo && rm -rf node_modules",
+    "clean": "turbo run clean && rimraf .turbo && rimraf node_modules",
     "dev": "turbo run dev --no-cache --continue",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
@@ -24,6 +24,7 @@
     "jest-watch-typeahead": "^2.2.2",
     "node-notifier": "^10.0.1",
     "prettier": "^2.8.1",
+    "rimraf": "^4.1.2",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.0.0",
     "turbo": "latest",

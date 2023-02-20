@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nest build core",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist",
     "dev": "nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
