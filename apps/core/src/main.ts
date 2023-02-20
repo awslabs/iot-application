@@ -1,10 +1,12 @@
-import { NestFactory } from '@nestjs/core';
+import helmet from '@fastify/helmet';
 import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
 import { AppModule } from './app.module';
 
 /**
@@ -104,6 +106,7 @@ const bootstrap = async () => {
   );
 
   app.enableCors();
+  await app.register(helmet);
 
   bootstrapValidation(app);
   bootstrapDocs(app);

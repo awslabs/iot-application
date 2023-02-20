@@ -17,6 +17,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.259.0",
     "@aws-sdk/lib-dynamodb": "^3.259.0",
+    "@fastify/helmet": "^10.1.0",
     "@fastify/static": "^6.6.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.0",
