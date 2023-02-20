@@ -13,7 +13,6 @@ import { authConfig } from './config/auth.config';
     ConfigModule.forRoot({ load: [authConfig], isGlobal: true }),
     DashboardsModule,
   ],
-  // TODO: use dynamic module to load DynamoDbLocalSetupService for development environment only
   providers: [
     DynamoDbLocalSetupService,
     {

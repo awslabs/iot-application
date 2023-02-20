@@ -1,7 +1,6 @@
 import { registerAs } from '@nestjs/config';
 
 export const configFactory = () => ({
-  // TODO: consume endpoint and tableName from environment variables
   launchLocal:
     process.env.DATABASE_LAUNCH_LOCAL === undefined
       ? true

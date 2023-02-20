@@ -23,13 +23,8 @@ export class CognitoJwtAuthGuard implements CanActivate {
     );
 
     try {
-      const payload = await this.config.cognitoJwtVerifier.verify(
-        this.getBearerToken(context),
-      );
+      await this.config.cognitoJwtVerifier.verify(this.getBearerToken(context));
       this.logger.log(`Request authorized to ${context.getClass().name}`);
-
-      // TODO: delete the log below
-      this.logger.log(payload);
 
       return true;
     } catch (e) {
