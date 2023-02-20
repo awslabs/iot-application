@@ -14,7 +14,17 @@ import type { DeleteDashboardRequest } from './requests/delete-dashboard.request
 import { CoreError } from '../errors';
 import { Result } from '../adt';
 
-export class DashboardsCoreClient {
+export interface DashboardsCoreClient {
+  list(): Promise<Result<Dashboard[], CoreError>>;
+  create(dto: CreateDashboardDto): Promise<Result<Dashboard, CoreError>>;
+  read(params: ReadDashboardParams): Promise<Result<Dashboard, CoreError>>;
+  update(
+    params: UpdateDashboardParams,
+    dto: UpdateDashboardDto,
+  ): Promise<Result<Dashboard, CoreError>>;
+  delete(params: DeleteDashboardParams): Promise<Result<undefined, CoreError>>;
+}
+export class DashboardsClient implements DashboardsCoreClient {
   constructor(
     private readonly listRequest: ListDashboardsRequest,
     private readonly createRequest: CreateDashboardRequest,
@@ -29,7 +39,7 @@ export class DashboardsCoreClient {
 
       return Result.ok<Dashboard[], CoreError>(dashboards);
     } catch (error) {
-      return Result.err(error);
+      return Result.err<Dashboard[], CoreError>(new CoreError());
     }
   }
 
@@ -39,7 +49,7 @@ export class DashboardsCoreClient {
 
       return Result.ok<Dashboard, CoreError>(dashboard);
     } catch (error) {
-      return Result.err(error);
+      return Result.err<Dashboard, CoreError>(new CoreError());
     }
   }
 
@@ -49,7 +59,7 @@ export class DashboardsCoreClient {
 
       return Result.ok<Dashboard, CoreError>(dashboard);
     } catch (error) {
-      return Result.err(error);
+      return Result.err<Dashboard, CoreError>(new CoreError());
     }
   }
 
@@ -59,7 +69,7 @@ export class DashboardsCoreClient {
 
       return Result.ok<Dashboard, CoreError>(dashboard);
     } catch (error) {
-      return Result.err(error);
+      return Result.err<Dashboard, CoreError>(new CoreError());
     }
   }
 
@@ -69,7 +79,7 @@ export class DashboardsCoreClient {
 
       return Result.ok<undefined, CoreError>(undefined);
     } catch (error) {
-      return Result.err(error);
+      return Result.err<undefined, CoreError>(new CoreError());
     }
   }
 }

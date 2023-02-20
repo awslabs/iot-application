@@ -13150,7 +13150,7 @@ jest-environment-jsdom@^27.5.1:
     jest-util "^27.5.1"
     jsdom "^16.6.0"
 
-jest-environment-jsdom@^29.4.2:
+jest-environment-jsdom@^29.4.2, jest-environment-jsdom@^29.4.3:
   version "29.4.3"
   resolved "https://registry.yarnpkg.com/jest-environment-jsdom/-/jest-environment-jsdom-29.4.3.tgz#bd8ed3808e6d3f616403fbaf8354f77019613d90"
   integrity sha512-rFjf8JXrw3OjUzzmSE5l0XjMj0/MSVEUMCSXBGPDkfwb1T03HZI7iJSL0cGctZApPSyJxbjyKDVxkZuyhHkuTw==

@@ -7,9 +7,14 @@ const config: Config = {
   collectCoverageFrom: ['**/src/**/*.{js,ts}'],
   displayName: 'lib',
   moduleFileExtensions: ['js', 'json', 'ts'],
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   transform: {
     '^.*\\.ts$': 'ts-jest',
+    '^.+\\.(js|jsx)$': 'babel-jest',
+  },
+  transformIgnorePatterns: ['/node_modules/(?!(ky|ky-universal))/'],
+  moduleNameMapper: {
+    '\\.(css|less)$': 'identity-obj-proxy',
   },
 };
 

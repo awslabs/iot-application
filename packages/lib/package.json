@@ -16,5 +16,12 @@
     "ky-universal": "^0.11.0",
     "tsconfig": "*",
     "types": "*"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "babel-jest": "^29.4.3",
+    "jest-environment-jsdom": "^29.4.3"
   }
 }

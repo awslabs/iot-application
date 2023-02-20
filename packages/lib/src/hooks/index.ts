@@ -1,7 +1,4 @@
-import dashboards from '../dashboards';
+import { createUseCore } from './core';
+import dashboards from 'src/dashboards';
 
-export const useCore = () => {
-  return {
-    dashboards,
-  };
-};
+export const useCore = createUseCore({ dashboards });
