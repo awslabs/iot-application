@@ -103,6 +103,8 @@ const bootstrap = async () => {
     new FastifyAdapter(),
   );
 
+  app.enableCors();
+
   bootstrapValidation(app);
   bootstrapDocs(app);
 
