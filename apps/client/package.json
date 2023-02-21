@@ -5,7 +5,7 @@
   "scripts": {
     "build": "react-scripts build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf build",
-    "dev": "react-scripts start",
+    "dev": "PORT=3001 react-scripts start",
     "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts*\" --max-warnings 0",
     "lint:fix": "eslint \"src/**/*.ts*\" --fix",
     "test": "jest --coverage",
