@@ -1,8 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { CreateDashboardDto } from 'core-types';
 
 import { DashboardsService } from '../dashboards.service';
-import { CreateDashboardDto } from '../dto/create-dashboard.dto';
 
 /**
  * Create dashboard HTTP controller

@@ -6,10 +6,9 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { UpdateDashboardDto, UpdateDashboardParams } from 'core-types';
 
 import { DashboardsService } from '../dashboards.service';
-import { UpdateDashboardDto } from '../dto/update-dashboard.dto';
-import { UpdateDashboardParams } from '../params/update-dashboard.params';
 
 /**
  * Update dashboard HTTP controller

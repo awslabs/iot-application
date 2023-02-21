@@ -6,9 +6,9 @@ import {
   Param,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { DeleteDashboardParams } from 'core-types';
 
 import { DashboardsService } from '../dashboards.service';
-import { DeleteDashboardParams } from '../params/delete-dashboard.params';
 
 /**
  * Delete dashboard HTTP controller

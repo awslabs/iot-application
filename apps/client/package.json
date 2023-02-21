@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "react-scripts build",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf build",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf build && rm -rf *.tsbuildinfo",
     "dev": "PORT=3001 react-app-rewired start",
     "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts*\" --max-warnings 0",
     "lint:fix": "eslint \"src/**/*.ts*\" --fix",
@@ -19,6 +19,7 @@
     "@iot-app-kit/dashboard": "^3.0.0-alpha.3",
     "@iot-app-kit/source-iotsitewise": "^2.6.5",
     "aws-amplify": "^5.0.12",
+    "core-types": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0"
@@ -49,11 +50,7 @@
     "tsconfig": "*"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
