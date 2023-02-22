@@ -155,6 +155,8 @@ describe('DashboardsModule', () => {
     process.env.DATABASE_ENDPOINT = 'http://localhost:8001';
     process.env.DATABASE_TABLE_NAME = 'dashboard-api-e2e-test';
     process.env.DATABASE_LAUNCH_LOCAL = 'false';
+    process.env.AWS_ACCESS_KEY_ID = 'fakeMyKeyId';
+    process.env.AWS_SECRET_ACCESS_KEY = 'fakeSecretAccessKey';
 
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule],
