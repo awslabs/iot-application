@@ -1,6 +1,8 @@
 import type ky from 'ky';
 import type { Options } from 'ky';
 
+export type { BeforeRequestHook } from 'ky';
+
 export interface HttpClient {
   get: typeof ky.get;
   post: typeof ky.post;
