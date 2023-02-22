@@ -11,8 +11,8 @@
     "start:prod": "node dist/main",
     "lint": "tsc --noEmit && TIMING=1 eslint \"{src,test}/**/*.ts\" --max-warnings 0",
     "repl": "nest start --entryFile repl --watch",
-    "test": "yarn cognito-local & jest --coverage",
-    "test:watch": "yarn cognito-local & jest --watch"
+    "test": "jest --coverage",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.259.0",
@@ -30,7 +30,6 @@
     "rxjs": "^7.2.0"
   },
   "devDependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.272.0",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",

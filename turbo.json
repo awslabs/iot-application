@@ -3,13 +3,7 @@
   "pipeline": {
     "build": {
       "outputs": ["build/**", "dist/**"],
-      "dependsOn": ["^build"],
-      "env": [
-        "DATABASE_ENDPOINT",
-        "DATABASE_TABLE_NAME",
-        "DATABASE_PORT",
-        "DATABASE_LAUNCH_LOCAL"
-      ]
+      "dependsOn": ["^build"]
     },
     "clean": {
       "cache": false
@@ -17,7 +11,17 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "env": [
+        "AWS_ACCESS_KEY_ID",
+        "AWS_REGION",
+        "AWS_SECRET_ACCESS_KEY",
+        "AWS_SESSION_TOKEN",
+        "DATABASE_ENDPOINT",
+        "DATABASE_TABLE_NAME",
+        "DATABASE_PORT",
+        "DATABASE_LAUNCH_LOCAL"
+      ]
     },
     "lint": {
       "dependsOn": ["^build"]

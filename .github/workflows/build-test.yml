@@ -21,6 +21,12 @@ jobs:
           node-version: 18
           cache: 'yarn'
 
+      - name: Install Java 🔧
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+
       - name: Install Dependencies 🔩
         run: yarn install
 
