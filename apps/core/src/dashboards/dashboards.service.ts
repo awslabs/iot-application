@@ -29,7 +29,10 @@ export class DashboardsService {
     @Inject(databaseConfig.KEY) dbConfig: ConfigType<typeof databaseConfig>,
   ) {
     this.dbDocClient = DynamoDBDocumentClient.from(
-      new DynamoDBClient({ endpoint: dbConfig.endpoint }),
+      new DynamoDBClient({
+        endpoint: dbConfig.endpoint,
+        region: dbConfig.region,
+      }),
       {
         marshallOptions: {
           convertClassInstanceToMap: true,
