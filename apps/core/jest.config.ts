@@ -15,6 +15,7 @@ const config: Config = {
     '!./src/app.module.ts',
     '!./src/lifecycle-hooks/dynamodb-local-setup.ts',
     '!./src/config/local-cognito-jwt-verifier.ts',
+    '!./src/testing/**/*',
   ],
   displayName: 'Core',
   moduleFileExtensions: ['js', 'json', 'ts'],
