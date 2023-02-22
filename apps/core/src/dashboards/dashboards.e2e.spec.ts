@@ -174,7 +174,7 @@ describe('DashboardsModule', () => {
     await instance.ready();
 
     bearerToken = await getAccessToken();
-  });
+  }, 120000);
 
   afterAll(async () => {
     await app.close();
