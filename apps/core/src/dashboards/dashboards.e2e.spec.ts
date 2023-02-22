@@ -157,6 +157,7 @@ describe('DashboardsModule', () => {
     process.env.DATABASE_LAUNCH_LOCAL = 'false';
     process.env.AWS_ACCESS_KEY_ID = 'fakeMyKeyId';
     process.env.AWS_SECRET_ACCESS_KEY = 'fakeSecretAccessKey';
+    process.env.DATABASE_REGION = 'us-west-2';
 
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule],
