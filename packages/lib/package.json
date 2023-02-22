@@ -1,0 +1,29 @@
+{
+  "name": "lib",
+  "private": true,
+  "version": "0.0.0",
+  "main": "./src/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "files": ["dist/**"],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf *.tsbuildinfo",
+    "dev": "tsc -w",
+    "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts\" --max-warnings 0",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "core-types": "*",
+    "ky": "^0.33.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.17.10",
+    "esbuild-jest": "^0.5.0",
+    "eslint-config-custom": "*",
+    "jest-config": "*",
+    "jest-environment-jsdom": "^29.4.3",
+    "tsconfig": "*"
+  }
+}

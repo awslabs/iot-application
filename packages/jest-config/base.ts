@@ -11,7 +11,6 @@ const config: Config = {
       statements: 60,
     },
   },
-  preset: 'ts-jest',
   notify: true,
 };
 
