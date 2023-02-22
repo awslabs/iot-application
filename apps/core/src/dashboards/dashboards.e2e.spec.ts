@@ -1,8 +1,3 @@
-import {
-  CognitoIdentityProviderClient,
-  InitiateAuthCommand,
-  AuthFlowType,
-} from '@aws-sdk/client-cognito-identity-provider';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
@@ -24,9 +19,9 @@ import {
   UpdateDashboardDto,
 } from 'core-types';
 import { nanoid } from 'nanoid';
-
 import { RESOURCE_TYPES } from './dashboard.constants';
 import { AppModule } from '../app.module';
+import { getAccessToken } from '../testing/jwt-generator';
 
 const dummyId = 'zckYx-InI8_f'; // 12 character
 const dummyName = 'dashboard name';
@@ -150,25 +145,6 @@ const omitProperty = (key: string, obj: Record<string, unknown>): unknown => {
   return rest;
 };
 
-const cognitoEndpoint = 'http://localhost:9229';
-const cognitoClient = new CognitoIdentityProviderClient({
-  endpoint: cognitoEndpoint,
-});
-const getBearerToken = async (): Promise<string> => {
-  const output = await cognitoClient.send(
-    new InitiateAuthCommand({
-      AuthFlow: AuthFlowType.USER_PASSWORD_AUTH,
-      AuthParameters: {
-        USERNAME: 'test-user',
-        PASSWORD: 'test-Password!',
-      },
-      ClientId: '9cehli62qxmki9mg5adjmucuq',
-    }),
-  );
-
-  return output.AuthenticationResult?.AccessToken ?? '';
-};
-
 describe('DashboardsModule', () => {
   let bearerToken = '';
   let app: NestFastifyApplication;
@@ -198,7 +174,7 @@ describe('DashboardsModule', () => {
 
     await instance.ready();
 
-    bearerToken = await getBearerToken();
+    bearerToken = await getAccessToken();
   });
 
   afterAll(async () => {
