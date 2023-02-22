@@ -24,6 +24,7 @@
     "eslint-config-custom": "*",
     "jest-config": "*",
     "jest-environment-jsdom": "^29.4.3",
+    "jest-fetch-mock": "^3.0.3",
     "tsconfig": "*"
   }
 }
