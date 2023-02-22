@@ -43,6 +43,7 @@ export class DynamoDbLocalSetupService implements OnApplicationBootstrap {
     const ddbClient = new DynamoDBClient({
       endpoint: this.dbConfig.endpoint,
       credentials: new Credentials('fakeMyKeyId', 'fakeSecretAccessKey'),
+      region: this.dbConfig.region,
     });
     let attempt = 0;
 
