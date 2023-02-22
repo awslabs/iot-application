@@ -2,8 +2,12 @@ import type { Config } from 'jest';
 
 import baseConfig from 'jest-config/base';
 
+const jestDynamodb = require('@shelf/jest-dynamodb/jest-preset');
+
 const config: Config = {
   ...baseConfig,
+  //https://jestjs.io/docs/dynamodb
+  ...jestDynamodb,
   collectCoverageFrom: [
     '**/src/**/*.{js,ts}',
     '!./src/main.ts',
