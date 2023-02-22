@@ -11,6 +11,7 @@ import {
   OnApplicationBootstrap,
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
+import { Credentials } from 'aws-sdk';
 import { launch as ddbLocalLaunch } from 'dynamodb-local';
 import { databaseConfig } from '../config/database.config';
 
@@ -35,12 +36,15 @@ export class DynamoDbLocalSetupService implements OnApplicationBootstrap {
       await ddbLocalLaunch(this.dbConfig.port);
       this.logger.log('DynamoDB local instance launched');
     }
-    
+
     await this.createApiResourceTable();
   }
 
   private async createApiResourceTable() {
-    const ddbClient = new DynamoDBClient({ endpoint: this.dbConfig.endpoint });
+    const ddbClient = new DynamoDBClient({
+      endpoint: this.dbConfig.endpoint,
+      credentials: new Credentials('fakeMyKeyId', 'fakeSecretAccessKey'),
+    });
     let attempt = 0;
 
     do {
