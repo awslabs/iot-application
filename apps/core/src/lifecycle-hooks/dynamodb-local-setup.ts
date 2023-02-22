@@ -18,7 +18,7 @@ import { databaseConfig } from '../config/database.config';
 const apiResourceTable =
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('../../api-resource-table-properties.js') as CreateTableCommandInput;
-const TABLE_CREATION_ATTEMPT_NUMBER = 120;
+const TABLE_CREATION_ATTEMPT_NUMBER = 60;
 const TABLE_CREATION_ATTEMPT_DELAY = 1000; // in milliseconds
 
 @Injectable()
@@ -35,8 +35,8 @@ export class DynamoDbLocalSetupService implements OnApplicationBootstrap {
       this.logger.log('Launching DynamoDB local instance');
       await ddbLocalLaunch(this.dbConfig.port);
       this.logger.log('DynamoDB local instance launched');
-      await this.createApiResourceTable();
     }
+    await this.createApiResourceTable();
   }
 
   private async createApiResourceTable() {
