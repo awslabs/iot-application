@@ -22,6 +22,7 @@ import { nanoid } from 'nanoid';
 import { RESOURCE_TYPES } from './dashboard.constants';
 import { AppModule } from '../app.module';
 import { getAccessToken } from '../testing/jwt-generator';
+import { Credentials } from 'aws-sdk';
 
 const dummyId = 'zckYx-InI8_f'; // 12 character
 const dummyName = 'dashboard name';
@@ -34,7 +35,11 @@ const dummyDefinition = plainToClass(DashboardDefinition, {
 const databaseEndpoint = 'http://localhost:8001';
 const databaseTableName = 'dashboard-api-e2e-test';
 const dbDocClient = DynamoDBDocumentClient.from(
-  new DynamoDBClient({ endpoint: databaseEndpoint }),
+  new DynamoDBClient({
+    endpoint: databaseEndpoint,
+    region: 'us-west-2',
+    credentials: new Credentials('fakeMyKeyId', 'fakeSecretAccessKey'),
+  }),
   {
     marshallOptions: {
       convertClassInstanceToMap: true,
