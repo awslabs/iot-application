@@ -35,9 +35,8 @@ export class DynamoDbLocalSetupService implements OnApplicationBootstrap {
       this.logger.log('Launching DynamoDB local instance');
       await ddbLocalLaunch(this.dbConfig.port);
       this.logger.log('DynamoDB local instance launched');
+      await this.createApiResourceTable();
     }
-
-    await this.createApiResourceTable();
   }
 
   private async createApiResourceTable() {
