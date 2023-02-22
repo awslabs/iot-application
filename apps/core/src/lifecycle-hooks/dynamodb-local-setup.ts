@@ -17,7 +17,7 @@ import { databaseConfig } from '../config/database.config';
 const apiResourceTable =
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('../../api-resource-table-properties.js') as CreateTableCommandInput;
-const TABLE_CREATION_ATTEMPT_NUMBER = 30;
+const TABLE_CREATION_ATTEMPT_NUMBER = 120;
 const TABLE_CREATION_ATTEMPT_DELAY = 1000; // in milliseconds
 
 @Injectable()
