@@ -21,11 +21,11 @@ jobs:
           node-version: 18
           cache: 'yarn'
 
-      - name: Install Java 🔧
-        uses: actions/setup-java@v3
+      - name: Setup DynamoDB Local 🔧
+        uses: rrainn/dynamodb-action@v2.0.1
         with:
-          distribution: 'corretto'
-          java-version: '17'
+          port: 8001
+          cors: '*'
 
       - name: Install Dependencies 🔩
         run: yarn install
