@@ -11,8 +11,8 @@
     "start:prod": "node dist/main",
     "lint": "tsc --noEmit && TIMING=1 eslint \"{src,test}/**/*.ts\" --max-warnings 0",
     "repl": "nest start --entryFile repl --watch",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test": "yarn cognito-local & jest --coverage",
+    "test:watch": "yarn cognito-local & jest --watch"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.259.0",
