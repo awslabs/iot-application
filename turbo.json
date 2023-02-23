@@ -5,10 +5,13 @@
       "outputs": ["build/**", "dist/**"],
       "dependsOn": ["^build"],
       "env": [
+        "AWS_ACCESS_KEY_ID",
+        "AWS_SECRET_ACCESS_KEY",
         "DATABASE_ENDPOINT",
         "DATABASE_TABLE_NAME",
         "DATABASE_PORT",
-        "DATABASE_LAUNCH_LOCAL"
+        "DATABASE_LAUNCH_LOCAL",
+        "DATABASE_REGION"
       ]
     },
     "clean": {
