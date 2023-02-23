@@ -11,15 +11,16 @@ import {
   OnApplicationBootstrap,
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import { Credentials } from 'aws-sdk';
 import { launch as ddbLocalLaunch } from 'dynamodb-local';
+import { credentials, region } from '../testing/aws-configuration';
 import { databaseConfig } from '../config/database.config';
 
 const apiResourceTable =
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('../../api-resource-table-properties.js') as CreateTableCommandInput;
-const TABLE_CREATION_ATTEMPT_NUMBER = 60;
+const TABLE_CREATION_ATTEMPT_NUMBER = 30;
 const TABLE_CREATION_ATTEMPT_DELAY = 1000; // in milliseconds
+const DYNAMODB_LOCAL_OPT_SHARED_DB = '-sharedDb';
 
 @Injectable()
 export class DynamoDbLocalSetupService implements OnApplicationBootstrap {
@@ -31,19 +32,22 @@ export class DynamoDbLocalSetupService implements OnApplicationBootstrap {
   ) {}
 
   async onApplicationBootstrap() {
-    if (this.dbConfig.launchLocal) {
-      this.logger.log('Launching DynamoDB local instance');
-      await ddbLocalLaunch(this.dbConfig.port);
-      this.logger.log('DynamoDB local instance launched');
+    if (!this.dbConfig.launchLocal) {
+      return;
     }
+    this.logger.log('Launching DynamoDB local instance');
+    await ddbLocalLaunch(this.dbConfig.port, null, [
+      DYNAMODB_LOCAL_OPT_SHARED_DB,
+    ]);
+    this.logger.log('DynamoDB local instance launched');
     await this.createApiResourceTable();
   }
 
   private async createApiResourceTable() {
     const ddbClient = new DynamoDBClient({
       endpoint: this.dbConfig.endpoint,
-      credentials: new Credentials('fakeMyKeyId', 'fakeSecretAccessKey'),
-      region: 'us-west-2',
+      credentials,
+      region,
     });
     let attempt = 0;
 

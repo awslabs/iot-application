@@ -22,7 +22,7 @@ import { nanoid } from 'nanoid';
 import { RESOURCE_TYPES } from './dashboard.constants';
 import { AppModule } from '../app.module';
 import { getAccessToken } from '../testing/jwt-generator';
-import { Credentials } from 'aws-sdk';
+import { credentials, region } from '../testing/aws-configuration';
 
 const dummyId = 'zckYx-InI8_f'; // 12 character
 const dummyName = 'dashboard name';
@@ -37,8 +37,8 @@ const databaseTableName = 'dashboard-api-e2e-test';
 const dbDocClient = DynamoDBDocumentClient.from(
   new DynamoDBClient({
     endpoint: databaseEndpoint,
-    region: 'us-west-2',
-    credentials: new Credentials('fakeMyKeyId', 'fakeSecretAccessKey'),
+    credentials,
+    region,
   }),
   {
     marshallOptions: {
@@ -162,7 +162,7 @@ describe('DashboardsModule', () => {
     process.env.DATABASE_LAUNCH_LOCAL = 'false';
     process.env.AWS_ACCESS_KEY_ID = 'fakeMyKeyId';
     process.env.AWS_SECRET_ACCESS_KEY = 'fakeSecretAccessKey';
-    process.env.DATABASE_REGION = 'us-west-2';
+    process.env.AWS_REGION = 'us-west-2';
 
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule],
@@ -183,7 +183,7 @@ describe('DashboardsModule', () => {
     await instance.ready();
 
     bearerToken = await getAccessToken();
-  }, 120000);
+  });
 
   afterAll(async () => {
     await app.close();

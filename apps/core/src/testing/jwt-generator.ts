@@ -49,7 +49,11 @@ const userPoolClient = {
 };
 const authenticationSource = 'RefreshTokens';
 
-export const getJwt = async () => {
+/**
+ * Returns Access, ID, and refresh JWT tokens that are localCognitoJwtVerifier compactible.
+ * @returns Access, ID, and refresh tokens in JWT format
+ */
+export const getJwtTokens = async () => {
   const jwt = await jwtTokenGenerator.generate(
     ctx,
     user,
@@ -63,7 +67,7 @@ export const getJwt = async () => {
 };
 
 export const getAccessToken = async (): Promise<string> => {
-  const bearerToken = await getJwt();
+  const bearerToken = await getJwtTokens();
 
   return bearerToken.AccessToken;
 };

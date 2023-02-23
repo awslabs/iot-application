@@ -15,7 +15,6 @@ import { ConfigType } from '@nestjs/config';
 import { CreateDashboardDto, Dashboard, DashboardSummary } from 'core-types';
 import { plainToClass } from 'class-transformer';
 import { nanoid } from 'nanoid';
-import { Credentials } from 'aws-sdk';
 import { DATABASE_GSI, MESSAGES, RESOURCE_TYPES } from './dashboard.constants';
 import { databaseConfig } from '../config/database.config';
 
@@ -31,8 +30,6 @@ export class DashboardsService {
     this.dbDocClient = DynamoDBDocumentClient.from(
       new DynamoDBClient({
         endpoint: dbConfig.endpoint,
-        region: 'us-west-2',
-        credentials: new Credentials('fakeMyKeyId', 'fakeSecretAccessKey'),
       }),
       {
         marshallOptions: {

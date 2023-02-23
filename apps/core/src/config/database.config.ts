@@ -11,7 +11,6 @@ export const configFactory = () => ({
       : parseInt(process.env.DATABASE_PORT),
   endpoint: process.env.DATABASE_ENDPOINT ?? 'http://localhost:8000',
   tableName: process.env.DATABASE_TABLE_NAME ?? 'ApiResourceTable',
-  region: process.env.DATABASE_REGION ?? 'us-west-2',
 });
 
 export const databaseConfig = registerAs('database', configFactory);
