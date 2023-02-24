@@ -20,6 +20,22 @@ Visualize your AWS IoT data with the IoT Application.
    yarn dev
    ```
 
+## Running the tests locally
+
+Run local test command `yarn test` to test the application. The command is "batteries included" - it has everything needed to run and test the application locally.
+
+## Environments
+
+### Service Dependencies
+
+The table below lists the service dependencies for different environments.
+
+| Catagory\Environments | [Local Develoepment](#getting-started-with-local-development)                                | [Local Test](#running-the-tests-locally)                                              |
+|-----------------------|----------------------------------------------------------------|-----------------------------------------------------------------------|
+| Authentication        | [cognito-local](https://www.npmjs.com/package/cognito-local)   | [cognito-local](https://www.npmjs.com/package/cognito-local)          |
+| App API Database      | [dynamodb-local](https://www.npmjs.com/package/dynamodb-local) | [dynamodb-local](https://www.npmjs.com/package/dynamodb-local)        |
+| App API Authorization | [cognito-local](https://www.npmjs.com/package/cognito-local)   | [JWT generated from secret](./apps/core/src/testing/jwt-generator.ts) |
+
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
