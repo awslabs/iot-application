@@ -20,6 +20,18 @@ Visualize your AWS IoT data with the IoT Application.
    yarn dev
    ```
 
+## Environments
+
+### Service Dependencies
+
+The table below lists the service dependencies for different environments.
+
+| Catagory\Environments | Local Develoepment (`yarn dev`)                                | Local Test (`yarn test`)                                              |
+|-----------------------|----------------------------------------------------------------|-----------------------------------------------------------------------|
+| Authentication        | [cognito-local](https://www.npmjs.com/package/cognito-local)   | [cognito-local](https://www.npmjs.com/package/cognito-local)          |
+| App API Database      | [dynamodb-local](https://www.npmjs.com/package/dynamodb-local) | [dynamodb-local](https://www.npmjs.com/package/dynamodb-local)        |
+| App API Authorization | [cognito-local](https://www.npmjs.com/package/cognito-local)   | [JWT generated from secret](./apps/core/src/testing/jwt-generator.ts) |
+
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
