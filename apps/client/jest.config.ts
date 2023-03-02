@@ -4,7 +4,13 @@ import baseConfig from 'jest-config/base';
 
 const config: Config = {
   ...baseConfig,
-  collectCoverageFrom: ['**/src/**/*.{js,ts,jsx,tsx}'],
+  collectCoverageFrom: [
+    '**/src/**/*.{js,ts,jsx,tsx}',
+    '!**/src/**/*.d.ts',
+    '!./src/test/**/*',
+    '!./src/index.tsx',
+    '!./src/router/router.ts',
+  ],
   displayName: 'Client',
   moduleFileExtensions: ['js', 'jsx', 'json', 'ts', 'tsx'],
   // required to handle CSS
