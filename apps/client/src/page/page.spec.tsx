@@ -3,8 +3,11 @@ import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Page } from './page';
+import { PageCrumb } from '../breadcrumbs/page-crumb.type';
+import { NonEmptyList } from '../types/non-empty-list';
 
 const MockContent = () => <div>Content</div>;
+const mockCrumbs: NonEmptyList<PageCrumb> = [{ text: 'Home', href: '/' }];
 
 describe('<Page />', () => {
   describe('Navigation visibility', () => {
@@ -12,6 +15,7 @@ describe('<Page />', () => {
       render(
         <Page
           content={<MockContent />}
+          crumbs={mockCrumbs}
           pageType="default"
           location="/"
           setLocation={jest.fn()}
@@ -33,6 +37,7 @@ describe('<Page />', () => {
       render(
         <Page
           content={<MockContent />}
+          crumbs={mockCrumbs}
           pageType="default"
           location="/"
           setLocation={jest.fn()}
@@ -57,6 +62,7 @@ describe('<Page />', () => {
       render(
         <Page
           content={<MockContent />}
+          crumbs={mockCrumbs}
           pageType="default"
           location="/"
           setLocation={jest.fn()}

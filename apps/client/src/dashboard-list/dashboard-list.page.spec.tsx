@@ -7,8 +7,6 @@ describe('<DashboardListPage />', () => {
     renderWithRouter('/dashboards');
 
     expect(screen.getByRole('heading')).toHaveTextContent('Dashboards');
-
-    expect(screen.getAllByRole('link')[0]).toHaveTextContent('Dashboard 1');
   });
 
   test('as a user, I want to navigate to my dashboard from my dashboard list', async () => {
