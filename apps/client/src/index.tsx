@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import '@cloudscape-design/global-styles/index.css';
 
-import router from './routes/router';
+import { router } from './router/router';
 
 const rootEl = document.getElementById('root');
 

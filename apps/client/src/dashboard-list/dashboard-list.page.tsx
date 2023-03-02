@@ -1,9 +1,8 @@
-import * as React from 'react';
 import Table from '@cloudscape-design/components/table';
 import Header from '@cloudscape-design/components/header';
 import { Link } from 'react-router-dom';
 
-const DashboardList: React.FC = () => {
+export const DashboardListPage = () => {
   // TODO: Retrieve this from the dashboard api
   const dashboards = [
     {
@@ -62,8 +61,7 @@ const DashboardList: React.FC = () => {
       ]}
       items={dashboards}
       header={<Header>Dashboards</Header>}
+      variant="full-page"
     />
   );
 };
-
-export default DashboardList;
