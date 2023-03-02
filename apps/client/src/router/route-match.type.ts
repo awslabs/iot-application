@@ -1,6 +1,7 @@
+import type { PageCrumb } from '../breadcrumbs/page-crumb.type';
 import type { PageType } from '../page/page-type.type';
 
 export interface RouteMatch {
-  handle?: { pageType: PageType };
+  handle?: { crumbs: PageCrumb[]; pageType: PageType };
   pathname: string;
 }
