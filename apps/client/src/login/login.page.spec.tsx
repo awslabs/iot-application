@@ -4,7 +4,7 @@ import { renderWithRouter } from '../test/render-with-router';
 
 describe('<LoginForm />', () => {
   test('as a user, I want to login to my application', () => {
-    renderWithRouter('/login');
+    renderWithRouter('/');
 
     expect(screen.getByRole('heading')).toHaveTextContent('Login');
   });

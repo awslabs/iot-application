@@ -19,6 +19,7 @@ Visualize your AWS IoT data with the IoT Application.
    ```sh
    yarn dev
    ```
+1. Log in with test user credentials in https://github.com/awslabs/iot-application/blob/main/apps/core/.cognito/db/us-west-2_h23TJjQR9.json
 
 ## Running the tests locally
 
