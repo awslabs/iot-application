@@ -22,8 +22,6 @@
     "@iot-app-kit/source-iotsitewise": "^2.6.5",
     "@tanstack/react-query": "^4.24.10",
     "@tanstack/react-query-devtools": "^4.24.14",
-    "ajv": "^8.12.0",
-    "lib": "*",
     "openapi-typescript": "^6.1.1",
     "openapi-typescript-codegen": "^0.23.0",
     "react": "^18.2.0",

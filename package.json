@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "aws-amplify": "^5.0.12",
-    "core-types": "*"
   },
   "devDependencies": {
     "@playwright/test": "^1.28.1",
