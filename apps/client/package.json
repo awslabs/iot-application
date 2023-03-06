@@ -8,8 +8,10 @@
     "dev": "PORT=3001 react-app-rewired start",
     "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts*\" --max-warnings 0",
     "lint:fix": "eslint \"src/**/*.ts*\" --fix",
+    "prettier:generated": "prettier --write \"src/services/generated/**/*.ts\"",
     "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "types:openapi": "openapi -i http://localhost:3000/docs-json -o src/services/generated --exportSchemas true --useUnionTypes && yarn prettier:generated"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^4.3.6",
@@ -18,8 +20,12 @@
     "@cloudscape-design/global-styles": "^1.0.6",
     "@iot-app-kit/dashboard": "^3.0.0-alpha.3",
     "@iot-app-kit/source-iotsitewise": "^2.6.5",
-    "core-types": "*",
+    "@tanstack/react-query": "^4.24.10",
+    "@tanstack/react-query-devtools": "^4.24.14",
+    "ajv": "^8.12.0",
     "lib": "*",
+    "openapi-typescript": "^6.1.1",
+    "openapi-typescript-codegen": "^0.23.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0"
@@ -33,6 +39,8 @@
     "@babel/preset-typescript": "^7.18.6",
     "@babel/runtime": "^7.20.13",
     "@cloudscape-design/jest-preset": "^2.0.8",
+    "@tanstack/eslint-plugin-query": "^4.24.11",
+    "@tanstack/react-query-devtools": "^4.24.14",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",

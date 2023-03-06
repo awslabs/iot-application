@@ -13,7 +13,7 @@ import { NestFastifyApplication } from '@nestjs/platform-fastify';
  * @see {@link https://docs.nestjs.com/security/csrf | CSRF Protection}
  */
 export const bootstrapSecurity = async (app: NestFastifyApplication) => {
-  app.enableCors();
+  app.enableCors({ origin: 'http://localhost:3001' });
   await app.register(helmet);
   await app.register(fastifyCookie);
   await app.register(fastifyCsrf);

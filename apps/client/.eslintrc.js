@@ -2,7 +2,7 @@ module.exports = {
   env: {
     browser: true,
   },
-  extends: ['custom'],
+  extends: ['custom', 'plugin:@tanstack/eslint-plugin-query/recommended'],
   parserOptions: {
     ecmaVersion: 2020,
     project: 'tsconfig.json',
@@ -23,4 +23,5 @@ module.exports = {
     },
   ],
   root: true,
+  plugins: ['@tanstack/query'],
 };
