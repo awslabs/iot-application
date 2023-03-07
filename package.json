@@ -13,9 +13,6 @@
     "test:e2e": "playwright test",
     "test:watch": "turbo run test:watch"
   },
-  "dependencies": {
-    "aws-amplify": "^5.0.12",
-  },
   "devDependencies": {
     "@playwright/test": "^1.28.1",
     "@types/jest": "29.2.4",

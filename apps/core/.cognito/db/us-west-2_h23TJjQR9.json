@@ -17,6 +17,22 @@
       "UserStatus": "CONFIRMED",
       "UserCreateDate": "2023-02-18T10:18:04.493Z",
       "UserLastModifiedDate": "2023-02-18T10:20:48.241Z"
+    },
+    "tracfren": {
+      "Attributes": [
+        {
+          "Name": "sub",
+          "Value": "83e85340-bcb1-4f1b-ab70-3afd858f65a7"
+        }
+      ],
+      "Enabled": true,
+      "Password": "polkmnb1@Q",
+      "RefreshTokens": [],
+      "UserCreateDate": "2023-03-07T16:25:13.374Z",
+      "UserLastModifiedDate": "2023-03-07T16:25:13.374Z",
+      "Username": "tracfren",
+      "UserStatus": "UNCONFIRMED",
+      "ConfirmationCode": "092467"
     }
   },
   "Options": {
