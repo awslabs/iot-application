@@ -14,7 +14,6 @@ import { Navigation } from '../components/navigation/navigation';
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import invariant from 'tiny-invariant';
 
 import {
   useDashboardsQuery,
@@ -25,7 +24,7 @@ import messages from '../../assets/messages';
 
 import { DeleteModal } from './components/delete-modal/delete-modal';
 import { useNotifications } from '../hooks/use-notifications';
-import { SpaceBetween } from '@cloudscape-design/components';
+import { Input, SpaceBetween } from '@cloudscape-design/components';
 
 export const DASHBOARDS_INDEX_ROUTE = {
   index: true,
@@ -33,7 +32,7 @@ export const DASHBOARDS_INDEX_ROUTE = {
 };
 
 export function DashboardsIndexPage() {
-  const partialUpdateDashboardMutation = usePartialUpdateDashboardMutation();
+  const updateDashboardMutation = usePartialUpdateDashboardMutation();
   const deleteDashboardMutation = useDeleteDashboardMutation();
   const navigate = useNavigate();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -100,19 +99,33 @@ export function DashboardsIndexPage() {
               { text: messages.appName, href: '/' },
               { text: messages.dashboards, href: '/dashboards' },
             ]}
+            onFollow={(event) => {
+              event.preventDefault();
+              navigate(event.detail.href);
+            }}
           />
         }
         contentType="table"
         content={
           <Table
             {...collectionProps}
-            submitEdit={(item) => partialUpdateDashboardMutation.mutate(item)}
+            submitEdit={async (item, column, newValue) => {
+              console.log(item);
+              console.log(column);
+              await updateDashboardMutation.mutateAsync({
+                id: item.id,
+                [column.id as string]: newValue,
+              });
+            }}
             selectionType="single"
             selectedItems={selectedItems}
             stickyHeader={true}
             header={
               <Header
                 variant="h1"
+                description={`
+                  Manage your dashboards or select one to begin monitoring your live industrial data.
+                `}
                 actions={
                   <SpaceBetween direction="horizontal" size="xs">
                     <Button
@@ -125,7 +138,7 @@ export function DashboardsIndexPage() {
                     <Button
                       onClick={() => {
                         if (selectedDashboard) {
-                          deleteDashboardMutation.mutate(selectedDashboard.id);
+                          setShowDeleteModal(true);
                         }
                       }}
                       disabled={!selectedDashboard}
@@ -144,11 +157,68 @@ export function DashboardsIndexPage() {
                 header: messages.name,
                 cell: (d) => <Link to={`/dashboards/${d.id}`}>{d.name}</Link>,
                 sortingField: 'name',
+                editConfig: {
+                  ariaLabel: 'Name',
+                  editIconAriaLabel: 'editable',
+                  errorIconAriaLabel: 'Name Error',
+                  editingCell: (
+                    dashboard,
+                    {
+                      currentValue,
+                      setValue,
+                    }: {
+                      currentValue?: string;
+                      setValue: (name: string) => void;
+                    },
+                  ) => {
+                    const value = currentValue ?? dashboard.name;
+
+                    return (
+                      <Input
+                        autoFocus={true}
+                        placeholder="Enter dashboard name"
+                        value={value}
+                        onChange={(event) => {
+                          setValue(event.detail.value);
+                        }}
+                      />
+                    );
+                  },
+                },
               },
               {
                 id: 'description',
                 header: messages.description,
                 cell: (d) => d.description,
+                sortingField: 'description',
+                editConfig: {
+                  ariaLabel: 'Description',
+                  editIconAriaLabel: 'editable',
+                  errorIconAriaLabel: 'Description Error',
+                  editingCell: (
+                    dashboard,
+                    {
+                      currentValue,
+                      setValue,
+                    }: {
+                      currentValue?: string;
+                      setValue: (name: string) => void;
+                    },
+                  ) => {
+                    const value = currentValue ?? dashboard.description;
+
+                    return (
+                      <Input
+                        autoFocus={true}
+                        placeholder="Enter dashboard description"
+                        value={value}
+                        onChange={(event) => {
+                          setValue(event.detail.value);
+                        }}
+                      />
+                    );
+                  },
+                },
               },
             ]}
             filter={
@@ -215,6 +285,7 @@ export function DashboardsIndexPage() {
           }
         }}
         name={selectedDashboard?.name ?? 'Loading...'}
+        isLoading={deleteDashboardMutation.isLoading}
       />
     </>
   );

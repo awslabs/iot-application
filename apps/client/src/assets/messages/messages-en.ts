@@ -8,6 +8,7 @@ export const messages = {
   dashboards: 'Dashboards',
   dashboards2: 'dashboards',
   delete: 'Delete',
+  deleteDashboard: 'Delete dashboard',
   description: 'Description',
   findDashboards: 'Find dashboards',
   home: 'Home',

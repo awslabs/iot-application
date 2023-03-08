@@ -16,7 +16,10 @@
       "Enabled": true,
       "UserStatus": "CONFIRMED",
       "UserCreateDate": "2023-02-18T10:18:04.493Z",
-      "UserLastModifiedDate": "2023-02-18T10:20:48.241Z"
+      "UserLastModifiedDate": "2023-02-18T10:20:48.241Z",
+      "RefreshTokens": [
+        "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2duaXRvOnVzZXJuYW1lIjoidGVzdC11c2VyIiwiZW1haWwiOiJ0ZXN0LXVzZXJAYW1hem9uLmNvbSIsImlhdCI6MTY3ODIxMjAyMywianRpIjoiNjhiOGI1YmEtNjVmZS00ODIxLWJjYjgtOTJmMDc1NDFjZjQ4IiwiZXhwIjoxNjc4ODE2ODIzLCJpc3MiOiJodHRwczovL2NvZ25pdG8taWRwLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tL3VzLXdlc3QtMl9oMjNUSmpRUjkifQ.BrqjdtQdK5oXtgX5ST1N2y6AyK5L_YfAcnYVFlUsHwfXjIWGoTLSkJbuGltYvns_fmT7sWpc7KveD1pEZTEFHpQwYe_Fg7Iu9yPHEX_F4PddXpUj-J01fyDpxyOEKEPUJ-rwKV7iLgn5TGLg0Y48jz5WuoxoixtIf6Fz7fuAOjpxYRNLsJbaNg8vku1jtV-ZeWbUHZeAi9Jf2YiQgVwhcH9ELkyi45KgFuudqCIC9TfbT6VoeDUcy-mo46bqAon_ZiOtF-lzsexdrsq2RcddJTdoXVBEZhsTJNDGA0G3XjDy796udnw2WkkR4ZWMdIUps5-FySyrN6uuT9OqLB61PQ"
+      ]
     },
     "tracfren": {
       "Attributes": [

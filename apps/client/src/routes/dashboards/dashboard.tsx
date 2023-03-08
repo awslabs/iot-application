@@ -1,7 +1,7 @@
 import AppLayout from '@cloudscape-design/components/app-layout';
 import Button from '@cloudscape-design/components/button';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import { useDashboardQuery, useDeleteDashboardMutation } from './hooks/hooks';
 import {
   BreadcrumbGroup,
@@ -16,6 +16,7 @@ import { Navigation } from '../components/navigation/navigation';
 import messages from 'src/assets/messages';
 import { useNotifications } from '../hooks/use-notifications';
 import { DeleteModal } from './components/delete-modal/delete-modal';
+import { useIsFetching } from '@tanstack/react-query';
 
 export const DASHBOARD_ROUTE = {
   path: ':dashboardId',
@@ -32,6 +33,12 @@ export function DashboardPage() {
   const [mode, setMode] = useState<Mode>('view');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [navigationOpen, setNavigationOpen] = useState(false);
+  const navigate = useNavigate();
+  const isFetching = useIsFetching();
+
+  if (deleteDashboardMutation.isSuccess && !isFetching) {
+    return <Navigate to="/dashboards" />;
+  }
 
   return (
     <>
@@ -46,15 +53,23 @@ export function DashboardPage() {
                 href: `/dashboards/${dashboard.data?.id ?? ''}`,
               },
             ]}
+            onFollow={(event) => {
+              event.preventDefault();
+              navigate(event.detail.href);
+            }}
           />
         }
+        contentType="dashboard"
         content={
           <ContentLayout
             header={
               <Header
                 variant="h1"
+                description={
+                  dashboard.data?.description ?? 'Loading description...'
+                }
                 actions={
-                  <SpaceBetween direction="horizontal" size="xs">
+                  <SpaceBetween direction="horizontal" size="m">
                     <SegmentedControl
                       selectedId={mode}
                       onChange={({ detail }) =>
@@ -91,6 +106,7 @@ export function DashboardPage() {
         navigationOpen={navigationOpen}
         toolsHide={true}
       />
+
       <DeleteModal
         visible={showDeleteModal}
         onDiscard={() => setShowDeleteModal(false)}
@@ -102,6 +118,7 @@ export function DashboardPage() {
           return;
         }}
         name={dashboard.data?.name ?? 'Loading...'}
+        isLoading={deleteDashboardMutation.isLoading}
       />
     </>
   );

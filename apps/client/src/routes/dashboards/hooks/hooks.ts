@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { queryClient } from '../../root';
+import { queryClient } from '../../../index';
 
 import {
   createDashboard,
@@ -12,14 +12,17 @@ import {
 } from '../../../services';
 import invariant from 'tiny-invariant';
 
-const DASHBOARDS_QUERY_KEY = ['dashboards'];
-const DASHBOARD_SUMMARIES_QUERY_KEY = [...DASHBOARDS_QUERY_KEY, 'summaries'];
-const DASHBOARD_SUMMARY_QUERY_KEY = (id?: Dashboard['id']) => [
+export const DASHBOARDS_QUERY_KEY = ['dashboards'];
+export const DASHBOARD_SUMMARIES_QUERY_KEY = [
+  ...DASHBOARDS_QUERY_KEY,
+  'summaries',
+];
+export const DASHBOARD_SUMMARY_QUERY_KEY = (id?: Dashboard['id']) => [
   ...DASHBOARD_SUMMARIES_QUERY_KEY,
   id,
 ];
-const DASHBOARD_DETAILS_QUERY_KEY = [...DASHBOARDS_QUERY_KEY, 'details'];
-const DASHBOARD_DETAIL_QUERY_KEY = (id?: Dashboard['id']) => [
+export const DASHBOARD_DETAILS_QUERY_KEY = [...DASHBOARDS_QUERY_KEY, 'details'];
+export const DASHBOARD_DETAIL_QUERY_KEY = (id?: Dashboard['id']) => [
   ...DASHBOARD_DETAILS_QUERY_KEY,
   id,
 ];
@@ -83,6 +86,9 @@ export const usePartialUpdateDashboardMutation = () => {
       // get the rest of the dashboard
       const dashboard = await readDashboard(update.id);
       const { id, ...dto } = { ...dashboard, ...update };
+      console.table(dashboard);
+      console.table(update);
+      console.table(dto);
       return updateDashboard(id, dto);
     },
     onSuccess: async (updatedDashboard) => {

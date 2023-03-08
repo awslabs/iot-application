@@ -1,24 +1,14 @@
-import { Outlet } from 'react-router-dom';
-import {
-  QueryCache,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { INDEX_ROUTE } from '.';
 import { DASHBOARDS_ROUTE } from './dashboards/dashboards';
-import { TopNavigation } from '@cloudscape-design/components';
+import { Autosuggest, TopNavigation } from '@cloudscape-design/components';
+import messages from '../assets/messages';
+import { DASHBOARD_SUMMARIES_QUERY_KEY } from './dashboards/hooks/hooks';
 //import { Authenticator } from '@aws-amplify/ui-react';
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 10,
-    },
-  },
-  queryCache: new QueryCache({}),
-});
+import { useState } from 'react';
+import { listDashboards } from 'src/services';
+import { useQuery } from '@tanstack/react-query';
 
 export const ROOT_ROUTE = {
   path: '/',
@@ -27,12 +17,25 @@ export const ROOT_ROUTE = {
 };
 
 export function Root() {
+  const navigate = useNavigate();
+  const [searchText, setSearchText] = useState('');
+
+  const dashboards = useQuery({
+    queryKey: DASHBOARD_SUMMARIES_QUERY_KEY,
+    queryFn: listDashboards,
+    enabled: false,
+  });
+
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <TopNavigation
         identity={{
           href: '/',
-          title: 'IoT Application',
+          title: messages.appName,
+          onFollow: (event) => {
+            event.preventDefault();
+            navigate('/');
+          },
         }}
         utilities={[
           {
@@ -44,14 +47,14 @@ export function Root() {
               {
                 id: 'documentation',
                 text: 'Documentation',
-                href: 'https://github.com',
+                href: 'https://github.com/awslabs/iot-application',
                 external: true,
                 externalIconAriaLabel: ' (opens in new tab)',
               },
               {
                 id: 'feedback',
                 text: 'Feedback',
-                href: 'https://github.com/',
+                href: 'https://github.com/awslabs/iot-application',
                 external: true,
                 externalIconAriaLabel: ' (opens in new tab)',
               },
@@ -70,12 +73,42 @@ export function Root() {
           overflowMenuBackIconAriaLabel: 'Back',
           overflowMenuDismissIconAriaLabel: 'Close menu',
         }}
+        search={
+          <Autosuggest
+            options={dashboards.data?.map((d) => ({
+              value: d.id,
+              label: d.name,
+              description: d.description,
+              iconName: 'file',
+            }))}
+            statusType={dashboards.isLoading ? 'loading' : 'finished'}
+            placeholder="Find dashboard"
+            onSelect={(event) => {
+              const selectedDashboard = dashboards.data?.find(
+                (d) => d.id === event.detail.value,
+              );
+
+              if (selectedDashboard) {
+                setSearchText(selectedDashboard.name);
+                navigate(`/dashboards/${selectedDashboard.id}`);
+              }
+            }}
+            value={searchText}
+            onChange={(event) => {
+              setSearchText(event.detail.value);
+            }}
+            enteredTextLabel={(value) => `Name: ${value}`}
+            onLoadItems={() => {
+              void dashboards.refetch();
+            }}
+            loadingText="Loading dashboards"
+            empty="No dashboards found"
+          />
+        }
       />
 
       <Outlet />
-
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    </>
   );
 }
 /*
