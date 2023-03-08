@@ -281,7 +281,11 @@ export function DashboardsIndexPage() {
         onDiscard={() => setShowDeleteModal(false)}
         onDelete={() => {
           if (selectedDashboard) {
-            deleteDashboardMutation.mutate(selectedDashboard.id);
+            deleteDashboardMutation.mutate(selectedDashboard.id, {
+              onSuccess: () => {
+                setShowDeleteModal(false);
+              },
+            });
           }
         }}
         name={selectedDashboard?.name ?? 'Loading...'}
