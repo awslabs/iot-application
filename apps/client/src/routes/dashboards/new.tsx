@@ -45,7 +45,9 @@ export function NewDashboardPage() {
   const { setNotifications } = useNotifications();
 
   const createDashboardMutation = useMutation({
-    mutationFn: (dashboard: Omit<Dashboard, 'id'>) => {
+    mutationFn: (
+      dashboard: Omit<Dashboard, 'id' | 'lastUpdateDate' | 'creationDate'>,
+    ) => {
       return createDashboard(dashboard);
     },
     onMutate: async () => {

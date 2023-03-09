@@ -13,7 +13,7 @@ import TextFilter, {
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useDeleteDashboard } from 'src/components';
+import { useDeleteDashboard, useNotifications } from 'src/components';
 
 import messages from 'src/assets/messages';
 
@@ -35,7 +35,7 @@ const DEFAULT_PREFERENCES = {
   pageSize: 10,
   wrapLines: true,
   stripedRows: false,
-  visibleContent: ['name', 'description', 'favorite'],
+  visibleContent: ['name', 'description', 'favorite', 'lastUpdateDate'],
 } as const;
 
 export function DashboardCollection({ type, onlyFavorites }: Props) {
@@ -47,6 +47,8 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
   const createDashboardMutation = useCreateDashboardMutation();
 
   const dashboards = onlyFavorites ? data.filter((d) => d.isFavorite) : data;
+
+  const { setNotifications } = useNotifications();
 
   const {
     actions,
@@ -134,7 +136,6 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
               confirmLabel={messages.confirm}
               cancelLabel={messages.cancel}
               onConfirm={({ detail }) => {
-                console.log(detail);
                 setPreferences(detail as typeof preferences);
               }}
               preferences={preferences}
@@ -174,6 +175,14 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
                         id: 'favorite',
                         label: 'Favorite',
                       },
+                      {
+                        id: 'lastUpdateDate',
+                        label: 'Last update date',
+                      },
+                      {
+                        id: 'creationDate',
+                        label: 'Creation date',
+                      },
                     ],
                   },
                 ],
@@ -183,6 +192,8 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
           header={
             <CollectionHeader
               selectedDashboards={[...selectedItems]}
+              isCopyLoading={createDashboardMutation.isLoading}
+              isFavoriteLoading={updateDashboardMutation.isLoading}
               onCopy={() => {
                 void Promise.allSettled(
                   selectedItems.map(async ({ id }) => {
@@ -197,6 +208,25 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
                     'dashboards',
                     'summaries',
                   ]);
+
+                  setNotifications((prevNotifications) => {
+                    return [
+                      ...prevNotifications,
+                      {
+                        id: 'copy completed',
+                        type: 'success',
+                        content: 'Dashboards copied successfully.',
+                        dismissible: true,
+                        onDismiss: () => {
+                          setNotifications((prev) => {
+                            return prev.filter(
+                              (n) => n.id !== 'copy completed',
+                            );
+                          });
+                        },
+                      },
+                    ];
+                  });
                 });
               }}
               onFavorite={() => {
@@ -207,7 +237,31 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
                       isFavorite: !dashboard.isFavorite,
                     }),
                   ),
-                );
+                ).then(async () => {
+                  await queryClient.invalidateQueries([
+                    'dashboards',
+                    'summaries',
+                  ]);
+
+                  setNotifications((prevNotifications) => {
+                    return [
+                      ...prevNotifications,
+                      {
+                        id: 'favorite completed',
+                        type: 'success',
+                        content: 'Dashboards updated successfully.',
+                        dismissible: true,
+                        onDismiss: () => {
+                          setNotifications((prev) => {
+                            return prev.filter(
+                              (n) => n.id !== 'favorite completed',
+                            );
+                          });
+                        },
+                      },
+                    ];
+                  });
+                });
               }}
               heading="Favorites"
               description="Your favorite dashboards, all in one place."
@@ -242,6 +296,17 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
                   );
                 },
               },
+              {
+                id: 'lastUpdateDate',
+                header: 'Last update date',
+                content: (dashboard) => dashboard.lastUpdateDate,
+              },
+
+              {
+                id: 'creationDate',
+                header: 'Creation date',
+                content: (dashboard) => dashboard.creationDate,
+              },
             ],
           }}
         />
@@ -260,6 +325,8 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
           }}
           header={
             <CollectionHeader
+              isCopyLoading={createDashboardMutation.isLoading}
+              isFavoriteLoading={updateDashboardMutation.isLoading}
               selectedDashboards={[...selectedItems]}
               onCopy={() => {
                 void Promise.allSettled(
@@ -275,6 +342,25 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
                     'dashboards',
                     'summaries',
                   ]);
+
+                  setNotifications((prevNotifications) => {
+                    return [
+                      ...prevNotifications,
+                      {
+                        id: 'copy completed',
+                        type: 'success',
+                        content: 'Dashboards copied successfully.',
+                        dismissible: true,
+                        onDismiss: () => {
+                          setNotifications((prev) => {
+                            return prev.filter(
+                              (n) => n.id !== 'copy completed',
+                            );
+                          });
+                        },
+                      },
+                    ];
+                  });
                 });
               }}
               onFavorite={() => {
@@ -285,7 +371,31 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
                       isFavorite: !dashboard.isFavorite,
                     }),
                   ),
-                );
+                ).then(async () => {
+                  await queryClient.invalidateQueries([
+                    'dashboards',
+                    'summaries',
+                  ]);
+
+                  setNotifications((prevNotifications) => {
+                    return [
+                      ...prevNotifications,
+                      {
+                        id: 'favorite completed',
+                        type: 'success',
+                        content: 'Dashboards updated successfully.',
+                        dismissible: true,
+                        onDismiss: () => {
+                          setNotifications((prev) => {
+                            return prev.filter(
+                              (n) => n.id !== 'favorite completed',
+                            );
+                          });
+                        },
+                      },
+                    ];
+                  });
+                });
               }}
               heading={messages.dashboards}
               description={`
@@ -301,7 +411,6 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
               confirmLabel={messages.confirm}
               cancelLabel={messages.cancel}
               onConfirm={({ detail }) => {
-                console.log(detail);
                 setPreferences(detail as typeof preferences);
               }}
               preferences={preferences}
@@ -348,6 +457,14 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
                       {
                         id: 'favorite',
                         label: 'Favorite',
+                      },
+                      {
+                        id: 'lastUpdateDate',
+                        label: 'Last update date',
+                      },
+                      {
+                        id: 'creationDate',
+                        label: 'Creation date',
                       },
                     ],
                   },
@@ -441,6 +558,18 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
               ),
               sortingField: 'favorite',
             },
+            {
+              id: 'lastUpdateDate',
+              header: 'Last update date',
+              cell: (dashboard) => dashboard.lastUpdateDate,
+              sortingField: 'lastUpdateDate',
+            },
+            {
+              id: 'creationDate',
+              header: 'Creation date',
+              cell: (dashboard) => dashboard.creationDate,
+              sortingField: 'creationDate',
+            },
           ]}
         />
       )}
@@ -457,12 +586,16 @@ function CollectionHeader({
   children,
   onFavorite,
   onCopy,
+  isCopyLoading,
+  isFavoriteLoading,
 }: {
   selectedDashboards: DashboardSummary[];
   heading: string;
   description: string;
   onFavorite: () => void;
   onCopy: () => void;
+  isCopyLoading: boolean;
+  isFavoriteLoading: boolean;
 } & React.PropsWithChildren) {
   const navigate = useNavigate();
 
@@ -487,12 +620,20 @@ function CollectionHeader({
             {messages.create}
           </Button>
 
-          <Button onClick={onCopy} disabled={isCopyDisabled}>
+          <Button
+            onClick={onCopy}
+            disabled={isCopyDisabled}
+            loading={isCopyLoading}
+          >
             Copy
           </Button>
 
-          <Button onClick={onFavorite} disabled={isFavoriteDisabled}>
-            {isNoneFavorites || isFavoriteDisabled ? 'Favorite' : 'Unfavorite'}
+          <Button
+            onClick={onFavorite}
+            disabled={isFavoriteDisabled}
+            loading={isFavoriteLoading}
+          >
+            Toggle favorite
           </Button>
 
           {children}

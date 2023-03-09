@@ -7,4 +7,6 @@ export type DashboardSummary = {
   name: string;
   description: string;
   isFavorite: boolean;
+  creationDate: string;
+  lastUpdateDate: string;
 };

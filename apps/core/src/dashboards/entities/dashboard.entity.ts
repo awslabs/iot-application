@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
 import {
   IsBoolean,
+  IsDateString,
   IsObject,
   IsString,
   Length,
@@ -45,4 +46,10 @@ export class Dashboard {
    */
   @IsBoolean()
   public readonly isFavorite: boolean;
+
+  @IsDateString()
+  public readonly creationDate: string;
+
+  @IsDateString()
+  public readonly lastUpdateDate: string;
 }

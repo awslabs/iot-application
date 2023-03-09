@@ -10,4 +10,6 @@ export type Dashboard = {
   description: string;
   definition: DashboardDefinition;
   isFavorite: boolean;
+  creationDate: string;
+  lastUpdateDate: string;
 };

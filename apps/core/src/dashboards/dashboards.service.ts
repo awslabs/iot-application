@@ -20,6 +20,7 @@ import { CreateDashboardDto } from './dto/create-dashboard.dto';
 import { Dashboard } from './entities/dashboard.entity';
 import { DashboardSummary } from './entities/dashboard-summary.entity';
 import { databaseConfig } from '../config/database.config';
+import { UpdateDashboardDto } from './dto/update-dashboard.dto';
 
 @Injectable()
 export class DashboardsService {
@@ -101,7 +102,9 @@ export class DashboardsService {
     }
   }
 
-  public async update(dashboard: Dashboard): Promise<Dashboard | undefined> {
+  public async update(
+    dashboard: UpdateDashboardDto & Pick<Dashboard, 'id'>,
+  ): Promise<Dashboard | undefined> {
     this.logger.log(`Updating dashboard ${dashboard.id}...`);
 
     try {
@@ -195,6 +198,8 @@ export class DashboardsService {
       description,
       isFavorite,
       id,
+      creationDate,
+      lastUpdateDate,
     };
   }
 
@@ -204,7 +209,7 @@ export class DashboardsService {
     description,
     isFavorite,
     definition,
-  }: Dashboard) {
+  }: UpdateDashboardDto & Pick<Dashboard, 'id'>) {
     const creationDateObj = new Date();
     const creationDate = creationDateObj.toISOString();
     const lastUpdateDate = creationDate;
@@ -280,6 +285,8 @@ export class DashboardsService {
       definition,
       isFavorite,
       description,
+      creationDate,
+      lastUpdateDate,
     };
   }
 
@@ -420,12 +427,16 @@ export class DashboardsService {
             const name = item.name;
             const description = item.description;
             const isFavorite = item.isFavorite;
+            const creationDate = item.creationDate;
+            const lastUpdateDate = item.lastUpdateDate;
 
             return plainToClass(DashboardSummary, {
               id,
               name,
               description,
               isFavorite,
+              creationDate,
+              lastUpdateDate,
             });
           }),
         );
