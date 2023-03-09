@@ -1,3 +1,6 @@
+import Flashbar, {
+  FlashbarProps,
+} from '@cloudscape-design/components/flashbar';
 import {
   createContext,
   Dispatch,
@@ -5,7 +8,10 @@ import {
   useContext,
   useState,
 } from 'react';
-import { FlashbarProps } from '@cloudscape-design/components';
+
+interface Props {
+  notifications: FlashbarProps['items'];
+}
 
 export type Notifications = FlashbarProps['items'];
 export type SetNotifications = Dispatch<SetStateAction<Notifications>>;
@@ -19,7 +25,11 @@ export function useNotifications() {
   const notifications = useContext(NotificationsContext);
   const setNotifications = useContext(NotificationsDispatchContext);
 
-  return { notifications, setNotifications };
+  return {
+    Notifications: () => <Notifications notifications={notifications} />,
+    notifications,
+    setNotifications,
+  };
 }
 
 export function NotificationsProvider({ children }: React.PropsWithChildren) {
@@ -32,4 +42,8 @@ export function NotificationsProvider({ children }: React.PropsWithChildren) {
       </NotificationsDispatchContext.Provider>
     </NotificationsContext.Provider>
   );
+}
+
+export function Notifications({ notifications }: Props) {
+  return <Flashbar items={notifications} stackItems={true} />;
 }

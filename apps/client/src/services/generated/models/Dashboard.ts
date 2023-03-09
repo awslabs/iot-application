@@ -9,4 +9,5 @@ export type Dashboard = {
   name: string;
   description: string;
   definition: DashboardDefinition;
+  isFavorite: boolean;
 };

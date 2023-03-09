@@ -8,4 +8,5 @@ export type UpdateDashboardDto = {
   name: string;
   description: string;
   definition: DashboardDefinition;
+  isFavorite: boolean;
 };

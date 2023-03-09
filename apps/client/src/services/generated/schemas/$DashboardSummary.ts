@@ -21,5 +21,9 @@ export const $DashboardSummary = {
       maxLength: 200,
       minLength: 1,
     },
+    isFavorite: {
+      type: 'boolean',
+      isRequired: true,
+    },
   },
 } as const;

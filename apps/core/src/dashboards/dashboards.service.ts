@@ -149,6 +149,7 @@ export class DashboardsService {
     name,
     definition,
     description,
+    isFavorite,
   }: CreateDashboardDto): Promise<Dashboard> {
     const id = nanoid(12);
     const creationDateObj = new Date();
@@ -177,6 +178,7 @@ export class DashboardsService {
                 resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
                 name,
                 description,
+                isFavorite,
                 creationDate,
                 lastUpdateDate,
               },
@@ -191,6 +193,7 @@ export class DashboardsService {
       name,
       definition,
       description,
+      isFavorite,
       id,
     };
   }
@@ -199,6 +202,7 @@ export class DashboardsService {
     id,
     name,
     description,
+    isFavorite,
     definition,
   }: Dashboard) {
     const creationDateObj = new Date();
@@ -239,17 +243,19 @@ export class DashboardsService {
                 },
                 // Capture the DDB reserved words, see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
                 UpdateExpression:
-                  'set #name = :name, #description = :description, lastUpdateDate = :lastUpdateDate',
+                  'set #name = :name, #description = :description, #isFavorite = :isFavorite, lastUpdateDate = :lastUpdateDate',
                 ExpressionAttributeValues: {
                   ':id': id,
                   ':resourceType': RESOURCE_TYPES.DASHBOARD_DATA,
                   ':name': name,
                   ':description': description,
+                  ':isFavorite': isFavorite,
                   ':lastUpdateDate': lastUpdateDate,
                 },
                 ExpressionAttributeNames: {
                   '#name': 'name',
                   '#description': 'description',
+                  '#isFavorite': 'isFavorite',
                 },
                 ConditionExpression:
                   '(id = :id) and (resourceType = :resourceType)',
@@ -272,6 +278,7 @@ export class DashboardsService {
       id,
       name,
       definition,
+      isFavorite,
       description,
     };
   }
@@ -377,6 +384,7 @@ export class DashboardsService {
       id,
       description: dashboardData.description as string,
       name: dashboardData.name as string,
+      isFavorite: dashboardData.isFavorite as boolean,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       definition: dashboardDefinition.definition,
     });
@@ -411,11 +419,13 @@ export class DashboardsService {
             const id = item.id;
             const name = item.name;
             const description = item.description;
+            const isFavorite = item.isFavorite;
 
             return plainToClass(DashboardSummary, {
               id,
               name,
               description,
+              isFavorite,
             });
           }),
         );

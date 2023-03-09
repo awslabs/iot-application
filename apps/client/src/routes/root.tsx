@@ -9,6 +9,7 @@ import { DASHBOARD_SUMMARIES_QUERY_KEY } from './dashboards/hooks/hooks';
 import { useState } from 'react';
 import { listDashboards } from 'src/services';
 import { useQuery } from '@tanstack/react-query';
+import { useSettings } from 'src/components/settings-modal/settings-modal';
 
 export const ROOT_ROUTE = {
   path: '/',
@@ -19,6 +20,7 @@ export const ROOT_ROUTE = {
 export function Root() {
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
+  const { SettingsModal, openSettings } = useSettings();
 
   const dashboards = useQuery({
     queryKey: DASHBOARD_SUMMARIES_QUERY_KEY,
@@ -39,6 +41,14 @@ export function Root() {
         }}
         utilities={[
           {
+            type: 'button',
+            iconName: 'settings',
+            ariaLabel: 'Settings',
+            text: 'Settings',
+            variant: 'link',
+            onClick: openSettings,
+          },
+          {
             type: 'menu-dropdown',
             text: 'name',
             description: 'email',
@@ -54,7 +64,7 @@ export function Root() {
               {
                 id: 'feedback',
                 text: 'Feedback',
-                href: 'https://github.com/awslabs/iot-application',
+                href: 'https://github.com/awslabs/iot-application/issues',
                 external: true,
                 externalIconAriaLabel: ' (opens in new tab)',
               },
@@ -79,7 +89,6 @@ export function Root() {
               value: d.id,
               label: d.name,
               description: d.description,
-              iconName: 'file',
             }))}
             statusType={dashboards.isLoading ? 'loading' : 'finished'}
             placeholder="Find dashboard"
@@ -106,6 +115,8 @@ export function Root() {
           />
         }
       />
+
+      <SettingsModal />
 
       <Outlet />
     </>

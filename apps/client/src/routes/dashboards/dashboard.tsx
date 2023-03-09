@@ -1,22 +1,20 @@
-import AppLayout from '@cloudscape-design/components/app-layout';
-import Button from '@cloudscape-design/components/button';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import { useNavigate, useParams, Navigate } from 'react-router-dom';
-import { useDashboardQuery, useDeleteDashboardMutation } from './hooks/hooks';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDashboardQuery, useUpdateDashboardMutation } from './hooks/hooks';
 import {
-  BreadcrumbGroup,
+  Button,
   Container,
   ContentLayout,
-  Flashbar,
   Header,
+  Icon,
   SegmentedControl,
 } from '@cloudscape-design/components';
 import { useState } from 'react';
-import { Navigation } from '../components/navigation/navigation';
+
 import messages from 'src/assets/messages';
-import { useNotifications } from '../hooks/use-notifications';
-import { DeleteModal } from './components/delete-modal/delete-modal';
-import { useIsFetching } from '@tanstack/react-query';
+import { useDeleteDashboard, Layout } from 'src/components';
+import { queryClient } from 'src';
+import invariant from 'tiny-invariant';
 
 export const DASHBOARD_ROUTE = {
   path: ':dashboardId',
@@ -28,98 +26,103 @@ type Mode = 'view' | 'edit';
 export function DashboardPage() {
   const { dashboardId } = useParams<'dashboardId'>();
   const dashboard = useDashboardQuery(dashboardId);
-  const deleteDashboardMutation = useDeleteDashboardMutation();
-  const { notifications } = useNotifications();
   const [mode, setMode] = useState<Mode>('view');
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [navigationOpen, setNavigationOpen] = useState(false);
   const navigate = useNavigate();
-  const isFetching = useIsFetching();
 
-  if (deleteDashboardMutation.isSuccess && !isFetching) {
-    return <Navigate to="/dashboards" />;
-  }
+  const { DeleteDashboardButton, DeleteDashboardModal } = useDeleteDashboard({
+    dashboards: dashboard.data ? [dashboard.data] : [],
+    onSuccess: () => {
+      navigate('/dashboards');
+    },
+  });
+
+  const updateDashboardMutation = useUpdateDashboardMutation();
 
   return (
     <>
-      <AppLayout
-        breadcrumbs={
-          <BreadcrumbGroup
-            items={[
-              { text: messages.appName, href: '/' },
-              { text: messages.dashboards, href: '/dashboards' },
-              {
-                text: dashboard.data?.name ?? 'Loading...',
-                href: `/dashboards/${dashboard.data?.id ?? ''}`,
-              },
-            ]}
-            onFollow={(event) => {
-              event.preventDefault();
-              navigate(event.detail.href);
-            }}
-          />
-        }
-        contentType="dashboard"
-        content={
-          <ContentLayout
-            header={
-              <Header
-                variant="h1"
-                description={
-                  dashboard.data?.description ?? 'Loading description...'
-                }
-                actions={
-                  <SpaceBetween direction="horizontal" size="m">
-                    <SegmentedControl
-                      selectedId={mode}
-                      onChange={({ detail }) =>
-                        setMode(detail.selectedId as Mode)
-                      }
-                      options={[
-                        { text: 'View', id: 'view' },
-                        { text: 'Edit', id: 'edit' },
-                      ]}
-                    />
+      <Layout
+        activeHref="/"
+        crumbs={[
+          { text: messages.appName, href: '/' },
+          { text: messages.dashboards, href: '/dashboards' },
+          {
+            text: dashboard.data?.name ?? 'Loading...',
+            href: `/dashboards/${dashboard.data?.id ?? ''}`,
+          },
+        ]}
+        type="dashboard"
+      >
+        <ContentLayout
+          header={
+            <Header
+              variant="h1"
+              description={
+                dashboard.data?.description ?? 'Loading description...'
+              }
+              actions={
+                <SpaceBetween direction="horizontal" size="m">
+                  <Button
+                    variant="icon"
+                    iconSvg={
+                      <Icon
+                        name="heart"
+                        variant={
+                          dashboard.data?.isFavorite ? 'warning' : 'disabled'
+                        }
+                      />
+                    }
+                    onClick={() => {
+                      invariant(
+                        dashboard.data,
+                        'Expected dashboard to be defined',
+                      );
+                      updateDashboardMutation.mutate(
+                        {
+                          ...dashboard.data,
+                          isFavorite: !dashboard.data.isFavorite,
+                        },
+                        {
+                          onSuccess: () => {
+                            void queryClient.invalidateQueries([
+                              'dashboards',
+                              'summaries',
+                            ]);
+                          },
+                        },
+                      );
+                    }}
+                  />
 
-                    <Button onClick={() => setShowDeleteModal(true)}>
-                      Delete
-                    </Button>
-                  </SpaceBetween>
-                }
-              >
-                {dashboard.data?.name ?? 'Loading...'}
+                  <SegmentedControl
+                    selectedId={mode}
+                    onChange={({ detail }) =>
+                      setMode(detail.selectedId as Mode)
+                    }
+                    options={[
+                      { text: 'View', id: 'view' },
+                      { text: 'Edit', id: 'edit' },
+                    ]}
+                  />
+
+                  <DeleteDashboardButton />
+                </SpaceBetween>
+              }
+            >
+              {dashboard.data?.name ?? 'Loading...'}
+            </Header>
+          }
+        >
+          <Container
+            header={
+              <Header variant="h2">
+                {mode === 'edit' ? 'Editing' : 'Viewing'}
               </Header>
             }
-          >
-            <Container
-              header={
-                <Header variant="h2">
-                  {mode === 'edit' ? 'Editing' : 'Viewing'}
-                </Header>
-              }
-            ></Container>
-          </ContentLayout>
-        }
-        notifications={<Flashbar items={notifications} stackItems={true} />}
-        navigation={<Navigation activeHref="/dashboards" />}
-        onNavigationChange={() => setNavigationOpen((open) => !open)}
-        navigationOpen={navigationOpen}
-        toolsHide={true}
-      />
+          ></Container>
+        </ContentLayout>
+      </Layout>
 
-      <DeleteModal
-        visible={showDeleteModal}
-        onDiscard={() => setShowDeleteModal(false)}
-        onDelete={() => {
-          if (dashboard.data?.id) {
-            deleteDashboardMutation.mutate(dashboard.data.id);
-          }
-
-          return;
-        }}
-        name={dashboard.data?.name ?? 'Loading...'}
-        isLoading={deleteDashboardMutation.isLoading}
-      />
+      <DeleteDashboardModal />
     </>
   );
 

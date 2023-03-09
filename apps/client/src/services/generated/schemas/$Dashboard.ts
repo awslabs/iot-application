@@ -25,5 +25,9 @@ export const $Dashboard = {
       type: 'DashboardDefinition',
       isRequired: true,
     },
+    isFavorite: {
+      type: 'boolean',
+      isRequired: true,
+    },
   },
 } as const;

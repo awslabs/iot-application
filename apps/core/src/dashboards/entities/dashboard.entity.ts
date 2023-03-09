@@ -1,5 +1,11 @@
 import { Type } from 'class-transformer';
-import { IsObject, IsString, Length, ValidateNested } from 'class-validator';
+import {
+  IsBoolean,
+  IsObject,
+  IsString,
+  Length,
+  ValidateNested,
+} from 'class-validator';
 
 import { DashboardDefinition } from './dashboard-definition.entity';
 
@@ -33,4 +39,10 @@ export class Dashboard {
   @ValidateNested()
   @Type(() => DashboardDefinition)
   public readonly definition: DashboardDefinition;
+
+  /**
+   * @example true
+   */
+  @IsBoolean()
+  public readonly isFavorite: boolean;
 }

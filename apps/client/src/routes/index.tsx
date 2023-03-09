@@ -1,15 +1,6 @@
-import {
-  AppLayout,
-  BreadcrumbGroup,
-  Container,
-  ContentLayout,
-  Flashbar,
-  Header,
-} from '@cloudscape-design/components';
-import messages from '../assets/messages';
-import { Navigation } from './components/navigation/navigation';
-import { useNotifications } from './hooks/use-notifications';
-import { useState } from 'react';
+import messages from 'src/assets/messages';
+import { Layout } from 'src/components';
+import { DashboardCollection } from 'src/components/dashboard-collection/dashboard-collection';
 
 export const INDEX_ROUTE = {
   index: true,
@@ -17,27 +8,15 @@ export const INDEX_ROUTE = {
 };
 
 export function IndexPage() {
-  const [navigationOpen, setNavigationOpen] = useState(false);
-
-  const { notifications } = useNotifications();
-
   return (
-    <AppLayout
-      breadcrumbs={
-        <BreadcrumbGroup items={[{ text: messages.appName, href: '/' }]} />
-      }
-      content={
-        <ContentLayout header={<Header variant="h1">Home</Header>}>
-          <Container
-            header={<Header variant="h2">Your favorites</Header>}
-          ></Container>
-        </ContentLayout>
-      }
-      notifications={<Flashbar items={notifications} stackItems={true} />}
-      navigation={<Navigation activeHref="/" />}
-      navigationOpen={navigationOpen}
-      onNavigationChange={() => setNavigationOpen((open) => !open)}
-      toolsHide={true}
-    />
+    <>
+      <Layout
+        activeHref="/"
+        crumbs={[{ text: messages.appName, href: '/' }]}
+        type="cards"
+      >
+        <DashboardCollection type="cards" onlyFavorites={true} />
+      </Layout>
+    </>
   );
 }
