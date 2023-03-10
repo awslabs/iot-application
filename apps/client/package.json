@@ -18,8 +18,7 @@
     "@cloudscape-design/global-styles": "^1.0.6",
     "@iot-app-kit/dashboard": "^3.0.0-alpha.3",
     "@iot-app-kit/source-iotsitewise": "^2.6.5",
-    "core-types": "*",
-    "lib": "*",
+    "aws-amplify": "^5.0.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0"

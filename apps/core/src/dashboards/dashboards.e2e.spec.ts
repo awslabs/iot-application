@@ -11,18 +11,17 @@ import {
 } from '@nestjs/platform-fastify';
 import { Test } from '@nestjs/testing';
 import { instanceToPlain, plainToClass } from 'class-transformer';
-import {
-  CreateDashboardDto,
-  Dashboard,
-  DashboardDefinition,
-  DashboardWidgetType,
-  UpdateDashboardDto,
-} from 'core-types';
 import { nanoid } from 'nanoid';
+
 import { RESOURCE_TYPES } from './dashboard.constants';
+import { CreateDashboardDto } from './dto/create-dashboard.dto';
+import { UpdateDashboardDto } from './dto/update-dashboard.dto';
+import { Dashboard } from './entities/dashboard.entity';
+import { DashboardDefinition } from './entities/dashboard-definition.entity';
+import { DashboardWidgetType } from './entities/dashboard-widget.entity';
 import { AppModule } from '../app.module';
-import { getAccessToken } from '../testing/jwt-generator';
 import { credentials, region } from '../testing/aws-configuration';
+import { getAccessToken } from '../testing/jwt-generator';
 
 const dummyId = 'zckYx-InI8_f'; // 12 character
 const dummyName = 'dashboard name';
