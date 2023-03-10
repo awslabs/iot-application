@@ -12,8 +12,11 @@ import {
 } from '@aws-sdk/lib-dynamodb';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import { CreateDashboardDto, Dashboard, DashboardSummary } from 'core-types';
+import { CreateDashboardDto } from './dto/create-dashboard.dto';
+import { Dashboard } from './entities/dashboard.entity';
+import { DashboardSummary } from './entities/dashboard-summary.entity';
 import { plainToClass } from 'class-transformer';
+
 import { nanoid } from 'nanoid';
 import { DATABASE_GSI, MESSAGES, RESOURCE_TYPES } from './dashboard.constants';
 import { databaseConfig } from '../config/database.config';
