@@ -13,6 +13,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import messages from 'src/assets/messages';
 import { DashboardSummary, deleteDashboard } from 'src/services';
 import invariant from 'tiny-invariant';
+import { ControlledForm } from '../input';
 
 const DELETE_CONSENT_TEXT = 'confirm' as const;
 const isConsentGiven = (consentText: string) =>
@@ -164,10 +165,9 @@ export function DeleteDashboardModal({
         </Box>
 
         <ColumnLayout columns={2}>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-
+          <ControlledForm
+            defaultValues={{ consent: '' }}
+            onSubmit={() => {
               if (!isDisabled) {
                 onDelete();
                 handleOnClose();
@@ -176,17 +176,14 @@ export function DeleteDashboardModal({
               invariant(false, 'Expected delete not to be disabled');
             }}
           >
-            <FormField
+            <ControlledForm.Input
+              autoFocus
+              name="consent"
               label={`To confirm deletion, type "${DELETE_CONSENT_TEXT}"`}
-            >
-              <Input
-                placeholder={DELETE_CONSENT_TEXT}
-                onChange={(event) => setConsentText(event.detail.value)}
-                value={consentText}
-                ariaRequired={true}
-              />
-            </FormField>
-          </form>
+              rules={{ required: true }}
+              placeholder={DELETE_CONSENT_TEXT}
+            />
+          </ControlledForm>
         </ColumnLayout>
       </SpaceBetween>
     </Modal>

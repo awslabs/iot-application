@@ -121,7 +121,8 @@ export function NewDashboardPage() {
           errorText={getErrorText()}
           onSubmit={(formData) => {
             createDashboardMutation.mutate({
-              ...formData,
+              name: formData.name,
+              description: formData.description,
               isFavorite: false,
               definition: { widgets: [] },
             });

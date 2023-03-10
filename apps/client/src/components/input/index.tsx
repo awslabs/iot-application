@@ -8,9 +8,9 @@ import {
 import {
   Controller,
   ControllerProps,
-  DefaultValues,
   FieldValues,
   useForm,
+  UseFormProps,
   UseFormReturn,
 } from 'react-hook-form';
 import { atom, useAtomValue, useAtom } from 'jotai';
@@ -19,16 +19,12 @@ import { useEffectOnce } from 'react-use';
 type Control = ControllerProps['control'];
 type Rules = ControllerProps['rules'];
 
-type Just<T> = T;
-type Nothing = null | undefined;
-type Maybe<T> = Just<T> | Nothing;
+const formAtom = atom<UseFormReturn<Values<string>> | null>(null);
 
-type Values<N> = DefaultValues<N>;
+type Values<N extends string> = Record<N, FieldConfig['value']>;
 
-const formAtom = atom<Maybe<UseFormReturn>>(null);
-
-function useSetForm<N>(defaultValues: Values<N>) {
-  const _form = useForm({ defaultValues });
+function useSetForm<N extends string>(defaultValues: Values<N>) {
+  const _form = useForm({ defaultValues } as UseFormProps<Values<N>>);
   const [form, setForm] = useAtom(formAtom);
 
   useEffectOnce(() => {
@@ -38,22 +34,22 @@ function useSetForm<N>(defaultValues: Values<N>) {
   return { handleSubmit: form?.handleSubmit };
 }
 
-interface ControlledFormProps<N, V extends DefaultValues<N>> {
-  errorText: string;
+interface ControlledFormProps<N extends string> {
+  errorText?: string;
   variant?: 'full-page' | 'embedded';
   actions?: React.ReactNode;
   header?: React.ReactNode;
   children: React.ReactNode;
-  defaultValues: V;
-  onSubmit: (formData: V) => void;
+  defaultValues: Values<N>;
+  onSubmit: (formData: Values<N>) => void;
 }
 
-export function ControlledForm<N, V extends DefaultValues<N>>({
+export function ControlledForm<N extends string>({
   children,
   defaultValues,
   onSubmit,
   ...formProps
-}: React.PropsWithChildren<ControlledFormProps<N, V>>) {
+}: React.PropsWithChildren<ControlledFormProps<N>>) {
   const { handleSubmit } = useSetForm(defaultValues);
 
   return (
@@ -62,7 +58,7 @@ export function ControlledForm<N, V extends DefaultValues<N>>({
         event.preventDefault();
 
         if (handleSubmit) {
-          handleSubmit((formData) => onSubmit(formData as V));
+          handleSubmit(onSubmit);
         }
       }}
     >
@@ -92,37 +88,32 @@ type FieldConfig =
       onChange: (value: boolean) => void;
     };
 
-export interface ControlledFieldPropsOld {
-  type: FieldConfig['type'];
-  name: string;
+interface ControlledFieldProps<N extends string> {
+  name: N;
   rules: Rules;
-  autoFocus: boolean;
-  description: string;
-  errorText: string;
   label: string;
-  placeholder: string;
-  constraintText: string;
-}
-
-interface ControlledFieldProps {
-  name: string;
-  rules: Rules;
   autoFocus?: boolean;
-  constraintText: string;
-  description: string;
-  label: string;
-  placeholder: string;
+  constraintText?: string;
+  description?: string;
+  placeholder?: string;
+  onChange?: (value: FieldConfig['value']) => void;
 }
 
-export function ControlledInput(props: ControlledFieldProps) {
+export function ControlledInput<N extends string>(
+  props: ControlledFieldProps<N>,
+) {
   return <ControlledFieldOld type="input" {...props} />;
 }
 
-export function ControlledTextarea(props: ControlledFieldProps) {
+export function ControlledTextarea<N extends string>(
+  props: ControlledFieldProps<N>,
+) {
   return <ControlledFieldOld type="textarea" {...props} />;
 }
 
-export function ControlledToggle(props: ControlledFieldProps) {
+export function ControlledToggle<N extends string>(
+  props: ControlledFieldProps<N>,
+) {
   return <ControlledFieldOld type="toggle" {...props} />;
 }
 
@@ -133,13 +124,11 @@ function useControlledForm() {
     control: form?.control,
     errors: form?.formState.errors,
     handleSubmit: form?.handleSubmit,
+    watch: form?.watch,
   };
 }
 
-type ControlledFieldOldProps = ControlledFieldProps & {
-  type: FieldConfig['type'];
-};
-export function ControlledFieldOld({
+export function ControlledFieldOld<N extends string>({
   type,
   name,
   rules,
@@ -148,7 +137,8 @@ export function ControlledFieldOld({
   placeholder,
   constraintText,
   autoFocus = false,
-}: ControlledFieldOldProps) {
+  onChange,
+}: ControlledFieldProps<N> & { type: FieldConfig['type'] }) {
   const { control, errors } = useControlledForm();
   const errorText = errors?.[name]?.message?.toString() ?? '';
 
@@ -169,7 +159,17 @@ export function ControlledFieldOld({
               autoFocus={autoFocus}
               placeholder={placeholder}
               rules={rules}
-              config={{ ...field, type }}
+              config={{
+                ...field,
+                type,
+                onChange: (value: FieldConfig['value']) => {
+                  field.onChange(value);
+
+                  if (onChange) {
+                    onChange(value);
+                  }
+                },
+              }}
             />
           </FormField>
         );
@@ -184,8 +184,8 @@ function Field({
   rules,
   config,
 }: {
-  placeholder: string;
-  autoFocus: boolean;
+  placeholder?: string;
+  autoFocus?: boolean;
   rules: Rules;
   config: FieldConfig;
 }) {
