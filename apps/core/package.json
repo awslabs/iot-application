@@ -32,6 +32,7 @@
     "aws-jwt-verify": "^3.4.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "dynamodb-local": "^0.0.31",
     "nanoid": "3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
@@ -43,7 +44,6 @@
     "@shelf/jest-dynamodb": "^3.4.1",
     "aws-sdk-client-mock": "^2.1.1",
     "cognito-local": "^3.21.1",
-    "dynamodb-local": "^0.0.31",
     "eslint-config-custom": "*",
     "jest-config": "*",
     "run-script-webpack-plugin": "^0.1.1",
