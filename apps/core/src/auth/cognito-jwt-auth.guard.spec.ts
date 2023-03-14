@@ -1,7 +1,9 @@
 import { ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
+import { Reflector } from '@nestjs/core';
 import { localCognitoJwtVerifier } from '../config/local-cognito-jwt-verifier';
 import { CognitoJwtAuthGuard } from './cognito-jwt-auth.guard';
+import { isPublicMetadataKey } from './public.decorator';
 
 const constructExecutionContext = (headers?: { authorization?: string }) => {
   const notImplementedFunction = jest.fn(() => {
@@ -14,7 +16,7 @@ const constructExecutionContext = (headers?: { authorization?: string }) => {
   };
   const executionContext: ExecutionContext = {
     getClass: <T>(): T => Object as T,
-    getHandler: notImplementedFunction,
+    getHandler: jest.fn(() => jest.fn()),
     getArgs: notImplementedFunction,
     getArgByIndex: notImplementedFunction,
     switchToRpc: notImplementedFunction,
@@ -26,7 +28,35 @@ const constructExecutionContext = (headers?: { authorization?: string }) => {
   return executionContext;
 };
 
+const mockIsPublicReflector = (isPublic: boolean) => {
+  const reflector = new Reflector();
+  jest.spyOn(reflector, 'get').mockImplementation((metadataKey) => {
+    if (metadataKey === isPublicMetadataKey) {
+      return isPublic;
+    }
+
+    return undefined;
+  });
+
+  return reflector;
+};
+const alwaysPublicReflector = mockIsPublicReflector(true);
+const neverPublicReflector = mockIsPublicReflector(false);
+
 describe('CognitoJwtAuthGuard', () => {
+  test('allows public request to skip verification', async () => {
+    const cognitoJwtAuthGuard = new CognitoJwtAuthGuard(
+      {
+        cognitoJwtVerifier: localCognitoJwtVerifier,
+      },
+      alwaysPublicReflector,
+    );
+
+    await expect(
+      cognitoJwtAuthGuard.canActivate(constructExecutionContext()),
+    ).resolves.toBe(true);
+  });
+
   test('allows request with verified token to proccess', async () => {
     const verifyFnSpy = jest
       .spyOn(localCognitoJwtVerifier, 'verify')
@@ -44,9 +74,12 @@ describe('CognitoJwtAuthGuard', () => {
         version: 123,
         origin_jti: 'mock-origin-jti',
       });
-    const cognitoJwtAuthGuard = new CognitoJwtAuthGuard({
-      cognitoJwtVerifier: localCognitoJwtVerifier,
-    });
+    const cognitoJwtAuthGuard = new CognitoJwtAuthGuard(
+      {
+        cognitoJwtVerifier: localCognitoJwtVerifier,
+      },
+      neverPublicReflector,
+    );
 
     await expect(
       cognitoJwtAuthGuard.canActivate(
@@ -62,9 +95,12 @@ describe('CognitoJwtAuthGuard', () => {
     const verifyFnSpy = jest
       .spyOn(localCognitoJwtVerifier, 'verify')
       .mockRejectedValue(new Error('Invalid Token'));
-    const cognitoJwtAuthGuard = new CognitoJwtAuthGuard({
-      cognitoJwtVerifier: localCognitoJwtVerifier,
-    });
+    const cognitoJwtAuthGuard = new CognitoJwtAuthGuard(
+      {
+        cognitoJwtVerifier: localCognitoJwtVerifier,
+      },
+      neverPublicReflector,
+    );
 
     await expect(
       cognitoJwtAuthGuard.canActivate(
@@ -80,9 +116,12 @@ describe('CognitoJwtAuthGuard', () => {
     const verifyFnSpy = jest
       .spyOn(localCognitoJwtVerifier, 'verify')
       .mockRejectedValue(new Error('Invalid Token'));
-    const cognitoJwtAuthGuard = new CognitoJwtAuthGuard({
-      cognitoJwtVerifier: localCognitoJwtVerifier,
-    });
+    const cognitoJwtAuthGuard = new CognitoJwtAuthGuard(
+      {
+        cognitoJwtVerifier: localCognitoJwtVerifier,
+      },
+      neverPublicReflector,
+    );
 
     await expect(
       cognitoJwtAuthGuard.canActivate(constructExecutionContext()),
@@ -94,9 +133,12 @@ describe('CognitoJwtAuthGuard', () => {
     const verifyFnSpy = jest
       .spyOn(localCognitoJwtVerifier, 'verify')
       .mockRejectedValue(new Error('Invalid Token'));
-    const cognitoJwtAuthGuard = new CognitoJwtAuthGuard({
-      cognitoJwtVerifier: localCognitoJwtVerifier,
-    });
+    const cognitoJwtAuthGuard = new CognitoJwtAuthGuard(
+      {
+        cognitoJwtVerifier: localCognitoJwtVerifier,
+      },
+      neverPublicReflector,
+    );
 
     await expect(
       cognitoJwtAuthGuard.canActivate(constructExecutionContext({})),
