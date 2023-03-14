@@ -15,9 +15,6 @@ import { launch as ddbLocalLaunch } from 'dynamodb-local';
 import { credentials, region } from '../testing/aws-configuration';
 import { databaseConfig } from '../config/database.config';
 
-const apiResourceTable =
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  require('../../api-resource-table-properties.js') as CreateTableCommandInput;
 const TABLE_CREATION_ATTEMPT_NUMBER = 30;
 const TABLE_CREATION_ATTEMPT_DELAY = 1000; // in milliseconds
 const DYNAMODB_LOCAL_OPT_SHARED_DB = '-sharedDb';
@@ -44,6 +41,10 @@ export class DynamoDbLocalSetupService implements OnApplicationBootstrap {
   }
 
   private async createApiResourceTable() {
+    // TODO: refactor the api-resource-table-properties.js to avoid lint
+    const apiResourceTable =
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      require('../../api-resource-table-properties.js') as CreateTableCommandInput;
     const ddbClient = new DynamoDBClient({
       endpoint: this.dbConfig.endpoint,
       credentials,
