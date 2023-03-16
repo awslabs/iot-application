@@ -13,22 +13,25 @@ import TextFilter, {
 import { useCollection } from '@cloudscape-design/collection-hooks';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useDeleteDashboard, useNotifications } from 'src/components';
+import { DeleteDashboardModal } from 'src/components';
+import { useSendNotification } from 'src/layout/components/Notifications';
+
+import { useQueryClient } from '@tanstack/react-query';
 
 import messages from 'src/assets/messages';
 
 import {
   useCreateDashboardMutation,
-  useDashboardsQuery,
   usePartialUpdateDashboardMutation,
 } from 'src/routes/dashboards/hooks/hooks';
 import { Icon } from '@cloudscape-design/components';
 import { DashboardSummary, readDashboard } from 'src/services';
-import { queryClient } from 'src';
+import invariant from 'tiny-invariant';
 
 export interface Props {
-  type: 'table' | 'cards';
+  dashboards: DashboardSummary[];
   onlyFavorites: boolean;
+  type: 'table' | 'cards';
 }
 
 const DEFAULT_PREFERENCES = {
@@ -38,17 +41,17 @@ const DEFAULT_PREFERENCES = {
   visibleContent: ['name', 'description', 'favorite', 'lastUpdateDate'],
 } as const;
 
-export function DashboardCollection({ type, onlyFavorites }: Props) {
+export function DashboardCollection(props: Props) {
   const [preferences, setPreferences] = useState(DEFAULT_PREFERENCES);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const navigate = useNavigate();
-  const { data = [], isLoading } = useDashboardsQuery();
 
   const updateDashboardMutation = usePartialUpdateDashboardMutation();
   const createDashboardMutation = useCreateDashboardMutation();
 
-  const dashboards = onlyFavorites ? data.filter((d) => d.isFavorite) : data;
+  const sendNotification = useSendNotification();
 
-  const { setNotifications } = useNotifications();
+  const queryClient = useQueryClient();
 
   const {
     actions,
@@ -57,30 +60,30 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
     paginationProps,
     filterProps,
     filteredItemsCount = 0,
-  } = useCollection(dashboards, {
+  } = useCollection(props.dashboards, {
     filtering: {
       empty: (
         <Box textAlign="center" color="inherit">
           <Box variant="strong" textAlign="center" color="inherit">
-            {onlyFavorites ? 'No favorite dashboards' : 'No dashboards'}
+            {props.onlyFavorites ? 'No favorite dashboards' : 'No dashboards'}
           </Box>
 
           <Box padding={{ bottom: 's' }} variant="p" color="inherit">
-            {onlyFavorites
+            {props.onlyFavorites
               ? 'No favorite dashboards to display'
               : 'No dashboards to display'}
           </Box>
 
           <Button
             onClick={() => {
-              if (onlyFavorites) {
+              if (props.onlyFavorites) {
                 navigate('/dashboards');
               } else {
-                navigate('/dashboards/new');
+                navigate('/dashboards/create');
               }
             }}
           >
-            {onlyFavorites ? 'Select favorites' : 'Create dashboard'}
+            {props.onlyFavorites ? 'Select favorites' : 'Create dashboard'}
           </Button>
         </Box>
       ),
@@ -107,16 +110,9 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
 
   const { selectedItems = [] } = collectionProps;
 
-  const { DeleteDashboardButton, DeleteDashboardModal } = useDeleteDashboard({
-    dashboards: [...selectedItems],
-    onSuccess: undefined,
-  });
-
   const configProps = {
     ...collectionProps,
     items,
-    loading: isLoading,
-    loadingText: messages.loading,
     selectionType: 'multi' as const,
     stickyHeader: true,
     variant: 'full-page' as const,
@@ -126,7 +122,7 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
 
   return (
     <>
-      {type === 'cards' ? (
+      {props.type === 'cards' ? (
         <Cards
           {...configProps}
           visibleSections={preferences.visibleContent}
@@ -209,23 +205,10 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
                     'summaries',
                   ]);
 
-                  setNotifications((prevNotifications) => {
-                    return [
-                      ...prevNotifications,
-                      {
-                        id: 'copy completed',
-                        type: 'success',
-                        content: 'Dashboards copied successfully.',
-                        dismissible: true,
-                        onDismiss: () => {
-                          setNotifications((prev) => {
-                            return prev.filter(
-                              (n) => n.id !== 'copy completed',
-                            );
-                          });
-                        },
-                      },
-                    ];
+                  sendNotification({
+                    id: 'copy completed',
+                    type: 'success',
+                    content: 'Dashboards copied successfully.',
                   });
                 });
               }}
@@ -243,30 +226,22 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
                     'summaries',
                   ]);
 
-                  setNotifications((prevNotifications) => {
-                    return [
-                      ...prevNotifications,
-                      {
-                        id: 'favorite completed',
-                        type: 'success',
-                        content: 'Dashboards updated successfully.',
-                        dismissible: true,
-                        onDismiss: () => {
-                          setNotifications((prev) => {
-                            return prev.filter(
-                              (n) => n.id !== 'favorite completed',
-                            );
-                          });
-                        },
-                      },
-                    ];
+                  sendNotification({
+                    id: 'favorite completed',
+                    type: 'success',
+                    content: 'Dashboards updated successfully.',
                   });
                 });
               }}
               heading="Favorites"
               description="Your favorite dashboards, all in one place."
             >
-              <DeleteDashboardButton />
+              <Button
+                disabled={selectedItems.length === 0}
+                onClick={() => setIsDeleteModalVisible(true)}
+              >
+                Delete
+              </Button>
             </CollectionHeader>
           }
           cardDefinition={{
@@ -318,9 +293,11 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
           stripedRows={preferences.stripedRows}
           visibleColumns={preferences.visibleContent}
           submitEdit={async (item, column, newValue) => {
+            invariant(column.id, 'Expected column to be defined');
+
             await updateDashboardMutation.mutateAsync({
               id: item.id,
-              [column.id as string]: newValue,
+              [column.id]: newValue,
             });
           }}
           header={
@@ -343,23 +320,10 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
                     'summaries',
                   ]);
 
-                  setNotifications((prevNotifications) => {
-                    return [
-                      ...prevNotifications,
-                      {
-                        id: 'copy completed',
-                        type: 'success',
-                        content: 'Dashboards copied successfully.',
-                        dismissible: true,
-                        onDismiss: () => {
-                          setNotifications((prev) => {
-                            return prev.filter(
-                              (n) => n.id !== 'copy completed',
-                            );
-                          });
-                        },
-                      },
-                    ];
+                  sendNotification({
+                    id: 'copy completed',
+                    type: 'success',
+                    content: 'Dashboards copied successfully.',
                   });
                 });
               }}
@@ -377,23 +341,10 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
                     'summaries',
                   ]);
 
-                  setNotifications((prevNotifications) => {
-                    return [
-                      ...prevNotifications,
-                      {
-                        id: 'favorite completed',
-                        type: 'success',
-                        content: 'Dashboards updated successfully.',
-                        dismissible: true,
-                        onDismiss: () => {
-                          setNotifications((prev) => {
-                            return prev.filter(
-                              (n) => n.id !== 'favorite completed',
-                            );
-                          });
-                        },
-                      },
-                    ];
+                  sendNotification({
+                    id: 'favorite completed',
+                    type: 'success',
+                    content: 'Dashboards updated successfully.',
                   });
                 });
               }}
@@ -402,7 +353,12 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
               Manage your dashboards or select one to begin monitoring your live industrial data.
                 `}
             >
-              <DeleteDashboardButton />
+              <Button
+                disabled={selectedItems.length === 0}
+                onClick={() => setIsDeleteModalVisible(true)}
+              >
+                Delete
+              </Button>
             </CollectionHeader>
           }
           preferences={
@@ -574,7 +530,11 @@ export function DashboardCollection({ type, onlyFavorites }: Props) {
         />
       )}
 
-      <DeleteDashboardModal />
+      <DeleteDashboardModal
+        dashboards={[...selectedItems]}
+        isVisible={isDeleteModalVisible}
+        onClose={() => setIsDeleteModalVisible(false)}
+      />
     </>
   );
 }
@@ -616,7 +576,10 @@ function CollectionHeader({
       description={description}
       actions={
         <SpaceBetween direction="horizontal" size="xs">
-          <Button variant="primary" onClick={() => navigate('/dashboards/new')}>
+          <Button
+            variant="primary"
+            onClick={() => navigate('/dashboards/create')}
+          >
             {messages.create}
           </Button>
 

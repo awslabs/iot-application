@@ -2,129 +2,78 @@ import Alert from '@cloudscape-design/components/alert';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
+import Form from '@cloudscape-design/components/form';
 import FormField from '@cloudscape-design/components/form-field';
 import Input from '@cloudscape-design/components/input';
 import Link from '@cloudscape-design/components/link';
 import Modal from '@cloudscape-design/components/modal';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useForm, Controller } from 'react-hook-form';
 
 import messages from 'src/assets/messages';
 import { DashboardSummary, deleteDashboard } from 'src/services';
-import invariant from 'tiny-invariant';
-import { ControlledForm } from '../input';
 
 const DELETE_CONSENT_TEXT = 'confirm' as const;
-const isConsentGiven = (consentText: string) =>
-  consentText === DELETE_CONSENT_TEXT;
 
-interface UseDeleteDashboardProps {
+interface DeleteDashboardModalProps {
   dashboards: DashboardSummary[];
-  onSuccess?: () => void;
+  isVisible: boolean;
+  onClose: () => void;
 }
 
-export function useDeleteDashboard({
+export function DeleteDashboardModal({
   dashboards,
-  onSuccess,
-}: UseDeleteDashboardProps) {
+  isVisible,
+  onClose,
+}: DeleteDashboardModalProps) {
+  const {
+    control,
+    formState: { isValid },
+    handleSubmit,
+    reset,
+  } = useForm({ defaultValues: { consent: '' } });
+
   const queryClient = useQueryClient();
-  const [isVisible, setIsVisible] = useState(false);
   const mutation = useMutation({
     mutationFn: deleteDashboard,
     onSuccess: async () => {
       await queryClient.invalidateQueries(['dashboards', 'summaries']);
-      setIsVisible(false);
-
-      if (onSuccess) {
-        onSuccess();
-      }
+      handleClose();
     },
   });
 
-  function handleOnDelete() {
+  function handleDelete() {
     void Promise.all(
       dashboards.map((dashboard) => mutation.mutateAsync(dashboard.id)),
     );
   }
 
-  return {
-    DeleteDashboardButton: () => (
-      <DeleteDashboardButton
-        isDisabled={dashboards.length === 0}
-        onClick={() => setIsVisible(true)}
-      />
-    ),
-    DeleteDashboardModal: () => (
-      <DeleteDashboardModal
-        dashboards={dashboards}
-        isLoading={mutation.isLoading}
-        isVisible={isVisible}
-        onClose={() => setIsVisible(false)}
-        onDelete={handleOnDelete}
-      />
-    ),
-  };
-}
-
-interface DeleteDashboardButtonProps {
-  isDisabled: boolean;
-  onClick: () => void;
-}
-
-export function DeleteDashboardButton({
-  isDisabled,
-  onClick,
-}: DeleteDashboardButtonProps) {
-  return (
-    <Button onClick={onClick} disabled={isDisabled}>
-      {messages.delete}
-    </Button>
-  );
-}
-
-interface DeleteDashboardModalProps {
-  dashboards: DashboardSummary[];
-  isLoading: boolean;
-  isVisible: boolean;
-  onClose: () => void;
-  onDelete: () => void;
-}
-
-export function DeleteDashboardModal({
-  dashboards,
-  onClose,
-  onDelete,
-  isLoading,
-  isVisible,
-}: DeleteDashboardModalProps) {
-  const [consentText, setConsentText] = useState('');
-
-  function handleOnClose() {
+  function handleClose() {
     onClose();
-    setConsentText('');
+    reset();
   }
-
-  const isDisabled = !isConsentGiven(consentText);
 
   return (
     <Modal
       visible={isVisible}
+      onDismiss={handleClose}
       header={messages.deleteDashboard}
-      onDismiss={onClose}
       closeAriaLabel="Close delete dialog"
       footer={
         <Box float="right">
           <SpaceBetween direction="horizontal" size="xs">
-            <Button variant="link" onClick={handleOnClose}>
-              {messages.cancel}
-            </Button>
+            <Button onClick={handleClose}>Cancel</Button>
 
             <Button
+              disabled={!isValid}
               variant="primary"
-              disabled={isDisabled}
-              onClick={onDelete}
-              loading={isLoading}
+              loading={mutation.isLoading}
+              onClick={() => {
+                void handleSubmit(() => {
+                  handleDelete();
+                })();
+              }}
             >
               {messages.delete}
             </Button>
@@ -165,25 +114,34 @@ export function DeleteDashboardModal({
         </Box>
 
         <ColumnLayout columns={2}>
-          <ControlledForm
-            defaultValues={{ consent: '' }}
-            onSubmit={() => {
-              if (!isDisabled) {
-                onDelete();
-                handleOnClose();
-              }
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
 
-              invariant(false, 'Expected delete not to be disabled');
+              void handleSubmit(() => {
+                handleDelete();
+              })();
             }}
           >
-            <ControlledForm.Input
-              autoFocus
-              name="consent"
-              label={`To confirm deletion, type "${DELETE_CONSENT_TEXT}"`}
-              rules={{ required: true }}
-              placeholder={DELETE_CONSENT_TEXT}
-            />
-          </ControlledForm>
+            <Form>
+              <Controller
+                name="consent"
+                control={control}
+                rules={{ required: true, pattern: /^confirm$/ }}
+                render={({ field }) => (
+                  <FormField>
+                    <Input
+                      autoFocus
+                      ariaRequired
+                      placeholder={DELETE_CONSENT_TEXT}
+                      onChange={(event) => field.onChange(event.detail.value)}
+                      value={field.value}
+                    />
+                  </FormField>
+                )}
+              />
+            </Form>
+          </form>
         </ColumnLayout>
       </SpaceBetween>
     </Modal>
