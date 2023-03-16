@@ -1,22 +1,22 @@
-import messages from 'src/assets/messages';
-import { Layout } from 'src/components';
-import { DashboardCollection } from 'src/components/dashboard-collection/dashboard-collection';
+import type { QueryClient } from '@tanstack/react-query';
+import { useLoaderData } from 'react-router-dom';
 
-export const INDEX_ROUTE = {
-  index: true,
-  element: <IndexPage />,
-};
+import { DashboardCollection } from 'src/components';
+import { listDashboards } from 'src/services';
+
+export async function dashboardsLoader(queryClient: QueryClient) {
+  return await queryClient.ensureQueryData({
+    queryKey: ['dashboards', 'summaries'],
+    queryFn: listDashboards,
+  });
+}
 
 export function IndexPage() {
+  const dashboards = useLoaderData() as Awaited<
+    ReturnType<typeof dashboardsLoader>
+  >;
+
   return (
-    <>
-      <Layout
-        activeHref="/"
-        crumbs={[{ text: messages.appName, href: '/' }]}
-        type="cards"
-      >
-        <DashboardCollection type="cards" onlyFavorites={true} />
-      </Layout>
-    </>
+    <DashboardCollection onlyFavorites dashboards={dashboards} type="cards" />
   );
 }

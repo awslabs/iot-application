@@ -1,150 +1,36 @@
-import SpaceBetween from '@cloudscape-design/components/space-between';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useDashboardQuery, useUpdateDashboardMutation } from './hooks/hooks';
-import {
-  Button,
-  Container,
-  ContentLayout,
-  Header,
-  Icon,
-  SegmentedControl,
-} from '@cloudscape-design/components';
-import { useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
+import { DASHBOARD_DETAIL_QUERY_KEY } from './hooks/hooks';
+import { ContentLayout, Header } from '@cloudscape-design/components';
+import type { QueryClient } from '@tanstack/react-query';
 
-import messages from 'src/assets/messages';
-import { useDeleteDashboard, Layout } from 'src/components';
-import { queryClient } from 'src';
 import invariant from 'tiny-invariant';
+import { readDashboard } from 'src/services';
 
-export const DASHBOARD_ROUTE = {
-  path: ':dashboardId',
-  element: <DashboardPage />,
-};
+export async function dashboardLoader(
+  queryClient: QueryClient,
+  dashboardId?: string,
+) {
+  invariant(dashboardId != null, 'Expected dashboard ID to be defined.');
 
-type Mode = 'view' | 'edit';
-
-export function DashboardPage() {
-  const { dashboardId } = useParams<'dashboardId'>();
-  const dashboard = useDashboardQuery(dashboardId);
-  const [mode, setMode] = useState<Mode>('view');
-  const navigate = useNavigate();
-
-  const { DeleteDashboardButton, DeleteDashboardModal } = useDeleteDashboard({
-    dashboards: dashboard.data ? [dashboard.data] : [],
-    onSuccess: () => {
-      navigate('/dashboards');
-    },
+  const dashboard = await queryClient.ensureQueryData({
+    queryKey: DASHBOARD_DETAIL_QUERY_KEY(dashboardId),
+    queryFn: () => readDashboard(dashboardId),
   });
 
-  const updateDashboardMutation = useUpdateDashboardMutation();
+  return dashboard;
+}
 
+export function DashboardPage() {
+  const dashboard = useLoaderData() as Awaited<
+    ReturnType<typeof dashboardLoader>
+  >;
   return (
-    <>
-      <Layout
-        activeHref="/"
-        crumbs={[
-          { text: messages.appName, href: '/' },
-          { text: messages.dashboards, href: '/dashboards' },
-          {
-            text: dashboard.data?.name ?? 'Loading...',
-            href: `/dashboards/${dashboard.data?.id ?? ''}`,
-          },
-        ]}
-        type="dashboard"
-      >
-        <ContentLayout
-          header={
-            <Header
-              variant="h1"
-              description={
-                dashboard.data?.description ?? 'Loading description...'
-              }
-              actions={
-                <SpaceBetween direction="horizontal" size="m">
-                  <Button
-                    variant="icon"
-                    iconSvg={
-                      <Icon
-                        name="heart"
-                        variant={
-                          dashboard.data?.isFavorite ? 'warning' : 'disabled'
-                        }
-                      />
-                    }
-                    onClick={() => {
-                      invariant(
-                        dashboard.data,
-                        'Expected dashboard to be defined',
-                      );
-                      updateDashboardMutation.mutate(
-                        {
-                          ...dashboard.data,
-                          isFavorite: !dashboard.data.isFavorite,
-                        },
-                        {
-                          onSuccess: () => {
-                            void queryClient.invalidateQueries([
-                              'dashboards',
-                              'summaries',
-                            ]);
-                          },
-                        },
-                      );
-                    }}
-                  />
-
-                  <SegmentedControl
-                    selectedId={mode}
-                    onChange={({ detail }) =>
-                      setMode(detail.selectedId as Mode)
-                    }
-                    options={[
-                      { text: 'View', id: 'view' },
-                      { text: 'Edit', id: 'edit' },
-                    ]}
-                  />
-
-                  <DeleteDashboardButton />
-                </SpaceBetween>
-              }
-            >
-              {dashboard.data?.name ?? 'Loading...'}
-            </Header>
-          }
-        >
-          <Container
-            header={
-              <Header variant="h2">
-                {mode === 'edit' ? 'Editing' : 'Viewing'}
-              </Header>
-            }
-          ></Container>
-        </ContentLayout>
-      </Layout>
-
-      <DeleteDashboardModal />
-    </>
+    <ContentLayout
+      header={
+        <Header variant="h1" description={dashboard.description}>
+          {dashboard.name}
+        </Header>
+      }
+    ></ContentLayout>
   );
-
-  /*
-  const { dashboardId } = useParams<'dashboardId'>();
-
-  invariant(dashboardId, 'Expected dashboardId to be defined.');
-
-  const dashboard = useDashboardQuery(dashboardId);
-
-  if (dashboard.isSuccess) {
-    return <h1>dashboard view for {dashboard.data.id}</h1>;
-  }
-
-  if (dashboard.isLoading) {
-    return <div>spinner</div>;
-  }
-
-  if (dashboard.error instanceof Error) {
-    invariant(false, dashboard.error.message);
-  }
-
-  invariant(false, `Unexpected error at /dashboards/${dashboardId}`);
-  */
 }

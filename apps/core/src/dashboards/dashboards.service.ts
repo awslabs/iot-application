@@ -13,13 +13,14 @@ import {
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { plainToClass } from 'class-transformer';
-import { nanoid } from 'nanoid';
 
 import { DATABASE_GSI, MESSAGES, RESOURCE_TYPES } from './dashboard.constants';
 import { CreateDashboardDto } from './dto/create-dashboard.dto';
 import { Dashboard } from './entities/dashboard.entity';
 import { DashboardSummary } from './entities/dashboard-summary.entity';
+import { nanoid } from 'nanoid';
 import { databaseConfig } from '../config/database.config';
+import { UpdateDashboardParams } from './params/update-dashboard.params';
 import { UpdateDashboardDto } from './dto/update-dashboard.dto';
 
 @Injectable()
@@ -102,9 +103,7 @@ export class DashboardsService {
     }
   }
 
-  public async update(
-    dashboard: UpdateDashboardDto & Pick<Dashboard, 'id'>,
-  ): Promise<Dashboard | undefined> {
+  public async update(dashboard: UpdateDashboardParams & UpdateDashboardDto) {
     this.logger.log(`Updating dashboard ${dashboard.id}...`);
 
     try {
@@ -196,10 +195,10 @@ export class DashboardsService {
       name,
       definition,
       description,
-      isFavorite,
       id,
-      creationDate,
+      isFavorite,
       lastUpdateDate,
+      creationDate,
     };
   }
 
@@ -207,9 +206,8 @@ export class DashboardsService {
     id,
     name,
     description,
-    isFavorite,
     definition,
-  }: UpdateDashboardDto & Pick<Dashboard, 'id'>) {
+  }: UpdateDashboardDto & UpdateDashboardParams) {
     const creationDateObj = new Date();
     const creationDate = creationDateObj.toISOString();
     const lastUpdateDate = creationDate;
@@ -248,19 +246,17 @@ export class DashboardsService {
                 },
                 // Capture the DDB reserved words, see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
                 UpdateExpression:
-                  'set #name = :name, #description = :description, #isFavorite = :isFavorite, lastUpdateDate = :lastUpdateDate',
+                  'set #name = :name, #description = :description, lastUpdateDate = :lastUpdateDate',
                 ExpressionAttributeValues: {
                   ':id': id,
                   ':resourceType': RESOURCE_TYPES.DASHBOARD_DATA,
                   ':name': name,
                   ':description': description,
-                  ':isFavorite': isFavorite,
                   ':lastUpdateDate': lastUpdateDate,
                 },
                 ExpressionAttributeNames: {
                   '#name': 'name',
                   '#description': 'description',
-                  '#isFavorite': 'isFavorite',
                 },
                 ConditionExpression:
                   '(id = :id) and (resourceType = :resourceType)',
@@ -283,10 +279,7 @@ export class DashboardsService {
       id,
       name,
       definition,
-      isFavorite,
       description,
-      creationDate,
-      lastUpdateDate,
     };
   }
 
@@ -391,7 +384,6 @@ export class DashboardsService {
       id,
       description: dashboardData.description as string,
       name: dashboardData.name as string,
-      isFavorite: dashboardData.isFavorite as boolean,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       definition: dashboardDefinition.definition,
     });
@@ -426,17 +418,11 @@ export class DashboardsService {
             const id = item.id;
             const name = item.name;
             const description = item.description;
-            const isFavorite = item.isFavorite;
-            const creationDate = item.creationDate;
-            const lastUpdateDate = item.lastUpdateDate;
 
             return plainToClass(DashboardSummary, {
               id,
               name,
               description,
-              isFavorite,
-              creationDate,
-              lastUpdateDate,
             });
           }),
         );

@@ -60,13 +60,13 @@ export class DashboardsService {
   /**
    * @param id
    * @param requestBody
-   * @returns Dashboard
+   * @returns any
    * @throws ApiError
    */
   public static dashboardsControllerUpdate(
     id: string,
     requestBody: UpdateDashboardDto,
-  ): CancelablePromise<Dashboard> {
+  ): CancelablePromise<any> {
     return __request(OpenAPI, {
       method: 'PUT',
       url: '/dashboards/{id}',

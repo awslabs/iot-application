@@ -2,30 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
-import {
-  QueryCache,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import '@cloudscape-design/global-styles/index.css';
-import { router } from './router';
-import { NotificationsProvider, SideNavigationProvider } from 'src/components';
+import { router, queryClient } from './router';
 
 const awsResources = (global as any).awsResources;
 
 Amplify.configure({
   ...awsResources,
-});
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 10,
-    },
-  },
-  queryCache: new QueryCache({}),
 });
 
 const rootEl = document.getElementById('root');
@@ -290,11 +276,7 @@ if (rootEl != null) {
   ReactDOM.createRoot(rootEl).render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <NotificationsProvider>
-          <SideNavigationProvider>
-            <RouterProvider router={router} />
-          </SideNavigationProvider>
-        </NotificationsProvider>
+        <RouterProvider router={router} />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </React.StrictMode>,

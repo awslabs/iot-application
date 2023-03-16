@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { queryClient } from '../../../index';
+import { queryClient } from 'src/router';
 
 import {
   createDashboard,

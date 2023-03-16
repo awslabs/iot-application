@@ -14,7 +14,6 @@ import { ApiTags } from '@nestjs/swagger';
 import { DashboardsService } from './dashboards.service';
 import { CreateDashboardDto } from './dto/create-dashboard.dto';
 import { UpdateDashboardDto } from './dto/update-dashboard.dto';
-import { Dashboard } from './entities/dashboard.entity';
 import { DeleteDashboardParams } from './params/delete-dashboard.params';
 import { UpdateDashboardParams } from './params/update-dashboard.params';
 import { ReadDashboardParams } from './params/read-dashboard.params';
@@ -49,7 +48,7 @@ export class DashboardsController {
   public async update(
     @Param() params: UpdateDashboardParams,
     @Body() updateDashboardDto: UpdateDashboardDto,
-  ): Promise<Dashboard> {
+  ) {
     const dashboard = await this.dashboardsService.update({
       ...updateDashboardDto,
       ...params,
