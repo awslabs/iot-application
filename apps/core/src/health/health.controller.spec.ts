@@ -1,45 +1,47 @@
 import { Test } from '@nestjs/testing';
 import { HealthController } from './health.controller';
-import { TerminusModule } from '@nestjs/terminus';
-import { HttpService } from '@nestjs/axios';
-import { of } from 'rxjs';
+import { HealthIndicatorResult, TerminusModule } from '@nestjs/terminus';
+import { DynamoDbHealthIndicator } from './indicators/dynamodb.health';
+import { ConfigModule, registerAs } from '@nestjs/config';
 
 describe('HealthController', () => {
   let controller: HealthController;
+  let dynamoDbHealthIndicator: DynamoDbHealthIndicator;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      imports: [TerminusModule],
-      controllers: [HealthController],
-      providers: [
-        {
-          provide: HttpService,
-          useValue: {
-            // required to effectively mock HttpService
-            get: jest.fn(() => of({ core: { status: 'up' } })),
-            request: jest.fn(() => of({ status: 'ok' })),
-          },
-        },
+      imports: [
+        ConfigModule.forFeature(registerAs('database', () => ({}))),
+        TerminusModule,
       ],
+      controllers: [HealthController],
+      providers: [DynamoDbHealthIndicator],
     }).compile();
 
+    dynamoDbHealthIndicator = await module.resolve(DynamoDbHealthIndicator);
     controller = await module.resolve(HealthController);
   });
 
   describe('check', () => {
     test('application status is returned', async () => {
-      const status = await controller.check();
+      const dbResult: HealthIndicatorResult = {
+        db: {
+          status: 'up',
+        },
+      };
+      jest.spyOn(dynamoDbHealthIndicator, 'check').mockResolvedValue(dbResult);
 
+      const status = await controller.check();
       expect(status).toEqual({
         status: 'ok',
         info: {
-          core: {
+          db: {
             status: 'up',
           },
         },
         error: {},
         details: {
-          core: {
+          db: {
             status: 'up',
           },
         },

@@ -41,6 +41,7 @@
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
     "@shelf/jest-dynamodb": "^3.4.1",
+    "aws-sdk-client-mock": "^2.1.1",
     "cognito-local": "^3.21.1",
     "dynamodb-local": "^0.0.31",
     "eslint-config-custom": "*",

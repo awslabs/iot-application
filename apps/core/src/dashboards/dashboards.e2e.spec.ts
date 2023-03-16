@@ -20,7 +20,13 @@ import { Dashboard } from './entities/dashboard.entity';
 import { DashboardDefinition } from './entities/dashboard-definition.entity';
 import { DashboardWidgetType } from './entities/dashboard-widget.entity';
 import { AppModule } from '../app.module';
-import { credentials, region } from '../testing/aws-configuration';
+import {
+  configureTestProcessEnv,
+  credentials,
+  databaseEndpoint,
+  databaseTableName,
+  region,
+} from '../testing/aws-configuration';
 import { getAccessToken } from '../testing/jwt-generator';
 
 const dummyId = 'zckYx-InI8_f'; // 12 character
@@ -31,8 +37,6 @@ const dummyDefinition = plainToClass(DashboardDefinition, {
   widgets: [],
 });
 
-const databaseEndpoint = 'http://localhost:8001';
-const databaseTableName = 'dashboard-api-e2e-test';
 const dbDocClient = DynamoDBDocumentClient.from(
   new DynamoDBClient({
     endpoint: databaseEndpoint,
@@ -154,14 +158,7 @@ describe('DashboardsModule', () => {
   let app: NestFastifyApplication;
 
   beforeAll(async () => {
-    // TODO: global config to override the environment for test environment
-    process.env.DATABASE_PORT = '8001';
-    process.env.DATABASE_ENDPOINT = 'http://localhost:8001';
-    process.env.DATABASE_TABLE_NAME = 'dashboard-api-e2e-test';
-    process.env.DATABASE_LAUNCH_LOCAL = 'false';
-    process.env.AWS_ACCESS_KEY_ID = 'fakeMyKeyId';
-    process.env.AWS_SECRET_ACCESS_KEY = 'fakeSecretAccessKey';
-    process.env.AWS_REGION = 'us-west-2';
+    configureTestProcessEnv(process.env);
 
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule],
