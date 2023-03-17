@@ -10,8 +10,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { useSendNotification } from 'src/layout/components/Notifications';
-import messages from 'src/assets/messages';
 import { createDashboard, Dashboard, $Dashboard, ApiError } from 'src/services';
+import { FormattedMessage } from 'react-intl';
 
 export function CreateDashboardForm() {
   const {
@@ -90,13 +90,21 @@ export function CreateDashboardForm() {
       <Form
         actions={
           <SpaceBetween direction="horizontal" size="xs">
-            <Button onClick={() => navigate(-1)}>{messages.cancel}</Button>
+            <Button onClick={() => navigate(-1)}>
+              <FormattedMessage
+                defaultMessage="Cancel"
+                description="cancel create dashboard button"
+              />
+            </Button>
 
             <Button
               variant="primary"
               loading={createDashboardMutation.isLoading}
             >
-              {messages.createDashboard}
+              <FormattedMessage
+                defaultMessage="Create dashboard"
+                description="confirm create dashboard button"
+              />
             </Button>
           </SpaceBetween>
         }

@@ -9,7 +9,7 @@ import type {
   WithActiveHref,
 } from 'src/types';
 import { DataBound, MaybeDataBound } from 'src/types/data';
-import { ReadonlyTuple } from 'type-fest';
+import type { ReadonlyTuple } from 'type-fest';
 
 export function isHandleable<T>(
   maybe: MaybeHandleable<T>,

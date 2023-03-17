@@ -1,8 +1,34 @@
 const { STSClient, GetSessionTokenCommand } = require('@aws-sdk/client-sts');
-const { override, disableEsLint } = require('customize-cra');
+const {
+  override,
+  disableEsLint,
+  addWebpackModuleRule,
+} = require('customize-cra');
+const { transform } = require('@formatjs/ts-transformer');
 
 module.exports = {
-  webpack: override(disableEsLint()),
+  webpack: override(
+    disableEsLint(),
+    addWebpackModuleRule({
+      test: /\.tsx?$/,
+      use: [
+        {
+          loader: 'ts-loader',
+          options: {
+            getCustomTransformers() {
+              return {
+                before: [
+                  transform({
+                    overrideIdFn: '[sha512:contenthash:base64:6]',
+                  }),
+                ],
+              };
+            },
+          },
+        },
+      ],
+    }),
+  ),
   devServer: function (configFunction) {
     return function (proxy, allowedHost) {
       const config = configFunction(proxy, allowedHost);

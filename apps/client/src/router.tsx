@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
     element: <Root />,
     handle: {
       activeHref: '/',
-      crumb: () => 'Home',
+      crumb: () => ({ text: 'Home', href: '/' }),
     },
     children: [
       {

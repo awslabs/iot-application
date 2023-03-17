@@ -2,7 +2,10 @@
   "name": "iot-application",
   "private": true,
   "version": "0.0.0",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build",
     "clean": "turbo run clean && rm -rf .turbo && rm -rf node_modules && rm -rf *.tsbuildinfo",
@@ -28,6 +31,7 @@
     "ts-jest": "^29.0.3",
     "ts-node": "^10.0.0",
     "turbo": "latest",
+    "type-fest": "^3.6.1",
     "typescript": "^4.9.3"
   },
   "packageManager": "yarn@1.22.19",
