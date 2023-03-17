@@ -22,5 +22,10 @@ module.exports = {
       },
     },
   ],
+  // https://formatjs.io/docs/tooling/linter
+  plugins: ['formatjs'],
+  rules: {
+    'formatjs/no-offset': 'error',
+  },
   root: true,
 };

@@ -1,6 +1,7 @@
 import Table from '@cloudscape-design/components/table';
 import Header from '@cloudscape-design/components/header';
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 export const DashboardListPage = () => {
   // TODO: Retrieve this from the dashboard api
@@ -60,7 +61,14 @@ export const DashboardListPage = () => {
         },
       ]}
       items={dashboards}
-      header={<Header>Dashboards</Header>}
+      header={
+        <Header>
+          <FormattedMessage
+            defaultMessage="Dashboards"
+            description="dashboards list header"
+          />
+        </Header>
+      }
       variant="full-page"
     />
   );

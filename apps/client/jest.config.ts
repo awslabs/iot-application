@@ -20,7 +20,24 @@ const config: Config = {
   setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      // https://formatjs.io/docs/tooling/ts-transformer#via-ts-jest-in-jestconfigjs
+      {
+        astTransformers: {
+          before: [
+            {
+              path: '@formatjs/ts-transformer/ts-jest-integration',
+              options: {
+                overrideIdFn: '[sha512:contenthash:base64:6]',
+                ast: true,
+              },
+            },
+          ],
+        },
+      },
+    ],
+
     // required to handle Cloudscape components
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
