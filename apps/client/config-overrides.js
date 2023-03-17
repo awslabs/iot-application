@@ -1,8 +1,32 @@
-const { STSClient, GetSessionTokenCommand } = require("@aws-sdk/client-sts");
+const { STSClient, GetSessionTokenCommand } = require('@aws-sdk/client-sts');
+const { transform } = require('@formatjs/ts-transformer');
+const { override, addWebpackModuleRule } = require('customize-cra');
 
 module.exports = {
-  devServer: function(configFunction) {
-    return function(proxy, allowedHost) {
+  webpack: override(
+    // https://formatjs.io/docs/getting-started/installation#ts-loader
+    addWebpackModuleRule({
+      test: /\.tsx?$/,
+      use: [
+        {
+          loader: 'ts-loader',
+          options: {
+            getCustomTransformers() {
+              return {
+                before: [
+                  transform({
+                    overrideIdFn: '[sha512:contenthash:base64:6]',
+                  }),
+                ],
+              };
+            },
+          },
+        },
+      ],
+    }),
+  ),
+  devServer: function (configFunction) {
+    return function (proxy, allowedHost) {
       const config = configFunction(proxy, allowedHost);
 
       // Overrides the original `devServer.onBeforeSetupMiddleware` to add a custom AWS Credentials vending handler
@@ -14,11 +38,11 @@ module.exports = {
         }
 
         origOnBeforeSetupMiddleware(devServer);
-  
+
         devServer.app.get('/credentials.json', async (req, res) => {
           const stsClient = new STSClient({});
           const token = await stsClient.send(new GetSessionTokenCommand({}));
-          
+
           res.json(token.Credentials);
         });
       };
