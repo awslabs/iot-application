@@ -256,9 +256,7 @@
       "AllowAdminCreateUserOnly": false,
       "UnusedAccountValidityDays": 7
     },
-    "UsernameAttributes": [
-      "email"
-    ],
+    "UsernameAttributes": ["email"],
     "Id": "us-west-2_h23TJjQR9"
   }
 }
