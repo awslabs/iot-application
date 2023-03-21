@@ -1,9 +1,17 @@
 const { STSClient, GetSessionTokenCommand } = require('@aws-sdk/client-sts');
 const { transform } = require('@formatjs/ts-transformer');
-const { override, addWebpackModuleRule } = require('customize-cra');
+const {
+  override,
+  addWebpackModuleRule,
+  addWebpackAlias,
+} = require('customize-cra');
+const path = require('path');
 
 module.exports = {
   webpack: override(
+    addWebpackAlias({
+      '~': path.resolve(__dirname, 'src'),
+    }),
     // https://formatjs.io/docs/getting-started/installation#ts-loader
     addWebpackModuleRule({
       test: /\.tsx?$/,
