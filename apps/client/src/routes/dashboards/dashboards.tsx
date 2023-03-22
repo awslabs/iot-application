@@ -4,7 +4,7 @@ import { DASHBOARDS_PATH, DASHBOARDS_HREF } from '~/constants';
 import { intl } from '~/services';
 import { route as dashboardsIndexRoute } from './index';
 import { route as dashboardRoute } from './dashboard';
-import { route as createDashboardRoute } from './create';
+import { createDashboardRoute } from './create';
 
 export const route = {
   path: DASHBOARDS_PATH,

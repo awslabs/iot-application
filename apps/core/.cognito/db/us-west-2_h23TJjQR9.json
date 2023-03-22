@@ -16,7 +16,8 @@
       "Enabled": true,
       "UserStatus": "CONFIRMED",
       "UserCreateDate": "2023-02-18T10:18:04.493Z",
-      "UserLastModifiedDate": "2023-02-18T10:20:48.241Z"
+      "UserLastModifiedDate": "2023-02-18T10:20:48.241Z",
+      "RefreshTokens": []
     }
   },
   "Options": {

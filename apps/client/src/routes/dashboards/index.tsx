@@ -43,7 +43,7 @@ export function DashboardsIndexPage() {
             defaultMessage: 'Name',
             description: 'dashboards table dashboard name column header',
           }),
-          cell: (d) => d.id,
+          cell: (d) => d.name,
         },
         {
           id: 'description',

@@ -40,6 +40,10 @@ export function Layout(props: React.PropsWithChildren) {
             defaultMessage: 'Close navigation drawer',
             description: 'side navigation close aria label',
           }),
+          notifications: intl.formatMessage({
+            defaultMessage: 'Notifications',
+            description: 'notifications aria label',
+          }),
         }}
       />
     </>

@@ -19,14 +19,14 @@ export class Dashboard {
    * @example "Wind Farm 4"
    */
   @IsString()
-  @Length(1, 100)
+  @Length(1, 40)
   public readonly name: DashboardName;
 
   /**
    * @example "Wind Farm 4 Description"
    */
   @IsString()
-  @Length(0, 1024)
+  @Length(1, 200)
   public readonly description: DashboardDescription;
 
   @IsObject()
