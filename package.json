@@ -2,7 +2,7 @@
   "name": "iot-application",
   "private": true,
   "version": "0.0.0",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": ["apps/*", "cdk", "packages/*"],
   "config": {
     "docs": "http://localhost:3000/docs-json",
     "genpath": "apps/client/src/services/generated",

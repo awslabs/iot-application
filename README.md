@@ -24,6 +24,17 @@ Visualize your AWS IoT data with the IoT Application.
 
 Run local test command `yarn test` to test the application. The command is "batteries included" - it has everything needed to run and test the application locally.
 
+## Deploying the Core
+
+1. Install application dependencies:
+   ```sh
+   yarn install
+   ```
+1. Deploy the Core service and resource dependencies:
+   ```sh
+   yarn workspace cdk cdk deploy --all
+   ```
+
 ## Environments
 
 ### Service Dependencies
