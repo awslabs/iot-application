@@ -277,7 +277,7 @@ describe('DashboardsModule', () => {
       );
     });
 
-    test.each(['x', 'x'.repeat(10), 'x'.repeat(100)])(
+    test.each(['x', 'x'.repeat(10), 'x'.repeat(40)])(
       'returns 201 when name is valid: (%s)',
       async (dashboardName) => {
         const payload: CreateDashboardDto = {
@@ -298,7 +298,7 @@ describe('DashboardsModule', () => {
       },
     );
 
-    test.each(['', 'x'.repeat(101), 1, {}, []])(
+    test.each(['', 'x'.repeat(41), 1, {}, []])(
       'returns 400 when name is not valid: (%s)',
       async (dashboardName) => {
         const payload = {
@@ -336,7 +336,7 @@ describe('DashboardsModule', () => {
       expect(response.statusCode).toBe(400);
     });
 
-    test.each(['', 'x', 'x'.repeat(10), 'x'.repeat(1024)])(
+    test.each(['x', 'x'.repeat(10), 'x'.repeat(200)])(
       'returns 201 when description is valid: (%s)',
       async (dashboardDescription) => {
         const payload: CreateDashboardDto = {
@@ -357,7 +357,7 @@ describe('DashboardsModule', () => {
       },
     );
 
-    test.each(['x'.repeat(1025), 1, {}, []])(
+    test.each(['', 'x'.repeat(1025), 1, {}, []])(
       'returns 400 when description is not valid: (%s)',
       async (dashboardDescription) => {
         const payload = {
@@ -698,7 +698,7 @@ describe('DashboardsModule', () => {
       },
     );
 
-    test.each(['', 'x'.repeat(101), 1, {}, []])(
+    test.each(['', 'x'.repeat(41), 1, {}, []])(
       'returns 400 when dashboard name is not valid: (%s)',
       async (dashboardName) => {
         const dashboard = await seedTestDashboard('name');
@@ -729,7 +729,7 @@ describe('DashboardsModule', () => {
       },
     );
 
-    test.each(['', 'x', 'x'.repeat(10), 'x'.repeat(1024)])(
+    test.each(['x', 'x'.repeat(10), 'x'.repeat(200)])(
       'returns 200 when description is valid: (%s)',
       async (dashboardDescription) => {
         const dashboard = await seedTestDashboard('name');
@@ -753,7 +753,7 @@ describe('DashboardsModule', () => {
       },
     );
 
-    test.each(['x'.repeat(1025), 1, {}, []])(
+    test.each(['', 'x'.repeat(201), 1, {}, []])(
       'returns 400 when description is not valid: (%s)',
       async (dashboardDescription) => {
         const dashboard = await seedTestDashboard('name');

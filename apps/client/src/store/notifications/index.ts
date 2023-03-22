@@ -2,6 +2,7 @@ import { atom } from 'jotai';
 import { nanoid } from 'nanoid';
 
 import { withoutIdentifiable } from '~/helpers/lists';
+import { intl } from '~/services';
 import type { Notification } from '~/types';
 
 /**
@@ -42,6 +43,10 @@ export const sendNotificationAtom = atom(
         onDismiss: () => {
           set(dismissNotificationAtom, notificationId);
         },
+        dismissLabel: intl.formatMessage({
+          defaultMessage: 'Dismiss notification',
+          description: 'dismiss notification aria label',
+        }),
       },
     ]);
   },
