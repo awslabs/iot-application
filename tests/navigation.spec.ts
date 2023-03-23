@@ -84,7 +84,7 @@ test.describe('Navigation', () => {
     await expect(page.getByRole('menu')).not.toBeVisible();
 
     // user opens the dropdown menu
-    await page.getByRole('button', { name: '<name>' }).click();
+    await page.getByRole('button', { name: 'test-user' }).click();
 
     // the dropdown menu is visible to user
     await expect(page.getByRole('menu')).toBeVisible();
@@ -108,7 +108,7 @@ test.describe('Navigation', () => {
     await page.goto('');
 
     // user opens the dropdown menu
-    await page.getByRole('button', { name: '<name>' }).click();
+    await page.getByRole('button', { name: 'test-user' }).click();
 
     // user clicks on feedback link
     await page.getByRole('menuitem', { name: 'Feedback' }).click();

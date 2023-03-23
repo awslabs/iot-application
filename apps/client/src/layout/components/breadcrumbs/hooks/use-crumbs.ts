@@ -4,12 +4,8 @@ import { useMatches } from 'react-router-dom';
 import {
   isHandleableWithCrumbData,
   isHandleableWithCrumbs,
-} from '../../../../helpers/predicates';
-import type {
-  MaybeCrumbly,
-  MaybeDataBound,
-  MaybeHandleable,
-} from '../../../../types';
+} from '~/helpers/predicates';
+import type { MaybeCrumbly, MaybeDataBound, MaybeHandleable } from '~/types';
 
 type MaybeMatch<T> = MaybeDataBound<T> & MaybeHandleable<MaybeCrumbly<T>>;
 
