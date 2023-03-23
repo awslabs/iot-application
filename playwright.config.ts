@@ -57,6 +57,6 @@ export default defineConfig({
   webServer: {
     command: 'yarn dev',
     // ensure `core` is stood up before testing
-    url: 'http://localhost:3000/docs-json',
+    url: 'http://localhost:3000/health',
   },
 });
