@@ -58,5 +58,6 @@ export default defineConfig({
     command: 'yarn dev',
     // ensure `core` is stood up before testing
     url: 'http://localhost:3000/health',
+    reuseExistingServer: true,
   },
 });
