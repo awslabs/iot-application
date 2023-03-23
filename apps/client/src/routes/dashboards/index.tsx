@@ -1,33 +1,30 @@
 import Header from '@cloudscape-design/components/header';
 import Table from '@cloudscape-design/components/table';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { createBrowserRouter, useLoaderData } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 import { DASHBOARDS_INDEX_PAGE_FORMAT } from '~/constants/format';
 import { DASHBOARDS_QUERY } from '~/data/dashboards';
-import { queryClient } from '~/data/query-client';
 
-import type { AsyncReturnType } from 'type-fest';
+import { useQuery } from '@tanstack/react-query';
 
 export const route = {
   index: true,
   element: <DashboardsIndexPage />,
-  loader: () => {
-    return queryClient.ensureQueryData(DASHBOARDS_QUERY);
-  },
   handle: {
     format: DASHBOARDS_INDEX_PAGE_FORMAT,
   },
 } satisfies Parameters<typeof createBrowserRouter>[0][number];
 
 export function DashboardsIndexPage() {
-  const dashboards = useLoaderData() as AsyncReturnType<typeof route.loader>;
   const intl = useIntl();
+  const dashboardsQuery = useQuery(DASHBOARDS_QUERY);
 
   return (
     <Table
       variant="full-page"
-      items={dashboards}
+      items={dashboardsQuery.data ?? []}
+      loading={dashboardsQuery.isLoading}
       header={
         <Header variant="h1">
           <FormattedMessage

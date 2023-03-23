@@ -2,9 +2,14 @@ export * from './generated';
 export { intl } from './intl';
 
 import { OpenAPI, DashboardsService } from './generated';
+import { Auth } from 'aws-amplify';
 
-// put token here
-OpenAPI.TOKEN = '';
+async function getToken() {
+  const session = await Auth.currentSession();
+  return session.getAccessToken().getJwtToken();
+}
+
+OpenAPI.TOKEN = getToken;
 
 OpenAPI.BASE = 'http://localhost:3000';
 

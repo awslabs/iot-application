@@ -6,11 +6,13 @@ import { SettingsModal } from './components/settings-modal';
 import { ROOT_HREF } from '~/constants';
 import { preventFullPageLoad } from '~/helpers/events';
 import { useBrowser } from '~/hooks/browser/use-browser';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 export function TopNavigation() {
   const { navigate } = useBrowser();
   const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
   const intl = useIntl();
+  const { user, signOut } = useAuthenticator();
 
   function openSettings() {
     setIsSettingsModalVisible(true);
@@ -51,9 +53,14 @@ export function TopNavigation() {
           },
           {
             type: 'menu-dropdown',
-            text: '<name>',
-            description: '<email>',
+            text: user.username,
+            description: user.attributes?.email,
             iconName: 'user-profile',
+            onItemClick: (event) => {
+              if (event.detail.id === 'signout') {
+                signOut();
+              }
+            },
             items: [
               {
                 id: 'documentation',

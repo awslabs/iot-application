@@ -31,3 +31,4 @@ dist-ssr
 /playwright-report/
 /playwright/.cache/
 coverage
+/.cognito/db/*
