@@ -30,6 +30,9 @@ jobs:
       - name: Install Dependencies 🔩
         run: yarn install
 
+      - name: Start Server 👨‍🍳
+        run: yarn dev
+
       - name: Install Playwright Browsers 🔩
         run: yarn playwright install --with-deps
 
