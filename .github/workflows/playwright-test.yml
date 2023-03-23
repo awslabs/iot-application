@@ -31,7 +31,7 @@ jobs:
         run: yarn install
 
       - name: Start Server 👨‍🍳
-        run: yarn dev
+        run: yarn dev &
 
       - name: Install Playwright Browsers 🔩
         run: yarn playwright install --with-deps
