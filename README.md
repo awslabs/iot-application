@@ -2,7 +2,7 @@
 
 Visualize your AWS IoT data with the IoT Application.
 
-## Getting Started with local development
+## Prerequisites
 
 1. Install [Volta](https://docs.volta.sh/guide/getting-started).
 1. Install [Node.js@18 with Volta](https://docs.volta.sh/guide/#features).
@@ -11,6 +11,9 @@ Visualize your AWS IoT data with the IoT Application.
    ```sh
    yarn add global nest turbo typescript
    ```
+
+## Getting Started with local development
+
 1. Install application dependencies:
    ```sh
    yarn install
@@ -24,11 +27,15 @@ Visualize your AWS IoT data with the IoT Application.
 
 Run local test command `yarn test` to test the application. The command is "batteries included" - it has everything needed to run and test the application locally.
 
-## Deploying the Core
+## Deploying to AWS Cloud
 
 1. Install application dependencies:
    ```sh
    yarn install
+   ```
+1. Build the client
+   ```sh
+   yarn workspace client build
    ```
 1. Deploy the Core service and resource dependencies:
    ```sh
