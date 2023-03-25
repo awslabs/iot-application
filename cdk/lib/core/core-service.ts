@@ -1,4 +1,3 @@
-import path = require('path');
 import { CfnService } from 'aws-cdk-lib/aws-apprunner';
 import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
 import {
@@ -8,6 +7,7 @@ import {
   ServicePrincipal,
 } from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
+import path from 'path';
 
 export interface CoreServiceProps {
   readonly databaseTableArn: string;
@@ -17,20 +17,15 @@ export interface CoreServiceProps {
 }
 
 export class CoreService extends Construct {
-  readonly databaseTableArn: string;
-  readonly databaseTableName: string;
-  readonly userPoolId: string;
-  readonly userPoolClientId: string;
-
   constructor(scope: Construct, id: string, props: CoreServiceProps) {
     super(scope, id);
 
-    ({
-      databaseTableArn: this.databaseTableArn,
-      databaseTableName: this.databaseTableName,
-      userPoolClientId: this.userPoolClientId,
-      userPoolId: this.userPoolId,
-    } = props);
+    const {
+      databaseTableArn,
+      databaseTableName,
+      userPoolClientId,
+      userPoolId,
+    } = props;
 
     const serviceSourceRolePrincipal = new ServicePrincipal(
       'build.apprunner.amazonaws.com',
@@ -53,7 +48,7 @@ export class CoreService extends Construct {
     serviceInstanceRole.addToPolicy(
       new PolicyStatement({
         actions: ['dynamodb:*'],
-        resources: [this.databaseTableArn, `${this.databaseTableArn}/index/*`],
+        resources: [databaseTableArn, `${databaseTableArn}/index/*`],
       }),
     );
 
@@ -75,15 +70,15 @@ export class CoreService extends Construct {
             runtimeEnvironmentVariables: [
               {
                 name: 'COGNITO_USER_POOL_CLIENT_ID',
-                value: this.userPoolClientId,
+                value: userPoolClientId,
               },
               {
                 name: 'COGNITO_USER_POOL_ID',
-                value: this.userPoolId,
+                value: userPoolId,
               },
               {
                 name: 'DATABASE_TABLE_NAME',
-                value: this.databaseTableName,
+                value: databaseTableName,
               },
             ],
           },
