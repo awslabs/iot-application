@@ -101,7 +101,9 @@ export class DashboardsService {
     }
   }
 
-  public async update(dashboard: Dashboard) {
+  public async update(
+    dashboard: Pick<Dashboard, 'id' | 'name' | 'description' | 'definition'>,
+  ) {
     this.logger.log(`Updating dashboard ${dashboard.id}...`);
 
     try {
@@ -192,6 +194,8 @@ export class DashboardsService {
       definition,
       description,
       id,
+      lastUpdateDate,
+      creationDate,
     };
   }
 
@@ -200,7 +204,7 @@ export class DashboardsService {
     name,
     description,
     definition,
-  }: Dashboard) {
+  }: Pick<Dashboard, 'id' | 'name' | 'description' | 'definition'>) {
     const creationDateObj = new Date();
     const creationDate = creationDateObj.toISOString();
     const lastUpdateDate = creationDate;
@@ -273,6 +277,8 @@ export class DashboardsService {
       name,
       definition,
       description,
+      lastUpdateDate,
+      creationDate,
     };
   }
 
@@ -411,11 +417,15 @@ export class DashboardsService {
             const id = item.id;
             const name = item.name;
             const description = item.description;
+            const lastUpdateDate = item.lastUpdateDate;
+            const creationDate = item.creationDate;
 
             return plainToClass(DashboardSummary, {
               id,
               name,
               description,
+              lastUpdateDate,
+              creationDate,
             });
           }),
         );

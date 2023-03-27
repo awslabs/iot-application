@@ -9,4 +9,6 @@ export type Dashboard = {
   name: string;
   description: string;
   definition: DashboardDefinition;
+  creationDate: string;
+  lastUpdateDate: string;
 };

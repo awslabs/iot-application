@@ -35,7 +35,6 @@ export const sendNotificationAtom = atom(
     const notificationId = nanoid();
 
     set(notificationsBaseAtom, () => [
-      ...get(notificationsAtom),
       {
         ...notification,
         id: notificationId,
@@ -48,6 +47,7 @@ export const sendNotificationAtom = atom(
           description: 'dismiss notification aria label',
         }),
       },
+      ...get(notificationsAtom),
     ]);
   },
 );

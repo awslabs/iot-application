@@ -4286,7 +4286,7 @@
     "@aws-sdk/types" "3.295.0"
     tslib "^2.5.0"
 
-"@aws-sdk/url-parser@3.296.0":
+"@aws-sdk/url-parser@3.296.0", "@aws-sdk/url-parser@^3.289.0":
   version "3.296.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/url-parser/-/url-parser-3.296.0.tgz#d063a1566ac92722cf13e86572e0ca54c33be489"
   integrity sha512-nBgeGF+ziuDSLz+y8UAl6zL2tXxDwh3wqeXFe9ZcR4YW71BWuh+vEqEsaEMutOrfnJacCrYKTs9TkIOW41cEGg==
@@ -6058,7 +6058,7 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cloudscape-design/collection-hooks@^1.0.0":
+"@cloudscape-design/collection-hooks@^1.0.0", "@cloudscape-design/collection-hooks@^1.0.19":
   version "1.0.19"
   resolved "https://registry.yarnpkg.com/@cloudscape-design/collection-hooks/-/collection-hooks-1.0.19.tgz#3c0d50751a2c5965b5dcb7e94def81dcda1ea782"
   integrity sha512-dd5K+o0bTxmNephTglVSwKPTOs+S+hekKCAf1M7dthuCsgEiYVSMAan+Uu+e7EG64atPGIsg+me9BJofF7VmFA==
@@ -6070,10 +6070,34 @@
   dependencies:
     "@juggle/resize-observer" "^3.3.1"
 
-"@cloudscape-design/components@^3.0.126", "@cloudscape-design/components@^3.0.139":
+"@cloudscape-design/components@^3.0.139":
   version "3.0.233"
   resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.233.tgz#060ef830f653c5f5a009169514eddaa64ce56e69"
   integrity sha512-8onPBmp6zAtcJRPy5GAem0PFrLnO8dk8gXPyTQGe6pZdNSQ9aly8Z2YU5Fe7LPDJNvD0+bHi+AWvOYl3AQEY8g==
+  dependencies:
+    "@cloudscape-design/collection-hooks" "^1.0.0"
+    "@cloudscape-design/component-toolkit" "^1.0.0-beta"
+    "@cloudscape-design/test-utils-core" "^1.0.0"
+    "@cloudscape-design/theming-runtime" "^1.0.0"
+    "@juggle/resize-observer" "^3.3.1"
+    ace-builds "^1.4.13"
+    balanced-match "^1.0.2"
+    clsx "^1.1.0"
+    d3-shape "^1.3.7"
+    date-fns "^2.25.0"
+    intl-messageformat "^10.3.1"
+    mnth "^2.0.0"
+    react-focus-lock "~2.8.1"
+    react-keyed-flatten-children "^1.3.0"
+    react-transition-group "^4.4.2"
+    react-virtual "^2.8.2"
+    tslib "^2.4.0"
+    weekstart "^1.1.0"
+
+"@cloudscape-design/components@^3.0.226", "@cloudscape-design/components@^3.0.227":
+  version "3.0.235"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.235.tgz#c82ed7de220ede32febfd3dac45bc496541e887c"
+  integrity sha512-3bLA0DuHLKUOBYs0BVQVfeUFZdpA4XkmIedujqh9kUm83QifJ+cKMni0UNZP09ToBoX+rxpLm1CsNjdwV1hOPw==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.0"
     "@cloudscape-design/component-toolkit" "^1.0.0-beta"
@@ -6643,18 +6667,17 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@iot-app-kit/components@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/components/-/components-3.0.0.tgz#ee7340b463697502880353b52bf7fe27703a35c8"
-  integrity sha512-qCh853ywoU9vh5P93w2izDb9S86Md3gh74jPVF2CZ8kt75cRgSZw7jFbRLYbBY2ovgIAOE8uYSifJzozV58S1Q==
+"@iot-app-kit/components@4.0.0", "@iot-app-kit/components@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/components/-/components-4.0.0.tgz#bfdf87fe9df533cace55fc857cd893a4cd154c16"
+  integrity sha512-gmAO8acj6KREpQXl1xdcXj5GvImPubybNgtYSPp7Lpn/hscJCwvTuWTV7TDbsMaKVt30mcEkb67+3rjuaP4OKQ==
   dependencies:
     "@awsui/collection-hooks" "^1.0.0"
     "@awsui/components-react" "^3.0.0"
     "@awsui/design-tokens" "^3.0.0"
-    "@iot-app-kit/core" "3.0.0"
-    "@iot-app-kit/related-table" "3.0.0"
-    "@iot-app-kit/source-iotsitewise" "3.0.0"
-    "@iot-app-kit/table" "3.0.0"
+    "@iot-app-kit/core" "4.0.0"
+    "@iot-app-kit/related-table" "4.0.0"
+    "@iot-app-kit/source-iotsitewise" "4.0.0"
     "@stencil/core" "^2.7.0"
     "@synchro-charts/core" "7.2.0"
     styled-components "^5.3.0"
@@ -6707,71 +6730,84 @@
     typescript "4.4.4"
     uuid "^3.3.2"
 
-"@iot-app-kit/dashboard@^3.0.0-alpha.3":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/dashboard/-/dashboard-3.0.0.tgz#b16ea172f4be9b02092e79d6897ba4f380b14c64"
-  integrity sha512-GE924GcSobnuRx1cQJX5tlWpgHFB//ih6jwoO3ZpckvOgmeXYJxOwHr0ozm0FgLlYWhgaNzJHmz9rA0+z5SAZg==
+"@iot-app-kit/core@4.0.0", "@iot-app-kit/core@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/core/-/core-4.0.0.tgz#de128ede3b0f41f6098985f1fa4ca6ce1c82d3f0"
+  integrity sha512-FbUMoTWHKNgoRiZkTGxuVebzg3JtfbYpFpjKPg2guPenOffkSJfRXW/u0SbQLRoAv0I69GBAQdugR+HXPpRHJQ==
+  dependencies:
+    "@aws-sdk/client-iotsitewise" "^3.87.0"
+    d3-array "^3.2.2"
+    intervals-fn "^3.0.3"
+    parse-duration "^1.0.3"
+    redux "^4.2.1"
+    rxjs "^7.8.0"
+    uuid "^9.0.0"
+
+"@iot-app-kit/dashboard@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/dashboard/-/dashboard-4.0.0.tgz#a6b9cbd04f41d47dc0b0a81d97d85bad6d964c1d"
+  integrity sha512-EMx9DskoJ0It8Y/0PLWgLw71QExvzRr6Q1DGdwxwaZqafkDfRa4l2Xe+tPE78atDN2Oh3ebX7oPT2+uQ5EE4zg==
   dependencies:
     "@aws-sdk/client-iotsitewise" "^3.245.0"
-    "@cloudscape-design/components" "^3.0.126"
+    "@cloudscape-design/components" "^3.0.227"
     "@cloudscape-design/design-tokens" "^3.0.7"
     "@cloudscape-design/global-styles" "^1.0.5"
-    "@iot-app-kit/components" "3.0.0"
-    "@iot-app-kit/core" "3.0.0"
-    "@iot-app-kit/react-components" "3.0.0"
-    "@iot-app-kit/source-iotsitewise" "3.0.0"
+    "@iot-app-kit/components" "^4.0.0"
+    "@iot-app-kit/core" "^4.0.0"
+    "@iot-app-kit/react-components" "4.0.0"
+    "@iot-app-kit/source-iotsitewise" "4.0.0"
+    "@iot-app-kit/table" "3.0.0"
     "@popperjs/core" "^2.11.6"
     "@synchro-charts/core" "7.2.0"
-    "@synchro-charts/react" "^7.2.0"
     box-intersect "^1.0.2"
     is-hotkey "^0.2.0"
-    parse-duration "^1.0.0"
-    react-dnd "^15.1.2"
-    react-dnd-html5-backend "^15.1.2"
-    react-dnd-touch-backend "^15.1.2"
+    parse-duration "^1.0.3"
+    react-dnd "^16.0.1"
+    react-dnd-html5-backend "^16.0.1"
+    react-dnd-touch-backend "^16.0.1"
     react-popper "^2.3.0"
+    uuid "^9.0.0"
 
-"@iot-app-kit/react-components@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/react-components/-/react-components-3.0.0.tgz#59dc4ee343106742e9eabf73d7734e718ad2125e"
-  integrity sha512-WCVjmumV3hgLSFtOle5gHeP1rSA0arnf/0jexkezJwXWOoEIxZGNzH6sgQAeb9wQnjcoJTdQirPbn2rPzRtWow==
+"@iot-app-kit/react-components@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/react-components/-/react-components-4.0.0.tgz#96fd36cf75e5f142e7cf05f477d1aa3769c29589"
+  integrity sha512-J4t+GGU9Sn8q84OhA0evYxisVFHCLSmHGh55VmsOZcHzL66bF58iE/Uu4pIwYUKVKen0FDJ5RlOY2yf7dI6aDg==
   dependencies:
-    "@awsui/components-react" "^3.0.0"
-    "@iot-app-kit/components" "3.0.0"
-    "@iot-app-kit/core" "3.0.0"
-    "@iot-app-kit/source-iottwinmaker" "3.0.0"
+    "@cloudscape-design/collection-hooks" "^1.0.19"
+    "@cloudscape-design/components" "^3.0.226"
+    "@iot-app-kit/components" "4.0.0"
+    "@iot-app-kit/core" "4.0.0"
+    "@iot-app-kit/source-iottwinmaker" "4.0.0"
     color "^4.2.3"
+    d3-array "^3.2.2"
     d3-shape "^3.2.0"
     dompurify "2.3.4"
-    parse-duration "^1.0.2"
-    uuid "^8.3.2"
+    lodash.omitby "^4.6.0"
+    parse-duration "^1.0.3"
+    uuid "^9.0.0"
     video.js "7.20.3"
 
-"@iot-app-kit/related-table@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/related-table/-/related-table-3.0.0.tgz#5e44f4c70f53452f40509525573209076b10f073"
-  integrity sha512-TC37NexEIvibBldqfQAu+jnN7c8UFemtfCLhwphJ4CGZu1PLnRPO0JXT0u+Ij0j+F3wlJUq5kdC0qFeApGyOhw==
+"@iot-app-kit/related-table@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/related-table/-/related-table-4.0.0.tgz#8a19499da6b70bb9c282a7375e237aaccaa2bbe8"
+  integrity sha512-FclC5bnrLahOTbffauHcGCAiyN9+XxVk410CXRXz9+DtQKG9wSatxVaB/g3wJCxmpYSrrs3R7huUaasVfKX9yw==
   dependencies:
-    mutationobserver-shim "^0.3.7"
-    uuid "^8.3.2"
+    uuid "^9.0.0"
 
-"@iot-app-kit/source-iotsitewise@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iotsitewise/-/source-iotsitewise-3.0.0.tgz#a44004e9042608e5941ccf37fff38437417a40bb"
-  integrity sha512-AvmgUaMsPugHBQ/BmArzdjEzyWp9or8sJOVf7brAiMFSQEbOZ4Yvxpx4s8XL0O54PwPMuSDgf869k5wKjYZEug==
+"@iot-app-kit/source-iotsitewise@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iotsitewise/-/source-iotsitewise-4.0.0.tgz#1d5df2b059e1c6608af2998b0b8757137f84970e"
+  integrity sha512-Wkakouk3+Itpo0xbwcZYHqjm+Avjer8iEycTAkDndefJDGJH8dep8ctuWSEYsTcPvlKLP3HzZ+sXys6gsUO3XA==
   dependencies:
     "@aws-sdk/client-iot-events" "^3.118.1"
     "@aws-sdk/client-iotsitewise" "^3.87.0"
-    "@iot-app-kit/core" "3.0.0"
-    "@rollup/plugin-typescript" "^8.3.0"
+    "@iot-app-kit/core" "4.0.0"
     "@synchro-charts/core" "7.2.0"
-    dataloader "^2.1.0"
-    flush-promises "^1.0.2"
+    dataloader "^2.2.2"
     lodash.isequal "^4.5.0"
     lodash.merge "^4.6.2"
     lodash.uniqwith "^4.5.0"
-    rxjs "^7.4.0"
-    typescript "4.4.4"
+    rxjs "^7.8.0"
 
 "@iot-app-kit/source-iotsitewise@^2.6.5":
   version "2.7.1"
@@ -6789,21 +6825,20 @@
     rxjs "^7.4.0"
     typescript "4.4.4"
 
-"@iot-app-kit/source-iottwinmaker@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iottwinmaker/-/source-iottwinmaker-3.0.0.tgz#910752b34b4c2c3ab667424dbf4714e9b3d14ea2"
-  integrity sha512-ejhpfo/FqBfzbnFEnuyxViyaWXcdBSBHtsgDHoYB6K1KZfZxuY05NX3xhlV7cqrzHVL1CpFBFcpTcwIDU/LXvw==
+"@iot-app-kit/source-iottwinmaker@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iottwinmaker/-/source-iottwinmaker-4.0.0.tgz#bf80d56f81582f0bb2712f146cafc29a1e93f5ce"
+  integrity sha512-QV60VSDXSqOabslj2JvzBWzGfg3e+p40+rMD16jgRXb3ZA/dpmlVkCaI0OPTO/PybTjXYEgJhBZKgHE+69epRw==
   dependencies:
     "@aws-sdk/client-iotsitewise" "^3.131.0"
     "@aws-sdk/client-iottwinmaker" "^3.131.0"
     "@aws-sdk/client-kinesis-video" "^3.131.0"
     "@aws-sdk/client-kinesis-video-archived-media" "^3.131.0"
     "@aws-sdk/client-s3" "^3.72.0"
-    "@iot-app-kit/core" "3.0.0"
-    "@synchro-charts/core" "7.2.0"
-    flush-promises "^1.0.2"
-    rxjs "^7.4.0"
-    typescript "4.4.4"
+    "@aws-sdk/url-parser" "^3.289.0"
+    "@iot-app-kit/core" "4.0.0"
+    lodash "^4.17.21"
+    rxjs "^7.8.0"
 
 "@iot-app-kit/table@3.0.0":
   version "3.0.0"
@@ -7971,20 +8006,20 @@
   resolved "https://registry.yarnpkg.com/@reach/observe-rect/-/observe-rect-1.2.0.tgz#d7a6013b8aafcc64c778a0ccb83355a11204d3b2"
   integrity sha512-Ba7HmkFgfQxZqqaeIWWkNK0rEhpxVQHIoVyW1YDSkGsGIXzcaW4deC8B0pZrNSSyLTdIk7y+5olKt5+g0GmFIQ==
 
-"@react-dnd/asap@4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@react-dnd/asap/-/asap-4.0.1.tgz#5291850a6b58ce6f2da25352a64f1b0674871aab"
-  integrity sha512-kLy0PJDDwvwwTXxqTFNAAllPHD73AycE9ypWeln/IguoGBEbvFcPDbCV03G52bEcC5E+YgupBE0VzHGdC8SIXg==
+"@react-dnd/asap@^5.0.1":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@react-dnd/asap/-/asap-5.0.2.tgz#1f81f124c1cd6f39511c11a881cfb0f715343488"
+  integrity sha512-WLyfoHvxhs0V9U+GTsGilGgf2QsPl6ZZ44fnv0/b8T3nQyvzxidxsg/ZltbWssbsRDlYW8UKSQMTGotuTotZ6A==
 
-"@react-dnd/invariant@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@react-dnd/invariant/-/invariant-3.0.1.tgz#7e70be19ea21b539e8bf1da28466f4f05df2a4cc"
-  integrity sha512-blqduwV86oiKw2Gr44wbe3pj3Z/OsXirc7ybCv9F/pLAR+Aih8F3rjeJzK0ANgtYKv5lCpkGVoZAeKitKDaD/g==
+"@react-dnd/invariant@^4.0.1":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@react-dnd/invariant/-/invariant-4.0.2.tgz#b92edffca10a26466643349fac7cdfb8799769df"
+  integrity sha512-xKCTqAK/FFauOM9Ta2pswIyT3D8AQlfrYdOi/toTPEhqCuAs1v5tcJ3Y08Izh1cJ5Jchwy9SeAXmMg6zrKs2iw==
 
-"@react-dnd/shallowequal@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@react-dnd/shallowequal/-/shallowequal-3.0.1.tgz#8056fe046a8d10a275e321ec0557ae652d7a4d06"
-  integrity sha512-XjDVbs3ZU16CO1h5Q3Ew2RPJqmZBDE/EVf1LYp6ePEffs3V/MX9ZbL5bJr8qiK5SbGmUMuDoaFgyKacYz8prRA==
+"@react-dnd/shallowequal@^4.0.1":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@react-dnd/shallowequal/-/shallowequal-4.0.2.tgz#d1b4befa423f692fa4abf1c79209702e7d8ae4b4"
+  integrity sha512-/RVXdLvJxLg4QKvMoM5WlwNR9ViO9z8B/qPcc+C0Sa/teJY7QG7kJ441DwzOjMYEY7GmU4dj5EcGHIkKZiQZCA==
 
 "@remix-run/router@1.4.0":
   version "1.4.0"
@@ -8235,7 +8270,7 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@synchro-charts/core@7.2.0", "@synchro-charts/core@^7.0.0", "@synchro-charts/core@^7.2.0":
+"@synchro-charts/core@7.2.0", "@synchro-charts/core@^7.0.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@synchro-charts/core/-/core-7.2.0.tgz#a3b32900e380661fa700e30128975044b1ae67e5"
   integrity sha512-s5JUQM4V5UoDN6X7wEjZftvkDjXzf4OxbX0YXkqofTT5SfMfRukLZew+6RhUIpI3jlb9xrolY0Z023SBdS0M7w==
@@ -8268,13 +8303,6 @@
     tippy.js "^5.2.0"
     uuid "^3.3.2"
     validator "^13.6.0"
-
-"@synchro-charts/react@^7.2.0":
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/@synchro-charts/react/-/react-7.2.0.tgz#9475d8c9c47bcbe94d1cccea047ce5c5fc3ee647"
-  integrity sha512-4kAVxHoj8x4juVJbltnK01Xk0ZXeAazqyDRdfHzeMm31lS4Ra4+kSgaL0tv3FzvZtyp8Ez/Oy6YgHGMudXDl7g==
-  dependencies:
-    "@synchro-charts/core" "^7.2.0"
 
 "@tanstack/match-sorter-utils@^8.7.0":
   version "8.7.6"
@@ -11362,7 +11390,7 @@ d3-array@2, d3-array@^2.3.0, d3-array@^2.3.2:
   dependencies:
     internmap "^1.0.0"
 
-d3-array@^3.1.6:
+d3-array@^3.1.6, d3-array@^3.2.2:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-3.2.3.tgz#39f1f4954e4a09ff69ac597c2d61906b04e84740"
   integrity sha512-JRHwbQQ84XuAESWhvIPaUV4/1UYTBOLiOPGWqgFDHZS1D5QN9c57FbH3QpEnQMYiOXNzKUQyGTZf+EVO7RT5TQ==
@@ -11538,7 +11566,7 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-dataloader@^2.1.0:
+dataloader@^2.1.0, dataloader@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-2.2.2.tgz#216dc509b5abe39d43a9b9d97e6e5e473dfbe3e0"
   integrity sha512-8YnDaaf7N3k/q5HnTJVuzSyLETjoZjVmHc4AeKAzOvKHEFQKcn64OKBfzHYtE9zGjctNM7V9I0MfnUVLpi7M5g==
@@ -11777,14 +11805,14 @@ dlv@^1.1.3:
   resolved "https://registry.yarnpkg.com/dlv/-/dlv-1.1.3.tgz#5c198a8a11453596e751494d49874bc7732f2e79"
   integrity sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
 
-dnd-core@15.1.2:
-  version "15.1.2"
-  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-15.1.2.tgz#0983bce555c4985f58b731ffe1faed31e1ea7f6f"
-  integrity sha512-EOec1LyJUuGRFg0LDa55rSRAUe97uNVKVkUo8iyvzQlcECYTuPblVQfRWXWj1OyPseFIeebWpNmKFy0h6BcF1A==
+dnd-core@^16.0.1:
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/dnd-core/-/dnd-core-16.0.1.tgz#a1c213ed08961f6bd1959a28bb76f1a868360d19"
+  integrity sha512-HK294sl7tbw6F6IeuK16YSBUoorvHpY8RHO+9yFfaJyCDVb6n7PRcezrOEOa2SBCqiYpemh5Jx20ZcjKdFAVng==
   dependencies:
-    "@react-dnd/asap" "4.0.1"
-    "@react-dnd/invariant" "3.0.1"
-    redux "^4.1.2"
+    "@react-dnd/asap" "^5.0.1"
+    "@react-dnd/invariant" "^4.0.1"
+    redux "^4.2.0"
 
 dns-equal@^1.0.0:
   version "1.0.0"
@@ -15524,6 +15552,11 @@ lodash.mergewith@^4.6.2:
   resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.2.tgz#617121f89ac55f59047c7aec1ccd6654c6590f55"
   integrity sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==
 
+lodash.omitby@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.omitby/-/lodash.omitby-4.6.0.tgz#5c15ff4754ad555016b53c041311e8f079204791"
+  integrity sha512-5OrRcIVR75M288p4nbI2WLAf3ndw2GD9fyNv3Bc15+WCxJDdZ4lYndSxGd7hnG6PVjiJTeJE2dHEGhIuKGicIQ==
+
 lodash.once@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
@@ -16015,11 +16048,6 @@ murmurhash-js@^1.0.0:
   resolved "https://registry.yarnpkg.com/murmurhash-js/-/murmurhash-js-1.0.0.tgz#b06278e21fc6c37fa5313732b0412bcb6ae15f51"
   integrity sha512-TvmkNhkv8yct0SVBSy+o8wYzXjE4Zz3PCesbfs8HiCXXdcTuocApFv11UWlNFWKYsP2okqrhb7JNlSm9InBhIw==
 
-mutationobserver-shim@^0.3.7:
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/mutationobserver-shim/-/mutationobserver-shim-0.3.7.tgz#8bf633b0c0b0291a1107255ed32c13088a8c5bf3"
-  integrity sha512-oRIDTyZQU96nAiz2AQyngwx1e89iApl2hN5AOYwyxLUB47UYsU3Wv9lJWqH5y/QdiYkc5HQLi23ZNB3fELdHcQ==
-
 mute-stream@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.8.tgz#1630c42b2251ff81e2a283de96a5497ea92e5e0d"
@@ -16476,7 +16504,7 @@ parent-module@^1.0.0:
   dependencies:
     callsites "^3.0.0"
 
-parse-duration@^1.0.0, parse-duration@^1.0.2:
+parse-duration@^1.0.0, parse-duration@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/parse-duration/-/parse-duration-1.0.3.tgz#b6681f5edcc2689643b34c09ea63f86f58a35814"
   integrity sha512-o6NAh12na5VvR6nFejkU0gpQ8jmOY9Y9sTU2ke3L3G/d/3z8jqmbBbeyBGHU73P4JLXfc7tJARygIK3WGIkloA==
@@ -17658,29 +17686,29 @@ react-dev-utils@^12.0.1:
     strip-ansi "^6.0.1"
     text-table "^0.2.0"
 
-react-dnd-html5-backend@^15.1.2:
-  version "15.1.3"
-  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-15.1.3.tgz#57b4f47e0f23923e7c243d2d0eefe490069115a9"
-  integrity sha512-HH/8nOEmrrcRGHMqJR91FOwhnLlx5SRLXmsQwZT3IPcBjx88WT+0pWC5A4tDOYDdoooh9k+KMPvWfxooR5TcOA==
+react-dnd-html5-backend@^16.0.1:
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-16.0.1.tgz#87faef15845d512a23b3c08d29ecfd34871688b6"
+  integrity sha512-Wu3dw5aDJmOGw8WjH1I1/yTH+vlXEL4vmjk5p+MHxP8HuHJS1lAGeIdG/hze1AvNeXWo/JgULV87LyQOr+r5jw==
   dependencies:
-    dnd-core "15.1.2"
+    dnd-core "^16.0.1"
 
-react-dnd-touch-backend@^15.1.2:
-  version "15.1.2"
-  resolved "https://registry.yarnpkg.com/react-dnd-touch-backend/-/react-dnd-touch-backend-15.1.2.tgz#936833b66e024d8640b1845782cc059ff1aac2c0"
-  integrity sha512-BId7/CYC77XcC3xpI2pA5KL+ciG6kvhIveYNOVWIgm0NM8kqv18lVfvHF4faCBPWZTbRoZQe0F8yLmL89oE98A==
+react-dnd-touch-backend@^16.0.1:
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/react-dnd-touch-backend/-/react-dnd-touch-backend-16.0.1.tgz#e73f8169e2b9fac0f687970f875cac0a4d02d6e2"
+  integrity sha512-NonoCABzzjyWGZuDxSG77dbgMZ2Wad7eQiCd/ECtsR2/NBLTjGksPUx9UPezZ1nQ/L7iD130Tz3RUshL/ClKLA==
   dependencies:
-    "@react-dnd/invariant" "3.0.1"
-    dnd-core "15.1.2"
+    "@react-dnd/invariant" "^4.0.1"
+    dnd-core "^16.0.1"
 
-react-dnd@^15.1.2:
-  version "15.1.2"
-  resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-15.1.2.tgz#211b30fd842326209c63f26f1bdf1bc52eef4f64"
-  integrity sha512-EaSbMD9iFJDY/o48T3c8wn3uWU+2uxfFojhesZN3LhigJoAIvH2iOjxofSA9KbqhAKP6V9P853G6XG8JngKVtA==
+react-dnd@^16.0.1:
+  version "16.0.1"
+  resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-16.0.1.tgz#2442a3ec67892c60d40a1559eef45498ba26fa37"
+  integrity sha512-QeoM/i73HHu2XF9aKksIUuamHPDvRglEwdHL4jsp784BgUuWcg6mzfxT0QDdQz8Wj0qyRKx2eMg8iZtWvU4E2Q==
   dependencies:
-    "@react-dnd/invariant" "3.0.1"
-    "@react-dnd/shallowequal" "3.0.1"
-    dnd-core "15.1.2"
+    "@react-dnd/invariant" "^4.0.1"
+    "@react-dnd/shallowequal" "^4.0.1"
+    dnd-core "^16.0.1"
     fast-deep-equal "^3.1.3"
     hoist-non-react-statics "^3.3.2"
 
@@ -18023,7 +18051,7 @@ recursive-readdir@^2.2.2:
   dependencies:
     minimatch "^3.0.5"
 
-redux@^4.0.4, redux@^4.1.2:
+redux@^4.0.4, redux@^4.2.0, redux@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.2.1.tgz#c08f4306826c49b5e9dc901dee0452ea8fce6197"
   integrity sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==
@@ -18323,7 +18351,7 @@ rxjs@6.6.7:
   dependencies:
     tslib "^1.9.0"
 
-rxjs@^7.2.0, rxjs@^7.4.0, rxjs@^7.5.5:
+rxjs@^7.2.0, rxjs@^7.4.0, rxjs@^7.5.5, rxjs@^7.8.0:
   version "7.8.0"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.8.0.tgz#90a938862a82888ff4c7359811a595e14e1e09a4"
   integrity sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==
@@ -19967,7 +19995,7 @@ uuid@8.0.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.0.0.tgz#bc6ccf91b5ff0ac07bbcdbf1c7c4e150db4dbb6c"
   integrity sha512-jOXGuXZAWdsTH7eZLtyXMqUb9EcWMGZNbL9YcGBJl4MH4nrxHmZJhEHvyLFrkxo+28uLb/NYRcStH48fnD0Vzw==
 
-uuid@9.0.0:
+uuid@9.0.0, uuid@^9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.0.tgz#592f550650024a38ceb0c562f2f6aa435761efb5"
   integrity sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==

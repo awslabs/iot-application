@@ -2,7 +2,7 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { DASHBOARDS_PATH, DASHBOARDS_HREF } from '~/constants';
 import { intl } from '~/services';
-import { route as dashboardsIndexRoute } from './index';
+import { dashboardsIndexRoute } from './dashboards-index';
 import { route as dashboardRoute } from './dashboard';
 import { createDashboardRoute } from './create';
 
