@@ -107,26 +107,42 @@ export function DeleteDashboardModal({
     >
       <SpaceBetween size="m">
         {dashboards.length === 1 ? (
-          <Box variant="span">
-            Permanently delete dashboard{' '}
-            <Box variant="span" fontWeight="bold">
-              {dashboards.at(0)?.name ?? 'Loading...'}
-            </Box>
-            ? You can’t undo this action.
-          </Box>
+          <FormattedMessage
+            defaultMessage="Permantly delete dashboard <b>{name}</b>? You cannot undo this action."
+            description="delete dashboard modal delete dashboard message"
+            values={{
+              b: (n) => (
+                <Box variant="span" fontWeight="bold">
+                  {n}
+                </Box>
+              ),
+              name: dashboards.at(0)?.name ?? 'Loading...',
+            }}
+          >
+            {(message) => <Box variant="span">{message}</Box>}
+          </FormattedMessage>
         ) : (
-          <Box variant="span">
-            Permanently delete{' '}
-            <Box variant="span" fontWeight="bold">
-              {dashboards.length} dashboards
-            </Box>
-            ? You can’t undo this action.
-          </Box>
+          <FormattedMessage
+            defaultMessage="Permanently delete <b>{count} dashboards</b>? You cannot undo this action."
+            description="delete dashboard modal delete dashboards message"
+            values={{
+              b: (c) => (
+                <Box variant="span" fontWeight="bold">
+                  {c}
+                </Box>
+              ),
+              count: dashboards.length,
+            }}
+          >
+            {(message) => <Box variant="span">{message}</Box>}
+          </FormattedMessage>
         )}
 
         <Alert type="warning" statusIconAriaLabel="Warning">
-          Proceeding with this action will delete the dashboard with all its
-          content and can affect related resources.{' '}
+          <FormattedMessage
+            defaultMessage="Proceeding with this action will delete the dashboard with all its content and can affect related resources."
+            description="delete dashboard modal warning message"
+          />
           <Link
             external={true}
             href="https://github.com/awslabs/iot-application"
