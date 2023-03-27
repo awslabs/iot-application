@@ -15,6 +15,14 @@ export class DeleteDashboardDialog {
     this.xButton = this.dialog.getByRole('button', { name: 'Close delete dialog' });
     this.consentInput = this.dialog.getByPlaceholder('confirm');
   }
+
+  async expectIsVisible() {
+    await expect(this.dialog).toBeVisible();
+  }
+
+  async expectIsNotVisible() {
+    await expect(this.dialog).not.toBeVisible();
+  }
 }
 
 export class PreferencesDialog {
