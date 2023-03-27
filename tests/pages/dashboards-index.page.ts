@@ -9,10 +9,15 @@ export class DeleteDashboardDialog {
   public readonly consentInput: Locator;
 
   constructor(page: Page) {
-    this.dialog = page.getByRole('dialog', { name: 'Delete dashboard' }); 
-    this.deleteButton = this.dialog.getByRole('button', { name: 'Delete', exact: true });
+    this.dialog = page.getByRole('dialog', { name: 'Delete dashboard' });
+    this.deleteButton = this.dialog.getByRole('button', {
+      name: 'Delete',
+      exact: true,
+    });
     this.cancelButton = this.dialog.getByRole('button', { name: 'Cancel' });
-    this.xButton = this.dialog.getByRole('button', { name: 'Close delete dialog' });
+    this.xButton = this.dialog.getByRole('button', {
+      name: 'Close delete dialog',
+    });
     this.consentInput = this.dialog.getByPlaceholder('confirm');
   }
 

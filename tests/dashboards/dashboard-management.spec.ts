@@ -1,9 +1,13 @@
 import { test, expect } from '@playwright/test';
 import { CreateDashboardPage } from '../pages/create-dashboard.page';
-import { DashboardsIndexPage, DashboardsTable, DeleteDashboardDialog } from '../pages/dashboards-index.page';
+import {
+  DashboardsIndexPage,
+  DashboardsTable,
+  DeleteDashboardDialog,
+} from '../pages/dashboards-index.page';
 import { ApplicationFrame } from '../pages/application-frame.page';
 
-test.describe.configure({ mode: 'serial'})
+test.describe.configure({ mode: 'serial' });
 
 test('as a user, I can view a list of my dashboards', async ({ page }) => {
   const indexPage = new DashboardsIndexPage(page);
@@ -23,17 +27,17 @@ test('as a user, I can navigate to the create dashboard page', async ({
   await dashboardsPage.createButton.click();
 
   await createDashboardPage.expectIsCurrentPage();
-  await dashboardsPage.expectIsNotCurrentPage()
+  await dashboardsPage.expectIsNotCurrentPage();
 
-  await createDashboardPage.cancelButton.click()
+  await createDashboardPage.cancelButton.click();
 
   await dashboardsPage.expectIsCurrentPage();
-  await createDashboardPage.expectIsNotCurrentPage()
+  await createDashboardPage.expectIsNotCurrentPage();
 
-  await dashboardsPage.emptyCreateButton.click()
+  await dashboardsPage.emptyCreateButton.click();
 
   await createDashboardPage.expectIsCurrentPage();
-  await dashboardsPage.expectIsNotCurrentPage()
+  await dashboardsPage.expectIsNotCurrentPage();
 });
 
 test('as a user, I can create a dashboard', async ({ page }) => {
@@ -56,7 +60,9 @@ test('as a user, I can create a dashboard', async ({ page }) => {
   await createDashboardPage.expectIsNotCurrentPage();
 
   await expect(application.notification).toBeVisible();
-  await expect(application.notification).toContainText('Successfully created dashboard \"My Dashboard\".');
+  await expect(application.notification).toContainText(
+    'Successfully created dashboard "My Dashboard".',
+  );
 });
 
 test('as a user, I can delete a dashboard', async ({ page }) => {
@@ -67,11 +73,16 @@ test('as a user, I can delete a dashboard', async ({ page }) => {
 
   await dashboardsPage.goto();
 
-  const dashboardRow = dashboardsTable.getRow({ name: 'My dashboard', description: 'My dashboard description'})
+  const dashboardRow = dashboardsTable.getRow({
+    name: 'My dashboard',
+    description: 'My dashboard description',
+  });
   await expect(dashboardRow).toBeVisible();
 
   await expect(dashboardsPage.deleteButton).toBeDisabled();
-  await dashboardRow.getByRole('checkbox', { name: 'Select dashboard My dashboard' }).click();
+  await dashboardRow
+    .getByRole('checkbox', { name: 'Select dashboard My dashboard' })
+    .click();
   await expect(dashboardsPage.deleteButton).toBeEnabled();
 
   await deleteDashboardDialog.expectIsNotVisible();
@@ -79,7 +90,7 @@ test('as a user, I can delete a dashboard', async ({ page }) => {
   await deleteDashboardDialog.expectIsVisible();
 
   await expect(deleteDashboardDialog.deleteButton).toBeDisabled();
-  await deleteDashboardDialog.consentInput.type('confirm')
+  await deleteDashboardDialog.consentInput.type('confirm');
   await expect(deleteDashboardDialog.deleteButton).toBeEnabled();
 
   await expect(application.notification).not.toBeVisible();
@@ -89,8 +100,10 @@ test('as a user, I can delete a dashboard', async ({ page }) => {
   await deleteDashboardDialog.expectIsNotVisible();
   await expect(dashboardRow).not.toBeVisible();
   await expect(application.notification).toBeVisible();
-  await expect(application.notification).toHaveText('Successfully deleted dashboard \"My Dashboard\".');
-}); 
+  await expect(application.notification).toHaveText(
+    'Successfully deleted dashboard "My Dashboard".',
+  );
+});
 
 test('as a user, I can delete multiple dashboards', async ({ page }) => {
   const createDashboardPage = new CreateDashboardPage(page);
@@ -113,13 +126,27 @@ test('as a user, I can delete multiple dashboards', async ({ page }) => {
   await createDashboardPage.clickCreate();
   await application.dismissNotificationButton.click();
 
-  await expect(dashboardsTable.getRow({ name: 'My dashboard', description: 'My dashboard description' })).toBeVisible();
-  await expect(dashboardsTable.getRow({ name: 'My other dashboard', description: 'My other dashboard description' })).toBeVisible();
+  await expect(
+    dashboardsTable.getRow({
+      name: 'My dashboard',
+      description: 'My dashboard description',
+    }),
+  ).toBeVisible();
+  await expect(
+    dashboardsTable.getRow({
+      name: 'My other dashboard',
+      description: 'My other dashboard description',
+    }),
+  ).toBeVisible();
 
   await expect(dashboardsPage.deleteButton).toBeDisabled();
-  await page.getByRole('checkbox', { name: 'Select dashboard My dashboard' }).click();
+  await page
+    .getByRole('checkbox', { name: 'Select dashboard My dashboard' })
+    .click();
   await expect(dashboardsPage.deleteButton).toBeEnabled();
-  await page.getByRole('checkbox', { name: 'Select dashboard My other dashboard' }).click();
+  await page
+    .getByRole('checkbox', { name: 'Select dashboard My other dashboard' })
+    .click();
   await expect(dashboardsPage.deleteButton).toBeEnabled();
 
   await dashboardsPage.deleteButton.click();
@@ -130,8 +157,20 @@ test('as a user, I can delete multiple dashboards', async ({ page }) => {
 
   await deleteDashboardDialog.deleteButton.click();
 
-  await expect(dashboardsTable.getRow({ name: 'My dashboard', description: 'My dashboard description' })).not.toBeVisible();
-  await expect(dashboardsTable.getRow({ name: 'My other dashboard', description: 'My other dashboard description' })).not.toBeVisible();
+  await expect(
+    dashboardsTable.getRow({
+      name: 'My dashboard',
+      description: 'My dashboard description',
+    }),
+  ).not.toBeVisible();
+  await expect(
+    dashboardsTable.getRow({
+      name: 'My other dashboard',
+      description: 'My other dashboard description',
+    }),
+  ).not.toBeVisible();
   await expect(application.notification).toBeVisible();
-  await expect(application.notification).toHaveText('Successfully deleted 2 dashboards.');
+  await expect(application.notification).toHaveText(
+    'Successfully deleted 2 dashboards.',
+  );
 });

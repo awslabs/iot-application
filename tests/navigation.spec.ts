@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from './pages/home.page';
-import { Breadcrumbs, SideNavigation, TopNavigation } from './pages/application-frame.page';
+import {
+  Breadcrumbs,
+  SideNavigation,
+  TopNavigation,
+} from './pages/application-frame.page';
 import { DashboardsIndexPage } from './pages/dashboards-index.page';
 
 test.describe('Navigation', () => {
@@ -15,7 +19,7 @@ test.describe('Navigation', () => {
     await homePage.expectIsCurrentPage();
 
     await sideNavigation.openButton.click();
-    await sideNavigation.expectIsVisible()
+    await sideNavigation.expectIsVisible();
     await sideNavigation.dashboardsPageLink.click();
 
     await dashboardsPage.expectIsCurrentPage();
@@ -33,10 +37,10 @@ test.describe('Navigation', () => {
     await dashboardsPage.expectIsCurrentPage();
 
     await sideNavigation.openButton.click();
-    await sideNavigation.homeLink.click()
+    await sideNavigation.homeLink.click();
 
     await homePage.expectIsCurrentPage();
-    await dashboardsPage.expectIsNotCurrentPage()
+    await dashboardsPage.expectIsNotCurrentPage();
   });
 
   test('as a user, I can use the top navigation to navigate to the home page', async ({
@@ -47,7 +51,7 @@ test.describe('Navigation', () => {
     const topNavigation = new TopNavigation(page);
 
     await dashboardsPage.goto();
-    await dashboardsPage.expectIsCurrentPage(); 
+    await dashboardsPage.expectIsCurrentPage();
 
     await topNavigation.homeLink.click();
 
@@ -63,7 +67,7 @@ test.describe('Navigation', () => {
     const breadcrumbs = new Breadcrumbs(page);
 
     await dashboardsPage.goto();
-    await dashboardsPage.expectIsCurrentPage()
+    await dashboardsPage.expectIsCurrentPage();
 
     await breadcrumbs.homeLink.click();
 
@@ -84,7 +88,7 @@ test.describe('Navigation', () => {
     await topNavigation.openDropdownButton.click();
     await expect(topNavigation.dropdownMenu).toBeVisible();
 
-    await topNavigation.documentationLink.click(); 
+    await topNavigation.documentationLink.click();
 
     // the documentation opens in a new tab
     page.on('popup', async () => {
@@ -105,7 +109,7 @@ test.describe('Navigation', () => {
     await homePage.expectIsCurrentPage();
 
     await topNavigation.openDropdownButton.click();
-    await topNavigation.feedbackLink.click(); 
+    await topNavigation.feedbackLink.click();
 
     // the feedback page opens in a new tab
     page.on('popup', async () => {
