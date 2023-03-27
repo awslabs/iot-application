@@ -6,8 +6,12 @@ export class ApplicationFrame {
   public readonly dismissNotificationButton: Locator;
 
   constructor(page: Page) {
-    this.notification = page.getByRole('region', { name: 'Notifications' }).getByRole('listitem');
-    this.dismissNotificationButton = this.notification.getByRole('button', { name: 'Dismiss notification' });
+    this.notification = page
+      .getByRole('region', { name: 'Notifications' })
+      .getByRole('listitem');
+    this.dismissNotificationButton = this.notification.getByRole('button', {
+      name: 'Dismiss notification',
+    });
   }
 }
 
@@ -19,11 +23,21 @@ export class SideNavigation {
   public readonly dashboardsPageLink: Locator;
 
   constructor(page: Page) {
-    this.navigationDrawer = page.getByRole('navigation', { name: 'Navigation drawer' });
-    this.openButton = page.getByRole('button', { name: 'Open navigation drawer' });
-    this.closeButton = this.navigationDrawer.getByRole('button', { name: 'Close navigation drawer' });
-    this.homeLink = this.navigationDrawer.getByRole('link', { name: 'IoT Application' });
-    this.dashboardsPageLink = this.navigationDrawer.getByRole('link', { name: 'Dashboards' });
+    this.navigationDrawer = page.getByRole('navigation', {
+      name: 'Navigation drawer',
+    });
+    this.openButton = page.getByRole('button', {
+      name: 'Open navigation drawer',
+    });
+    this.closeButton = this.navigationDrawer.getByRole('button', {
+      name: 'Close navigation drawer',
+    });
+    this.homeLink = this.navigationDrawer.getByRole('link', {
+      name: 'IoT Application',
+    });
+    this.dashboardsPageLink = this.navigationDrawer.getByRole('link', {
+      name: 'Dashboards',
+    });
   }
 
   async expectIsVisible() {
@@ -41,10 +55,14 @@ export class TopNavigation {
 
   constructor(page: Page) {
     this.navigationBar = page.getByRole('navigation', { exact: true });
-    this.homeLink = this.navigationBar.getByRole('link', { name: 'IoT Application' });
+    this.homeLink = this.navigationBar.getByRole('link', {
+      name: 'IoT Application',
+    });
     this.dropdownMenu = page.getByRole('menu');
     this.openDropdownButton = page.getByRole('button', { name: 'test-user' });
-    this.documentationLink = page.getByRole('menuitem', { name: 'Documentation' });
+    this.documentationLink = page.getByRole('menuitem', {
+      name: 'Documentation',
+    });
     this.feedbackLink = page.getByRole('menuitem', { name: 'Feedback' });
   }
 }
@@ -55,6 +73,8 @@ export class Breadcrumbs {
 
   constructor(page: Page) {
     this.breadcrumbs = page.getByRole('navigation', { name: 'Breadcrumbs' });
-    this.homeLink = this.breadcrumbs.getByRole('link', { name: 'IoT Application' });
+    this.homeLink = this.breadcrumbs.getByRole('link', {
+      name: 'IoT Application',
+    });
   }
 }
