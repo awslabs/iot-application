@@ -21,5 +21,13 @@ export const $DashboardSummary = {
       maxLength: 200,
       minLength: 1,
     },
+    creationDate: {
+      type: 'string',
+      isRequired: true,
+    },
+    lastUpdateDate: {
+      type: 'string',
+      isRequired: true,
+    },
   },
 } as const;

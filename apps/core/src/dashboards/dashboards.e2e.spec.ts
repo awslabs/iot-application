@@ -102,7 +102,7 @@ const assertDatabaseEntry = async function ({
   name,
   description,
   definition,
-}: Dashboard) {
+}: Pick<Dashboard, 'id' | 'name' | 'description' | 'definition'>) {
   const { Responses } = await dbDocClient.send(
     new TransactGetCommand({
       TransactItems: [
@@ -218,7 +218,10 @@ describe('DashboardsModule', () => {
       const responseList = JSON.parse(response.payload) as unknown as Dashboard;
       expect(responseList).toHaveLength(2);
       expect(responseList).toEqual(
-        expect.arrayContaining([dashboardSummary1, dashboardSummary2]),
+        expect.arrayContaining([
+          expect.objectContaining(dashboardSummary1),
+          expect.objectContaining(dashboardSummary2),
+        ]),
       );
     });
   });
@@ -273,6 +276,8 @@ describe('DashboardsModule', () => {
           definition: {
             widgets: [],
           },
+          lastUpdateDate: isoDateMatcher,
+          creationDate: isoDateMatcher,
         }),
       );
     });

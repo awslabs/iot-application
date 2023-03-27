@@ -1,96 +1,90 @@
 import { test, expect } from '@playwright/test';
+import { HomePage } from './pages/home.page';
+import { Breadcrumbs, SideNavigation, TopNavigation } from './pages/application-frame.page';
+import { DashboardsIndexPage } from './pages/dashboards-index.page';
 
 test.describe('Navigation', () => {
   test('as a user, I can use the navigation drawer to access my dashboards', async ({
     page,
   }) => {
-    // user opens the home page
-    await page.goto('');
+    const homePage = new HomePage(page);
+    const sideNavigation = new SideNavigation(page);
+    const dashboardsPage = new DashboardsIndexPage(page);
 
-    // user opens the navigation drawer
-    await page.getByRole('button', { name: 'Open navigation drawer' }).click();
+    await homePage.goto();
+    await homePage.expectIsCurrentPage();
 
-    // user navigates to the dashboards page
-    await page
-      .getByRole('navigation', { name: 'Navigation drawer' })
-      .getByText('Dashboards')
-      .click();
+    await sideNavigation.openButton.click();
+    await sideNavigation.expectIsVisible()
+    await sideNavigation.dashboardsPageLink.click();
 
-    // user closes the navigation drawer
-    await page.getByRole('button', { name: 'Close navigation drawer' }).click();
-
-    // user sees they are on the dashboards page
-    await expect(page.getByRole('heading')).toHaveText('Dashboards');
+    await dashboardsPage.expectIsCurrentPage();
+    await homePage.expectIsNotCurrentPage();
   });
 
   test('as a user, I can use the side navigation to access the home page', async ({
     page,
   }) => {
-    // users opens the dashboards page
-    await page.goto('dashboards');
+    const homePage = new HomePage(page);
+    const sideNavigation = new SideNavigation(page);
+    const dashboardsPage = new DashboardsIndexPage(page);
 
-    // user opens the navigation drawer
-    await page.getByRole('button', { name: 'Open navigation drawer' }).click();
+    await dashboardsPage.goto();
+    await dashboardsPage.expectIsCurrentPage();
 
-    // user navigates to the home page
-    await page
-      .getByRole('navigation', { name: 'Navigation drawer' })
-      .getByText('IoT Application')
-      .click();
+    await sideNavigation.openButton.click();
+    await sideNavigation.homeLink.click()
 
-    // user closes the navigation drawer
-    await page.getByRole('button', { name: 'Close navigation drawer' }).click();
-
-    // user sees they are on the home page
-    await expect(page.getByRole('heading')).toHaveText('Home');
+    await homePage.expectIsCurrentPage();
+    await dashboardsPage.expectIsNotCurrentPage()
   });
 
   test('as a user, I can use the top navigation to navigate to the home page', async ({
     page,
   }) => {
-    // users opens the dashboards page
-    await page.goto('dashboards');
+    const dashboardsPage = new DashboardsIndexPage(page);
+    const homePage = new HomePage(page);
+    const topNavigation = new TopNavigation(page);
 
-    // user navigates to home page
-    await page.getByRole('navigation').getByText('IoT Application').click();
+    await dashboardsPage.goto();
+    await dashboardsPage.expectIsCurrentPage(); 
 
-    // user sees they are on the home page
-    await expect(page.getByRole('heading')).toHaveText('Home');
+    await topNavigation.homeLink.click();
+
+    await homePage.expectIsCurrentPage();
+    await dashboardsPage.expectIsNotCurrentPage();
   });
 
   test('as a user, I can use the breadcrumbs to navigate to the home page', async ({
     page,
   }) => {
-    // users opens the dashboards page
-    await page.goto('dashboards');
+    const dashboardsPage = new DashboardsIndexPage(page);
+    const homePage = new HomePage(page);
+    const breadcrumbs = new Breadcrumbs(page);
 
-    // user navigates to home page
-    await page
-      .getByRole('navigation', { name: 'Breadcrumbs' })
-      .getByText('IoT Application')
-      .click();
+    await dashboardsPage.goto();
+    await dashboardsPage.expectIsCurrentPage()
 
-    // user sees they are on the home page
-    await expect(page.getByRole('heading')).toHaveText('Home');
+    await breadcrumbs.homeLink.click();
+
+    await homePage.expectIsCurrentPage();
+    await dashboardsPage.expectIsNotCurrentPage();
   });
 
   test('as a user, I can navigate to application documentation', async ({
     page,
   }) => {
-    // user opens the home page
-    await page.goto('');
+    const homePage = new HomePage(page);
+    const topNavigation = new TopNavigation(page);
 
-    // the dropdown menu is not visible to user
-    await expect(page.getByRole('menu')).not.toBeVisible();
+    await homePage.goto();
+    await homePage.expectIsCurrentPage();
 
-    // user opens the dropdown menu
-    await page.getByRole('button', { name: 'test-user' }).click();
+    await expect(topNavigation.dropdownMenu).not.toBeVisible();
+    await topNavigation.openDropdownButton.click();
+    await expect(topNavigation.dropdownMenu).toBeVisible();
 
-    // the dropdown menu is visible to user
-    await expect(page.getByRole('menu')).toBeVisible();
-
-    // user clicks on documentation link
-    await page.getByRole('menuitem', { name: 'Documentation' }).click();
+    await topNavigation.documentationLink.click(); 
 
     // the documentation opens in a new tab
     page.on('popup', async () => {
@@ -104,14 +98,14 @@ test.describe('Navigation', () => {
   test('as a user, I can navigate to application feedback', async ({
     page,
   }) => {
-    // user opens the home page
-    await page.goto('');
+    const homePage = new HomePage(page);
+    const topNavigation = new TopNavigation(page);
 
-    // user opens the dropdown menu
-    await page.getByRole('button', { name: 'test-user' }).click();
+    await homePage.goto();
+    await homePage.expectIsCurrentPage();
 
-    // user clicks on feedback link
-    await page.getByRole('menuitem', { name: 'Feedback' }).click();
+    await topNavigation.openDropdownButton.click();
+    await topNavigation.feedbackLink.click(); 
 
     // the feedback page opens in a new tab
     page.on('popup', async () => {
