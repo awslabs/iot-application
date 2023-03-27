@@ -26,7 +26,6 @@ export function DashboardsTableHeader(props: DashboardsTableHeaderProps) {
       actions={
         <SpaceBetween direction="horizontal" size="xs">
           <Button
-            /* onClick={} */
             variant="primary"
             onClick={() => navigate(CREATE_DASHBOARD_HREF)}
           >
