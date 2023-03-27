@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { CreateDashboardPage } from '../pages/create-dashboard.page';
 import { DashboardsIndexPage, DashboardsTable, DeleteDashboardDialog } from '../pages/dashboards-index.page';
+import { ApplicationFrame } from '../pages/application-frame.page';
 
 test.describe.configure({ mode: 'serial'})
 
@@ -38,6 +39,7 @@ test('as a user, I can navigate to the create dashboard page', async ({
 test('as a user, I can create a dashboard', async ({ page }) => {
   const dashboardsPage = new DashboardsIndexPage(page);
   const createDashboardPage = new CreateDashboardPage(page);
+  const application = new ApplicationFrame(page);
 
   await dashboardsPage.goto();
 
@@ -46,16 +48,22 @@ test('as a user, I can create a dashboard', async ({ page }) => {
   await createDashboardPage.nameField.type('My Dashboard');
   await createDashboardPage.descriptionField.type('My Dashboard Description');
 
+  await expect(application.notification).not.toBeVisible();
+
   await createDashboardPage.createButton.click();
 
   await dashboardsPage.expectIsCurrentPage();
   await createDashboardPage.expectIsNotCurrentPage();
+
+  await expect(application.notification).toBeVisible();
+  await expect(application.notification).toContainText('Successfully created dashboard \"My Dashboard\".');
 });
 
 test('as a user, I can delete a dashboard', async ({ page }) => {
   const dashboardsPage = new DashboardsIndexPage(page);
   const dashboardsTable = new DashboardsTable(page);
-  const deleteDashboardDialog = new DeleteDashboardDialog(page)
+  const deleteDashboardDialog = new DeleteDashboardDialog(page);
+  const application = new ApplicationFrame(page);
 
   await dashboardsPage.goto();
 
@@ -63,7 +71,7 @@ test('as a user, I can delete a dashboard', async ({ page }) => {
   await expect(dashboardRow).toBeVisible();
 
   await expect(dashboardsPage.deleteButton).toBeDisabled();
-  await dashboardRow.getByRole('checkbox', { name: 'Select dashboard My dashboard' }).click()
+  await dashboardRow.getByRole('checkbox', { name: 'Select dashboard My dashboard' }).click();
   await expect(dashboardsPage.deleteButton).toBeEnabled();
 
   await deleteDashboardDialog.expectIsNotVisible();
@@ -74,47 +82,56 @@ test('as a user, I can delete a dashboard', async ({ page }) => {
   await deleteDashboardDialog.consentInput.type('confirm')
   await expect(deleteDashboardDialog.deleteButton).toBeEnabled();
 
+  await expect(application.notification).not.toBeVisible();
+
   await deleteDashboardDialog.deleteButton.click();
 
   await deleteDashboardDialog.expectIsNotVisible();
   await expect(dashboardRow).not.toBeVisible();
+  await expect(application.notification).toBeVisible();
+  await expect(application.notification).toHaveText('Successfully deleted dashboard \"My Dashboard\".');
 }); 
 
 test('as a user, I can delete multiple dashboards', async ({ page }) => {
   const createDashboardPage = new CreateDashboardPage(page);
   const dashboardsPage = new DashboardsIndexPage(page);
   const dashboardsTable = new DashboardsTable(page);
-  const deleteDashboardDialog = new DeleteDashboardDialog(page)
+  const deleteDashboardDialog = new DeleteDashboardDialog(page);
+  const application = new ApplicationFrame(page);
 
   await dashboardsPage.goto();
 
   await dashboardsPage.createButton.click();
-
   await createDashboardPage.typeName('My Dashboard');
   await createDashboardPage.typeDescription('My Dashboard Description');
-
   await createDashboardPage.clickCreate();
+  await application.dismissNotificationButton.click();
 
   await dashboardsPage.createButton.click();
   await createDashboardPage.typeName('My other Dashboard');
   await createDashboardPage.typeDescription('My other Dashboard Description');
   await createDashboardPage.clickCreate();
+  await application.dismissNotificationButton.click();
 
-  await expect(dashboardsTable.getRow({ name: 'My dashboard', description: 'My dashboard description' })).toBeVisible()
-  await expect(dashboardsTable.getRow({ name: 'My other dashboard', description: 'My other dashboard description' })).toBeVisible()
+  await expect(dashboardsTable.getRow({ name: 'My dashboard', description: 'My dashboard description' })).toBeVisible();
+  await expect(dashboardsTable.getRow({ name: 'My other dashboard', description: 'My other dashboard description' })).toBeVisible();
 
   await expect(dashboardsPage.deleteButton).toBeDisabled();
-  await page.getByRole('checkbox', { name: 'Select dashboard My dashboard' }).click()
+  await page.getByRole('checkbox', { name: 'Select dashboard My dashboard' }).click();
   await expect(dashboardsPage.deleteButton).toBeEnabled();
-  await page.getByRole('checkbox', { name: 'Select dashboard My other dashboard' }).click()
+  await page.getByRole('checkbox', { name: 'Select dashboard My other dashboard' }).click();
   await expect(dashboardsPage.deleteButton).toBeEnabled();
 
-  await dashboardsPage.deleteButton.click()
+  await dashboardsPage.deleteButton.click();
 
-  await deleteDashboardDialog.consentInput.type('confirm')
+  await deleteDashboardDialog.consentInput.type('confirm');
 
-  await deleteDashboardDialog.deleteButton.click()
+  await expect(application.notification).not.toBeVisible();
 
-  await expect(dashboardsTable.getRow({ name: 'My dashboard', description: 'My dashboard description' })).not.toBeVisible()
-  await expect(dashboardsTable.getRow({ name: 'My other dashboard', description: 'My other dashboard description' })).not.toBeVisible()
+  await deleteDashboardDialog.deleteButton.click();
+
+  await expect(dashboardsTable.getRow({ name: 'My dashboard', description: 'My dashboard description' })).not.toBeVisible();
+  await expect(dashboardsTable.getRow({ name: 'My other dashboard', description: 'My other dashboard description' })).not.toBeVisible();
+  await expect(application.notification).toBeVisible();
+  await expect(application.notification).toHaveText('Successfully deleted 2 dashboards.');
 });

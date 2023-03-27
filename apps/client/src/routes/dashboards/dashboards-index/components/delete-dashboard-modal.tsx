@@ -15,6 +15,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { DashboardSummary, deleteDashboard } from 'src/services';
 import { DASHBOARDS_QUERY_KEY } from '~/data/dashboards';
 import { useSendNotification } from '~/hooks/notifications/use-send-notification';
+import { ApiError } from '../../../../services/generated/core/ApiError';
 
 const DELETE_CONSENT_TEXT = 'confirm' as const;
 
@@ -24,11 +25,7 @@ interface DeleteDashboardModalProps {
   onClose: () => void;
 }
 
-export function DeleteDashboardModal({
-  dashboards,
-  isVisible,
-  onClose,
-}: DeleteDashboardModalProps) {
+export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
   const intl = useIntl();
   const {
     control,
@@ -39,34 +36,52 @@ export function DeleteDashboardModal({
   const sendNotification = useSendNotification();
 
   const queryClient = useQueryClient();
+
   const mutation = useMutation({
-    mutationFn: deleteDashboard,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries(DASHBOARDS_QUERY_KEY);
-      handleClose();
-      sendNotification({
-        type: 'success',
-        content: intl.formatMessage({
-          defaultMessage: 'Dashboard(s) deleted successfully',
-        }),
-      });
-    },
+    mutationFn: (dashboard: DashboardSummary) => deleteDashboard(dashboard.id),
   });
 
   function handleDelete() {
-    void Promise.all(
-      dashboards.map((dashboard) => mutation.mutateAsync(dashboard.id)),
-    );
+    props.dashboards.forEach((dashboard) => {
+      mutation.mutate(dashboard, {
+        onSuccess: (_data, variables) => {
+          void queryClient.invalidateQueries(DASHBOARDS_QUERY_KEY);
+          handleClose();
+          sendNotification({
+            type: 'success',
+            content: intl.formatMessage(
+              {
+                defaultMessage:
+                  'Successfully deleted {count, plural, one {dashboard "{name}"} other {# dashboards}}.',
+                description: 'delete dashboard modal success message',
+              },
+              {
+                count: props.dashboards.length,
+                name: variables.name,
+              },
+            ),
+          });
+        },
+        onError: (error) => {
+          if (error instanceof ApiError) {
+            sendNotification({
+              type: 'error',
+              content: error.message,
+            });
+          }
+        },
+      });
+    });
   }
 
   function handleClose() {
-    onClose();
+    props.onClose();
     reset();
   }
 
   return (
     <Modal
-      visible={isVisible}
+      visible={props.isVisible}
       onDismiss={handleClose}
       header={intl.formatMessage({
         defaultMessage: 'Delete dashboard',
@@ -106,7 +121,7 @@ export function DeleteDashboardModal({
       }
     >
       <SpaceBetween size="m">
-        {dashboards.length === 1 ? (
+        {props.dashboards.length === 1 ? (
           <FormattedMessage
             defaultMessage="Permantly delete dashboard <b>{name}</b>? You cannot undo this action."
             description="delete dashboard modal delete dashboard message"
@@ -116,7 +131,7 @@ export function DeleteDashboardModal({
                   {n}
                 </Box>
               ),
-              name: dashboards.at(0)?.name ?? 'Loading...',
+              name: props.dashboards.at(0)?.name ?? 'Loading...',
             }}
           >
             {(message) => <Box variant="span">{message}</Box>}
@@ -131,7 +146,7 @@ export function DeleteDashboardModal({
                   {c}
                 </Box>
               ),
-              count: dashboards.length,
+              count: props.dashboards.length,
             }}
           >
             {(message) => <Box variant="span">{message}</Box>}

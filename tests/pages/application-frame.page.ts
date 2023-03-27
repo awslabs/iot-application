@@ -2,14 +2,12 @@ import { expect } from '@playwright/test';
 import type { Page, Locator } from '@playwright/test';
 
 export class ApplicationFrame {
-  readonly page: Page;
-  readonly notifications: Locator;
-  readonly notification: Locator;
+  public readonly notification: Locator;
+  public readonly dismissNotificationButton: Locator;
 
   constructor(page: Page) {
-    this.page = page;
-    this.notifications = page.getByRole('region', { name: 'Notifications' });
-    this.notification = this.notifications.getByRole('listitem');
+    this.notification = page.getByRole('region', { name: 'Notifications' }).getByRole('listitem');
+    this.dismissNotificationButton = this.notification.getByRole('button', { name: 'Dismiss notification' });
   }
 }
 
