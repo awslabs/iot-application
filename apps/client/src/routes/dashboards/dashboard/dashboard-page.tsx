@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
 import { DashboardLoadingState } from './components/dashboard-loading-state';
-import { useDashboardQuery } from '~/hooks/dashboards/use-dashboard-query';
-import { useUpdateDashboardMutation } from '~/hooks/dashboards/use-update-dashboard-mutation';
+import { useDashboardQuery } from '~/routes/dashboards/dashboard/hooks/use-dashboard-query';
+import { useUpdateDashboardMutation } from '~/routes/dashboards/dashboard/hooks/use-update-dashboard-mutation';
 
 import type { Dashboard } from '~/services';
 
