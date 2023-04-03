@@ -18,9 +18,9 @@ import '@cloudscape-design/global-styles/index.css';
 interface GlobalWithResources extends GlobalThis {
   awsResources: object;
 }
-
 const awsResources = (global as GlobalWithResources).awsResources;
 
+console.log(awsResources);
 Amplify.configure(awsResources);
 
 const rootEl = document.getElementById('root');

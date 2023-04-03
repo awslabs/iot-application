@@ -1,9 +1,9 @@
-import { createBrowserRouter } from 'react-router-dom';
-
+import { CreateDashboardPage } from './create-dashboard-page';
 import { CREATE_PATH, CREATE_DASHBOARD_HREF } from '~/constants';
 import { CREATE_DASHBOARD_PAGE_FORMAT } from '~/constants/format';
 import { intl } from '~/services';
-import { CreateDashboardPage } from './create-dashboard-page';
+
+import type { RouteObject } from 'react-router-dom';
 
 export const createDashboardRoute = {
   path: CREATE_PATH,
@@ -18,4 +18,4 @@ export const createDashboardRoute = {
     }),
     format: CREATE_DASHBOARD_PAGE_FORMAT,
   },
-} satisfies Parameters<typeof createBrowserRouter>[0][number];
+} satisfies RouteObject;

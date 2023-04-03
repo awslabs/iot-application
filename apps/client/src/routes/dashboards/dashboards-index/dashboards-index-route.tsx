@@ -1,7 +1,7 @@
-import { createBrowserRouter } from 'react-router-dom';
-
 import { DASHBOARDS_INDEX_PAGE_FORMAT } from '~/constants/format';
 import { DashboardsIndexPage } from './dashboards-index-page';
+
+import type { RouteObject } from 'react-router-dom';
 
 export const dashboardsIndexRoute = {
   index: true,
@@ -9,4 +9,4 @@ export const dashboardsIndexRoute = {
   handle: {
     format: DASHBOARDS_INDEX_PAGE_FORMAT,
   },
-} satisfies Parameters<typeof createBrowserRouter>[0][number];
+} satisfies RouteObject;

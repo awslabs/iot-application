@@ -1,37 +1,43 @@
 import Button from '@cloudscape-design/components/button';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useIntl, FormattedMessage } from 'react-intl';
+import invariant from 'tiny-invariant';
 
 import { DASHBOARDS_HREF } from '~/constants';
 import {
-  DASHBOARD_SUMMARIES_QUERY_KEY,
-  DASHBOARDS_QUERY,
+  cancelDashboardsQueries,
+  invalidateDashboards,
+  prefetchDashboards,
 } from '~/data/dashboards';
-import { useSendNotification } from '~/hooks/notifications/use-send-notification';
-import { useBrowser } from '~/hooks/browser/use-browser';
-import { ApiError, createDashboard } from '~/services';
+import { isApiError } from '~/helpers/predicates/is-api-error';
+import { isFatal } from '~/helpers/predicates/is-fatal';
+import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
+import { useApplication } from '~/hooks/application/use-application';
+import { createDashboard } from '~/services';
+import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 
 import type { Dashboard } from '~/services';
 
 export function useCreateDashboardMutation() {
-  const queryClient = useQueryClient();
-  const sendNotification = useSendNotification();
+  const emit = useEmitNotification();
   const intl = useIntl();
-  const { navigate } = useBrowser();
+  const { navigate } = useApplication();
 
   return useMutation({
     mutationFn: (formData: Pick<Dashboard, 'name' | 'description'>) => {
       return createDashboard({ ...formData, definition: { widgets: [] } });
     },
-    onMutate: async () => {
+    onMutate: () => {
       // abort any in progress list dashboards queries when mutation starts
-      await queryClient.cancelQueries(DASHBOARD_SUMMARIES_QUERY_KEY);
+      void cancelDashboardsQueries();
     },
     onSuccess: async (newDashboard) => {
-      await queryClient.invalidateQueries(DASHBOARD_SUMMARIES_QUERY_KEY);
-      await queryClient.prefetchQuery(DASHBOARDS_QUERY);
+      await invalidateDashboards();
+      await prefetchDashboards();
 
-      sendNotification({
+      navigate(DASHBOARDS_HREF);
+
+      emit({
         type: 'success',
         content: intl.formatMessage(
           {
@@ -49,17 +55,13 @@ export function useCreateDashboardMutation() {
           </Button>
         ),
       });
-
-      navigate(DASHBOARDS_HREF);
     },
     onError: (error) => {
-      if (error instanceof ApiError) {
-        if (error.status >= 500) {
-          sendNotification({
-            type: 'error',
-            content: error.message,
-          });
-        }
+      invariant(isApiError(error), 'Expected error to be an ApiError');
+
+      // non-fatal errors are rendered in the form
+      if (isFatal(error)) {
+        emit(new GenericErrorNotification(error));
       }
     },
   });

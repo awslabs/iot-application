@@ -1,4 +1,7 @@
-import { Dashboard, listDashboards, readDashboard } from '~/services';
+import { queryClient } from './query-client';
+import { listDashboards, readDashboard } from '~/services';
+
+import type { Dashboard } from '~/services';
 
 export const DASHBOARDS_QUERY_KEY = ['dashboards'];
 
@@ -19,4 +22,24 @@ export function createDashboardQuery(id: Dashboard['id']) {
     queryKey: [...DASHBOARD_DETAILS_QUERY_KEY, { id }],
     queryFn: () => readDashboard(id),
   };
+}
+
+export async function invalidateDashboards() {
+  await queryClient.invalidateQueries(DASHBOARD_SUMMARIES_QUERY_KEY);
+}
+
+export async function invalidateDashboard(id: Dashboard['id']) {
+  await queryClient.invalidateQueries([...DASHBOARD_DETAILS_QUERY_KEY, { id }]);
+}
+
+export async function cancelDashboardsQueries() {
+  await queryClient.cancelQueries(DASHBOARD_SUMMARIES_QUERY_KEY);
+}
+
+export async function cancelDashboardQueries(id: Dashboard['id']) {
+  await queryClient.cancelQueries([...DASHBOARD_DETAILS_QUERY_KEY, { id }]);
+}
+
+export async function prefetchDashboards() {
+  await queryClient.prefetchQuery(DASHBOARDS_QUERY);
 }

@@ -3,7 +3,7 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import { FormattedMessage } from 'react-intl';
 
 import { DASHBOARDS_HREF } from '~/constants';
-import { useBrowser } from '~/hooks/browser/use-browser';
+import { useApplication } from '~/hooks/application/use-application';
 
 interface CreateDashboardFormActionsProps {
   isLoading: boolean;
@@ -12,7 +12,7 @@ interface CreateDashboardFormActionsProps {
 export function CreateDashboardFormActions(
   props: CreateDashboardFormActionsProps,
 ) {
-  const { navigate } = useBrowser();
+  const { navigate } = useApplication();
 
   return (
     <SpaceBetween direction="horizontal" size="xs">

@@ -118,9 +118,10 @@ test('as a user, I can delete multiple dashboards', async ({ page }) => {
   await createDashboardPage.typeName('My Dashboard');
   await createDashboardPage.typeDescription('My Dashboard Description');
   await createDashboardPage.clickCreate();
-  await application.dismissNotificationButton.click();
 
   await dashboardsPage.createButton.click();
+  // notification should disappear on navigation
+  await expect(application.notification).not.toBeVisible();
   await createDashboardPage.typeName('My other Dashboard');
   await createDashboardPage.typeDescription('My other Dashboard Description');
   await createDashboardPage.clickCreate();
@@ -150,13 +151,10 @@ test('as a user, I can delete multiple dashboards', async ({ page }) => {
   await expect(dashboardsPage.deleteButton).toBeEnabled();
 
   await dashboardsPage.deleteButton.click();
-
   await deleteDashboardDialog.consentInput.type('confirm');
 
   await expect(application.notification).not.toBeVisible();
-
   await deleteDashboardDialog.deleteButton.click();
-
   await expect(
     dashboardsTable.getRow({
       name: 'My dashboard',

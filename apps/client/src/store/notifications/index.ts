@@ -3,14 +3,14 @@ import { nanoid } from 'nanoid';
 
 import { withoutIdentifiable } from '~/helpers/lists';
 import { intl } from '~/services';
-import type { Notification } from '~/types';
+import type { NotificationViewModel } from '~/types';
 
 /**
  * Notifications store
  *
  * Do not export.
  */
-const notificationsBaseAtom = atom<Notification[]>([]);
+const notificationsBaseAtom = atom<NotificationViewModel[]>([]);
 
 /**
  * Readonly notifications
@@ -24,13 +24,21 @@ const dismissNotificationAtom = atom(null, (_get, set, id: string) => {
   set(notificationsBaseAtom, withoutIdentifiable({ id }));
 });
 
+/** Remove all notifcations from store */
+export const dismissAllNotificationsAtom = atom(null, (_get, set) => {
+  set(notificationsBaseAtom, []);
+});
+
 /** Add notification to store */
-export const sendNotificationAtom = atom(
+export const emitNotificationAtom = atom(
   null,
   (
     get,
     set,
-    notification: Omit<Notification, 'id' | 'onDismiss' | 'dismissible'>,
+    notification: Omit<
+      NotificationViewModel,
+      'id' | 'onDismiss' | 'dismissible'
+    >,
   ) => {
     const notificationId = nanoid();
 
