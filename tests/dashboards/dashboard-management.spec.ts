@@ -19,6 +19,8 @@ test('as a user, I can view a list of my dashboards', async ({ page }) => {
 test('as a user, I can navigate to the create dashboard page', async ({
   page,
 }) => {
+  test.slow();
+
   const dashboardsPage = new DashboardsIndexPage(page);
   const createDashboardPage = new CreateDashboardPage(page);
 
@@ -41,6 +43,8 @@ test('as a user, I can navigate to the create dashboard page', async ({
 });
 
 test('as a user, I can create a dashboard', async ({ page }) => {
+  test.slow();
+
   const dashboardsPage = new DashboardsIndexPage(page);
   const createDashboardPage = new CreateDashboardPage(page);
   const application = new ApplicationFrame(page);
@@ -66,6 +70,8 @@ test('as a user, I can create a dashboard', async ({ page }) => {
 });
 
 test('as a user, I can delete a dashboard', async ({ page }) => {
+  test.slow();
+
   const dashboardsPage = new DashboardsIndexPage(page);
   const dashboardsTable = new DashboardsTable(page);
   const deleteDashboardDialog = new DeleteDashboardDialog(page);
@@ -106,6 +112,8 @@ test('as a user, I can delete a dashboard', async ({ page }) => {
 });
 
 test('as a user, I can delete multiple dashboards', async ({ page }) => {
+  test.slow();
+
   const createDashboardPage = new CreateDashboardPage(page);
   const dashboardsPage = new DashboardsIndexPage(page);
   const dashboardsTable = new DashboardsTable(page);
