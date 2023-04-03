@@ -1,14 +1,17 @@
 import Input from '@cloudscape-design/components/input';
+import Link from '@cloudscape-design/components/link';
 import Table from '@cloudscape-design/components/table';
+import { useForm, Controller } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import { Link } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
+import { DashboardsTableHeader } from './components/dashboards-table-header';
+import { DeleteDashboardModal } from './components/delete-dashboard-modal';
 import { useDashboardsTable } from './hooks/use-dashboards-table';
 import { useDeleteModalVisibility } from './hooks/use-delete-modal-visibility';
 import { usePartialUpdateDashboardMutation } from './hooks/use-partial-update-dashboard-mutation';
-import { DashboardsTableHeader } from './components/dashboards-table-header';
-import { DeleteDashboardModal } from './components/delete-dashboard-modal';
+import { useApplication } from '~/hooks/application/use-application';
+import { $Dashboard } from '~/services';
 
 export function DashboardsIndexPage() {
   const intl = useIntl();
@@ -16,11 +19,22 @@ export function DashboardsIndexPage() {
     useDeleteModalVisibility();
   const updateDashboardMutation = usePartialUpdateDashboardMutation();
   const { selectedItems, tableProps } = useDashboardsTable();
+  const { navigate } = useApplication();
+
+  const {
+    control,
+    formState: { errors },
+    getValues,
+  } = useForm({
+    defaultValues: { name: '', description: '' },
+    mode: 'onChange',
+  });
 
   return (
     <>
       <Table
         {...tableProps}
+        trackBy={(dashboard) => dashboard.id}
         ariaLabels={{
           itemSelectionLabel: (_selectionState, row) =>
             intl.formatMessage(
@@ -31,12 +45,16 @@ export function DashboardsIndexPage() {
               { name: row.name },
             ),
         }}
-        submitEdit={async (item, column, newValue) => {
+        submitEdit={async (item, column) => {
           invariant(column.id, 'Expected column to be defined');
+          invariant(
+            column.id === 'name' || column.id === 'description',
+            'Expected column to be name or description',
+          );
 
           await updateDashboardMutation.mutateAsync({
             id: item.id,
-            [column.id]: newValue,
+            [column.id]: getValues(column.id),
           });
         }}
         header={
@@ -62,7 +80,18 @@ export function DashboardsIndexPage() {
               description: 'dashboards table name column header',
             }),
             cell: (dashboard) => (
-              <Link to={`/dashboards/${dashboard.id}`}>{dashboard.name}</Link>
+              <Link
+                href={`/dashboards/${dashboard.id}`}
+                onFollow={(event) => {
+                  event.preventDefault();
+
+                  invariant(event.detail.href, 'Expected href to be defined');
+
+                  navigate(event.detail.href);
+                }}
+              >
+                {dashboard.name}
+              </Link>
             ),
             sortingField: 'name',
             editConfig: {
@@ -80,6 +109,9 @@ export function DashboardsIndexPage() {
                 description:
                   'dashboard table name edit cell error icon aria label',
               }),
+              validation: () => {
+                return errors.name?.message;
+              },
               editingCell: (
                 dashboard,
                 {
@@ -93,14 +125,42 @@ export function DashboardsIndexPage() {
                 const value = currentValue ?? dashboard.name;
 
                 return (
-                  <Input
-                    autoFocus
-                    placeholder={intl.formatMessage({
-                      defaultMessage: 'Enter dashboard name',
-                      description: 'dashboard table name edit cell placeholder',
-                    })}
-                    value={value}
-                    onChange={(event) => setValue(event.detail.value)}
+                  <Controller
+                    name="name"
+                    control={control}
+                    rules={{
+                      required: intl.formatMessage({
+                        defaultMessage: 'Dashboard name is required.',
+                        description: 'create dashboard form name required',
+                      }),
+                      maxLength: {
+                        value: $Dashboard.properties.name.maxLength,
+                        message: intl.formatMessage(
+                          {
+                            defaultMessage:
+                              'Dashboard name must be {maxLength} characters or less.',
+                            description:
+                              'create dashboard form name max length',
+                          },
+                          { maxLength: $Dashboard.properties.name.maxLength },
+                        ),
+                      },
+                    }}
+                    render={({ field }) => (
+                      <Input
+                        autoFocus
+                        placeholder={intl.formatMessage({
+                          defaultMessage: 'Enter dashboard name',
+                          description:
+                            'dashboard table name edit cell placeholder',
+                        })}
+                        value={field.value === '' ? value : field.value}
+                        onChange={(event) => {
+                          field.onChange(event.detail.value);
+                          setValue(event.detail.value);
+                        }}
+                      />
+                    )}
                   />
                 );
               },
@@ -129,6 +189,9 @@ export function DashboardsIndexPage() {
                 description:
                   'dashboard table description edit cell error icon aria label',
               }),
+              validation: () => {
+                return errors.description?.message;
+              },
               editingCell: (
                 dashboard,
                 {
@@ -142,15 +205,47 @@ export function DashboardsIndexPage() {
                 const value = currentValue ?? dashboard.description;
 
                 return (
-                  <Input
-                    autoFocus
-                    placeholder={intl.formatMessage({
-                      defaultMessage: 'Enter dashboard description',
-                      description:
-                        'dashboard table description edit cell placeholder',
-                    })}
-                    value={value}
-                    onChange={(event) => setValue(event.detail.value)}
+                  <Controller
+                    control={control}
+                    name="description"
+                    rules={{
+                      required: intl.formatMessage({
+                        defaultMessage: 'Dashboard description is required.',
+                        description:
+                          'create dashboard form description required',
+                      }),
+                      maxLength: {
+                        value: $Dashboard.properties.description.maxLength,
+                        message: intl.formatMessage(
+                          {
+                            defaultMessage:
+                              'Dashboard description must be {maxLength} characters or less.',
+                            description:
+                              'create dashboard form description max length',
+                          },
+                          {
+                            maxLength:
+                              $Dashboard.properties.description.maxLength,
+                          },
+                        ),
+                      },
+                    }}
+                    render={({ field }) => (
+                      <Input
+                        ariaRequired
+                        autoFocus
+                        placeholder={intl.formatMessage({
+                          defaultMessage: 'Enter dashboard description',
+                          description:
+                            'dashboard table description edit cell placeholder',
+                        })}
+                        value={field.value === '' ? value : field.value}
+                        onChange={(event) => {
+                          field.onChange(event.detail.value);
+                          setValue(event.detail.value);
+                        }}
+                      />
+                    )}
                   />
                 );
               },

@@ -4,7 +4,7 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { CREATE_DASHBOARD_HREF } from '~/constants';
-import { useBrowser } from '~/hooks/browser/use-browser';
+import { useApplication } from '~/hooks/application/use-application';
 
 interface DashboardsTableHeaderProps {
   isDeleteDisabled: boolean;
@@ -13,7 +13,7 @@ interface DashboardsTableHeaderProps {
 
 export function DashboardsTableHeader(props: DashboardsTableHeaderProps) {
   const intl = useIntl();
-  const { navigate } = useBrowser();
+  const { navigate } = useApplication();
 
   return (
     <Header

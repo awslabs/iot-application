@@ -5,16 +5,15 @@ import { useIntl } from 'react-intl';
 
 import { $Dashboard } from '~/services';
 
-import type { CreateDashboardFormValues } from '../types/create-dashboard-form-values';
+import type { Control } from 'react-hook-form';
+import { CreateDashboardFormValues } from '../types/create-dashboard-form-values';
 
-import type { ControllerProps, UseFormReturn } from 'react-hook-form';
-interface DashboardDescriptionTextareaProps {
-  control: ControllerProps<CreateDashboardFormValues>['control'];
-  errors: UseFormReturn<CreateDashboardFormValues>['formState']['errors'];
+interface DashboardDescriptionFieldProps {
+  control: Control<CreateDashboardFormValues>;
 }
 
-export function DashboardDescriptionTextarea(
-  props: DashboardDescriptionTextareaProps,
+export function DashboardDescriptionField(
+  props: DashboardDescriptionFieldProps,
 ) {
   const intl = useIntl();
 
@@ -41,7 +40,7 @@ export function DashboardDescriptionTextarea(
           ),
         },
       }}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <FormField
           label={intl.formatMessage({
             defaultMessage: 'Dashboard description',
@@ -62,7 +61,7 @@ export function DashboardDescriptionTextarea(
               maxLength: $Dashboard.properties.description.maxLength,
             },
           )}
-          errorText={props.errors[field.name]?.message}
+          errorText={fieldState.error?.message}
         >
           <Textarea
             ariaRequired

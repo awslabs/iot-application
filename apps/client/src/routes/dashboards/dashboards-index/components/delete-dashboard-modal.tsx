@@ -8,14 +8,19 @@ import Input from '@cloudscape-design/components/input';
 import Link from '@cloudscape-design/components/link';
 import Modal from '@cloudscape-design/components/modal';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useForm, Controller } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
+import invariant from 'tiny-invariant';
 
-import { DashboardSummary, deleteDashboard } from 'src/services';
-import { DASHBOARDS_QUERY_KEY } from '~/data/dashboards';
-import { useSendNotification } from '~/hooks/notifications/use-send-notification';
-import { ApiError } from '../../../../services/generated/core/ApiError';
+import { invalidateDashboards, invalidateDashboard } from '~/data/dashboards';
+import { isApiError } from '~/helpers/predicates/is-api-error';
+import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
+import { deleteDashboard } from '~/services';
+import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
+import { SuccessNotification } from '~/structures/notifications/success-notification';
+
+import type { DashboardSummary } from '~/services';
 
 const DELETE_CONSENT_TEXT = 'confirm' as const;
 
@@ -27,48 +32,44 @@ interface DeleteDashboardModalProps {
 
 export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
   const intl = useIntl();
+  const emit = useEmitNotification();
   const {
     control,
     formState: { isValid },
     handleSubmit,
     reset,
   } = useForm({ defaultValues: { consent: '' } });
-  const sendNotification = useSendNotification();
-
-  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: (dashboard: DashboardSummary) => deleteDashboard(dashboard.id),
+    onSuccess: (_data, variables) => void invalidateDashboard(variables.id),
   });
 
   function handleDelete() {
     props.dashboards.forEach((dashboard) => {
       mutation.mutate(dashboard, {
         onSuccess: (_data, variables) => {
-          void queryClient.invalidateQueries(DASHBOARDS_QUERY_KEY);
+          void invalidateDashboards();
           handleClose();
-          sendNotification({
-            type: 'success',
-            content: intl.formatMessage(
-              {
-                defaultMessage:
-                  'Successfully deleted {count, plural, one {dashboard "{name}"} other {# dashboards}}.',
-                description: 'delete dashboard modal success message',
-              },
-              {
-                count: props.dashboards.length,
-                name: variables.name,
-              },
+          emit(
+            new SuccessNotification(
+              intl.formatMessage(
+                {
+                  defaultMessage:
+                    'Successfully deleted {count, plural, one {dashboard "{name}"} other {# dashboards}}.',
+                  description: 'delete dashboard modal success message',
+                },
+                {
+                  count: props.dashboards.length,
+                  name: variables.name,
+                },
+              ),
             ),
-          });
+          );
         },
         onError: (error) => {
-          if (error instanceof ApiError) {
-            sendNotification({
-              type: 'error',
-              content: error.message,
-            });
-          }
+          invariant(isApiError(error));
+          emit(new GenericErrorNotification(error));
         },
       });
     });

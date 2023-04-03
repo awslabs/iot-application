@@ -2,10 +2,10 @@ import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
 import { FormattedMessage } from 'react-intl';
 import { CREATE_DASHBOARD_HREF } from '~/constants';
-import { useBrowser } from '~/hooks/browser/use-browser';
+import { useApplication } from '~/hooks/application/use-application';
 
 export function EmptyDashboardsTable() {
-  const { navigate } = useBrowser();
+  const { navigate } = useApplication();
 
   return (
     <Box textAlign="center" color="inherit">

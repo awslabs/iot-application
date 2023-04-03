@@ -1,5 +1,3 @@
-import { createBrowserRouter } from 'react-router-dom';
-import { ROOT_INDEX_PAGE_FORMAT } from '~/constants/format';
 import {
   Container,
   ContentLayout,
@@ -7,16 +5,9 @@ import {
 } from '@cloudscape-design/components';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-export const route = {
-  index: true,
-  element: <IndexPage />,
-  handle: {
-    format: ROOT_INDEX_PAGE_FORMAT,
-  },
-} satisfies Parameters<typeof createBrowserRouter>[0][number];
-
-export function IndexPage() {
+export function RootIndexPage() {
   const intl = useIntl();
+
   return (
     <ContentLayout
       header={

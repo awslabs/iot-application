@@ -1,14 +1,14 @@
 import BreadcrumbGroup from '@cloudscape-design/components/breadcrumb-group';
 import { useIntl } from 'react-intl';
 
-import { preventFullPageLoad } from '../../../helpers/events';
-import { useBrowser } from '../../../hooks/browser/use-browser';
+import { preventFullPageLoad } from '~/helpers/events';
 import { useCrumbs } from './hooks/use-crumbs';
+import { useApplication } from '~/hooks/application/use-application';
 
 export function Breadcrumbs() {
   const crumbs = useCrumbs();
-  const { navigate } = useBrowser();
   const intl = useIntl();
+  const { navigate } = useApplication();
 
   return (
     <BreadcrumbGroup

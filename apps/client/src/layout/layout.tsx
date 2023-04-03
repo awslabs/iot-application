@@ -7,12 +7,16 @@ import { SideNavigation } from './components/side-navigation';
 import { TopNavigation } from './components/top-navigation';
 
 import { useFormat } from './hooks/use-format';
-import { useSideNavigationVisibility } from './hooks/use-side-navigation-visibility';
+import { useFullWidth } from './hooks/use-full-width';
+import { useNavigationVisibility } from '~/hooks/application/use-navigation-visibility';
+import { useSetNavigationVisibility } from '~/hooks/application/use-set-navigation-visibility';
 
 export function Layout(props: React.PropsWithChildren) {
-  const format = useFormat();
-  const [isSideNavVisible, setIsSideNavVisible] = useSideNavigationVisibility();
   const intl = useIntl();
+  const format = useFormat();
+  const fullWidth = useFullWidth();
+  const isNavigationVisible = useNavigationVisibility();
+  const setIsNavigationVisible = useSetNavigationVisibility();
 
   return (
     <>
@@ -21,10 +25,13 @@ export function Layout(props: React.PropsWithChildren) {
         breadcrumbs={<Breadcrumbs />}
         content={props.children}
         contentType={format}
+        disableContentPaddings={fullWidth}
         navigation={<SideNavigation />}
         notifications={<Notifications />}
-        navigationOpen={isSideNavVisible}
-        onNavigationChange={(event) => setIsSideNavVisible(event.detail.open)}
+        navigationOpen={isNavigationVisible}
+        onNavigationChange={(event) =>
+          setIsNavigationVisible(event.detail.open)
+        }
         // hide help panel entirely
         toolsHide={true}
         ariaLabels={{

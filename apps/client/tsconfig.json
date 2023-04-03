@@ -15,5 +15,5 @@
   "display": "Client",
   "exclude": ["node_modules"],
   "extends": "tsconfig/base.json",
-  "include": ["src"]
+  "include": ["src", "src/test/setup.ts"]
 }

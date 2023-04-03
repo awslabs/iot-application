@@ -5,19 +5,15 @@ import SpaceBetween from '@cloudscape-design/components/space-between';
 import { FormattedMessage } from 'react-intl';
 
 import { CreateDashboardFormActions } from './components/create-dashboard-form-actions';
-import { DashboardNameInput } from './components/dashboard-name-input';
-import { DashboardDescriptionTextarea } from './components/dashboard-description-textarea';
+import { DashboardNameField } from './components/dashboard-name-field';
+import { DashboardDescriptionField } from './components/dashboard-description-field';
 import { useCreateDashboardForm } from './hooks/use-create-dashboard-form';
 import { useCreateDashboardMutation } from './hooks/use-create-dashboard-mutation';
 import { ApiError } from '~/services';
 
 export function CreateDashboardPage() {
   const createDashboardMutation = useCreateDashboardMutation();
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useCreateDashboardForm();
+  const { control, handleSubmit } = useCreateDashboardForm();
 
   function getFormErrorText() {
     if (createDashboardMutation.error instanceof ApiError) {
@@ -58,8 +54,8 @@ export function CreateDashboardPage() {
       >
         <Container>
           <SpaceBetween size="l">
-            <DashboardNameInput control={control} errors={errors} />
-            <DashboardDescriptionTextarea control={control} errors={errors} />
+            <DashboardNameField control={control} />
+            <DashboardDescriptionField control={control} />
           </SpaceBetween>
         </Container>
       </Form>

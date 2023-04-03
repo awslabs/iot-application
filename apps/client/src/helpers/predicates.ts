@@ -2,6 +2,7 @@ import type { ReadonlyTuple } from 'type-fest';
 import type {
   Crumbly,
   DataBound,
+  Dimensional,
   Formatted,
   Handleable,
   Identifiable,
@@ -9,6 +10,7 @@ import type {
   Maybe,
   MaybeCrumbly,
   MaybeDataBound,
+  MaybeDimensional,
   MaybeFormatted,
   MaybeHandleable,
   MaybeWithActiveHref,
@@ -33,6 +35,10 @@ export function isDataBound<T>(
   return Boolean(maybe.data);
 }
 
+export function isDimensional(maybe: MaybeDimensional): maybe is Dimensional {
+  return Boolean(maybe.fullWidth);
+}
+
 export function isFormatted(maybe: MaybeFormatted): maybe is Formatted {
   return Boolean(maybe.format);
 }
@@ -53,6 +59,12 @@ export function isHandleableWithCrumbs<T>(
   maybe: MaybeHandleable<MaybeCrumbly<T>>,
 ): maybe is Handleable<Crumbly<T>> {
   return isHandleable(maybe) && isCrumbly(maybe.handle);
+}
+
+export function isHandleableWithDimensions(
+  maybe: MaybeHandleable<MaybeDimensional>,
+): maybe is Handleable<Dimensional> {
+  return isHandleable(maybe) && isDimensional(maybe.handle);
 }
 
 export function isHandleableWithFormat(

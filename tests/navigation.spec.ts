@@ -19,11 +19,12 @@ test.describe('Navigation', () => {
     await homePage.expectIsCurrentPage();
 
     await sideNavigation.openButton.click();
-    await sideNavigation.expectIsVisible();
+    await sideNavigation.expectIsNotHidden();
     await sideNavigation.dashboardsPageLink.click();
 
     await dashboardsPage.expectIsCurrentPage();
     await homePage.expectIsNotCurrentPage();
+    await sideNavigation.expectIsHidden();
   });
 
   test('as a user, I can use the side navigation to access the home page', async ({
@@ -41,6 +42,7 @@ test.describe('Navigation', () => {
 
     await homePage.expectIsCurrentPage();
     await dashboardsPage.expectIsNotCurrentPage();
+    await sideNavigation.expectIsHidden();
   });
 
   test('as a user, I can use the top navigation to navigate to the home page', async ({

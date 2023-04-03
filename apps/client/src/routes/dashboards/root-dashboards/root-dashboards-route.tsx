@@ -1,14 +1,15 @@
-import { createBrowserRouter, Outlet } from 'react-router-dom';
-
+import { RootDashboardsPage } from './root-dashboards-page';
+import { dashboardsIndexRoute } from '../dashboards-index';
+import { dashboardRoute } from '../dashboard';
+import { createDashboardRoute } from '../create';
 import { DASHBOARDS_PATH, DASHBOARDS_HREF } from '~/constants';
 import { intl } from '~/services';
-import { dashboardsIndexRoute } from './dashboards-index';
-import { route as dashboardRoute } from './dashboard';
-import { createDashboardRoute } from './create';
 
-export const route = {
+import type { RouteObject } from 'react-router-dom';
+
+export const rootDashboardsRoute = {
   path: DASHBOARDS_PATH,
-  element: <DashboardsPage />,
+  element: <RootDashboardsPage />,
   handle: {
     activeHref: DASHBOARDS_HREF,
     crumb: () => ({
@@ -20,8 +21,4 @@ export const route = {
     }),
   },
   children: [dashboardsIndexRoute, dashboardRoute, createDashboardRoute],
-} satisfies Parameters<typeof createBrowserRouter>[0][number];
-
-export function DashboardsPage() {
-  return <Outlet />;
-}
+} satisfies RouteObject;

@@ -23,9 +23,13 @@ export class SideNavigation {
   public readonly dashboardsPageLink: Locator;
 
   constructor(page: Page) {
-    this.navigationDrawer = page.getByRole('navigation', {
-      name: 'Navigation drawer',
-    });
+    this.navigationDrawer = page
+      .getByRole('navigation', {
+        name: 'Navigation drawer', // XXX: Cloudscape gives two elements the same ARIA label
+      })
+      .filter({
+        has: page.getByRole('button', { name: 'Close navigation drawer' }), 
+      });
     this.openButton = page.getByRole('button', {
       name: 'Open navigation drawer',
     });
@@ -40,8 +44,12 @@ export class SideNavigation {
     });
   }
 
-  async expectIsVisible() {
-    await expect(this.navigationDrawer).toBeVisible();
+  async expectIsNotHidden() {
+    await expect(this.navigationDrawer).not.toBeHidden();
+  }
+
+  async expectIsHidden() {
+    await expect(this.navigationDrawer).toBeHidden();
   }
 }
 

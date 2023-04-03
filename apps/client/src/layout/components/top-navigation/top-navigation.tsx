@@ -1,3 +1,4 @@
+import { useAuthenticator } from '@aws-amplify/ui-react';
 import _TopNavigation from '@cloudscape-design/components/top-navigation';
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
@@ -5,12 +6,11 @@ import { useIntl } from 'react-intl';
 import { SettingsModal } from './components/settings-modal';
 import { ROOT_HREF } from '~/constants';
 import { preventFullPageLoad } from '~/helpers/events';
-import { useBrowser } from '~/hooks/browser/use-browser';
-import { useAuthenticator } from '@aws-amplify/ui-react';
+import { useApplication } from '~/hooks/application/use-application';
 
 export function TopNavigation() {
-  const { navigate } = useBrowser();
   const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
+  const { navigate } = useApplication();
   const intl = useIntl();
   const { user, signOut } = useAuthenticator();
 

@@ -8,6 +8,7 @@ import {
 
 import type { MaybeFormatted, MaybeHandleable } from '~/types';
 
+/** Use to know what format to render to current page. */
 export function useFormat() {
   const matches = useMatches() as MaybeHandleable<MaybeFormatted>[];
 
