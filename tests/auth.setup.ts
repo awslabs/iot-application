@@ -3,6 +3,9 @@ import { test as setup, expect } from '@playwright/test';
 const authFile = 'playwright/.auth/user.json';
 
 setup('authenticate', async ({ page }) => {
+  // increase timeout for authentication
+  setup.slow();
+
   // user enters application at Amplify login page
   await page.goto('');
 
