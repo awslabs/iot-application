@@ -18,7 +18,9 @@ export class IotApplicationStack extends Stack {
       resourceTable: { tableArn, tableName },
     } = new DatabaseStack(this, 'Database');
 
-    new CoreStack(this, 'Core', {
+    const {
+      coreService: { serviceUrl },
+    } = new CoreStack(this, 'Core', {
       coreServiceProps: {
         databaseTableArn: tableArn,
         databaseTableName: tableName,
@@ -30,12 +32,13 @@ export class IotApplicationStack extends Stack {
     const publicAssetStack = new PublicAssetStack(this, 'PublicAsset', {
       userPoolClientId,
       userPoolId,
+      coreServiceUrl: serviceUrl,
     });
     const { publicDistribution } = publicAssetStack;
 
     new CfnOutput(this, 'App URL', {
       description: 'Endpoint to access the App',
-      value: publicDistribution.domainName,
+      value: `https://${publicDistribution.domainName}`,
     });
   }
 }

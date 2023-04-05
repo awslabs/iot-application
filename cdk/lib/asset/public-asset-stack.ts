@@ -19,6 +19,7 @@ import path from 'path';
 const CLIENT_BUILD_DIR_PATH = '../../../apps/client/build';
 
 export interface PublicAssetStackProps extends StackProps {
+  readonly coreServiceUrl: string;
   readonly userPoolClientId: string;
   readonly userPoolId: string;
 }
@@ -29,12 +30,12 @@ export class PublicAssetStack extends Stack {
   constructor(scope: Construct, id: string, props: PublicAssetStackProps) {
     super(scope, id, props);
 
-    const { userPoolClientId, userPoolId } = props;
+    const { userPoolClientId, userPoolId, coreServiceUrl } = props;
 
     const assetHashKey = randomUUID();
 
     const assetBucket = new Bucket(this, 'AssetBucket');
-    const assetBucketOAI = new OriginAccessIdentity(this, 'assetBucketOAI');
+    const assetBucketOAI = new OriginAccessIdentity(this, 'AssetBucketOAI');
     assetBucket.grantRead(assetBucketOAI);
 
     const clientAssetDeployment = new BucketDeployment(
@@ -50,10 +51,15 @@ export class PublicAssetStack extends Stack {
     );
 
     const awsResources = {
-      Auth: {
-        region: Stack.of(this).region,
-        userPoolId: userPoolId,
-        userPoolWebClientId: userPoolClientId,
+      amplifyConfiguration: {
+        Auth: {
+          region: this.region,
+          userPoolId: userPoolId,
+          userPoolWebClientId: userPoolClientId,
+        },
+      },
+      coreServer: {
+        endpoint: `https://${coreServiceUrl}`,
       },
     };
 
@@ -62,7 +68,7 @@ export class PublicAssetStack extends Stack {
         service: 'S3',
         action: 'putObject',
         parameters: {
-          Body: `window.awsResources=${JSON.stringify(awsResources)};`,
+          Body: `window.awsResources=${this.toJsonString(awsResources)};`,
           Bucket: assetBucket.bucketName,
           Key: `${assetHashKey}/aws-resources.js`,
         },

@@ -11,7 +11,9 @@ async function getToken() {
 
 OpenAPI.TOKEN = getToken;
 
-OpenAPI.BASE = 'http://localhost:3000';
+export function setServiceUrl(url: string) {
+  OpenAPI.BASE = url;
+}
 
 export type ListDashboards = typeof DashboardsService.dashboardsControllerList;
 export type CreateDashboard =

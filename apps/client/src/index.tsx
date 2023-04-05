@@ -10,18 +10,18 @@ import { RouterProvider } from 'react-router-dom';
 import { DEFAULT_LOCALE } from './constants';
 import { router } from './router';
 import { queryClient } from './data/query-client';
-import type { GlobalThis } from 'type-fest';
+import { setServiceUrl } from './services';
+import type { GlobalWithResources } from './types/global-with-resources';
 
 import '@aws-amplify/ui-react/styles.css';
 import '@cloudscape-design/global-styles/index.css';
 
-interface GlobalWithResources extends GlobalThis {
-  awsResources: object;
-}
-const awsResources = (global as GlobalWithResources).awsResources;
+const globalWithResources = global as GlobalWithResources;
 
-console.log(awsResources);
+const awsResources = globalWithResources.awsResources.amplifyConfiguration;
 Amplify.configure(awsResources);
+
+setServiceUrl(globalWithResources.awsResources.coreServer.endpoint);
 
 const rootEl = document.getElementById('root');
 
