@@ -17,6 +17,8 @@ export interface CoreServiceProps {
 }
 
 export class CoreService extends Construct {
+  readonly serviceUrl: string;
+
   constructor(scope: Construct, id: string, props: CoreServiceProps) {
     super(scope, id);
 
@@ -56,7 +58,7 @@ export class CoreService extends Construct {
       directory: path.join(__dirname, '../../..'),
     });
 
-    new CfnService(this, 'Service', {
+    const service = new CfnService(this, 'Service', {
       sourceConfiguration: {
         authenticationConfiguration: {
           accessRoleArn: serviceSourceRole.roleArn,
@@ -92,5 +94,7 @@ export class CoreService extends Construct {
         instanceRoleArn: serviceInstanceRole.roleArn,
       },
     });
+
+    this.serviceUrl = service.attrServiceUrl;
   }
 }

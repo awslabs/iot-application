@@ -7,9 +7,11 @@ export interface CoreStackProps extends StackProps {
 }
 
 export class CoreStack extends Stack {
+  readonly coreService: CoreService;
+
   constructor(scope: Construct, id: string, props: CoreStackProps) {
     super(scope, id, props);
 
-    new CoreService(this, 'Service', props.coreServiceProps);
+    this.coreService = new CoreService(this, 'Service', props.coreServiceProps);
   }
 }
