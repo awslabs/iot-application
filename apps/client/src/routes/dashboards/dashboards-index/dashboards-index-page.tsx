@@ -148,7 +148,6 @@ export function DashboardsIndexPage() {
                     }}
                     render={({ field }) => (
                       <Input
-                        autoFocus
                         placeholder={intl.formatMessage({
                           defaultMessage: 'Enter dashboard name',
                           description:
@@ -233,7 +232,6 @@ export function DashboardsIndexPage() {
                     render={({ field }) => (
                       <Input
                         ariaRequired
-                        autoFocus
                         placeholder={intl.formatMessage({
                           defaultMessage: 'Enter dashboard description',
                           description:

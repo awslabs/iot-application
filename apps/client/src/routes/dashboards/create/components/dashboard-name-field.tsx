@@ -61,7 +61,6 @@ export function DashboardNameField(props: DashboardNameFieldProps) {
         >
           <Input
             ariaRequired
-            autoFocus
             placeholder={intl.formatMessage({
               defaultMessage: 'Dashboard name',
               description: 'create dashboard form name placeholder',
