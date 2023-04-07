@@ -44,7 +44,7 @@ describe('HealthController', () => {
           status: 'down',
         },
       });
-      await expect(result).rejects.toThrowError(error);
+      await expect(result).rejects.toThrow(error);
     });
   });
 });
