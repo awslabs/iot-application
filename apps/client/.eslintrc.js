@@ -10,6 +10,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
+    'plugin:jsx-a11y/recommended',
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -28,6 +29,7 @@ module.exports = {
     'jest-dom',
     'react',
     'react-hooks',
+    'jsx-a11y',
   ],
   rules: {
     'formatjs/no-offset': 'error',
