@@ -9,6 +9,7 @@ module.exports = {
     'plugin:jest-dom/recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended',
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -26,6 +27,7 @@ module.exports = {
     'testing-library',
     'jest-dom',
     'react',
+    'react-hooks',
   ],
   rules: {
     'formatjs/no-offset': 'error',

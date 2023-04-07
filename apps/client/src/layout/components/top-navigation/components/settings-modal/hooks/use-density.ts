@@ -1,5 +1,4 @@
 import { applyDensity, Density } from '@cloudscape-design/global-styles';
-import { useEffect } from 'react';
 import { useLocalStorage } from 'react-use';
 
 import { isComfortable } from '../helpers/is-comfortable';
@@ -16,16 +15,11 @@ export function useDensity() {
       CONTENT_DENSITY_INITIALIZER,
     );
 
-  function applyDensitySetting() {
-    const densitySetting = isComfortable(density)
-      ? Density.Comfortable
-      : Density.Compact;
+  const densitySetting = isComfortable(density)
+    ? Density.Comfortable
+    : Density.Compact;
 
-    applyDensity(densitySetting);
-  }
-
-  // apply density when it is updated
-  useEffect(applyDensitySetting, [density]);
+  applyDensity(densitySetting);
 
   return [density, setDensity] as const;
 }
