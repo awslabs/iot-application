@@ -52,6 +52,7 @@
     "customize-cra": "^1.0.0",
     "eslint-config-custom": "*",
     "eslint-plugin-formatjs": "^4.9.0",
+    "eslint-plugin-jest-dom": "^4.0.3",
     "eslint-plugin-testing-library": "^5.10.2",
     "identity-obj-proxy": "^3.0.0",
     "react-app-rewired": "^2.2.1",

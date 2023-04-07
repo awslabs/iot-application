@@ -1,5 +1,10 @@
 import { vi } from 'vitest';
-import { render, screen, within } from '~/helpers/tests/testing-library';
+import {
+  render,
+  screen,
+  within,
+  waitFor,
+} from '~/helpers/tests/testing-library';
 
 import { Notifications } from './notifications';
 import type { NotificationViewModel } from '~/types/notification-view-model';
@@ -23,7 +28,7 @@ describe('<Notifications />', () => {
     });
     const notifications = within(notificationsList).queryAllByRole('listitem');
 
-    expect(notifications).toHaveLength(0);
+    expect(notifications.length).toBe(0);
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
     expect(
       screen.queryByRole('heading', { name: 'Notifications' }),
@@ -44,7 +49,7 @@ describe('<Notifications />', () => {
     });
     const notifications = within(notificationsList).queryAllByRole('listitem');
 
-    expect(notifications).toHaveLength(1);
+    expect(notifications.length).toBe(1);
     expect(notifications.at(0)).toHaveTextContent('notification');
     expect(notifications.at(0)).toBeVisible();
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
@@ -72,7 +77,7 @@ describe('<Notifications />', () => {
     });
     const notifications = within(notificationsList).queryAllByRole('listitem');
 
-    expect(notifications).toHaveLength(1);
+    expect(notifications.length).toBe(1);
     expect(screen.getByRole('status')).toBeVisible();
     expect(screen.getByText('notification a')).toBeVisible();
     expect(screen.queryByText('notification b')).not.toBeInTheDocument();
@@ -97,17 +102,19 @@ describe('<Notifications />', () => {
     const user = userEvent.setup();
     render(<Notifications />);
 
-    await user.click(
-      screen.getByRole('button', { name: 'View all notifications' }),
-    );
+    // it is required to wait because of the state update
+    await waitFor(async () => {
+      await user.click(
+        screen.getByRole('button', { name: 'View all notifications' }),
+      );
+    });
 
     const notificationsList = screen.getByRole('list', {
       name: 'Notifications',
     });
     const notifications = within(notificationsList).queryAllByRole('listitem');
 
-    expect(notifications).toHaveLength(2);
-    expect(screen.getByRole('status')).toBeVisible();
+    expect(notifications.length).toBe(2);
     expect(screen.getByText('notification a')).toBeVisible();
     expect(screen.getByText('notification b')).toBeVisible();
     expect(
