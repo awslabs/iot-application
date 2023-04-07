@@ -12,8 +12,8 @@ test('as a user, I cannot create an invalid dashboard', async ({ page }) => {
   await createPage.expectIsCurrentPage();
 
   // user does not initial see errors
-  await expect(createPage.nameRequiredError).not.toBeVisible();
-  await expect(createPage.descriptionRequiredError).not.toBeVisible();
+  await expect(createPage.nameRequiredError).toBeHidden();
+  await expect(createPage.descriptionRequiredError).toBeHidden();
 
   // user tries to create a dashboard without entering name or description
   await createPage.createButton.click();
@@ -30,19 +30,19 @@ test('as a user, I cannot create an invalid dashboard', async ({ page }) => {
   await createPage.nameField.type('a');
 
   // user sees the name required validation error immediately disappear
-  await expect(createPage.nameRequiredError).not.toBeVisible();
+  await expect(createPage.nameRequiredError).toBeHidden();
 
   // user tries and fails to create a dashboard without a description
   await createPage.createButton.click();
   await createPage.expectIsCurrentPage();
   await dashboardsPage.expectIsNotCurrentPage();
-  await expect(application.notification).not.toBeVisible();
+  await expect(application.notification).toBeHidden();
 
   // user types a single character for the description
   await createPage.descriptionField.type('a');
 
   // user sees the description required validation error immediately disappear
-  await expect(createPage.descriptionRequiredError).not.toBeVisible();
+  await expect(createPage.descriptionRequiredError).toBeHidden();
 
   // user deletes name
   await createPage.nameField.clear();
@@ -51,21 +51,21 @@ test('as a user, I cannot create an invalid dashboard', async ({ page }) => {
   await createPage.createButton.click();
   await createPage.expectIsCurrentPage();
   await dashboardsPage.expectIsNotCurrentPage();
-  await expect(application.notification).not.toBeVisible();
+  await expect(application.notification).toBeHidden();
 
   // user enters the max length name
   await createPage.nameField.click();
   await createPage.typeMaxLengthName();
 
   // user does not see a name validation error
-  await expect(createPage.nameMaxLengthError).not.toBeVisible();
+  await expect(createPage.nameMaxLengthError).toBeHidden();
 
   // user enters the max length description
   await createPage.descriptionField.clear();
   await createPage.typeMaxLengthDescription();
 
   // user does not see a description validation error
-  await expect(createPage.descriptionMaxLengthError).not.toBeVisible();
+  await expect(createPage.descriptionMaxLengthError).toBeHidden();
 
   // user adds an extra character to name
   await createPage.nameField.type('a');
@@ -77,13 +77,13 @@ test('as a user, I cannot create an invalid dashboard', async ({ page }) => {
   await createPage.createButton.click();
   await createPage.expectIsCurrentPage();
   await dashboardsPage.expectIsNotCurrentPage();
-  await expect(application.notification).not.toBeVisible();
+  await expect(application.notification).toBeHidden();
 
   // user removes a character from name
   await createPage.nameField.press('Delete');
 
   // user does not see a max length name validation error
-  await expect(createPage.nameMaxLengthError).not.toBeVisible();
+  await expect(createPage.nameMaxLengthError).toBeHidden();
 
   // user adds an extra character to description
   await createPage.descriptionField.type('a');
@@ -95,13 +95,13 @@ test('as a user, I cannot create an invalid dashboard', async ({ page }) => {
   await createPage.createButton.click();
   await createPage.expectIsCurrentPage();
   await dashboardsPage.expectIsNotCurrentPage();
-  await expect(application.notification).not.toBeVisible();
+  await expect(application.notification).toBeHidden();
 
   // user removes a character from description
   await createPage.descriptionField.press('Backspace');
 
   // user does not see a max length description validation error
-  await expect(createPage.descriptionMaxLengthError).not.toBeVisible();
+  await expect(createPage.descriptionMaxLengthError).toBeHidden();
 });
 
 test('as a user, I cancel creating a dashboard', async ({ page }) => {
@@ -122,7 +122,7 @@ test('as a user, I cancel creating a dashboard', async ({ page }) => {
   // user is back on the dashboards page without a new dashboard created
   await dashboardsPage.expectIsCurrentPage();
   await createPage.expectIsNotCurrentPage();
-  await expect(application.notification).not.toBeVisible();
+  await expect(application.notification).toBeHidden();
 });
 
 test('as a user, I see a error notification when creation of a valid dashboard fails', async ({
@@ -134,7 +134,7 @@ test('as a user, I see a error notification when creation of a valid dashboard f
 
   // return a 500 status code when creating a dashboard
   await page.route('http://localhost:3000/dashboards', async (route) => {
-    route.fulfill({
+    await route.fulfill({
       status: 500,
     });
   });
@@ -172,7 +172,7 @@ for (const { status, message } of errors) {
 
     // return status code when creating a dashboard
     await page.route('http://localhost:3000/dashboards', async (route) => {
-      route.fulfill({
+      await route.fulfill({
         status: status,
       });
     });
@@ -189,7 +189,7 @@ for (const { status, message } of errors) {
 
     // user sees form error
     await expect(page.getByText(message).nth(0)).toBeVisible();
-    await expect(application.notification).not.toBeVisible();
+    await expect(application.notification).toBeHidden();
     await createPage.expectIsCurrentPage();
     await dashboardsPage.expectIsNotCurrentPage();
   });

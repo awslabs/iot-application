@@ -86,18 +86,20 @@ test.describe('Navigation', () => {
     await homePage.goto();
     await homePage.expectIsCurrentPage();
 
-    await expect(topNavigation.dropdownMenu).not.toBeVisible();
+    await expect(topNavigation.dropdownMenu).toBeHidden();
     await topNavigation.openDropdownButton.click();
     await expect(topNavigation.dropdownMenu).toBeVisible();
 
     await topNavigation.documentationLink.click();
 
     // the documentation opens in a new tab
-    page.on('popup', async () => {
-      // user sees their are on the documentation page
-      await expect(page).toHaveURL(
-        'https://github.com/awslabs/iot-application',
-      );
+    page.on('popup', () => {
+      void (async () => {
+        // user sees their are on the documentation page
+        await expect(page).toHaveURL(
+          'https://github.com/awslabs/iot-application',
+        );
+      })();
     });
   });
 
@@ -114,11 +116,13 @@ test.describe('Navigation', () => {
     await topNavigation.feedbackLink.click();
 
     // the feedback page opens in a new tab
-    page.on('popup', async () => {
-      // user sees they are on the feedback page
-      await expect(page).toHaveURL(
-        'https://github.com/awslabs/iot-application/issues',
-      );
+    page.on('popup', () => {
+      void (async () => {
+        // user sees they are on the feedback page
+        await expect(page).toHaveURL(
+          'https://github.com/awslabs/iot-application/issues',
+        );
+      })();
     });
   });
 });

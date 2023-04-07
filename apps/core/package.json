@@ -10,6 +10,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "tsc --noEmit && TIMING=1 eslint \"{src,test}/**/*.ts\" --max-warnings 0",
+    "lint:fix": "eslint \"{src,test}/**/*.ts*\" --fix",
     "repl": "nest start --entryFile repl --watch",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
