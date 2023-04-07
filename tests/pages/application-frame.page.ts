@@ -28,7 +28,7 @@ export class SideNavigation {
         name: 'Navigation drawer', // XXX: Cloudscape gives two elements the same ARIA label
       })
       .filter({
-        has: page.getByRole('button', { name: 'Close navigation drawer' }), 
+        has: page.getByRole('button', { name: 'Close navigation drawer' }),
       });
     this.openButton = page.getByRole('button', {
       name: 'Open navigation drawer',
@@ -45,7 +45,7 @@ export class SideNavigation {
   }
 
   async expectIsNotHidden() {
-    await expect(this.navigationDrawer).not.toBeHidden();
+    await expect(this.navigationDrawer).toBeVisible();
   }
 
   async expectIsHidden() {

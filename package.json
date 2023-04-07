@@ -2,7 +2,11 @@
   "name": "iot-application",
   "private": true,
   "version": "0.0.0",
-  "workspaces": ["apps/*", "cdk", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "cdk",
+    "packages/*"
+  ],
   "config": {
     "docs": "http://localhost:3000/docs-json",
     "genpath": "apps/client/src/services/generated",
@@ -15,7 +19,8 @@
     "gen:types": "openapi -i ${npm_package_config_docs} -o ${npm_package_config_genpath} ${npm_package_config_genconfig} && yarn format:gen:types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:gen:types": "prettier --write \"${npm_package_config_genpath}/**/*.ts\"",
-    "lint": "turbo run lint",
+    "lint": "turbo run lint && tsc --noEmit && TIMING=1 eslint \"tests/**/*.ts\" --max-warnings 0",
+    "lint:fix": "turbo run lint:fix && eslint \"tests/**/*.ts\" --fix",
     "test": "turbo run test",
     "test:e2e": "playwright test",
     "test:watch": "turbo run test:watch"
@@ -28,6 +33,7 @@
     "@typescript-eslint/parser": "^5.46.1",
     "eslint": "^8.29.0",
     "eslint-config-custom": "*",
+    "eslint-plugin-playwright": "^0.12.0",
     "jest": "29.4.2",
     "jest-watch-typeahead": "^2.2.2",
     "node-notifier": "^10.0.1",

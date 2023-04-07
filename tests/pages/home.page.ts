@@ -4,7 +4,6 @@ import type { Page, Locator } from '@playwright/test';
 export class HomePage {
   readonly page: Page;
   readonly heading: Locator;
-  readonly dashboardsPageLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -22,6 +21,6 @@ export class HomePage {
 
   async expectIsNotCurrentPage() {
     await expect(this.page).not.toHaveURL('/');
-    await expect(this.heading).not.toBeVisible();
+    await expect(this.heading).toBeHidden();
   }
 }
