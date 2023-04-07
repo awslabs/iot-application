@@ -105,6 +105,7 @@ export function TopNavigation() {
       <SettingsModal
         isVisible={isSettingsModalVisible}
         onClose={closeSettings}
+        key={isSettingsModalVisible.toString()}
       />
     </>
   );

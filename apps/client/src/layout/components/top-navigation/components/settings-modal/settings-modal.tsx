@@ -3,7 +3,6 @@ import { useIntl } from 'react-intl';
 
 import { useDensity } from './hooks/use-density';
 import { useDensityToggle } from './hooks/use-density-toggle';
-import { useResetDensityToggle } from './hooks/use-reset-density-toggle';
 import { ContentDensityToggle } from './components/content-density-toggle';
 import { SettingsModalFooter } from './components/settings-modal-footer';
 
@@ -18,12 +17,6 @@ export function SettingsModal(props: SettingsModalProps) {
   const [density, setDensity] = useDensity();
   const [toggled, setToggled] = useDensityToggle(density);
   const intl = useIntl();
-
-  useResetDensityToggle({
-    density,
-    setToggled,
-    isVisible: props.isVisible,
-  });
 
   function handleClose() {
     props.onClose();
