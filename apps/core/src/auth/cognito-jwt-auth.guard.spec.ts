@@ -88,7 +88,7 @@ describe('CognitoJwtAuthGuard', () => {
         }),
       ),
     ).resolves.toBe(true);
-    expect(verifyFnSpy).toBeCalledWith('jwt-token');
+    expect(verifyFnSpy).toHaveBeenCalledWith('jwt-token');
   });
 
   test('rejests request with unverified token to proccess', async () => {
@@ -109,7 +109,7 @@ describe('CognitoJwtAuthGuard', () => {
         }),
       ),
     ).rejects.toEqual(new UnauthorizedException());
-    expect(verifyFnSpy).toBeCalledWith('bad-jwt-token');
+    expect(verifyFnSpy).toHaveBeenCalledWith('bad-jwt-token');
   });
 
   test('rejests request without request headers', async () => {
@@ -126,7 +126,7 @@ describe('CognitoJwtAuthGuard', () => {
     await expect(
       cognitoJwtAuthGuard.canActivate(constructExecutionContext()),
     ).rejects.toEqual(new UnauthorizedException());
-    expect(verifyFnSpy).toBeCalledWith('');
+    expect(verifyFnSpy).toHaveBeenCalledWith('');
   });
 
   test('rejests request without authorization header', async () => {
@@ -143,6 +143,6 @@ describe('CognitoJwtAuthGuard', () => {
     await expect(
       cognitoJwtAuthGuard.canActivate(constructExecutionContext({})),
     ).rejects.toEqual(new UnauthorizedException());
-    expect(verifyFnSpy).toBeCalledWith('');
+    expect(verifyFnSpy).toHaveBeenCalledWith('');
   });
 });
