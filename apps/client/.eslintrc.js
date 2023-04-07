@@ -7,6 +7,8 @@ module.exports = {
     'plugin:@tanstack/eslint-plugin-query/recommended',
     'plugin:testing-library/react',
     'plugin:jest-dom/recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -18,10 +20,21 @@ module.exports = {
     },
   },
   // https://formatjs.io/docs/tooling/linter
-  plugins: ['formatjs', '@tanstack/query', 'testing-library', 'jest-dom'],
+  plugins: [
+    'formatjs',
+    '@tanstack/query',
+    'testing-library',
+    'jest-dom',
+    'react',
+  ],
   rules: {
     'formatjs/no-offset': 'error',
     '@typescript-eslint/no-throw-literal': 'off',
   },
   root: true,
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
 };
