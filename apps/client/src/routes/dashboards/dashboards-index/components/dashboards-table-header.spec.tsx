@@ -33,7 +33,7 @@ describe('<DashboardsTableHeader />', () => {
 
     expect(screen.getByRole('button', { name: 'Create' })).toBeVisible();
     expect(screen.getByRole('button', { name: 'Delete' })).toBeVisible();
-    expect(screen.getByRole('button', { name: 'Delete' })).not.toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Delete' })).toBeEnabled();
   });
 
   it('should disable the delete button if isDeleteDisabled is true', () => {
