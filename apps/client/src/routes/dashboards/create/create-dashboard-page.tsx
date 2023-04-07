@@ -9,20 +9,16 @@ import { DashboardNameField } from './components/dashboard-name-field';
 import { DashboardDescriptionField } from './components/dashboard-description-field';
 import { useCreateDashboardForm } from './hooks/use-create-dashboard-form';
 import { useCreateDashboardMutation } from './hooks/use-create-dashboard-mutation';
-import { ApiError } from '~/services';
+import { isNotFatal } from '~/helpers/predicates/is-not-fatal';
 
 export function CreateDashboardPage() {
   const createDashboardMutation = useCreateDashboardMutation();
   const { control, handleSubmit } = useCreateDashboardForm();
 
   function getFormErrorText() {
-    if (createDashboardMutation.error instanceof ApiError) {
-      if (createDashboardMutation.error.status < 500) {
-        return createDashboardMutation.error.message;
-      }
-    }
-
-    return '';
+    return isNotFatal(createDashboardMutation.error)
+      ? createDashboardMutation.error.message
+      : '';
   }
 
   return (
