@@ -20,6 +20,7 @@ const CLIENT_BUILD_DIR_PATH = '../../../apps/client/build';
 
 export interface PublicAssetStackProps extends StackProps {
   readonly coreServiceUrl: string;
+  readonly identityPoolId: string;
   readonly userPoolClientId: string;
   readonly userPoolId: string;
 }
@@ -30,7 +31,8 @@ export class PublicAssetStack extends Stack {
   constructor(scope: Construct, id: string, props: PublicAssetStackProps) {
     super(scope, id, props);
 
-    const { userPoolClientId, userPoolId, coreServiceUrl } = props;
+    const { identityPoolId, userPoolClientId, userPoolId, coreServiceUrl } =
+      props;
 
     const assetHashKey = randomUUID();
 
@@ -54,7 +56,8 @@ export class PublicAssetStack extends Stack {
       amplifyConfiguration: {
         Auth: {
           region: this.region,
-          userPoolId: userPoolId,
+          identityPoolId,
+          userPoolId,
           userPoolWebClientId: userPoolClientId,
         },
       },
