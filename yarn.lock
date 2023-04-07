@@ -9414,6 +9414,11 @@
     uuid "^3.3.2"
     validator "^13.6.0"
 
+"@tanstack/eslint-plugin-query@^4.29.0":
+  version "4.29.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/eslint-plugin-query/-/eslint-plugin-query-4.29.0.tgz#2e50848945187ba4fde0aab033335fd4386934de"
+  integrity sha512-ex+rigzAetqW7vjFA0rqszgPHltI0nbNlsFki4+1b9Kg8Tu6gSSl0M8LJGSvjfnOHsDL5ET3lHHWj+dirdfq5w==
+
 "@tanstack/match-sorter-utils@^8.7.0":
   version "8.7.6"
   resolved "https://registry.yarnpkg.com/@tanstack/match-sorter-utils/-/match-sorter-utils-8.7.6.tgz#ccf54a37447770e0cf0fe49a579c595fd2655b16"
