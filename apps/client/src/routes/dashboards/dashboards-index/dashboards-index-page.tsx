@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import invariant from 'tiny-invariant';
 
-import { DashboardsTableHeader } from './components/dashboards-table-header';
+import { DashboardsTableHeader } from './components/dashboard-table-header/dashboards-table-header';
 import { DeleteDashboardModal } from './components/delete-dashboard-modal';
 import { useDashboardsTable } from './hooks/use-dashboards-table';
 import { useDeleteModalVisibility } from './hooks/use-delete-modal-visibility';
