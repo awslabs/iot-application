@@ -8,6 +8,7 @@ import Input from '@cloudscape-design/components/input';
 import Link from '@cloudscape-design/components/link';
 import Modal from '@cloudscape-design/components/modal';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import { DevTool } from '@hookform/devtools';
 import { useMutation } from '@tanstack/react-query';
 import { useForm, Controller } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -15,6 +16,7 @@ import invariant from 'tiny-invariant';
 
 import { invalidateDashboards, invalidateDashboard } from '~/data/dashboards';
 import { isApiError } from '~/helpers/predicates/is-api-error';
+import { isJust } from '~/helpers/predicates';
 import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
 import { deleteDashboard } from '~/services';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
@@ -81,132 +83,138 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
   }
 
   return (
-    <Modal
-      visible={props.isVisible}
-      onDismiss={handleClose}
-      header={intl.formatMessage({
-        defaultMessage: 'Delete dashboard',
-        description: 'delete dashboard modal header',
-      })}
-      closeAriaLabel={intl.formatMessage({
-        defaultMessage: 'Close delete dialog',
-        description: 'delete dashboard modal close aria label',
-      })}
-      footer={
-        <Box float="right">
-          <SpaceBetween direction="horizontal" size="xs">
-            <Button onClick={handleClose}>
-              <FormattedMessage
-                defaultMessage="Cancel"
-                description="delete dashboard modal cancel button"
-              />
-            </Button>
+    <>
+      <Modal
+        visible={props.isVisible}
+        onDismiss={handleClose}
+        header={intl.formatMessage({
+          defaultMessage: 'Delete dashboard',
+          description: 'delete dashboard modal header',
+        })}
+        closeAriaLabel={intl.formatMessage({
+          defaultMessage: 'Close delete dialog',
+          description: 'delete dashboard modal close aria label',
+        })}
+        footer={
+          <Box float="right">
+            <SpaceBetween direction="horizontal" size="xs">
+              <Button onClick={handleClose}>
+                <FormattedMessage
+                  defaultMessage="Cancel"
+                  description="delete dashboard modal cancel button"
+                />
+              </Button>
 
-            <Button
-              disabled={!isValid}
-              variant="primary"
-              loading={mutation.isLoading}
-              onClick={() => {
+              <Button
+                disabled={!isValid}
+                variant="primary"
+                loading={mutation.isLoading}
+                onClick={() => {
+                  void handleSubmit(() => {
+                    handleDelete();
+                  })();
+                }}
+              >
+                <FormattedMessage
+                  defaultMessage="Delete"
+                  description="delete dashboard modal delete button"
+                />
+              </Button>
+            </SpaceBetween>
+          </Box>
+        }
+      >
+        <SpaceBetween size="m">
+          {props.dashboards.length === 1 ? (
+            <FormattedMessage
+              defaultMessage="Permantly delete dashboard <b>{name}</b>? You cannot undo this action."
+              description="delete dashboard modal delete dashboard message"
+              values={{
+                b: (n) => (
+                  <Box variant="span" fontWeight="bold">
+                    {n}
+                  </Box>
+                ),
+                name: isJust(props.dashboards[0])
+                  ? props.dashboards[0].name
+                  : 'Loading...',
+              }}
+            >
+              {(message) => <Box variant="span">{message}</Box>}
+            </FormattedMessage>
+          ) : (
+            <FormattedMessage
+              defaultMessage="Permanently delete <b>{count} dashboards</b>? You cannot undo this action."
+              description="delete dashboard modal delete dashboards message"
+              values={{
+                b: (c) => (
+                  <Box variant="span" fontWeight="bold">
+                    {c}
+                  </Box>
+                ),
+                count: props.dashboards.length,
+              }}
+            >
+              {(message) => <Box variant="span">{message}</Box>}
+            </FormattedMessage>
+          )}
+
+          <Alert type="warning" statusIconAriaLabel="Warning">
+            <FormattedMessage
+              defaultMessage="Proceeding with this action will delete the dashboard with all its content and can affect related resources."
+              description="delete dashboard modal warning message"
+            />
+            <Link
+              external={true}
+              href="https://github.com/awslabs/iot-application"
+            >
+              <FormattedMessage
+                defaultMessage="Learn more"
+                description="delete dashboard modal learn more link"
+              />
+            </Link>
+          </Alert>
+
+          <Box>
+            <FormattedMessage
+              defaultMessage="To avoid accidental deletions, we ask you to provide additional written consent."
+              description="delete dashboard modal consent request"
+            />
+          </Box>
+
+          <ColumnLayout columns={2}>
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+
                 void handleSubmit(() => {
                   handleDelete();
                 })();
               }}
             >
-              <FormattedMessage
-                defaultMessage="Delete"
-                description="delete dashboard modal delete button"
-              />
-            </Button>
-          </SpaceBetween>
-        </Box>
-      }
-    >
-      <SpaceBetween size="m">
-        {props.dashboards.length === 1 ? (
-          <FormattedMessage
-            defaultMessage="Permantly delete dashboard <b>{name}</b>? You cannot undo this action."
-            description="delete dashboard modal delete dashboard message"
-            values={{
-              b: (n) => (
-                <Box variant="span" fontWeight="bold">
-                  {n}
-                </Box>
-              ),
-              name: props.dashboards.at(0)?.name ?? 'Loading...',
-            }}
-          >
-            {(message) => <Box variant="span">{message}</Box>}
-          </FormattedMessage>
-        ) : (
-          <FormattedMessage
-            defaultMessage="Permanently delete <b>{count} dashboards</b>? You cannot undo this action."
-            description="delete dashboard modal delete dashboards message"
-            values={{
-              b: (c) => (
-                <Box variant="span" fontWeight="bold">
-                  {c}
-                </Box>
-              ),
-              count: props.dashboards.length,
-            }}
-          >
-            {(message) => <Box variant="span">{message}</Box>}
-          </FormattedMessage>
-        )}
+              <Form>
+                <Controller
+                  name="consent"
+                  control={control}
+                  rules={{ required: true, pattern: /^confirm$/ }}
+                  render={({ field }) => (
+                    <FormField>
+                      <Input
+                        ariaRequired
+                        placeholder={DELETE_CONSENT_TEXT}
+                        onChange={(event) => field.onChange(event.detail.value)}
+                        value={field.value}
+                      />
+                    </FormField>
+                  )}
+                />
+              </Form>
+            </form>
+          </ColumnLayout>
+        </SpaceBetween>
+      </Modal>
 
-        <Alert type="warning" statusIconAriaLabel="Warning">
-          <FormattedMessage
-            defaultMessage="Proceeding with this action will delete the dashboard with all its content and can affect related resources."
-            description="delete dashboard modal warning message"
-          />
-          <Link
-            external={true}
-            href="https://github.com/awslabs/iot-application"
-          >
-            <FormattedMessage
-              defaultMessage="Learn more"
-              description="delete dashboard modal learn more link"
-            />
-          </Link>
-        </Alert>
-
-        <Box>
-          <FormattedMessage
-            defaultMessage="To avoid accidental deletions, we ask you to provide additional written consent."
-            description="delete dashboard modal consent request"
-          />
-        </Box>
-
-        <ColumnLayout columns={2}>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-
-              void handleSubmit(() => {
-                handleDelete();
-              })();
-            }}
-          >
-            <Form>
-              <Controller
-                name="consent"
-                control={control}
-                rules={{ required: true, pattern: /^confirm$/ }}
-                render={({ field }) => (
-                  <FormField>
-                    <Input
-                      ariaRequired
-                      placeholder={DELETE_CONSENT_TEXT}
-                      onChange={(event) => field.onChange(event.detail.value)}
-                      value={field.value}
-                    />
-                  </FormField>
-                )}
-              />
-            </Form>
-          </form>
-        </ColumnLayout>
-      </SpaceBetween>
-    </Modal>
+      <DevTool control={control} />
+    </>
   );
 }

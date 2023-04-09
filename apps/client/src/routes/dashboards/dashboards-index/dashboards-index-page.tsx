@@ -1,6 +1,7 @@
 import Input from '@cloudscape-design/components/input';
 import Link from '@cloudscape-design/components/link';
 import Table from '@cloudscape-design/components/table';
+import { DevTool } from '@hookform/devtools';
 import { useForm, Controller } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import invariant from 'tiny-invariant';
@@ -275,6 +276,8 @@ export function DashboardsIndexPage() {
         isVisible={isDeleteModalVisible}
         onClose={() => setIsDeleteModalVisible(false)}
       />
+
+      <DevTool control={control} />
     </>
   );
 }
