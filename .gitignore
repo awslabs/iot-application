@@ -33,3 +33,4 @@ dist-ssr
 /playwright/.auth/
 coverage
 /.cognito/db/*
+/apps/client/html/*
