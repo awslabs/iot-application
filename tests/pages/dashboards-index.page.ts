@@ -154,12 +154,11 @@ export class DashboardsIndexPage {
     this.heading = page.getByRole('heading', { name: 'Dashboards' });
     this.preferencesButton = page.getByRole('button', { name: 'Preferences' });
     this.createButton = page.getByRole('button', {
-      name: 'Create',
-      exact: true,
+      name: 'Create dashboard',
     });
     this.deleteButton = page.getByRole('button', { name: 'Delete' });
     this.emptyCreateButton = page.getByRole('button', {
-      name: 'Create dashboard',
+      name: 'Create dashboard empty',
     });
     this.dashboardFilter = page.getByRole('form', {
       name: 'Filter dashboards',

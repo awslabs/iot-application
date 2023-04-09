@@ -31,7 +31,9 @@ describe('<DashboardsTableHeader />', () => {
   it('should render the create and delete buttons', () => {
     render(<DashboardsTableHeader {...defaultProps} />);
 
-    expect(screen.getByRole('button', { name: 'Create' })).toBeVisible();
+    expect(
+      screen.getByRole('button', { name: 'Create dashboard' }),
+    ).toBeVisible();
     expect(screen.getByRole('button', { name: 'Delete' })).toBeVisible();
     expect(screen.getByRole('button', { name: 'Delete' })).toBeEnabled();
   });
@@ -57,7 +59,7 @@ describe('<DashboardsTableHeader />', () => {
 
     expect(navigateMock).toHaveBeenCalledTimes(0);
 
-    await user.click(screen.getByRole('button', { name: 'Create' }));
+    await user.click(screen.getByRole('button', { name: 'Create dashboard' }));
 
     expect(navigateMock).toHaveBeenCalledTimes(1);
     expect(navigateMock).toHaveBeenCalledWith(CREATE_DASHBOARD_HREF);
