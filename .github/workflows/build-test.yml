@@ -38,3 +38,24 @@ jobs:
 
       - name: Lint 🧑‍🔧
         run: yarn lint
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: client-test-report
+          path: apps/client/html/
+          retention-days: 30
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cliest-test-coverage
+          path: apps/client/coverage/
+          retention-days: 30
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: core-test-coverage
+          path: apps/core/coverage/
+          retention-days: 30

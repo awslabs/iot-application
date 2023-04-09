@@ -21,7 +21,9 @@ export default defineConfig({
       all: true,
       exclude: [
         ...coverageConfigDefaults.exclude,
+        'node_modules/**/*',
         'config-overrides.js',
+        'build/**/*',
         'html/**/*',
         'lang/**/*',
         'public/**/*',
