@@ -1,0 +1,4 @@
+/* Prevent conflicting box sizing coming from Amplify */
+.dashboard * {
+  box-sizing: initial;
+}
