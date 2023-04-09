@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "react-app-rewired build",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf build && rm -rf *.tsbuildinfo",
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist && rimraf build && rimraf *.tsbuildinfo",
     "dev": "PORT=3001 react-app-rewired start",
     "gen:intl": "formatjs extract \"src/**/*.ts*\" --ignore=\"**/*.d.ts\" --out-file lang/en.json --id-interpolation-pattern \"[sha512:contenthash:base64:6]\"",
     "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts*\" --max-warnings 0",
