@@ -2,7 +2,11 @@
   "name": "iot-application",
   "private": true,
   "version": "0.0.0",
-  "workspaces": ["apps/*", "cdk", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "cdk",
+    "packages/*"
+  ],
   "config": {
     "docs": "http://localhost:3000/docs-json",
     "genpath": "apps/client/src/services/generated",
@@ -10,7 +14,7 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "clean": "turbo run clean && rm -rf .turbo && rm -rf node_modules && rm -rf *.tsbuildinfo",
+    "clean": "turbo run clean && rimraf .turbo && rimraf *.tsbuildinfo && rimraf node_modules",
     "dev": "turbo run dev",
     "gen:types": "openapi -i ${npm_package_config_docs} -o ${npm_package_config_genpath} ${npm_package_config_genconfig} && yarn format:gen:types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
@@ -34,6 +38,7 @@
     "openapi-typescript": "^6.1.1",
     "openapi-typescript-codegen": "^0.23.0",
     "prettier": "^2.8.1",
+    "rimraf": "^4.4.1",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.0.0",
     "turbo": "latest",
