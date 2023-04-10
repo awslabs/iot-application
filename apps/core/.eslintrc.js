@@ -2,7 +2,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['custom'],
+  extends: ['custom', 'plugin:jest/recommended'],
   parserOptions: {
     ecmaVersion: 2020,
     project: 'tsconfig.json',
@@ -12,6 +12,7 @@ module.exports = {
       jsx: false,
     },
   },
+  plugins: ['jest'],
   overrides: [
     // NestJS modules are often empty
     {

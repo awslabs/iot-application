@@ -7,6 +7,7 @@ import { $Dashboard } from '~/services';
 
 import type { Control } from 'react-hook-form';
 import { CreateDashboardFormValues } from '../types/create-dashboard-form-values';
+import { isJust } from '~/helpers/predicates/is-just';
 
 interface DashboardDescriptionFieldProps {
   control: Control<CreateDashboardFormValues>;
@@ -61,7 +62,7 @@ export function DashboardDescriptionField(
               maxLength: $Dashboard.properties.description.maxLength,
             },
           )}
-          errorText={fieldState.error?.message}
+          errorText={isJust(fieldState.error) ? fieldState.error.message : ''}
         >
           <Textarea
             ariaRequired

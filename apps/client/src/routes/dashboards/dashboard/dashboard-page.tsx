@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
 import { DashboardLoadingState } from './components/dashboard-loading-state';
+import { isJust } from '~/helpers/predicates/is-just';
 import { useDashboardQuery } from '~/routes/dashboards/dashboard/hooks/use-dashboard-query';
 import { useUpdateDashboardMutation } from '~/routes/dashboards/dashboard/hooks/use-update-dashboard-mutation';
 import './styles.css';
@@ -13,7 +14,10 @@ import type { DashboardDefinition } from '~/services';
 export function DashboardPage() {
   const params = useParams<{ dashboardId: string }>();
 
-  invariant(params.dashboardId, 'Expected params to include dashboard ID');
+  invariant(
+    isJust(params.dashboardId),
+    'Expected params to include dashboard ID',
+  );
 
   const dashboardQuery = useDashboardQuery(params.dashboardId);
   const updateDashboardMutation = useUpdateDashboardMutation();

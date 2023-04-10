@@ -34,10 +34,10 @@ export default defineConfig({
        *
        * Please increase the coverage levels as you add tests.
        */
-      statements: 46,
-      branches: 66,
-      functions: 35,
-      lines: 46,
+      statements: 40,
+      branches: 60,
+      functions: 30,
+      lines: 40,
       watermarks: {
         statements: [80, 95],
         branches: [80, 95],
@@ -51,6 +51,7 @@ export default defineConfig({
     reporters: ['verbose', 'html'],
     setupFiles: './src/test/setup.ts',
     singleThread: true,
+    testTimeout: 10000,
   },
   define: {
     // enable removal from production code

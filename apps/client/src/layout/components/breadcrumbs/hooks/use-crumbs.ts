@@ -1,20 +1,21 @@
 import invariant from 'tiny-invariant';
 import { useMatches } from 'react-router-dom';
 
-import {
-  isHandleableWithCrumbData,
-  isHandleableWithCrumbs,
-} from '~/helpers/predicates';
-import type { MaybeCrumbly, MaybeDataBound, MaybeHandleable } from '~/types';
+import { isJust } from '~/helpers/predicates/is-just';
 
-type MaybeMatch<T> = MaybeDataBound<T> & MaybeHandleable<MaybeCrumbly<T>>;
+import type { Crumbly, DataBound, Handleable, Maybe } from '~/types';
+
+type MaybeMatch<T> = Maybe<DataBound<T>> & Maybe<Handleable<Maybe<Crumbly<T>>>>;
 
 export function useCrumbs<T>() {
   const matches = useMatches() as MaybeMatch<T>[];
 
   invariant(matches.length >= 1, 'Expected at least 1 matching route');
 
-  const matchesWithCrumbs = matches.filter(isHandleableWithCrumbs);
+  const matchesWithCrumbs = matches.filter(
+    (m): m is Maybe<DataBound<T>> & Handleable<Crumbly<T>> =>
+      isJust(m?.handle?.crumb),
+  );
 
   invariant(
     matchesWithCrumbs.length >= 1,
@@ -22,7 +23,7 @@ export function useCrumbs<T>() {
   );
 
   const crumbs = matchesWithCrumbs.map((m) =>
-    isHandleableWithCrumbData(m) ? m.handle.crumb(m.data) : m.handle.crumb(),
+    isJust(m.data) ? m.handle.crumb(m.data) : m.handle.crumb(),
   );
 
   return crumbs;
