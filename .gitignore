@@ -32,4 +32,5 @@ dist-ssr
 /playwright/.cache/
 /playwright/.auth/
 coverage
-/.cognito/db/*
+/apps/core/.cognito/db/*
+/playwright/.auth/user.json
