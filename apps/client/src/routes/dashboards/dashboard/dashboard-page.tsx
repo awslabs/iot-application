@@ -8,11 +8,15 @@ import { useUpdateDashboardMutation } from '~/routes/dashboards/dashboard/hooks/
 import './styles.css';
 
 import type { Dashboard } from '~/services';
+import { isJust } from '~/helpers/predicates/is-just';
 
 export function DashboardPage() {
   const params = useParams<{ dashboardId: string }>();
 
-  invariant(params.dashboardId, 'Expected params to include dashboard ID');
+  invariant(
+    isJust(params.dashboardId),
+    'Expected params to include dashboard ID',
+  );
 
   const dashboardQuery = useDashboardQuery(params.dashboardId);
   const updateDashboardMutation = useUpdateDashboardMutation();

@@ -15,7 +15,7 @@ import invariant from 'tiny-invariant';
 
 import { invalidateDashboards } from '~/data/dashboards';
 import { isApiError } from '~/helpers/predicates/is-api-error';
-import { isJust } from '~/helpers/predicates';
+import { isJust } from '~/helpers/predicates/is-just';
 import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 import { SuccessNotification } from '~/structures/notifications/success-notification';

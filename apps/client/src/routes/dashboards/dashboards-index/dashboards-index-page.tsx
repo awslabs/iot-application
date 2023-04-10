@@ -8,6 +8,7 @@ import invariant from 'tiny-invariant';
 
 import { DashboardsTableHeader } from './components/dashboard-table-header/dashboards-table-header';
 import { DeleteDashboardModal } from './components/delete-dashboard-modal';
+import { isJust } from '~/helpers/predicates/is-just';
 import { useDashboardsTable } from './hooks/use-dashboards-table';
 import { useDeleteModalVisibility } from './hooks/use-delete-modal-visibility';
 import { usePartialUpdateDashboardMutation } from './hooks/use-partial-update-dashboard-mutation';
@@ -88,7 +89,10 @@ export function DashboardsIndexPage() {
                 onFollow={(event) => {
                   event.preventDefault();
 
-                  invariant(event.detail.href, 'Expected href to be defined');
+                  invariant(
+                    isJust(event.detail.href),
+                    'Expected href to be defined',
+                  );
 
                   navigate(event.detail.href);
                 }}
@@ -112,9 +116,8 @@ export function DashboardsIndexPage() {
                 description:
                   'dashboard table name edit cell error icon aria label',
               }),
-              validation: () => {
-                return errors.name?.message;
-              },
+              validation: () =>
+                isJust(errors.name) ? errors.name.message : '',
               editingCell: (
                 dashboard,
                 {
