@@ -2,7 +2,16 @@ module.exports = {
   env: {
     browser: true,
   },
-  extends: ['custom'],
+  extends: [
+    'custom',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
+    'plugin:testing-library/react',
+    'plugin:jest-dom/recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended',
+    'plugin:jsx-a11y/recommended',
+  ],
   parserOptions: {
     ecmaVersion: 2020,
     project: 'tsconfig.json',
@@ -13,10 +22,23 @@ module.exports = {
     },
   },
   // https://formatjs.io/docs/tooling/linter
-  plugins: ['formatjs'],
+  plugins: [
+    'formatjs',
+    '@tanstack/query',
+    'testing-library',
+    'jest-dom',
+    'react',
+    'react-hooks',
+    'jsx-a11y',
+  ],
   rules: {
     'formatjs/no-offset': 'error',
     '@typescript-eslint/no-throw-literal': 'off',
   },
   root: true,
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
 };

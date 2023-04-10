@@ -56,7 +56,7 @@ test('as a user, I can create a dashboard', async ({ page }) => {
   await createDashboardPage.nameField.type('My Dashboard');
   await createDashboardPage.descriptionField.type('My Dashboard Description');
 
-  await expect(application.notification).not.toBeVisible();
+  await expect(application.notification).toBeHidden();
 
   await createDashboardPage.createButton.click();
 
@@ -99,12 +99,12 @@ test('as a user, I can delete a dashboard', async ({ page }) => {
   await deleteDashboardDialog.consentInput.type('confirm');
   await expect(deleteDashboardDialog.deleteButton).toBeEnabled();
 
-  await expect(application.notification).not.toBeVisible();
+  await expect(application.notification).toBeHidden();
 
   await deleteDashboardDialog.deleteButton.click();
 
   await deleteDashboardDialog.expectIsNotVisible();
-  await expect(dashboardRow).not.toBeVisible();
+  await expect(dashboardRow).toBeHidden();
   await expect(application.notification).toBeVisible();
   await expect(application.notification).toHaveText(
     'Successfully deleted dashboard "My Dashboard".',
@@ -129,7 +129,7 @@ test('as a user, I can delete multiple dashboards', async ({ page }) => {
 
   await dashboardsPage.createButton.click();
   // notification should disappear on navigation
-  await expect(application.notification).not.toBeVisible();
+  await expect(application.notification).toBeHidden();
   await createDashboardPage.typeName('My other Dashboard');
   await createDashboardPage.typeDescription('My other Dashboard Description');
   await createDashboardPage.clickCreate();
@@ -161,20 +161,20 @@ test('as a user, I can delete multiple dashboards', async ({ page }) => {
   await dashboardsPage.deleteButton.click();
   await deleteDashboardDialog.consentInput.type('confirm');
 
-  await expect(application.notification).not.toBeVisible();
+  await expect(application.notification).toBeHidden();
   await deleteDashboardDialog.deleteButton.click();
   await expect(
     dashboardsTable.getRow({
       name: 'My dashboard',
       description: 'My dashboard description',
     }),
-  ).not.toBeVisible();
+  ).toBeHidden();
   await expect(
     dashboardsTable.getRow({
       name: 'My other dashboard',
       description: 'My other dashboard description',
     }),
-  ).not.toBeVisible();
+  ).toBeHidden();
   await expect(application.notification).toBeVisible();
   await expect(application.notification).toHaveText(
     'Successfully deleted 2 dashboards.',

@@ -26,7 +26,7 @@ export class DeleteDashboardDialog {
   }
 
   async expectIsNotVisible() {
-    await expect(this.dialog).not.toBeVisible();
+    await expect(this.dialog).toBeHidden();
   }
 }
 
@@ -95,7 +95,7 @@ export class PreferencesDialog {
   }
 
   public async expectIsNotVisible() {
-    await expect(this.dialog).not.toBeVisible();
+    await expect(this.dialog).toBeHidden();
   }
 }
 
@@ -177,6 +177,6 @@ export class DashboardsIndexPage {
 
   public async expectIsNotCurrentPage() {
     await expect(this.page).not.toHaveURL(this.url);
-    await expect(this.heading).not.toBeVisible();
+    await expect(this.heading).toBeHidden();
   }
 }

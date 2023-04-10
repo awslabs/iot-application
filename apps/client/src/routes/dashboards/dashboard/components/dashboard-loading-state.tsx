@@ -6,7 +6,7 @@ export function DashboardLoadingState() {
   return (
     <Box textAlign="center" margin={{ top: 'xxl' }}>
       <Box variant="span" margin={{ right: 'xxs' }}>
-        // <Spinner /> does not have a role="progressbar" attribute
+        {/* <Spinner /> does not have a role="progressbar" attribute */}
         <span role="progressbar">
           <Spinner />
         </span>

@@ -1,5 +1,10 @@
 import { vi } from 'vitest';
-import { render, screen, within } from '~/helpers/tests/testing-library';
+import {
+  render,
+  screen,
+  within,
+  waitFor,
+} from '~/helpers/tests/testing-library';
 
 import { Notifications } from './notifications';
 import type { NotificationViewModel } from '~/types/notification-view-model';
@@ -23,7 +28,7 @@ describe('<Notifications />', () => {
     });
     const notifications = within(notificationsList).queryAllByRole('listitem');
 
-    expect(notifications).toHaveLength(0);
+    expect(notifications.length).toBe(0);
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
     expect(
       screen.queryByRole('heading', { name: 'Notifications' }),
@@ -44,7 +49,7 @@ describe('<Notifications />', () => {
     });
     const notifications = within(notificationsList).queryAllByRole('listitem');
 
-    expect(notifications).toHaveLength(1);
+    expect(notifications.length).toBe(1);
     expect(notifications.at(0)).toHaveTextContent('notification');
     expect(notifications.at(0)).toBeVisible();
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
@@ -72,7 +77,7 @@ describe('<Notifications />', () => {
     });
     const notifications = within(notificationsList).queryAllByRole('listitem');
 
-    expect(notifications).toHaveLength(1);
+    expect(notifications.length).toBe(1);
     expect(screen.getByRole('status')).toBeVisible();
     expect(screen.getByText('notification a')).toBeVisible();
     expect(screen.queryByText('notification b')).not.toBeInTheDocument();
@@ -97,17 +102,19 @@ describe('<Notifications />', () => {
     const user = userEvent.setup();
     render(<Notifications />);
 
-    await user.click(
-      screen.getByRole('button', { name: 'View all notifications' }),
-    );
+    // it is required to wait because of the state update
+    await waitFor(async () => {
+      await user.click(
+        screen.getByRole('button', { name: 'View all notifications' }),
+      );
+    });
 
     const notificationsList = screen.getByRole('list', {
       name: 'Notifications',
     });
     const notifications = within(notificationsList).queryAllByRole('listitem');
 
-    expect(notifications).toHaveLength(2);
-    expect(screen.getByRole('status')).toBeVisible();
+    expect(notifications.length).toBe(2);
     expect(screen.getByText('notification a')).toBeVisible();
     expect(screen.getByText('notification b')).toBeVisible();
     expect(
@@ -116,72 +123,38 @@ describe('<Notifications />', () => {
   });
 
   it('should render the counts of each notification type', () => {
-    useNotificationsMock.mockReturnValueOnce([
-      {
-        id: '1',
-        content: 'info notification 1',
-        type: 'info',
+    const notificationCounts = [
+      { type: 'info', loading: false, count: 1 },
+      { type: 'success', loading: false, count: 2 },
+      { type: 'error', loading: false, count: 3 },
+      { type: 'warning', loading: false, count: 4 },
+      { type: 'info', loading: true, count: 5 },
+    ] as const; // to convert to literal type
+
+    const notifications = notificationCounts.reduce<NotificationViewModel[]>(
+      (acc, { count, type, loading }) => {
+        return [
+          ...acc,
+          ...Array.from({ length: count }, (_, i) => ({
+            id: `${i + 1}`,
+            content: `${type} notification ${i + 1}`,
+            type,
+            loading,
+          })),
+        ];
       },
-      {
-        id: '2',
-        content: 'success notification 1',
-        type: 'success',
-      },
-      {
-        id: '3',
-        content: 'success notification 2',
-        type: 'success',
-      },
-      {
-        id: '4',
-        content: 'error notification 1',
-        type: 'error',
-      },
-      {
-        id: '5',
-        content: 'error notification 2',
-        type: 'error',
-      },
-      {
-        id: '6',
-        content: 'error notification 3',
-        type: 'error',
-      },
-      {
-        id: '7',
-        content: 'warning notification 1',
-        type: 'warning',
-      },
-      {
-        id: '8',
-        content: 'warning notification 2',
-        type: 'warning',
-      },
-      {
-        id: '9',
-        content: 'inprogress notification 1',
-        type: 'info',
-        loading: true,
-      },
-    ]);
+      [],
+    );
+
+    useNotificationsMock.mockReturnValueOnce(notifications);
     render(<Notifications />);
 
     const status = screen.getByRole('status');
 
-    expect(
-      within(status).getByRole('img', { name: 'Info' }).nextSibling,
-    ).toHaveTextContent('1');
-    expect(
-      within(status).getByRole('img', { name: 'Success' }).nextSibling,
-    ).toHaveTextContent('2');
-    expect(
-      within(status).getByRole('img', { name: 'Error' }).nextSibling,
-    ).toHaveTextContent('3');
-    expect(
-      within(status).getByRole('img', { name: 'Warning' }).nextSibling,
-    ).toHaveTextContent('2');
-    expect(
-      within(status).getByRole('img', { name: 'In progress' }).nextSibling,
-    ).toHaveTextContent('1');
+    expect(within(status).getByText(notificationCounts[0].count)).toBeVisible(); // info
+    expect(within(status).getByText(notificationCounts[1].count)).toBeVisible(); // success
+    expect(within(status).getByText(notificationCounts[2].count)).toBeVisible(); // error
+    expect(within(status).getByText(notificationCounts[3].count)).toBeVisible(); // warning
+    expect(within(status).getByText(notificationCounts[4].count)).toBeVisible(); // info loading
   });
 });

@@ -195,7 +195,6 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
                 render={({ field }) => (
                   <FormField>
                     <Input
-                      autoFocus
                       ariaRequired
                       placeholder={DELETE_CONSENT_TEXT}
                       onChange={(event) => field.onChange(event.detail.value)}

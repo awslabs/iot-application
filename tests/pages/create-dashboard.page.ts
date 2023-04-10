@@ -81,6 +81,6 @@ export class CreateDashboardPage {
 
   public async expectIsNotCurrentPage() {
     await expect(this.page).not.toHaveURL(this.url);
-    await expect(this.heading).not.toBeVisible();
+    await expect(this.heading).toBeHidden();
   }
 }

@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "build": "nest build core",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf *.tsbuildinfo",
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist && rimraf *.tsbuildinfo",
     "dev": "yarn cognito-local & nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "tsc --noEmit && TIMING=1 eslint \"{src,test}/**/*.ts\" --max-warnings 0",
+    "lint:fix": "eslint \"{src,test}/**/*.ts*\" --fix",
     "repl": "nest start --entryFile repl --watch",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
