@@ -10,6 +10,7 @@ import { DashboardsIndexPage } from './pages/dashboards-index.page';
 test.describe('Navigation', () => {
   test('as a user, I can use the navigation drawer to access my dashboards', async ({
     page,
+    browserName,
   }) => {
     const homePage = new HomePage(page);
     const sideNavigation = new SideNavigation(page);
@@ -20,6 +21,13 @@ test.describe('Navigation', () => {
 
     await sideNavigation.openButton.click();
     await sideNavigation.expectIsNotHidden();
+
+    await page.screenshot({
+      animations: 'disabled',
+      fullPage: true,
+      path: `screenshots/${browserName}/side-navigation.png`,
+    });
+
     await sideNavigation.dashboardsPageLink.click();
 
     await dashboardsPage.expectIsCurrentPage();
@@ -79,6 +87,7 @@ test.describe('Navigation', () => {
 
   test('as a user, I can navigate to application documentation', async ({
     page,
+    browserName,
   }) => {
     const homePage = new HomePage(page);
     const topNavigation = new TopNavigation(page);
@@ -89,6 +98,12 @@ test.describe('Navigation', () => {
     await expect(topNavigation.dropdownMenu).toBeHidden();
     await topNavigation.openDropdownButton.click();
     await expect(topNavigation.dropdownMenu).toBeVisible();
+
+    await page.screenshot({
+      animations: 'disabled',
+      fullPage: true,
+      path: `screenshots/${browserName}/top-navigation-menu.png`,
+    });
 
     await topNavigation.documentationLink.click();
 

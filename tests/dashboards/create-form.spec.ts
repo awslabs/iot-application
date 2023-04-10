@@ -3,13 +3,22 @@ import { ApplicationFrame } from '../pages/application-frame.page';
 import { CreateDashboardPage } from '../pages/create-dashboard.page';
 import { DashboardsIndexPage } from '../pages/dashboards-index.page';
 
-test('as a user, I cannot create an invalid dashboard', async ({ page }) => {
+test('as a user, I cannot create an invalid dashboard', async ({
+  page,
+  browserName,
+}) => {
   const createPage = new CreateDashboardPage(page);
   const dashboardsPage = new DashboardsIndexPage(page);
   const application = new ApplicationFrame(page);
 
   await createPage.goto();
   await createPage.expectIsCurrentPage();
+
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/create-dashboard.png`,
+  });
 
   // user does not initial see errors
   await expect(createPage.nameRequiredError).toBeHidden();
@@ -25,6 +34,12 @@ test('as a user, I cannot create an invalid dashboard', async ({ page }) => {
   // user sees validation errors for name and description
   await expect(createPage.nameRequiredError).toBeVisible();
   await expect(createPage.descriptionRequiredError).toBeVisible();
+
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/create-dashboard-required-errors.png`,
+  });
 
   // user types a single character for the name
   await createPage.nameField.type('a');
@@ -70,6 +85,12 @@ test('as a user, I cannot create an invalid dashboard', async ({ page }) => {
   // user adds an extra character to name
   await createPage.nameField.type('a');
 
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/create-dashboard-max-length-description-error.png`,
+  });
+
   // user sees a max length name validation error
   await expect(createPage.nameMaxLengthError).toBeVisible();
 
@@ -87,6 +108,12 @@ test('as a user, I cannot create an invalid dashboard', async ({ page }) => {
 
   // user adds an extra character to description
   await createPage.descriptionField.type('a');
+
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/create-dashboard-max-length-name-error.png`,
+  });
 
   // user sees a max length description validation error
   await expect(createPage.descriptionMaxLengthError).toBeVisible();
@@ -127,6 +154,7 @@ test('as a user, I cancel creating a dashboard', async ({ page }) => {
 
 test('as a user, I see a error notification when creation of a valid dashboard fails', async ({
   page,
+  browserName,
 }) => {
   const createPage = new CreateDashboardPage(page);
   const dashboardsPage = new DashboardsIndexPage(page);
@@ -154,6 +182,12 @@ test('as a user, I see a error notification when creation of a valid dashboard f
   await expect(application.notification).toHaveText('Internal Server Error');
   await createPage.expectIsCurrentPage();
   await dashboardsPage.expectIsNotCurrentPage();
+
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/create-dashboard-error-notification.png`,
+  });
 });
 
 const errors = [
@@ -165,6 +199,7 @@ const errors = [
 for (const { status, message } of errors) {
   test(`as a user, I see a form error when dashboard creation fails for status: ${status}`, async ({
     page,
+    browserName,
   }) => {
     const createPage = new CreateDashboardPage(page);
     const dashboardsPage = new DashboardsIndexPage(page);
@@ -192,5 +227,11 @@ for (const { status, message } of errors) {
     await expect(application.notification).toBeHidden();
     await createPage.expectIsCurrentPage();
     await dashboardsPage.expectIsNotCurrentPage();
+
+    await page.screenshot({
+      animations: 'disabled',
+      fullPage: true,
+      path: `screenshots/${browserName}/create-dashboard-form-error-${status}.png`,
+    });
   });
 }

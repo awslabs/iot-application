@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Settings', () => {
   test('as a user, I can set my preffered content density', async ({
     page,
+    browserName,
   }) => {
     const settingsButton = page.getByRole('button', { name: 'Settings' });
     const settingsDialog = page.getByRole('dialog', { name: 'Settings' });
@@ -13,6 +14,13 @@ test.describe('Settings', () => {
 
     // user opens application settings
     await settingsButton.click();
+    await expect(settingsDialog).toBeVisible();
+
+    await page.screenshot({
+      animations: 'disabled',
+      fullPage: true,
+      path: `screenshots/${browserName}/settings.png`,
+    });
 
     // user sees the toggle is checked
     await expect(densityToggle).toBeChecked();

@@ -9,11 +9,20 @@ import { ApplicationFrame } from '../pages/application-frame.page';
 
 test.describe.configure({ mode: 'serial' });
 
-test('as a user, I can view a list of my dashboards', async ({ page }) => {
+test('as a user, I can view a list of my dashboards', async ({
+  page,
+  browserName,
+}) => {
   const indexPage = new DashboardsIndexPage(page);
 
   await indexPage.goto();
   await indexPage.expectIsCurrentPage();
+
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/dashboards-empty.png`,
+  });
 });
 
 test('as a user, I can navigate to the create dashboard page', async ({
@@ -42,7 +51,7 @@ test('as a user, I can navigate to the create dashboard page', async ({
   await dashboardsPage.expectIsNotCurrentPage();
 });
 
-test('as a user, I can create a dashboard', async ({ page }) => {
+test('as a user, I can create a dashboard', async ({ page, browserName }) => {
   test.slow();
 
   const dashboardsPage = new DashboardsIndexPage(page);
@@ -67,9 +76,15 @@ test('as a user, I can create a dashboard', async ({ page }) => {
   await expect(application.notification).toContainText(
     'Successfully created dashboard "My Dashboard".',
   );
+
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/dashboards-created.png`,
+  });
 });
 
-test('as a user, I can delete a dashboard', async ({ page }) => {
+test('as a user, I can delete a dashboard', async ({ page, browserName }) => {
   test.slow();
 
   const dashboardsPage = new DashboardsIndexPage(page);
@@ -85,21 +100,44 @@ test('as a user, I can delete a dashboard', async ({ page }) => {
   });
   await expect(dashboardRow).toBeVisible();
 
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/dashboards-not-selected.png`,
+  });
+
   await expect(dashboardsPage.deleteButton).toBeDisabled();
   await dashboardRow
     .getByRole('checkbox', { name: 'Select dashboard My dashboard' })
     .click();
   await expect(dashboardsPage.deleteButton).toBeEnabled();
 
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/dashboards-single-selected.png`,
+  });
+
   await deleteDashboardDialog.expectIsNotVisible();
   await dashboardsPage.deleteButton.click();
   await deleteDashboardDialog.expectIsVisible();
 
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/delete-dashboard-single-modal.png`,
+  });
+
   await expect(deleteDashboardDialog.deleteButton).toBeDisabled();
   await deleteDashboardDialog.consentInput.type('confirm');
   await expect(deleteDashboardDialog.deleteButton).toBeEnabled();
-
   await expect(application.notification).toBeHidden();
+
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/delete-dashboard-modal-single-confirm.png`,
+  });
 
   await deleteDashboardDialog.deleteButton.click();
 
@@ -109,9 +147,18 @@ test('as a user, I can delete a dashboard', async ({ page }) => {
   await expect(application.notification).toHaveText(
     'Successfully deleted dashboard "My Dashboard".',
   );
+
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/dashboards-deleted-single.png`,
+  });
 });
 
-test('as a user, I can delete multiple dashboards', async ({ page }) => {
+test('as a user, I can delete multiple dashboards', async ({
+  page,
+  browserName,
+}) => {
   test.slow();
 
   const createDashboardPage = new CreateDashboardPage(page);
@@ -158,8 +205,28 @@ test('as a user, I can delete multiple dashboards', async ({ page }) => {
     .click();
   await expect(dashboardsPage.deleteButton).toBeEnabled();
 
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/dashboards-multiple-selected.png`,
+  });
+
   await dashboardsPage.deleteButton.click();
+  await deleteDashboardDialog.expectIsVisible();
+
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/delete-dashboard-multiple-modal.png`,
+  });
+
   await deleteDashboardDialog.consentInput.type('confirm');
+
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/delete-dashboard-modal-multiple-confirm.png`,
+  });
 
   await expect(application.notification).toBeHidden();
   await deleteDashboardDialog.deleteButton.click();
@@ -179,4 +246,10 @@ test('as a user, I can delete multiple dashboards', async ({ page }) => {
   await expect(application.notification).toHaveText(
     'Successfully deleted 2 dashboards.',
   );
+
+  await page.screenshot({
+    animations: 'disabled',
+    fullPage: true,
+    path: `screenshots/${browserName}/dashboards-deleted-multiple.png`,
+  });
 });
