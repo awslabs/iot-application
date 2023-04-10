@@ -6,8 +6,8 @@ import { DevTool } from '@hookform/devtools';
 import { FormattedMessage } from 'react-intl';
 
 import { CreateDashboardFormActions } from './components/create-dashboard-form-actions';
-import { DashboardNameField } from './components/dashboard-name-field';
-import { DashboardDescriptionField } from './components/dashboard-description-field';
+import { DashboardNameControlledField } from './components/dashboard-name-controlled-field';
+import { DashboardDescriptionControlledField } from './components/dashboard-description-controlled-field';
 import { useCreateDashboardForm } from './hooks/use-create-dashboard-form';
 import { useCreateDashboardMutation } from './hooks/use-create-dashboard-mutation';
 import { isNotFatal } from '~/helpers/predicates/is-not-fatal';
@@ -52,8 +52,8 @@ export function CreateDashboardPage() {
         >
           <Container>
             <SpaceBetween size="l">
-              <DashboardNameField control={control} />
-              <DashboardDescriptionField control={control} />
+              <DashboardNameControlledField control={control} />
+              <DashboardDescriptionControlledField control={control} />
             </SpaceBetween>
           </Container>
         </Form>
