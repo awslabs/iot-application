@@ -54,6 +54,7 @@ export default defineConfig({
     includeSource: ['src/**/*.{js,ts}'],
     reporters: ['verbose', 'html'],
     setupFiles: './src/test/setup.ts',
+    testTimeout: 10000, // for safety in CI
   },
   define: {
     // enable removal from production code
