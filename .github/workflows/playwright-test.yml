@@ -34,9 +34,6 @@ jobs:
       - name: Install Dependencies 🔩
         run: yarn install
 
-      - name: Start Server 👨‍🍳
-        run: yarn dev &
-
       - name: Store Playwright Version 🆚
         run: |
           PLAYWRIGHT_VERSION=$(yarn list @playwright/test | grep @playwright | sed 's/.*@//')

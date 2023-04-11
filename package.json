@@ -21,6 +21,8 @@
     "format:gen:types": "prettier --write \"${npm_package_config_genpath}/**/*.ts\"",
     "lint": "turbo run lint && tsc --noEmit && TIMING=1 eslint \"tests/**/*.ts\" --max-warnings 0",
     "lint:fix": "turbo run lint:fix && eslint \"tests/**/*.ts\" --fix",
+    "start:client": "cd apps/client && yarn dev && cd -",
+    "start:core": "cd apps/core && yarn dev && cd -",
     "test": "turbo run test",
     "test:e2e": "playwright test",
     "test:watch": "turbo run test:watch"
