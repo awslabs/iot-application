@@ -37,7 +37,7 @@
     "tiny-invariant": "^1.3.1"
   },
   "devDependencies": {
-    "@aws-sdk/client-sts": "^3.272.0",
+    "@aws-sdk/client-sts": "^3.310.0",
     "@formatjs/cli": "^6.0.4",
     "@formatjs/ts-transformer": "^3.12.0",
     "@hookform/devtools": "^4.3.1",
