@@ -2,7 +2,11 @@ name: Build and Test
 
 run-name: Build and Test action initiated by ${{ github.actor }}
 
-on: [push, pull_request]
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
 
 jobs:
   build:
@@ -36,24 +40,27 @@ jobs:
       - name: Test 🧑‍🔬
         run: yarn test
 
-      - name: Lint 🧑‍🔧
+      - name: Lint 🐰
         run: yarn lint
 
-      - uses: actions/upload-artifact@v3
+      - name: Store Client Test Artifacts 🧪
         if: always()
+        uses: actions/upload-artifact@v3
         with:
           name: client-test-report
           path: apps/client/html/
           retention-days: 30
 
-      - uses: actions/upload-artifact@v3
+      - name: Store Client Test Coverage Artifacts 🧪
         if: always()
+        uses: actions/upload-artifact@v3
         with:
           name: cliest-test-coverage
           path: apps/client/coverage/
           retention-days: 30
 
-      - uses: actions/upload-artifact@v3
+      - name: Store Core Test Coverage Artifacts 🧪
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: core-test-coverage
