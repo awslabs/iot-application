@@ -13,7 +13,11 @@ import { Test } from '@nestjs/testing';
 import { instanceToPlain, plainToClass } from 'class-transformer';
 import { nanoid } from 'nanoid';
 
-import { RESOURCE_TYPES } from './dashboard.constants';
+import {
+  RESOURCE_TYPES,
+  DASHBOARD_NAME_MAX_LENGTH,
+  DASHBOARD_DESCRIPTION_MAX_LENGTH,
+} from './dashboard.constants';
 import { CreateDashboardDto } from './dto/create-dashboard.dto';
 import { UpdateDashboardDto } from './dto/update-dashboard.dto';
 import { Dashboard } from './entities/dashboard.entity';
@@ -282,7 +286,7 @@ describe('DashboardsModule', () => {
       );
     });
 
-    test.each(['x', 'x'.repeat(10), 'x'.repeat(40)])(
+    test.each(['x', 'x'.repeat(10), 'x'.repeat(DASHBOARD_NAME_MAX_LENGTH)])(
       'returns 201 when name is valid: (%s)',
       async (dashboardName) => {
         const payload: CreateDashboardDto = {
@@ -303,7 +307,7 @@ describe('DashboardsModule', () => {
       },
     );
 
-    test.each(['', 'x'.repeat(41), 1, {}, []])(
+    test.each(['', 'x'.repeat(DASHBOARD_NAME_MAX_LENGTH + 1), 1, {}, []])(
       'returns 400 when name is not valid: (%s)',
       async (dashboardName) => {
         const payload = {
@@ -341,7 +345,11 @@ describe('DashboardsModule', () => {
       expect(response.statusCode).toBe(400);
     });
 
-    test.each(['x', 'x'.repeat(10), 'x'.repeat(200)])(
+    test.each([
+      'x',
+      'x'.repeat(10),
+      'x'.repeat(DASHBOARD_DESCRIPTION_MAX_LENGTH),
+    ])(
       'returns 201 when description is valid: (%s)',
       async (dashboardDescription) => {
         const payload: CreateDashboardDto = {
@@ -758,7 +766,13 @@ describe('DashboardsModule', () => {
       },
     );
 
-    test.each(['', 'x'.repeat(201), 1, {}, []])(
+    test.each([
+      '',
+      'x'.repeat(DASHBOARD_DESCRIPTION_MAX_LENGTH + 1),
+      1,
+      {},
+      [],
+    ])(
       'returns 400 when description is not valid: (%s)',
       async (dashboardDescription) => {
         const dashboard = await seedTestDashboard('name');
