@@ -21,7 +21,7 @@
     "@fastify/cookie": "^8.3.0",
     "@fastify/csrf-protection": "^6.1.0",
     "@fastify/helmet": "^10.1.0",
-    "@fastify/static": "^6.6.1",
+    "@fastify/static": "^6.10.0",
     "@nestjs/axios": "^1.0.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.0",
