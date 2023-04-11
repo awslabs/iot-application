@@ -22,10 +22,15 @@ Visualize your AWS IoT data with the IoT Application.
    ```sh
    yarn dev
    ```
+1. Log in with local Cognito credentials found at `apps/core/.cognito/db`
 
 ## Running the tests locally
 
 Run local test command `yarn test` to test the application. The command is "batteries included" - it has everything needed to run and test the application locally.
+
+## Updating generated types locally
+
+Run `yarn gen:types` in root while `yarn dev` is running.
 
 ## Deploying to AWS Cloud
 
@@ -48,8 +53,8 @@ Run local test command `yarn test` to test the application. The command is "batt
 
 The table below lists the service dependencies for different environments.
 
-| Catagory\Environments | [Local Develoepment](#getting-started-with-local-development)                                | [Local Test](#running-the-tests-locally)                                              |
-|-----------------------|----------------------------------------------------------------|-----------------------------------------------------------------------|
+| Category\Environments | [Local Development](#getting-started-with-local-development)   | [Local Test](#running-the-tests-locally)                              |
+| --------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------- |
 | Authentication        | [cognito-local](https://www.npmjs.com/package/cognito-local)   | [cognito-local](https://www.npmjs.com/package/cognito-local)          |
 | App API Database      | [dynamodb-local](https://www.npmjs.com/package/dynamodb-local) | [dynamodb-local](https://www.npmjs.com/package/dynamodb-local)        |
 | App API Authorization | [cognito-local](https://www.npmjs.com/package/cognito-local)   | [JWT generated from secret](./apps/core/src/testing/jwt-generator.ts) |

@@ -12,7 +12,7 @@ export class CreateDashboardPage {
   readonly descriptionRequiredError: Locator;
   readonly nameMaxLengthError: Locator;
   readonly descriptionMaxLengthError: Locator;
-  readonly nameMaxLength = 40;
+  readonly nameMaxLength = 100;
   readonly descriptionMaxLength = 200;
 
   private readonly url = 'dashboards/create';
@@ -29,7 +29,7 @@ export class CreateDashboardPage {
       'Dashboard description is required.',
     );
     this.nameMaxLengthError = page.getByText(
-      'Dashboard name must be 40 characters or less.',
+      'Dashboard name must be 100 characters or less.',
     );
     this.descriptionMaxLengthError = page.getByText(
       'Dashboard description must be 200 characters or less',

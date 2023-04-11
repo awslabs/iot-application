@@ -8,6 +8,10 @@ import {
 } from 'class-validator';
 
 import { DashboardDefinition } from './dashboard-definition.entity';
+import {
+  DASHBOARD_NAME_MAX_LENGTH,
+  DASHBOARD_DESCRIPTION_MAX_LENGTH,
+} from '../dashboard.constants';
 
 export type DashboardId = string;
 export type DashboardName = string;
@@ -25,14 +29,14 @@ export class Dashboard {
    * @example "Wind Farm 4"
    */
   @IsString()
-  @Length(1, 40)
+  @Length(1, DASHBOARD_NAME_MAX_LENGTH)
   public readonly name: DashboardName;
 
   /**
    * @example "Wind Farm 4 Description"
    */
   @IsString()
-  @Length(1, 200)
+  @Length(1, DASHBOARD_DESCRIPTION_MAX_LENGTH)
   public readonly description: DashboardDescription;
 
   @IsObject()

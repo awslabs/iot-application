@@ -12,7 +12,7 @@ export const $DashboardSummary = {
     name: {
       type: 'string',
       isRequired: true,
-      maxLength: 40,
+      maxLength: 100,
       minLength: 1,
     },
     description: {
