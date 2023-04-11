@@ -1,8 +1,4 @@
-import {
-  defineConfig,
-  defaultExclude,
-  coverageConfigDefaults,
-} from 'vitest/config';
+import { defineConfig, coverageConfigDefaults } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
@@ -38,10 +34,10 @@ export default defineConfig({
        *
        * Please increase the coverage levels as you add tests.
        */
-      statements: 22,
-      branches: 53,
-      functions: 23,
-      lines: 22,
+      statements: 46,
+      branches: 66,
+      functions: 35,
+      lines: 46,
       watermarks: {
         statements: [80, 95],
         branches: [80, 95],
@@ -54,7 +50,7 @@ export default defineConfig({
     includeSource: ['src/**/*.{js,ts}'],
     reporters: ['verbose', 'html'],
     setupFiles: './src/test/setup.ts',
-    testTimeout: 10000, // for safety in CI
+    singleThread: true,
   },
   define: {
     // enable removal from production code

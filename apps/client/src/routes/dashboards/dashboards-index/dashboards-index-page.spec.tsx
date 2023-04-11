@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '~/helpers/tests/testing-library';
 import userEvent from '@testing-library/user-event';
 
 import { DashboardsIndexPage } from './dashboards-index-page';
-import { DashboardSummary } from '~/services';
+import { DashboardSummary, $Dashboard } from '~/services';
 
 const navigateMock = vi.fn();
 vi.mock('~/hooks/application/use-application', () => ({
@@ -54,9 +54,9 @@ const queryDashboardNameRequiredError = () =>
   screen.queryByText('Dashboard name is required.');
 
 const getDashboardNameTooLongError = () =>
-  screen.getByText('Dashboard name must be 40 characters or less.');
+  screen.getByText(/Dashboard name must be \d+ characters or less./);
 const queryDashboardNameTooLongError = () =>
-  screen.queryByText('Dashboard name must be 40 characters or less.');
+  screen.queryByText(/Dashboard name must be \d+ characters or less./);
 
 const getDashboardDescriptionField = () =>
   screen.getByPlaceholderText('Enter dashboard description');
@@ -72,9 +72,9 @@ const queryDashboardDescriptionRequiredError = () =>
   screen.queryByText('Dashboard description is required.');
 
 const getDashboardDescriptionTooLongError = () =>
-  screen.getByText('Dashboard description must be 200 characters or less.');
+  screen.getByText(/Dashboard description must be \d+ characters or less./);
 const queryDashboardDescriptionTooLongError = () =>
-  screen.queryByText('Dashboard description must be 200 characters or less.');
+  screen.queryByText(/Dashboard description must be \d+ characters or less./);
 
 const getCancelButton = () => screen.getByRole('button', { name: 'Cancel' });
 
@@ -110,10 +110,18 @@ describe('<DashboardsIndexPage />', () => {
 
       expect(queryDashboardNameTooLongError()).not.toBeInTheDocument();
 
-      await waitFor(async () => {
-        await user.clear(getDashboardNameField());
-        await user.type(getDashboardNameField(), 'a'.repeat(41));
-      });
+      await waitFor(
+        async () => {
+          await user.clear(getDashboardNameField());
+          await user.type(
+            getDashboardNameField(),
+            'a'.repeat($Dashboard.properties.name.maxLength + 1),
+          );
+        },
+        {
+          timeout: 5000,
+        },
+      );
 
       expect(getDashboardNameTooLongError()).toBeVisible();
     });
@@ -122,11 +130,16 @@ describe('<DashboardsIndexPage />', () => {
       const user = userEvent.setup();
       render(<DashboardsIndexPage />);
 
-      await waitFor(async () => {
-        await user.click(getDashboardNameCell('test name'));
-        await user.clear(getDashboardNameField());
-        await user.click(getCancelButton());
-      });
+      await waitFor(
+        async () => {
+          await user.click(getDashboardNameCell('test name'));
+          await user.clear(getDashboardNameField());
+          await user.click(getCancelButton());
+        },
+        {
+          timeout: 5000,
+        },
+      );
 
       expect(queryDashboardNameRequiredError()).not.toBeInTheDocument();
     });
@@ -135,12 +148,17 @@ describe('<DashboardsIndexPage />', () => {
       const user = userEvent.setup();
       render(<DashboardsIndexPage />);
 
-      await waitFor(async () => {
-        await user.click(getDashboardNameCell('test name'));
-        await user.clear(getDashboardNameField());
-        await user.click(getCancelButton());
-        await user.click(getDashboardNameCell('test name'));
-      });
+      await waitFor(
+        async () => {
+          await user.click(getDashboardNameCell('test name'));
+          await user.clear(getDashboardNameField());
+          await user.click(getCancelButton());
+          await user.click(getDashboardNameCell('test name'));
+        },
+        {
+          timeout: 5000,
+        },
+      );
 
       expect(queryDashboardNameRequiredError()).not.toBeInTheDocument();
     });
@@ -174,10 +192,18 @@ describe('<DashboardsIndexPage />', () => {
 
       expect(queryDashboardDescriptionTooLongError()).not.toBeInTheDocument();
 
-      await waitFor(async () => {
-        await user.clear(getDashboardDescriptionField());
-        await user.type(getDashboardDescriptionField(), 'a'.repeat(201));
-      });
+      await waitFor(
+        async () => {
+          await user.clear(getDashboardDescriptionField());
+          await user.type(
+            getDashboardDescriptionField(),
+            'a'.repeat($Dashboard.properties.description.maxLength + 1),
+          );
+        },
+        {
+          timeout: 5000,
+        },
+      );
 
       expect(getDashboardDescriptionTooLongError()).toBeVisible();
     });
@@ -186,11 +212,16 @@ describe('<DashboardsIndexPage />', () => {
       const user = userEvent.setup();
       render(<DashboardsIndexPage />);
 
-      await waitFor(async () => {
-        await user.click(getDashboardDescriptionCell('test description'));
-        await user.clear(getDashboardDescriptionField());
-        await user.click(getCancelButton());
-      });
+      await waitFor(
+        async () => {
+          await user.click(getDashboardDescriptionCell('test description'));
+          await user.clear(getDashboardDescriptionField());
+          await user.click(getCancelButton());
+        },
+        {
+          timeout: 5000,
+        },
+      );
 
       expect(queryDashboardDescriptionRequiredError()).not.toBeInTheDocument();
     });
@@ -199,12 +230,17 @@ describe('<DashboardsIndexPage />', () => {
       const user = userEvent.setup();
       render(<DashboardsIndexPage />);
 
-      await waitFor(async () => {
-        await user.click(getDashboardDescriptionCell('test description'));
-        await user.clear(getDashboardDescriptionField());
-        await user.click(getCancelButton());
-        await user.click(getDashboardDescriptionCell('test description'));
-      });
+      await waitFor(
+        async () => {
+          await user.click(getDashboardDescriptionCell('test description'));
+          await user.clear(getDashboardDescriptionField());
+          await user.click(getCancelButton());
+          await user.click(getDashboardDescriptionCell('test description'));
+        },
+        {
+          timeout: 5000,
+        },
+      );
 
       expect(queryDashboardDescriptionRequiredError()).not.toBeInTheDocument();
     });

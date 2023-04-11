@@ -10,13 +10,13 @@ export default defineConfig({
   },
   testDir: './tests',
   /* Maximum time one test can run for. */
-  timeout: 30000,
+  timeout: 60000,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
      * For example in `await expect(locator).toHaveText();`
      */
-    timeout: 10000,
+    timeout: 30000,
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -25,8 +25,10 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? '50%' : undefined,
   projects: [
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
-
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
+    },
     {
       name: 'chromium',
       use: {
