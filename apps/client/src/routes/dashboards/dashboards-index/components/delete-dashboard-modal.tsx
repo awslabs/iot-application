@@ -9,20 +9,19 @@ import Link from '@cloudscape-design/components/link';
 import Modal from '@cloudscape-design/components/modal';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import { DevTool } from '@hookform/devtools';
-import { useMutation } from '@tanstack/react-query';
 import { useForm, Controller } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import invariant from 'tiny-invariant';
 
-import { invalidateDashboards, invalidateDashboard } from '~/data/dashboards';
+import { invalidateDashboards } from '~/data/dashboards';
 import { isApiError } from '~/helpers/predicates/is-api-error';
 import { isJust } from '~/helpers/predicates';
 import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
-import { deleteDashboard } from '~/services';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 import { SuccessNotification } from '~/structures/notifications/success-notification';
 
 import type { DashboardSummary } from '~/services';
+import { useDeleteDashboardMutation } from '../hooks/use-delete-dashboard-mutation';
 
 const DELETE_CONSENT_TEXT = 'confirm' as const;
 
@@ -42,10 +41,7 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
     reset,
   } = useForm({ defaultValues: { consent: '' } });
 
-  const mutation = useMutation({
-    mutationFn: (dashboard: DashboardSummary) => deleteDashboard(dashboard.id),
-    onSuccess: (_data, variables) => void invalidateDashboard(variables.id),
-  });
+  const mutation = useDeleteDashboardMutation();
 
   function handleDelete() {
     props.dashboards.forEach((dashboard) => {
