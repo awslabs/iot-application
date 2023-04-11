@@ -26,6 +26,7 @@ export function DashboardsIndexPage() {
     control,
     formState: { errors },
     getValues,
+    reset: resetForm,
   } = useForm({
     defaultValues: { name: '', description: '' },
     mode: 'onChange',
@@ -58,6 +59,7 @@ export function DashboardsIndexPage() {
             [column.id]: getValues(column.id),
           });
         }}
+        onEditCancel={() => resetForm()}
         header={
           <DashboardsTableHeader
             isDeleteDisabled={selectedItems.length === 0}
