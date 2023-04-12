@@ -33,7 +33,7 @@ export function useUpdateDashboardMutation() {
         new SuccessNotification(
           intl.formatMessage(
             {
-              defaultMessage: 'Dashboard "{name}" updated successfully',
+              defaultMessage: 'Successfully updated dashboard "{name}".',
               description:
                 'dashboard page update dashboard success notification',
             },
