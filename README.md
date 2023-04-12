@@ -61,7 +61,7 @@ The table below lists the service dependencies for different environments.
 
 ## Project Structure
 
-![Project Structure](./diagram.svg)
+![Project Structure](./images/diagram.svg)
 
 ## Security
 

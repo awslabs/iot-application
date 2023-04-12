@@ -14,6 +14,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Update diagram
-        uses: githubocto/repo-visualizer@main
+        uses: githubocto/repo-visualizer@0.7.1
         with:
-          excluded_paths: 'ignore,.github'
+          output_file: 'images/diagram.svg'
+          excluded_paths: 'dist,node_modules,ignore,.github'
