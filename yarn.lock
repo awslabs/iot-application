@@ -11929,10 +11929,10 @@ aws-cdk@2.67.0:
   optionalDependencies:
     fsevents "2.3.2"
 
-aws-jwt-verify@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/aws-jwt-verify/-/aws-jwt-verify-3.4.0.tgz#64830790c27a71fe5a52ee0270460fa8e025bbad"
-  integrity sha512-GmcJZ3jd3adDvVpiAY5S223z1Bz+fOfqHpOdRnDJFeS5Kt5ERggdUPa3PmHdsO/tYaqrkl3Tm15frLa84sQ8Mw==
+aws-jwt-verify@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/aws-jwt-verify/-/aws-jwt-verify-4.0.0.tgz#e069da942807cdd997ad3e9426980b1ff9422e68"
+  integrity sha512-1kCv+Ub3jBaQ6HnIjfAXswjp7xD0LO4GxwbQZ/o9IoJpb8/ZBUhHu5GQ4k2O7jOVTS/KOz86uw4NV71V3s6V3g==
 
 aws-sdk-client-mock@^2.1.1:
   version "2.1.1"
