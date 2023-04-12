@@ -7,7 +7,7 @@ import { useDashboardQuery } from '~/routes/dashboards/dashboard/hooks/use-dashb
 import { useUpdateDashboardMutation } from '~/routes/dashboards/dashboard/hooks/use-update-dashboard-mutation';
 import './styles.css';
 
-import type { Dashboard } from '~/services';
+import type { DashboardDefinition } from '~/services';
 
 export function DashboardPage() {
   const params = useParams<{ dashboardId: string }>();
@@ -32,15 +32,25 @@ export function DashboardPage() {
       }}
       dashboardConfiguration={{
         ...dashboardQuery.data?.definition,
+        // TODO: remove display settings once dynanic sizing is released
         displaySettings: {
           numRows: 200,
           numColumns: 200,
         },
         viewport: { duration: '5m' },
       }}
-      onSave={(config: unknown) =>
-        updateDashboardMutation.mutateAsync(config as Dashboard)
-      }
+      onSave={(config: DashboardDefinition) => {
+        invariant(params.dashboardId, 'Expected dashboard ID to be defined');
+        invariant(dashboardQuery.data, 'Expected dashboard to be loaded');
+
+        void updateDashboardMutation.mutateAsync({
+          ...dashboardQuery.data,
+          id: params.dashboardId,
+          definition: {
+            widgets: config.widgets,
+          },
+        });
+      }}
     />
   );
 }

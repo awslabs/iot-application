@@ -10,7 +10,7 @@ import { DashboardWidget } from './dashboard-widget.entity';
 
 export class DashboardDefinition {
   @IsArray()
-  @ArrayMaxSize(100)
+  @ArrayMaxSize(1000)
   @ValidateNested({ each: true })
   @IsObject({ each: true })
   @Type(() => DashboardWidget)

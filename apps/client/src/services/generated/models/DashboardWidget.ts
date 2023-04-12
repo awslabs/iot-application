@@ -3,13 +3,20 @@
 /* eslint-disable */
 
 export type DashboardWidget = {
-  title: string;
   type:
-    | 'line'
-    | 'scatter'
-    | 'bar'
-    | 'status-grid'
-    | 'status-timeline'
+    | 'line-chart'
+    | 'scatter-chart'
+    | 'bar-chart'
     | 'kpi'
-    | 'table';
+    | 'status'
+    | 'status-timeline'
+    | 'table'
+    | 'text';
+  id: string;
+  x: number;
+  y: number;
+  z: number;
+  width: number;
+  height: number;
+  properties: any;
 };

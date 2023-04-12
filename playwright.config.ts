@@ -18,16 +18,17 @@ export default defineConfig({
      */
     timeout: 30000,
   },
-  fullyParallel: true,
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
-  maxFailures: process.env.CI ? 0 : undefined,
+  maxFailures: 0,
+  workers: 1,
   reporter: 'html',
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? '50%' : undefined,
+  retries: 0,
   projects: [
     {
       name: 'setup',
       testMatch: /.*\.setup\.ts/,
+      retries: 5,
     },
     {
       name: 'chromium',
@@ -56,10 +57,18 @@ export default defineConfig({
       dependencies: ['setup'],
     },
   ],
-  webServer: {
-    command: 'yarn dev',
-    // ensure `core` is stood up before testing
-    url: 'http://localhost:3000/health',
-    reuseExistingServer: true,
-  },
+  webServer: [
+    {
+      command: 'yarn start:core',
+      url: 'http://localhost:3000/health',
+      reuseExistingServer: !process.env.CI,
+      timeout: 300 * 1000, // 5 minutes
+    },
+    {
+      command: 'yarn start:client',
+      url: 'http://localhost:3001',
+      reuseExistingServer: !process.env.CI,
+      timeout: 300 * 1000, // 5 minutes
+    },
+  ],
 });

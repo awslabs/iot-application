@@ -431,75 +431,29 @@ describe('DashboardsModule', () => {
       },
     );
 
-    test.each(['', 'x'.repeat(101), 1, {}, []])(
-      'returns 400 when widget title is not valid: (%s)',
-      async (widgetTitle) => {
-        const payload = {
-          name: dummyName,
-          description: dummyDescription,
-          definition: {
-            widgets: [
-              {
-                title: widgetTitle,
-                type: DashboardWidgetType.Line,
-              },
-            ],
-          },
-        };
-        const response = await app.inject({
-          headers: {
-            Authorization: `Bearer ${bearerToken}`,
-          },
-          method: 'POST',
-          payload,
-          url: '/dashboards',
-        });
-
-        expect(response.statusCode).toBe(400);
-      },
-    );
-
-    test('returns 400 when widget title is missing', async () => {
-      const payload = {
-        name: dummyName,
-        description: 'new description',
-        definition: {
-          widgets: [
-            {
-              type: DashboardWidgetType.Line,
-            },
-          ],
-        },
-      };
-
-      const response = await app.inject({
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-        method: 'POST',
-        payload,
-        url: '/dashboards',
-      });
-
-      expect(response.statusCode).toBe(400);
-    });
-
     test.each([
-      DashboardWidgetType.Line,
-      DashboardWidgetType.Scatter,
-      DashboardWidgetType.Bar,
-      DashboardWidgetType.StatusGrid,
+      DashboardWidgetType.LineChart,
+      DashboardWidgetType.ScatterChart,
+      DashboardWidgetType.BarChart,
+      DashboardWidgetType.Status,
       DashboardWidgetType.StatusTimeline,
       DashboardWidgetType.Kpi,
       DashboardWidgetType.Table,
+      DashboardWidgetType.Text,
     ])('returns 200 when widget type is valid: (%s)', async (widgetType) => {
       const payload: UpdateDashboardDto = {
         name: 'new name',
         definition: {
           widgets: [
             {
-              title: 'widget title',
               type: widgetType,
+              id: 'widget-id',
+              x: 0,
+              y: 0,
+              z: 0,
+              width: 1,
+              height: 1,
+              properties: {},
             },
           ],
         },
@@ -528,17 +482,160 @@ describe('DashboardsModule', () => {
       {},
       [],
       [{}],
-      [{ title: 'widget title' }],
-      [{ type: DashboardWidgetType.Line }],
+      [{ type: DashboardWidgetType.LineChart }],
+      [{ type: DashboardWidgetType.LineChart, id: 'invalid-widget' }],
       [
         {
-          title: 'valid widget',
-          type: DashboardWidgetType.Line,
+          type: DashboardWidgetType.LineChart,
+          id: 'missing properties',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: 1,
+          height: 1,
         },
-        { title: 'invalid widget' },
+      ],
+      [
         {
-          title: 'valid widget',
-          type: DashboardWidgetType.Line,
+          type: DashboardWidgetType.LineChart,
+          id: 'missing x',
+          y: 0,
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'missing y',
+          x: 0,
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'missing z',
+          x: 0,
+          y: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'missing width',
+          x: 0,
+          y: 0,
+          z: 0,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'missing height',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type x',
+          x: '0',
+          y: 0,
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type y',
+          x: 0,
+          y: '0',
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type z',
+          x: 0,
+          y: 0,
+          z: '0',
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type width',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: '1',
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type height',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: 1,
+          height: '1',
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type properties',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: 'properties',
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'valid-widget',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'invalid-widget',
         },
       ],
     ])(
@@ -624,8 +721,14 @@ describe('DashboardsModule', () => {
         definition: {
           widgets: [
             {
-              title: 'widget title',
-              type: DashboardWidgetType.Line,
+              type: DashboardWidgetType.LineChart,
+              id: 'valid-widget',
+              x: 0,
+              y: 0,
+              z: 0,
+              width: 1,
+              height: 1,
+              properties: {},
             },
           ],
         },
@@ -658,8 +761,14 @@ describe('DashboardsModule', () => {
         definition: {
           widgets: [
             {
-              title: 'widget title',
-              type: DashboardWidgetType.Line,
+              type: DashboardWidgetType.LineChart,
+              id: 'valid-widget',
+              x: 0,
+              y: 0,
+              z: 0,
+              width: 1,
+              height: 1,
+              properties: {},
             },
           ],
         },
@@ -690,8 +799,14 @@ describe('DashboardsModule', () => {
           definition: {
             widgets: [
               {
-                title: 'widget title',
-                type: DashboardWidgetType.Line,
+                type: DashboardWidgetType.LineChart,
+                id: 'valid-widget',
+                x: 0,
+                y: 0,
+                z: 0,
+                width: 1,
+                height: 1,
+                properties: {},
               },
             ],
           },
@@ -863,86 +978,15 @@ describe('DashboardsModule', () => {
       },
     );
 
-    test.each(['', 'x'.repeat(101), 1, {}, []])(
-      'returns 400 when widget title is not valid: (%s)',
-      async (widgetTitle) => {
-        const dashboard = await seedTestDashboard('name');
-
-        const payload = {
-          name: 'new name',
-          definition: {
-            widgets: [
-              {
-                title: widgetTitle,
-                type: DashboardWidgetType.Line,
-              },
-            ],
-          },
-          description: 'new description',
-        };
-
-        const response = await app.inject({
-          headers: {
-            Authorization: `Bearer ${bearerToken}`,
-          },
-          method: 'PUT',
-          payload: payload,
-          url: `/dashboards/${dashboard.id}`,
-        });
-
-        expect(response.statusCode).toBe(400);
-
-        await assertDatabaseEntry({
-          id: dashboard.id,
-          name: 'name',
-          description: dummyDescription,
-          definition: dummyDefinition,
-        });
-      },
-    );
-
-    test('returns 400 when widget title is missing', async () => {
-      const dashboard = await seedTestDashboard('name');
-
-      const payload = {
-        name: 'new name',
-        definition: {
-          widgets: [
-            {
-              type: DashboardWidgetType.Line,
-            },
-          ],
-        },
-        description: 'new description',
-      };
-
-      const response = await app.inject({
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-        method: 'PUT',
-        payload: payload,
-        url: `/dashboards/${dashboard.id}`,
-      });
-
-      expect(response.statusCode).toBe(400);
-
-      await assertDatabaseEntry({
-        id: dashboard.id,
-        name: 'name',
-        description: dummyDescription,
-        definition: dummyDefinition,
-      });
-    });
-
     test.each([
-      DashboardWidgetType.Line,
-      DashboardWidgetType.Scatter,
-      DashboardWidgetType.Bar,
-      DashboardWidgetType.StatusGrid,
+      DashboardWidgetType.LineChart,
+      DashboardWidgetType.ScatterChart,
+      DashboardWidgetType.BarChart,
+      DashboardWidgetType.Status,
       DashboardWidgetType.StatusTimeline,
       DashboardWidgetType.Kpi,
       DashboardWidgetType.Table,
+      DashboardWidgetType.Text,
     ])('returns 200 when widget type is valid: (%s)', async (widgetType) => {
       const dashboard = await seedTestDashboard('name');
 
@@ -951,8 +995,14 @@ describe('DashboardsModule', () => {
         definition: {
           widgets: [
             {
-              title: 'widget title',
               type: widgetType,
+              id: 'widget-id',
+              x: 0,
+              y: 0,
+              z: 0,
+              width: 1,
+              height: 1,
+              properties: {},
             },
           ],
         },
@@ -983,17 +1033,160 @@ describe('DashboardsModule', () => {
       {},
       [],
       [{}],
-      [{ title: 'widget title' }],
-      [{ type: DashboardWidgetType.Line }],
+      [{ type: DashboardWidgetType.LineChart }],
+      [{ type: DashboardWidgetType.LineChart, id: 'invalid-widget' }],
       [
         {
-          title: 'valid widget',
-          type: DashboardWidgetType.Line,
+          type: DashboardWidgetType.LineChart,
+          id: 'missing properties',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: 1,
+          height: 1,
         },
-        { title: 'invalid widget' },
+      ],
+      [
         {
-          title: 'valid widget',
-          type: DashboardWidgetType.Line,
+          type: DashboardWidgetType.LineChart,
+          id: 'missing x',
+          y: 0,
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'missing y',
+          x: 0,
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'missing z',
+          x: 0,
+          y: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'missing width',
+          x: 0,
+          y: 0,
+          z: 0,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'missing height',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type x',
+          x: '0',
+          y: 0,
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type y',
+          x: 0,
+          y: '0',
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type z',
+          x: 0,
+          y: 0,
+          z: '0',
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type width',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: '1',
+          height: 1,
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type height',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: 1,
+          height: '1',
+          properties: {},
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'wrong type properties',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: 'properties',
+        },
+      ],
+      [
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'valid-widget',
+          x: 0,
+          y: 0,
+          z: 0,
+          width: 1,
+          height: 1,
+          properties: {},
+        },
+        {
+          type: DashboardWidgetType.LineChart,
+          id: 'invalid-widget',
         },
       ],
     ])(
@@ -1040,8 +1233,14 @@ describe('DashboardsModule', () => {
         definition: {
           widgets: [
             {
-              title: 'widget title',
-              type: DashboardWidgetType.Line,
+              type: DashboardWidgetType.LineChart,
+              id: 'valid-widget',
+              x: 0,
+              y: 0,
+              z: 0,
+              width: 1,
+              height: 1,
+              properties: {},
             },
           ],
         },
