@@ -1,4 +1,4 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { Duration, Stack, StackProps } from 'aws-cdk-lib';
 import {
   Distribution,
   OriginAccessIdentity,
@@ -37,7 +37,14 @@ export class PublicAssetStack extends Stack {
 
     const assetHashKey = randomUUID();
 
-    const assetBucket = new Bucket(this, 'AssetBucket');
+    const assetBucket = new Bucket(this, 'AssetBucket', {
+      lifecycleRules: [
+        {
+          noncurrentVersionExpiration: Duration.days(90),
+        },
+      ],
+      versioned: true,
+    });
     const assetBucketOAI = new OriginAccessIdentity(this, 'AssetBucketOAI');
     assetBucket.grantRead(assetBucketOAI);
 
