@@ -49,7 +49,14 @@ export class CoreService extends Construct {
     });
     serviceInstanceRole.addToPolicy(
       new PolicyStatement({
-        actions: ['dynamodb:*'],
+        actions: [
+          'dynamodb:DescribeTable',
+          'dynamodb:DeleteItem',
+          'dynamodb:GetItem',
+          'dynamodb:PutItem',
+          'dynamodb:Query',
+          'dynamodb:UpdateItem',
+        ],
         resources: [databaseTableArn, `${databaseTableArn}/index/*`],
       }),
     );
