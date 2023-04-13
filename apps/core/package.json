@@ -30,7 +30,7 @@
     "@nestjs/swagger": "^6.3.0",
     "@nestjs/terminus": "^9.1.4",
     "@nestjs/throttler": "^4.0.0",
-    "aws-jwt-verify": "^3.4.0",
+    "aws-jwt-verify": "^4.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dynamodb-local": "^0.0.31",

@@ -11,6 +11,7 @@ import { DEFAULT_LOCALE } from './constants';
 import { router } from './router';
 import { queryClient } from './data/query-client';
 import { setServiceUrl } from './services';
+import metricHandler from './metrics/metric-handler';
 import type { GlobalWithResources } from './types/global-with-resources';
 
 import '@aws-amplify/ui-react/styles.css';
@@ -39,3 +40,5 @@ if (rootEl != null) {
     </React.StrictMode>,
   );
 }
+
+metricHandler.reportWebVitals();

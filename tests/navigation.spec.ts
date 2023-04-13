@@ -125,4 +125,19 @@ test.describe('Navigation', () => {
       })();
     });
   });
+
+  test('as a user, I see a page not found page when I navigate to a non-existent page', async ({
+    page,
+  }) => {
+    await page.goto('this-page-does-not-exist');
+
+    await expect(
+      page.getByRole('heading', { name: 'Page not found' }),
+    ).toBeVisible();
+
+    // TODO: add a screenshot once https://github.com/awslabs/iot-application/pull/122 is merged
+    await page.getByRole('link', { name: 'IoT Application home page' }).click();
+
+    await expect(page).toHaveURL('/');
+  });
 });
