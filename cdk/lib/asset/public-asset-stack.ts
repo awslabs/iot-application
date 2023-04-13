@@ -6,6 +6,7 @@ import {
   ViewerProtocolPolicy,
 } from 'aws-cdk-lib/aws-cloudfront';
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
+import { Effect, PolicyStatement, StarPrincipal } from 'aws-cdk-lib/aws-iam';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import {
@@ -45,6 +46,22 @@ export class PublicAssetStack extends Stack {
       ],
       versioned: true,
     });
+
+    // Configure S3 bucket policy to allow only TLS requests
+    assetBucket.addToResourcePolicy(
+      new PolicyStatement({
+        actions: ['s3:*'],
+        conditions: {
+          Bool: {
+            'aws:SecureTransport': false,
+          },
+        },
+        effect: Effect.DENY,
+        principals: [new StarPrincipal()],
+        resources: [assetBucket.bucketArn, assetBucket.arnForObjects('*')],
+      }),
+    );
+
     const assetBucketOAI = new OriginAccessIdentity(this, 'AssetBucketOAI');
     assetBucket.grantRead(assetBucketOAI);
 
