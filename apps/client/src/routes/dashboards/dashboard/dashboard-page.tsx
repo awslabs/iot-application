@@ -1,4 +1,5 @@
 import { Dashboard as IoTAppKitDashboard } from '@iot-app-kit/dashboard';
+import { Auth } from 'aws-amplify';
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 
@@ -24,11 +25,8 @@ export function DashboardPage() {
   return (
     <IoTAppKitDashboard
       clientConfiguration={{
+        awsCredentials: () => Auth.currentCredentials(),
         awsRegion: 'us-west-2',
-        awsCredentials: {
-          accessKeyId: '',
-          secretAccessKey: '',
-        },
       }}
       dashboardConfiguration={{
         ...dashboardQuery.data?.definition,
