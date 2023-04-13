@@ -2,6 +2,7 @@ import { Stack, StackProps } from 'aws-cdk-lib';
 import {
   Distribution,
   OriginAccessIdentity,
+  SecurityPolicyProtocol,
   ViewerProtocolPolicy,
 } from 'aws-cdk-lib/aws-cloudfront';
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
@@ -102,6 +103,7 @@ export class PublicAssetStack extends Stack {
             responsePagePath: '/index.html',
           },
         ],
+        minimumProtocolVersion: SecurityPolicyProtocol.TLS_V1_2_2021,
       },
     );
     this.publicDistribution.node.addDependency(
