@@ -55,7 +55,7 @@
     "babel-plugin-formatjs": "^10.4.0",
     "customize-cra": "^1.0.0",
     "eslint-config-custom": "*",
-    "eslint-plugin-formatjs": "^4.9.0",
+    "eslint-plugin-formatjs": "^4.9.1",
     "eslint-plugin-jest-dom": "^4.0.3",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
