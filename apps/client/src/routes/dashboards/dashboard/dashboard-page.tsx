@@ -37,6 +37,7 @@ export function DashboardPage() {
         },
         viewport: { duration: '5m' },
       }}
+      initialViewMode="preview"
       onSave={(config: DashboardDefinition) => {
         invariant(params.dashboardId, 'Expected dashboard ID to be defined');
         invariant(dashboardQuery.data, 'Expected dashboard to be loaded');
