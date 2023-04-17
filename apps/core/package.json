@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
-    "@nestjs/schematics": "^9.0.0",
+    "@nestjs/schematics": "^9.1.0",
     "@nestjs/testing": "^9.0.0",
     "@shelf/jest-dynamodb": "^3.4.1",
     "aws-sdk-client-mock": "^2.1.1",
