@@ -12,17 +12,21 @@ vi.mock('~/hooks/application/use-application', () => ({
   }),
 }));
 
+function getDashboardStubs() {
+  return [
+    {
+      id: '123456789012',
+      name: 'test name',
+      description: 'test description',
+      lastUpdateDate: '2021-01-01T00:00:00.000Z',
+      creationDate: '2021-01-01T00:00:00.000Z',
+    },
+  ] as const satisfies Readonly<DashboardSummary[]>;
+}
+
 vi.mock('./hooks/use-dashboards-query', () => ({
   useDashboardsQuery: vi.fn().mockReturnValue({
-    data: [
-      {
-        id: '123456789012',
-        name: 'test name',
-        description: 'test description',
-        lastUpdateDate: '2021-01-01T00:00:00.000Z',
-        creationDate: '2021-01-01T00:00:00.000Z',
-      },
-    ] satisfies DashboardSummary[],
+    data: getDashboardStubs(),
     isLoading: false,
   }),
 }));
@@ -38,6 +42,8 @@ vi.mock('./hooks/use-delete-dashboard-mutation', () => ({
     mutate: vi.fn(),
   }),
 }));
+
+const getDashboardLink = (id: string) => screen.getByRole('link', { name: id });
 
 // TODO: Find a way to reduce duplication of strings
 const getDashboardNameField = () =>
@@ -79,6 +85,18 @@ const queryDashboardDescriptionTooLongError = () =>
 const getCancelButton = () => screen.getByRole('button', { name: 'Cancel' });
 
 describe('<DashboardsIndexPage />', () => {
+  describe('navigation to dashboard', () => {
+    it('should navigate to the dashboard when the id is clicked', async () => {
+      render(<DashboardsIndexPage />);
+
+      await userEvent.click(getDashboardLink(getDashboardStubs()[0].id));
+
+      expect(navigateMock).toHaveBeenCalledWith(
+        `/dashboards/${getDashboardStubs()[0].id}`,
+      );
+    });
+  });
+
   describe('inline editing', () => {
     it('should render a validation error when the name is empty', async () => {
       const user = userEvent.setup();

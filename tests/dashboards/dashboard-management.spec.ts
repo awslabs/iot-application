@@ -41,7 +41,7 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   });
   await expect(dashboardRow).toBeVisible();
 
-  await page.getByRole('link', { name: 'My dashboard' }).click();
+  await page.getByRole('link', { name: /[a-zA-Z0-9_-]{12}/ }).click();
   await expect(page).toHaveURL(/dashboards\/[a-zA-Z0-9_-]{12}/);
 
   await page.getByRole('button', { name: 'Save' }).click();
