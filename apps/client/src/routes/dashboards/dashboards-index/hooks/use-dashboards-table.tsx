@@ -54,9 +54,7 @@ export function useDashboardsTable() {
       pagination: <Pagination {...paginationProps} />,
       preferences: (
         <DashboardsTablePreferences
-          onConfirm={(event) =>
-            setPreferences(event.detail as typeof preferences)
-          }
+          onConfirm={(event) => setPreferences(event.detail)}
           preferences={preferences}
         />
       ),

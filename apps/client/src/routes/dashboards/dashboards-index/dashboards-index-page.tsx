@@ -68,19 +68,10 @@ export function DashboardsIndexPage() {
         }
         columnDefinitions={[
           {
-            id: 'dashboard-id',
+            id: 'id',
             header: intl.formatMessage({
               defaultMessage: 'ID',
               description: 'dashboards table ID column header',
-            }),
-            cell: (dashboard) => dashboard.id,
-            sortingField: 'dashboard-id',
-          },
-          {
-            id: 'name',
-            header: intl.formatMessage({
-              defaultMessage: 'Name',
-              description: 'dashboards table name column header',
             }),
             cell: (dashboard) => (
               <Link
@@ -93,9 +84,18 @@ export function DashboardsIndexPage() {
                   navigate(event.detail.href);
                 }}
               >
-                {dashboard.name}
+                {dashboard.id}
               </Link>
             ),
+            sortingField: 'id',
+          },
+          {
+            id: 'name',
+            header: intl.formatMessage({
+              defaultMessage: 'Name',
+              description: 'dashboards table name column header',
+            }),
+            cell: (dashboard) => dashboard.name,
             sortingField: 'name',
             editConfig: {
               ariaLabel: intl.formatMessage({

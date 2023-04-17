@@ -104,12 +104,13 @@ export function DashboardsTablePreferences(
             }),
             options: [
               {
-                id: 'dashboard-id',
+                id: 'id',
                 label: intl.formatMessage({
                   defaultMessage: 'ID',
                   description:
                     'dashboards table preferences visible content id',
                 }),
+                editable: false,
               },
               {
                 id: 'name',
@@ -118,7 +119,6 @@ export function DashboardsTablePreferences(
                   description:
                     'dashboards table preferences visible content name',
                 }),
-                editable: false,
               },
               {
                 id: 'description',
