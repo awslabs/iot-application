@@ -25,7 +25,7 @@ import { useDeleteDashboardMutation } from '../hooks/use-delete-dashboard-mutati
 
 const DELETE_CONSENT_TEXT = 'confirm' as const;
 
-interface DeleteDashboardModalProps {
+export interface DeleteDashboardModalProps {
   dashboards: readonly DashboardSummary[];
   isVisible: boolean;
   onClose: () => void;
@@ -160,6 +160,7 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
               defaultMessage="Proceeding with this action will delete the dashboard with all its content and can affect related resources."
               description="delete dashboard modal warning message"
             />
+            {/* spacing before link */ ' '}
             <Link
               external={true}
               href="https://github.com/awslabs/iot-application"
@@ -178,35 +179,44 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
             />
           </Box>
 
-          <ColumnLayout columns={2}>
-            <form
-              onSubmit={(event) => {
-                event.preventDefault();
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
 
-                void handleSubmit(() => {
-                  handleDelete();
-                })();
-              }}
-            >
-              <Form>
-                <Controller
-                  name="consent"
-                  control={control}
-                  rules={{ required: true, pattern: /^confirm$/ }}
-                  render={({ field }) => (
-                    <FormField>
+              void handleSubmit(() => {
+                handleDelete();
+              })();
+            }}
+          >
+            <Form>
+              <Controller
+                name="consent"
+                control={control}
+                rules={{ required: true, pattern: /^confirm$/ }}
+                render={({ field }) => (
+                  <FormField
+                    label={intl.formatMessage(
+                      {
+                        defaultMessage:
+                          'To confirm this deletion, type "{deleteConsentText}"',
+                        description: 'delete dashboard modal consent label',
+                      },
+                      { deleteConsentText: DELETE_CONSENT_TEXT },
+                    )}
+                  >
+                    <ColumnLayout columns={2}>
                       <Input
                         ariaRequired
                         placeholder={DELETE_CONSENT_TEXT}
                         onChange={(event) => field.onChange(event.detail.value)}
                         value={field.value}
                       />
-                    </FormField>
-                  )}
-                />
-              </Form>
-            </form>
-          </ColumnLayout>
+                    </ColumnLayout>
+                  </FormField>
+                )}
+              />
+            </Form>
+          </form>
         </SpaceBetween>
       </Modal>
 
