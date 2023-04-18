@@ -32,10 +32,9 @@ export function DashboardPage() {
         ...dashboardQuery.data?.definition,
         // TODO: remove display settings once dynanic sizing is released
         displaySettings: {
-          numRows: 200,
+          numRows: 600,
           numColumns: 200,
         },
-        viewport: { duration: '5m' },
       }}
       initialViewMode="preview"
       onSave={(config: DashboardDefinition) => {
