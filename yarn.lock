@@ -14169,7 +14169,7 @@ duplexify@^4.1.1, duplexify@^4.1.2:
     readable-stream "^3.1.1"
     stream-shift "^1.0.0"
 
-dynamodb-local@0.0.31, dynamodb-local@^0.0.31:
+dynamodb-local@0.0.31:
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/dynamodb-local/-/dynamodb-local-0.0.31.tgz#ce6057aab0e1f8265c41658e5b12e679a0ce6ef6"
   integrity sha512-5Ro47g989oLSC2JKFtPAWWSSicZOkqQrBGwHActqN6zdCZEy/eGvhq7Ki9Lgx/gNE+ksIF2wD6VNff3bjTI8ow==
@@ -14178,6 +14178,16 @@ dynamodb-local@0.0.31, dynamodb-local@^0.0.31:
     mkdirp "~0.5.0"
     q "~1.4.1"
     tar "~4.4.8"
+
+dynamodb-local@^0.0.32:
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/dynamodb-local/-/dynamodb-local-0.0.32.tgz#4a757dcba7287da3e16e33333d1f45ed0bfe8708"
+  integrity sha512-JvZYSkOJ4S1DaXtFuvP1AonWCD6EAZ/ttmsOS+eQJBQ4yE0s1/kbHIghYeRVV+arJDCr202cUqhOYD6hTBfHXA==
+  dependencies:
+    debug "~4.1.0"
+    mkdirp "~0.5.0"
+    q "~1.4.1"
+    tar "^4.4.19"
 
 earcut@^2.2.2, earcut@^2.2.3:
   version "2.2.4"
@@ -21569,7 +21579,7 @@ tapable@^2.0.0, tapable@^2.1.1, tapable@^2.2.0, tapable@^2.2.1:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.2.1.tgz#1967a73ef4060a82f12ab96af86d52fdb76eeca0"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
-tar@~4.4.8:
+tar@^4.4.19, tar@~4.4.8:
   version "4.4.19"
   resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.19.tgz#2e4d7263df26f2b914dee10c825ab132123742f3"
   integrity sha512-a20gEsvHnWe0ygBY8JbxoM4w3SJdhc7ZAuxkLqh+nvNQN2IOt0B5lLgM490X5Hl8FF0dl0tOf2ewFYAlIFgzVA==
