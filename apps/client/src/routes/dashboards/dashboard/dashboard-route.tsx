@@ -10,6 +10,7 @@ import { createDashboardQuery } from '~/data/dashboards';
 import { Auth } from 'aws-amplify';
 import invariant from 'tiny-invariant';
 import { Dashboard } from '~/services';
+import { Maybe } from '~/types';
 
 export const dashboardRoute = {
   path: DASHBOARD_PATH,
@@ -28,13 +29,15 @@ export const dashboardRoute = {
     return queryClient.fetchQuery(createDashboardQuery(params.dashboardId));
   },
   handle: {
-    crumb: (dashboard: Dashboard) => {
+    crumb: (dashboard: Maybe<Dashboard>) => {
       return {
-        text: dashboard.name,
+        // if dashboard is not found, we display 404 breadcrumb
+        text: dashboard?.name ?? 'Not found',
         href: '',
       };
     },
-    fullWidth: true,
+    // do not render at full width if dashboard is not found
+    fullWidth: (dashboard: Maybe<Dashboard>) => Boolean(dashboard),
     format: DASHBOARD_PAGE_FORMAT,
   },
 } satisfies RouteObject;

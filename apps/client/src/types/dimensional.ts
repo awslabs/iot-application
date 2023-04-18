@@ -1,5 +1,7 @@
 export type FullWidth = boolean;
 
-export interface Dimensional {
-  fullWidth: FullWidth;
+type GetFullWidth<T> = (data?: T) => FullWidth;
+
+export interface Dimensional<T> {
+  fullWidth: GetFullWidth<T>;
 }
