@@ -4,6 +4,7 @@ import Table from '@cloudscape-design/components/table';
 import { DevTool } from '@hookform/devtools';
 import { useForm, Controller } from 'react-hook-form';
 import { useIntl } from 'react-intl';
+import type { FormatDateOptions } from 'react-intl';
 import invariant from 'tiny-invariant';
 
 import { DashboardsTableHeader } from './components/dashboard-table-header/dashboards-table-header';
@@ -14,6 +15,15 @@ import { useDeleteModalVisibility } from './hooks/use-delete-modal-visibility';
 import { usePartialUpdateDashboardMutation } from './hooks/use-partial-update-dashboard-mutation';
 import { useApplication } from '~/hooks/application/use-application';
 import { $Dashboard } from '~/services';
+
+const DateFormatOptions: FormatDateOptions = {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric',
+};
 
 export function DashboardsIndexPage() {
   const intl = useIntl();
@@ -261,7 +271,8 @@ export function DashboardsIndexPage() {
               defaultMessage: 'Last update date',
               description: 'dashboards table last update date column header',
             }),
-            cell: (dashboard) => dashboard.lastUpdateDate,
+            cell: (dashboard) =>
+              intl.formatDate(dashboard.lastUpdateDate, DateFormatOptions),
             sortingField: 'lastUpdateDate',
           },
           {
@@ -270,7 +281,8 @@ export function DashboardsIndexPage() {
               defaultMessage: 'Creation date',
               description: 'dashboards table creation date column header',
             }),
-            cell: (dashboard) => dashboard.creationDate,
+            cell: (dashboard) =>
+              intl.formatDate(dashboard.creationDate, DateFormatOptions),
             sortingField: 'creationDate',
           },
         ]}
