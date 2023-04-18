@@ -34,10 +34,10 @@ export default defineConfig({
        *
        * Please increase the coverage levels as you add tests.
        */
-      statements: 40,
-      branches: 60,
-      functions: 30,
-      lines: 40,
+      statements: 45,
+      branches: 65,
+      functions: 40,
+      lines: 45,
       watermarks: {
         statements: [80, 95],
         branches: [80, 95],
