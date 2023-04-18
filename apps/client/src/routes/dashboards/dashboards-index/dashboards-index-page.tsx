@@ -15,6 +15,9 @@ import { usePartialUpdateDashboardMutation } from './hooks/use-partial-update-da
 import { useApplication } from '~/hooks/application/use-application';
 import { $Dashboard } from '~/services';
 
+const toHumanReadableDate = (date: string) => {
+  return new Date(date).toLocaleString();
+};
 export function DashboardsIndexPage() {
   const intl = useIntl();
   const [isDeleteModalVisible, setIsDeleteModalVisible] =
@@ -261,7 +264,7 @@ export function DashboardsIndexPage() {
               defaultMessage: 'Last update date',
               description: 'dashboards table last update date column header',
             }),
-            cell: (dashboard) => dashboard.lastUpdateDate,
+            cell: (dashboard) => toHumanReadableDate(dashboard.lastUpdateDate),
             sortingField: 'lastUpdateDate',
           },
           {
@@ -270,7 +273,7 @@ export function DashboardsIndexPage() {
               defaultMessage: 'Creation date',
               description: 'dashboards table creation date column header',
             }),
-            cell: (dashboard) => dashboard.creationDate,
+            cell: (dashboard) => toHumanReadableDate(dashboard.creationDate),
             sortingField: 'creationDate',
           },
         ]}
