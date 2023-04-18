@@ -2,3 +2,7 @@
 .dashboard * {
   box-sizing: initial;
 }
+
+.dashboard {
+  height: 100% !important; /* TODO: add this to dashboard */
+}

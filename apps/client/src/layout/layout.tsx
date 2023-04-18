@@ -23,6 +23,7 @@ export function Layout(props: React.PropsWithChildren) {
       <TopNavigation />
       <AppLayout
         breadcrumbs={<Breadcrumbs />}
+        headerSelector="#h"
         content={props.children}
         contentType={format}
         disableContentPaddings={fullWidth}

@@ -23,7 +23,7 @@ export function TopNavigation() {
   }
 
   return (
-    <>
+    <div id="h" style={{ position: 'sticky', top: 0, zIndex: 1002 }}>
       <_TopNavigation
         identity={{
           href: ROOT_HREF,
@@ -107,6 +107,6 @@ export function TopNavigation() {
         onClose={closeSettings}
         key={isSettingsModalVisible.toString()}
       />
-    </>
+    </div>
   );
 }
