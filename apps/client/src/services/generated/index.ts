@@ -11,6 +11,8 @@ export type { Dashboard } from './models/Dashboard';
 export type { DashboardDefinition } from './models/DashboardDefinition';
 export type { DashboardSummary } from './models/DashboardSummary';
 export type { DashboardWidget } from './models/DashboardWidget';
+export type { DurationViewport } from './models/DurationViewport';
+export type { HistoricalViewport } from './models/HistoricalViewport';
 export type { UpdateDashboardDto } from './models/UpdateDashboardDto';
 
 export { $CreateDashboardDto } from './schemas/$CreateDashboardDto';
@@ -18,6 +20,8 @@ export { $Dashboard } from './schemas/$Dashboard';
 export { $DashboardDefinition } from './schemas/$DashboardDefinition';
 export { $DashboardSummary } from './schemas/$DashboardSummary';
 export { $DashboardWidget } from './schemas/$DashboardWidget';
+export { $DurationViewport } from './schemas/$DurationViewport';
+export { $HistoricalViewport } from './schemas/$HistoricalViewport';
 export { $UpdateDashboardDto } from './schemas/$UpdateDashboardDto';
 
 export { DashboardsService } from './services/DashboardsService';

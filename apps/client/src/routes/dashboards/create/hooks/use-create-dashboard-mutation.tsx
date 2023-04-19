@@ -25,7 +25,10 @@ export function useCreateDashboardMutation() {
 
   return useMutation({
     mutationFn: (formData: Pick<Dashboard, 'name' | 'description'>) => {
-      return createDashboard({ ...formData, definition: { widgets: [] } });
+      return createDashboard({
+        ...formData,
+        definition: { widgets: [], viewport: { duration: '5m' } },
+      });
     },
     onMutate: () => {
       // abort any in progress list dashboards queries when mutation starts

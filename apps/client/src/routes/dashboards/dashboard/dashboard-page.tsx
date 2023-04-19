@@ -25,7 +25,6 @@ export function DashboardPage() {
   if (dashboardQuery.isInitialLoading) {
     return <DashboardLoadingState />;
   }
-
   return (
     <IoTAppKitDashboard
       clientConfiguration={{
@@ -33,6 +32,7 @@ export function DashboardPage() {
         awsRegion: 'us-west-2',
       }}
       dashboardConfiguration={{
+        viewport: { duration: '5m' },
         ...dashboardQuery.data?.definition,
         // TODO: remove display settings once dynanic sizing is released
         displaySettings: {
@@ -44,12 +44,15 @@ export function DashboardPage() {
       onSave={(config: DashboardDefinition) => {
         invariant(params.dashboardId, 'Expected dashboard ID to be defined');
         invariant(dashboardQuery.data, 'Expected dashboard to be loaded');
-
+        // eslint-disable-next-line no-console
+        console.log(config);
         void updateDashboardMutation.mutateAsync({
           ...dashboardQuery.data,
           id: params.dashboardId,
           definition: {
             widgets: config.widgets,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            viewport: config.viewport,
           },
         });
       }}
