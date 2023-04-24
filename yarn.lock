@@ -14561,13 +14561,13 @@ eslint-plugin-flowtype@^8.0.3:
     lodash "^4.17.21"
     string-natural-compare "^3.0.1"
 
-eslint-plugin-formatjs@^4.9.1:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-formatjs/-/eslint-plugin-formatjs-4.9.1.tgz#4269bdf61c627587b3fb112fef55250178d818ce"
-  integrity sha512-e6A7v84y6/RgXRYWqIQHJSHKutXGsQVdkYkzL7pgw5cJGEao0YVFqrbYu8ckbQsxQWfq8Dai4w0A/531F0mm2A==
+eslint-plugin-formatjs@^4.10.0:
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-formatjs/-/eslint-plugin-formatjs-4.10.0.tgz#05da23f75b4ce507c90df93ff07be2b6e70ffbc5"
+  integrity sha512-YvNF72NVMkIevgJrX5xTkIj4eBCeiweM2/61ppP2eEni3FP4pDXy9UFsOhtxJVISTBH0UEAqz3xhRjqi1q+qag==
   dependencies:
-    "@formatjs/icu-messageformat-parser" "2.3.0"
-    "@formatjs/ts-transformer" "3.12.0"
+    "@formatjs/icu-messageformat-parser" "2.3.1"
+    "@formatjs/ts-transformer" "3.13.0"
     "@types/eslint" "7 || 8"
     "@types/picomatch" "^2.3.0"
     "@typescript-eslint/typescript-estree" "5.45.0"
@@ -14575,7 +14575,7 @@ eslint-plugin-formatjs@^4.9.1:
     magic-string "^0.29.0"
     picomatch "^2.3.1"
     tslib "2.4.0"
-    typescript "^4.7"
+    typescript "^4.7 || 5"
     unicode-emoji-utils "^1.1.1"
 
 eslint-plugin-import@^2.25.3:
