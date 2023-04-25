@@ -34,7 +34,7 @@ export class IotApplicationStack extends Stack {
       identityPoolId,
       userPoolClientId,
       userPoolId,
-      coreServiceUrl,
+      coreServiceUrl: `https://${coreServiceUrl}`,
     });
     const { publicDistribution } = publicAssetStack;
 
