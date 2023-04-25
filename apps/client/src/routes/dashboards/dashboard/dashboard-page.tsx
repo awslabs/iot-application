@@ -1,4 +1,7 @@
-import { Dashboard as IoTAppKitDashboard } from '@iot-app-kit/dashboard';
+import {
+  Dashboard as IoTAppKitDashboard,
+  DashboardConfiguration,
+} from '@iot-app-kit/dashboard';
 import { Auth } from 'aws-amplify';
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
@@ -10,6 +13,7 @@ import { useUpdateDashboardMutation } from '~/routes/dashboards/dashboard/hooks/
 import './styles.css';
 
 import type { DashboardDefinition } from '~/services';
+import { useViewport } from '~/hooks/dashboard/use-viewport';
 
 export function DashboardPage() {
   const params = useParams<{ dashboardId: string }>();
@@ -21,7 +25,7 @@ export function DashboardPage() {
 
   const dashboardQuery = useDashboardQuery(params.dashboardId);
   const updateDashboardMutation = useUpdateDashboardMutation();
-
+  const [viewport, saveViewport] = useViewport(params.dashboardId);
   if (dashboardQuery.isInitialLoading) {
     return <DashboardLoadingState />;
   }
@@ -39,12 +43,14 @@ export function DashboardPage() {
           numRows: 600,
           numColumns: 200,
         },
+        viewport,
       }}
       initialViewMode="preview"
-      onSave={(config: DashboardDefinition) => {
+      onSave={(
+        config: DashboardDefinition & Omit<DashboardConfiguration, 'widgets'>,
+      ) => {
         invariant(params.dashboardId, 'Expected dashboard ID to be defined');
         invariant(dashboardQuery.data, 'Expected dashboard to be loaded');
-
         void updateDashboardMutation.mutateAsync({
           ...dashboardQuery.data,
           id: params.dashboardId,
@@ -52,6 +58,7 @@ export function DashboardPage() {
             widgets: config.widgets,
           },
         });
+        saveViewport(config.viewport);
       }}
     />
   );
