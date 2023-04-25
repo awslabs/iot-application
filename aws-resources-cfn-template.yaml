@@ -211,6 +211,31 @@ Resources:
             Resource: !Sub ${AssetBucket.Arn}/*
         Version: 2012-10-17
 
+  PublicAssetHeadersPolicy:
+    Type: 'AWS::CloudFront::ResponseHeadersPolicy'
+    Properties:
+      ResponseHeadersPolicyConfig:
+        Name: IoTApplicationPublicAssetHeaders
+        SecurityHeadersConfig:
+          ContentSecurityPolicy:
+            ContentSecurityPolicy: !Join
+              - ' '
+              - - connect-src
+                - !Sub https://${CoreService.ServiceUrl}
+                - !Sub https://cognito-identity.${AWS::Region}.amazonaws.com
+                - !Sub https://cognito-idp.${AWS::Region}.amazonaws.com
+                - !Sub https://iotevents.${AWS::Region}.amazonaws.com
+                - !Sub https://data.iotevents.${AWS::Region}.amazonaws.com
+                - !Sub https://api.iotsitewise.${AWS::Region}.amazonaws.com
+                - !Sub https://data.iotsitewise.${AWS::Region}.amazonaws.com;
+                - default-src 'none';
+                - font-src 'self' data:;
+                - img-src 'self' data:;
+                - script-src 'self' 'unsafe-eval';
+                - style-src 'self' 'unsafe-inline';
+                - upgrade-insecure-requests;
+            Override: true
+
   PublicAssetDistribution:
     Type: "AWS::CloudFront::Distribution"
     Properties:
@@ -218,6 +243,7 @@ Resources:
         DefaultCacheBehavior:
           CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
           Compress: true
+          ResponseHeadersPolicyId: !Ref PublicAssetHeadersPolicy
           TargetOriginId: IotAppFrontEndAssetDistributionOrigin
           ViewerProtocolPolicy: redirect-to-https
         CacheBehaviors:
