@@ -10928,10 +10928,10 @@ aws-cdk-lib@2.67.0:
     semver "^7.3.8"
     yaml "1.10.2"
 
-aws-cdk@2.75.1:
-  version "2.75.1"
-  resolved "https://registry.yarnpkg.com/aws-cdk/-/aws-cdk-2.75.1.tgz#71193f6c4b381ce25bee2e4419675026483e1aaf"
-  integrity sha512-LB0pvt3FwHEvljBIczNwvVCrknZ8u/s7CFNaCC6AmpFajwy8BZrbcRL8iKxHKwaWvPULY1bzvsqhHAoE34h4Ow==
+aws-cdk@2.76.0:
+  version "2.76.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk/-/aws-cdk-2.76.0.tgz#5c1a499e2002551f16ff115df16fa8570d747d84"
+  integrity sha512-y6VHtqUpYenn6mGIBFbcGGXIoXfKA3o0eGL/eeD/gUJ9TcPrgMLQM1NxSMb5JVsOk5BPPXzGmvB0gBu40utGqg==
   optionalDependencies:
     fsevents "2.3.2"
 
