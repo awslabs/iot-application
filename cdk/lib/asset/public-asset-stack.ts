@@ -2,6 +2,7 @@ import { Duration, Stack, StackProps } from 'aws-cdk-lib';
 import {
   Distribution,
   OriginAccessIdentity,
+  ResponseHeadersPolicy,
   SecurityPolicyProtocol,
   ViewerProtocolPolicy,
 } from 'aws-cdk-lib/aws-cloudfront';
@@ -17,6 +18,7 @@ import {
 import { Construct } from 'constructs';
 import { randomUUID } from 'crypto';
 import path from 'path';
+import { getPublicAssetCsp } from '../csp/public-asset-directives';
 
 const CLIENT_BUILD_DIR_PATH = '../../../apps/client/build';
 
@@ -87,7 +89,7 @@ export class PublicAssetStack extends Stack {
         },
       },
       coreServer: {
-        endpoint: `https://${coreServiceUrl}`,
+        endpoint: coreServiceUrl,
       },
     };
 
@@ -108,11 +110,28 @@ export class PublicAssetStack extends Stack {
       }),
     });
 
+    const publicAssetHeaders = new ResponseHeadersPolicy(
+      this,
+      'PublicAssetHeaders',
+      {
+        securityHeadersBehavior: {
+          contentSecurityPolicy: {
+            contentSecurityPolicy: getPublicAssetCsp(
+              coreServiceUrl,
+              this.region,
+            ),
+            override: true,
+          },
+        },
+      },
+    );
+
     this.publicDistribution = new Distribution(
       this,
       'PublicAssetDistribution',
       {
         defaultBehavior: {
+          responseHeadersPolicy: publicAssetHeaders,
           origin: new S3Origin(assetBucket, {
             originAccessIdentity: assetBucketOAI,
             originPath: assetHashKey,
