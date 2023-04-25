@@ -40,7 +40,7 @@
     "jest-watch-typeahead": "^2.2.2",
     "node-notifier": "^10.0.1",
     "openapi-typescript": "^6.2.1",
-    "openapi-typescript-codegen": "^0.23.0",
+    "openapi-typescript-codegen": "^0.24.0",
     "prettier": "^2.8.7",
     "rimraf": "^5.0.0",
     "ts-jest": "^29.1.0",
