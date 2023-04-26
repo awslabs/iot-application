@@ -1,9 +1,11 @@
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import {
   Body,
   Controller,
   Delete,
   Get,
   HttpCode,
+  Inject,
   NotFoundException,
   Param,
   Post,
@@ -18,10 +20,15 @@ import { DeleteDashboardParams } from './params/delete-dashboard.params';
 import { ReadDashboardParams } from './params/read-dashboard.params';
 import { UpdateDashboardParams } from './params/update-dashboard.params';
 
+import type { Cache } from 'cache-manager';
+
 @ApiTags('dashboards')
 @Controller('dashboards')
 export class DashboardsController {
-  constructor(private readonly dashboardsService: DashboardsService) {}
+  constructor(
+    private readonly dashboardsService: DashboardsService,
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
+  ) {}
 
   @Get()
   public list() {
@@ -29,7 +36,8 @@ export class DashboardsController {
   }
 
   @Post()
-  public create(@Body() createDashboardDto: CreateDashboardDto) {
+  public async create(@Body() createDashboardDto: CreateDashboardDto) {
+    await this.clearCache();
     return this.dashboardsService.create(createDashboardDto);
   }
 
@@ -49,6 +57,7 @@ export class DashboardsController {
     @Param() params: UpdateDashboardParams,
     @Body() updateDashboardDto: UpdateDashboardDto,
   ) {
+    await this.clearCache();
     const dashboard = await this.dashboardsService.update({
       ...updateDashboardDto,
       ...params,
@@ -64,10 +73,15 @@ export class DashboardsController {
   @HttpCode(204)
   @Delete(':id')
   public async delete(@Param() params: DeleteDashboardParams) {
+    await this.clearCache();
     const deleted = await this.dashboardsService.delete(params.id);
 
     if (!deleted) {
       throw new NotFoundException();
     }
+  }
+
+  private async clearCache() {
+    await this.cacheManager.reset();
   }
 }

@@ -150,13 +150,6 @@ const assertDatabaseEntry = async function ({
   ]);
 };
 
-const omitProperty = (key: string, obj: Record<string, unknown>): unknown => {
-  // eslint-disable-next-line
-  const { [key]: _, ...rest } = obj;
-
-  return rest;
-};
-
 describe('DashboardsModule', () => {
   let bearerToken = '';
   let app: NestFastifyApplication;
@@ -204,10 +197,40 @@ describe('DashboardsModule', () => {
     });
 
     test('returns dashboard list on success', async () => {
-      const dashboard1 = await seedTestDashboard('dashboard 1 name');
-      const dashboard2 = await seedTestDashboard('dashboard 2 name');
-      const dashboardSummary1 = omitProperty('definition', dashboard1);
-      const dashboardSummary2 = omitProperty('definition', dashboard2);
+      const createDashboardResponse1 = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'POST',
+        payload: {
+          name: 'dashboard 1 name',
+          description: dummyDescription,
+          definition: dummyDefinition,
+        },
+        url: '/dashboards',
+      });
+      const createDashboardResponse2 = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'POST',
+        payload: {
+          name: 'dashboard 2 name',
+          description: dummyDescription,
+          definition: dummyDefinition,
+        },
+        url: '/dashboards',
+      });
+
+      const { definition: definition1, ...dashboardSummary1 } = JSON.parse(
+        createDashboardResponse1.payload,
+      ) as unknown as Dashboard;
+      const { definition: definition2, ...dashboardSummary2 } = JSON.parse(
+        createDashboardResponse2.payload,
+      ) as unknown as Dashboard;
+
+      expect(dashboardSummary1).not.toMatchObject(definition1);
+      expect(dashboardSummary1).not.toMatchObject(definition2);
 
       const response = await app.inject({
         headers: {
