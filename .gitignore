@@ -34,3 +34,6 @@ dist-ssr
 coverage
 /.cognito/db/*
 /apps/client/html/*
+
+# Ignore generated core documentation
+/apps/core/documentation/*

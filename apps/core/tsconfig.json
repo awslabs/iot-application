@@ -11,5 +11,5 @@
     "strictPropertyInitialization": false,
     "target": "es2022"
   },
-  "include": ["src"]
+  "include": ["src/**/*.ts"]
 }

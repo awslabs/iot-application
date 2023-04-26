@@ -6,6 +6,7 @@
     "build": "nest build core",
     "clean": "rimraf .turbo && rimraf node_modules && rimraf dist && rimraf *.tsbuildinfo",
     "dev": "yarn cognito-local & nest build --webpack --webpackPath webpack-hmr.config.js --watch",
+    "docs": "compodoc -p tsconfig.json -s --hideGenerator",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -41,6 +42,7 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.19",
     "@nestjs/cli": "^9.4.2",
     "@nestjs/schematics": "^9.1.0",
     "@nestjs/testing": "^9.0.0",
