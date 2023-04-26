@@ -17,7 +17,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "importsNotUsedAsValues": "preserve",
+    "verbatimModuleSyntax": false,
     "incremental": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
