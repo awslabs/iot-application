@@ -1,6 +1,6 @@
-name: Build and Test
+name: Unit Test
 
-run-name: Build and Test action initiated by ${{ github.actor }}
+run-name: Unit Test action initiated by ${{ github.actor }}
 
 on:
   push:
@@ -9,8 +9,8 @@ on:
     branches: main
 
 jobs:
-  build:
-    timeout-minutes: 15
+  test:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
 
     steps:
@@ -19,29 +19,23 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Install Java 🔧
+        uses: actions/setup-java@v3
+        with:
+          distribution: corretto
+          java-version: 17
+
       - name: Install Node.js 🔧
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'yarn'
-
-      - name: Install Java 🔧
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'corretto'
-          java-version: '17'
+          cache: yarn
 
       - name: Install Dependencies 🔩
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
-      - name: Build 👷
-        run: yarn build
-
-      - name: Test 🧑‍🔬
+      - name: Unit Test Application 🧑‍🔬
         run: yarn test
-
-      - name: Lint 🐰
-        run: yarn lint
 
       - name: Store Client Test Artifacts 🧪
         if: always()
@@ -60,8 +54,8 @@ jobs:
           retention-days: 30
 
       - name: Store Core Test Coverage Artifacts 🧪
-        uses: actions/upload-artifact@v3
         if: always()
+        uses: actions/upload-artifact@v3
         with:
           name: core-test-coverage
           path: apps/core/coverage/
