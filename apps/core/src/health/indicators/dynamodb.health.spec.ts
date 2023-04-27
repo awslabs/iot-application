@@ -8,9 +8,6 @@ import { DynamoDbHealthIndicator } from './dynamodb.health';
 import { mockClient } from 'aws-sdk-client-mock';
 
 describe('HealthController', () => {
-  // there is a type error after upgrading local dyanmodb client
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const ddbMock = mockClient(DynamoDBClient);
   let dynamoDbHealthIndicator: DynamoDbHealthIndicator;
 
@@ -28,9 +25,6 @@ describe('HealthController', () => {
 
   describe('check', () => {
     test('returns up status', async () => {
-      // there is a type error after upgrading local dyanmodb client
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       ddbMock.on(DescribeTableCommand).resolves({});
 
       const result = dynamoDbHealthIndicator.check('db');
@@ -42,9 +36,6 @@ describe('HealthController', () => {
     });
 
     test('returns down status', async () => {
-      // there is a type error after upgrading local dyanmodb client
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       ddbMock.on(DescribeTableCommand).rejects();
 
       const result = dynamoDbHealthIndicator.check('db');
