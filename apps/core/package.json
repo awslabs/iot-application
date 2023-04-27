@@ -38,7 +38,7 @@
     "dynamodb-local": "^0.0.32",
     "nanoid": "3.1.31",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.4.2",
