@@ -1,4 +1,6 @@
-name: Create diagram
+name: Create Diagram
+
+run-name: Create Diagram action initiated by ${{ github.actor }}
 
 on:
   push:
@@ -6,12 +8,16 @@ on:
 
 jobs:
   diagram:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
-      - name: Create diagram 🎨
+      - name: Create Diagram 🎨
         uses: githubocto/repo-visualizer@0.7.1
         with:
           artifact_name: diagram
@@ -21,7 +27,7 @@ jobs:
 
       # retrieve diagram from workflow output
       # diagram in README.md is updated manually
-      - name: Download diagram 📝
+      - name: Download Diagram 📝
         uses: actions/download-artifact@v3
         with:
           name: diagram

@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 10
     runs-on: ubuntu-latest
 
     steps:
@@ -19,20 +19,20 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Install Java 🔧
+        uses: actions/setup-java@v3
+        with:
+          distribution: corretto
+          java-version: 17
+
       - name: Install Node.js 🔧
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'yarn'
-
-      - name: Install Java 🔧
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'corretto'
-          java-version: '17'
+          cache: yarn
 
       - name: Install Dependencies 🔩
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Install Playwright Browsers 🔩
         run: yarn playwright install --with-deps

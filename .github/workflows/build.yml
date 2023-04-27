@@ -1,0 +1,38 @@
+name: Build
+
+run-name: Build action initiated by ${{ github.actor }}
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  build:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Install Java 🔧
+        uses: actions/setup-java@v3
+        with:
+          distribution: corretto
+          java-version: 17
+
+      - name: Install Node.js 🔧
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install Dependencies 🔩
+        run: yarn install --frozen-lockfile
+
+      - name: Build Application 👷
+        run: yarn build
