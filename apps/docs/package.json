@@ -1,22 +1,22 @@
 {
   "name": "docs",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist && rimraf *.tsbuildinfo",
+    "dev": "next dev",
+    "lint": "tsc --noEmit && TIMING=1 eslint \"{src,test}/**/*.ts\" --max-warnings 0",
+    "start": "next start"
   },
   "dependencies": {
-    "@types/node": "18.16.2",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
-    "eslint": "8.39.0",
+    "eslint-config-custom": "*",
     "eslint-config-next": "13.3.1",
     "next": "13.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.0.4"
+    "tsconfig": "*"
   }
 }
