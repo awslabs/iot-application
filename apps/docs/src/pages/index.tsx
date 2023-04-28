@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Button from '@cloudscape-design/components/button';
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       </Head>
       <main>
         <h1>IoT Application</h1>
+        <Button>test</Button>
       </main>
     </>
   );
