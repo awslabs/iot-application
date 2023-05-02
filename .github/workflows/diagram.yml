@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 2
 
       - name: Create Diagram 🎨
-        uses: githubocto/repo-visualizer@0.7.1
+        uses: githubocto/repo-visualizer@0.9.1
         with:
           artifact_name: diagram
           should_push: false
