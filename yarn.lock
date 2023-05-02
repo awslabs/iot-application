@@ -1024,46 +1024,46 @@
     "@aws-sdk/util-utf8-node" "3.6.1"
     tslib "^2.0.0"
 
-"@aws-sdk/client-iot-events@3.281.0":
-  version "3.281.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iot-events/-/client-iot-events-3.281.0.tgz#08d03d4fde18dce142e39fa367589733126b0566"
-  integrity sha512-uRX8rE6zOVXxa0UOVm/KzfUhopzwsYBL2A/62f9NaE4XEV7vwLm6Xpw6HGDUdmmV3Wjc/qPOl9DM2L8pWanEiQ==
+"@aws-sdk/client-iot-events@3.319.0":
+  version "3.319.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iot-events/-/client-iot-events-3.319.0.tgz#e6b6b6fd33f96ac5a74f0f6e9016714ae6b4d335"
+  integrity sha512-kwIN83SuGJ55zzvQEzFJBCmbfJOvf24a4pBTBFXcKNyxn3akQXypY9rvTrnDDBuN1MenO/OJcuA9/E1WOLfjpA==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.281.0"
-    "@aws-sdk/config-resolver" "3.272.0"
-    "@aws-sdk/credential-provider-node" "3.281.0"
-    "@aws-sdk/fetch-http-handler" "3.272.0"
-    "@aws-sdk/hash-node" "3.272.0"
-    "@aws-sdk/invalid-dependency" "3.272.0"
-    "@aws-sdk/middleware-content-length" "3.272.0"
-    "@aws-sdk/middleware-endpoint" "3.272.0"
-    "@aws-sdk/middleware-host-header" "3.278.0"
-    "@aws-sdk/middleware-logger" "3.272.0"
-    "@aws-sdk/middleware-recursion-detection" "3.272.0"
-    "@aws-sdk/middleware-retry" "3.272.0"
-    "@aws-sdk/middleware-serde" "3.272.0"
-    "@aws-sdk/middleware-signing" "3.272.0"
-    "@aws-sdk/middleware-stack" "3.272.0"
-    "@aws-sdk/middleware-user-agent" "3.272.0"
-    "@aws-sdk/node-config-provider" "3.272.0"
-    "@aws-sdk/node-http-handler" "3.272.0"
-    "@aws-sdk/protocol-http" "3.272.0"
-    "@aws-sdk/smithy-client" "3.279.0"
-    "@aws-sdk/types" "3.272.0"
-    "@aws-sdk/url-parser" "3.272.0"
-    "@aws-sdk/util-base64" "3.208.0"
-    "@aws-sdk/util-body-length-browser" "3.188.0"
-    "@aws-sdk/util-body-length-node" "3.208.0"
-    "@aws-sdk/util-defaults-mode-browser" "3.279.0"
-    "@aws-sdk/util-defaults-mode-node" "3.279.0"
-    "@aws-sdk/util-endpoints" "3.272.0"
-    "@aws-sdk/util-retry" "3.272.0"
-    "@aws-sdk/util-user-agent-browser" "3.272.0"
-    "@aws-sdk/util-user-agent-node" "3.272.0"
-    "@aws-sdk/util-utf8" "3.254.0"
-    tslib "^2.3.1"
+    "@aws-sdk/client-sts" "3.319.0"
+    "@aws-sdk/config-resolver" "3.310.0"
+    "@aws-sdk/credential-provider-node" "3.319.0"
+    "@aws-sdk/fetch-http-handler" "3.310.0"
+    "@aws-sdk/hash-node" "3.310.0"
+    "@aws-sdk/invalid-dependency" "3.310.0"
+    "@aws-sdk/middleware-content-length" "3.310.0"
+    "@aws-sdk/middleware-endpoint" "3.310.0"
+    "@aws-sdk/middleware-host-header" "3.310.0"
+    "@aws-sdk/middleware-logger" "3.310.0"
+    "@aws-sdk/middleware-recursion-detection" "3.310.0"
+    "@aws-sdk/middleware-retry" "3.310.0"
+    "@aws-sdk/middleware-serde" "3.310.0"
+    "@aws-sdk/middleware-signing" "3.310.0"
+    "@aws-sdk/middleware-stack" "3.310.0"
+    "@aws-sdk/middleware-user-agent" "3.319.0"
+    "@aws-sdk/node-config-provider" "3.310.0"
+    "@aws-sdk/node-http-handler" "3.310.0"
+    "@aws-sdk/protocol-http" "3.310.0"
+    "@aws-sdk/smithy-client" "3.316.0"
+    "@aws-sdk/types" "3.310.0"
+    "@aws-sdk/url-parser" "3.310.0"
+    "@aws-sdk/util-base64" "3.310.0"
+    "@aws-sdk/util-body-length-browser" "3.310.0"
+    "@aws-sdk/util-body-length-node" "3.310.0"
+    "@aws-sdk/util-defaults-mode-browser" "3.316.0"
+    "@aws-sdk/util-defaults-mode-node" "3.316.0"
+    "@aws-sdk/util-endpoints" "3.319.0"
+    "@aws-sdk/util-retry" "3.310.0"
+    "@aws-sdk/util-user-agent-browser" "3.310.0"
+    "@aws-sdk/util-user-agent-node" "3.310.0"
+    "@aws-sdk/util-utf8" "3.310.0"
+    tslib "^2.5.0"
 
 "@aws-sdk/client-iot-events@^3.321.1":
   version "3.321.1"
@@ -1106,47 +1106,47 @@
     "@aws-sdk/util-utf8" "3.310.0"
     tslib "^2.5.0"
 
-"@aws-sdk/client-iotsitewise@3.281.0":
-  version "3.281.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iotsitewise/-/client-iotsitewise-3.281.0.tgz#8f17a7768c91b10f81d4cd54195647a9e37c4a42"
-  integrity sha512-1Mz5DBBiw4JNrtcmMvIWk+8V+YVfRBG81GuikF7FBuqdICuEuVoZODPcLSOjXvjW6uRwBPuauPqRwnUXCqocXQ==
+"@aws-sdk/client-iotsitewise@3.319.0":
+  version "3.319.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iotsitewise/-/client-iotsitewise-3.319.0.tgz#1785e4e10ac56269f0ef21253f7d98ee6b549b51"
+  integrity sha512-DrMT1MpHgEPyfZrle7RNB6/uIdLTNPue22KIc9Mlpv1Ykd9BAUH02KG/74A1xCvPxduS66n0ceufJa5APfBtmA==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.281.0"
-    "@aws-sdk/config-resolver" "3.272.0"
-    "@aws-sdk/credential-provider-node" "3.281.0"
-    "@aws-sdk/fetch-http-handler" "3.272.0"
-    "@aws-sdk/hash-node" "3.272.0"
-    "@aws-sdk/invalid-dependency" "3.272.0"
-    "@aws-sdk/middleware-content-length" "3.272.0"
-    "@aws-sdk/middleware-endpoint" "3.272.0"
-    "@aws-sdk/middleware-host-header" "3.278.0"
-    "@aws-sdk/middleware-logger" "3.272.0"
-    "@aws-sdk/middleware-recursion-detection" "3.272.0"
-    "@aws-sdk/middleware-retry" "3.272.0"
-    "@aws-sdk/middleware-serde" "3.272.0"
-    "@aws-sdk/middleware-signing" "3.272.0"
-    "@aws-sdk/middleware-stack" "3.272.0"
-    "@aws-sdk/middleware-user-agent" "3.272.0"
-    "@aws-sdk/node-config-provider" "3.272.0"
-    "@aws-sdk/node-http-handler" "3.272.0"
-    "@aws-sdk/protocol-http" "3.272.0"
-    "@aws-sdk/smithy-client" "3.279.0"
-    "@aws-sdk/types" "3.272.0"
-    "@aws-sdk/url-parser" "3.272.0"
-    "@aws-sdk/util-base64" "3.208.0"
-    "@aws-sdk/util-body-length-browser" "3.188.0"
-    "@aws-sdk/util-body-length-node" "3.208.0"
-    "@aws-sdk/util-defaults-mode-browser" "3.279.0"
-    "@aws-sdk/util-defaults-mode-node" "3.279.0"
-    "@aws-sdk/util-endpoints" "3.272.0"
-    "@aws-sdk/util-retry" "3.272.0"
-    "@aws-sdk/util-user-agent-browser" "3.272.0"
-    "@aws-sdk/util-user-agent-node" "3.272.0"
-    "@aws-sdk/util-utf8" "3.254.0"
-    "@aws-sdk/util-waiter" "3.272.0"
-    tslib "^2.3.1"
+    "@aws-sdk/client-sts" "3.319.0"
+    "@aws-sdk/config-resolver" "3.310.0"
+    "@aws-sdk/credential-provider-node" "3.319.0"
+    "@aws-sdk/fetch-http-handler" "3.310.0"
+    "@aws-sdk/hash-node" "3.310.0"
+    "@aws-sdk/invalid-dependency" "3.310.0"
+    "@aws-sdk/middleware-content-length" "3.310.0"
+    "@aws-sdk/middleware-endpoint" "3.310.0"
+    "@aws-sdk/middleware-host-header" "3.310.0"
+    "@aws-sdk/middleware-logger" "3.310.0"
+    "@aws-sdk/middleware-recursion-detection" "3.310.0"
+    "@aws-sdk/middleware-retry" "3.310.0"
+    "@aws-sdk/middleware-serde" "3.310.0"
+    "@aws-sdk/middleware-signing" "3.310.0"
+    "@aws-sdk/middleware-stack" "3.310.0"
+    "@aws-sdk/middleware-user-agent" "3.319.0"
+    "@aws-sdk/node-config-provider" "3.310.0"
+    "@aws-sdk/node-http-handler" "3.310.0"
+    "@aws-sdk/protocol-http" "3.310.0"
+    "@aws-sdk/smithy-client" "3.316.0"
+    "@aws-sdk/types" "3.310.0"
+    "@aws-sdk/url-parser" "3.310.0"
+    "@aws-sdk/util-base64" "3.310.0"
+    "@aws-sdk/util-body-length-browser" "3.310.0"
+    "@aws-sdk/util-body-length-node" "3.310.0"
+    "@aws-sdk/util-defaults-mode-browser" "3.316.0"
+    "@aws-sdk/util-defaults-mode-node" "3.316.0"
+    "@aws-sdk/util-endpoints" "3.319.0"
+    "@aws-sdk/util-retry" "3.310.0"
+    "@aws-sdk/util-user-agent-browser" "3.310.0"
+    "@aws-sdk/util-user-agent-node" "3.310.0"
+    "@aws-sdk/util-utf8" "3.310.0"
+    "@aws-sdk/util-waiter" "3.310.0"
+    tslib "^2.5.0"
     uuid "^8.3.2"
 
 "@aws-sdk/client-iotsitewise@^3.321.1":
@@ -1233,48 +1233,48 @@
     "@aws-sdk/util-utf8" "3.295.0"
     tslib "^2.5.0"
 
-"@aws-sdk/client-kinesis-video-archived-media@3.281.0":
-  version "3.281.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-kinesis-video-archived-media/-/client-kinesis-video-archived-media-3.281.0.tgz#92b817b0e9a91cf7d34f5e6de3a1de31d46a93bb"
-  integrity sha512-3jUDDhq1vglYXb41uTxFOgysAsKEc0rpI2craXpXyEvpiRm7NGBKWHxgCOZMsX9ivbWESQAXNL82gNMpkiduFg==
+"@aws-sdk/client-kinesis-video-archived-media@3.321.1":
+  version "3.321.1"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-kinesis-video-archived-media/-/client-kinesis-video-archived-media-3.321.1.tgz#d3e1fa5284163a522b1314e5b8efc011505939ec"
+  integrity sha512-HBHEvwYDGi4tH/Ya2mD2ztZVRLsq4qWQFYmS4ONWFuupt2oOxbyaVVvqoO9hC5Yv+HF38YvM6pRKwBMmJvMqhw==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.281.0"
-    "@aws-sdk/config-resolver" "3.272.0"
-    "@aws-sdk/credential-provider-node" "3.281.0"
-    "@aws-sdk/fetch-http-handler" "3.272.0"
-    "@aws-sdk/hash-node" "3.272.0"
-    "@aws-sdk/invalid-dependency" "3.272.0"
-    "@aws-sdk/middleware-content-length" "3.272.0"
-    "@aws-sdk/middleware-endpoint" "3.272.0"
-    "@aws-sdk/middleware-host-header" "3.278.0"
-    "@aws-sdk/middleware-logger" "3.272.0"
-    "@aws-sdk/middleware-recursion-detection" "3.272.0"
-    "@aws-sdk/middleware-retry" "3.272.0"
-    "@aws-sdk/middleware-serde" "3.272.0"
-    "@aws-sdk/middleware-signing" "3.272.0"
-    "@aws-sdk/middleware-stack" "3.272.0"
-    "@aws-sdk/middleware-user-agent" "3.272.0"
-    "@aws-sdk/node-config-provider" "3.272.0"
-    "@aws-sdk/node-http-handler" "3.272.0"
-    "@aws-sdk/protocol-http" "3.272.0"
-    "@aws-sdk/smithy-client" "3.279.0"
-    "@aws-sdk/types" "3.272.0"
-    "@aws-sdk/url-parser" "3.272.0"
-    "@aws-sdk/util-base64" "3.208.0"
-    "@aws-sdk/util-body-length-browser" "3.188.0"
-    "@aws-sdk/util-body-length-node" "3.208.0"
-    "@aws-sdk/util-defaults-mode-browser" "3.279.0"
-    "@aws-sdk/util-defaults-mode-node" "3.279.0"
-    "@aws-sdk/util-endpoints" "3.272.0"
-    "@aws-sdk/util-retry" "3.272.0"
-    "@aws-sdk/util-stream-browser" "3.272.0"
-    "@aws-sdk/util-stream-node" "3.272.0"
-    "@aws-sdk/util-user-agent-browser" "3.272.0"
-    "@aws-sdk/util-user-agent-node" "3.272.0"
-    "@aws-sdk/util-utf8" "3.254.0"
-    tslib "^2.3.1"
+    "@aws-sdk/client-sts" "3.321.1"
+    "@aws-sdk/config-resolver" "3.310.0"
+    "@aws-sdk/credential-provider-node" "3.321.1"
+    "@aws-sdk/fetch-http-handler" "3.310.0"
+    "@aws-sdk/hash-node" "3.310.0"
+    "@aws-sdk/invalid-dependency" "3.310.0"
+    "@aws-sdk/middleware-content-length" "3.310.0"
+    "@aws-sdk/middleware-endpoint" "3.310.0"
+    "@aws-sdk/middleware-host-header" "3.310.0"
+    "@aws-sdk/middleware-logger" "3.310.0"
+    "@aws-sdk/middleware-recursion-detection" "3.310.0"
+    "@aws-sdk/middleware-retry" "3.310.0"
+    "@aws-sdk/middleware-serde" "3.310.0"
+    "@aws-sdk/middleware-signing" "3.310.0"
+    "@aws-sdk/middleware-stack" "3.310.0"
+    "@aws-sdk/middleware-user-agent" "3.319.0"
+    "@aws-sdk/node-config-provider" "3.310.0"
+    "@aws-sdk/node-http-handler" "3.321.1"
+    "@aws-sdk/protocol-http" "3.310.0"
+    "@aws-sdk/smithy-client" "3.316.0"
+    "@aws-sdk/types" "3.310.0"
+    "@aws-sdk/url-parser" "3.310.0"
+    "@aws-sdk/util-base64" "3.310.0"
+    "@aws-sdk/util-body-length-browser" "3.310.0"
+    "@aws-sdk/util-body-length-node" "3.310.0"
+    "@aws-sdk/util-defaults-mode-browser" "3.316.0"
+    "@aws-sdk/util-defaults-mode-node" "3.316.0"
+    "@aws-sdk/util-endpoints" "3.319.0"
+    "@aws-sdk/util-retry" "3.310.0"
+    "@aws-sdk/util-stream-browser" "3.310.0"
+    "@aws-sdk/util-stream-node" "3.321.1"
+    "@aws-sdk/util-user-agent-browser" "3.310.0"
+    "@aws-sdk/util-user-agent-node" "3.310.0"
+    "@aws-sdk/util-utf8" "3.310.0"
+    tslib "^2.5.0"
 
 "@aws-sdk/client-kinesis-video@3.281.0":
   version "3.281.0"
@@ -1784,46 +1784,46 @@
     fast-xml-parser "4.1.3"
     tslib "^2.0.0"
 
-"@aws-sdk/client-secrets-manager@3.281.0":
-  version "3.281.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-secrets-manager/-/client-secrets-manager-3.281.0.tgz#e7019e44b55b81f9807ddb4887203b07acf27a1b"
-  integrity sha512-vL+LygNDoCja/47pFwSnI3tCWfy5SGHlz6C1whcszmfl81gXyuHNlAK8RXVRiKhnD11zmCsHJhZyYSfTz5RErQ==
+"@aws-sdk/client-secrets-manager@3.321.1":
+  version "3.321.1"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-secrets-manager/-/client-secrets-manager-3.321.1.tgz#8c1c86ab7a9ef33567d0dd09d9880585db241300"
+  integrity sha512-OlZzn7I2PYaTRJycK88NeB++VwQqnEHbnHMhKKcFkjUzHD3w1hZkkHr0T5XbgDtXmWZUW3u24+3BtV1xtjAzHQ==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.281.0"
-    "@aws-sdk/config-resolver" "3.272.0"
-    "@aws-sdk/credential-provider-node" "3.281.0"
-    "@aws-sdk/fetch-http-handler" "3.272.0"
-    "@aws-sdk/hash-node" "3.272.0"
-    "@aws-sdk/invalid-dependency" "3.272.0"
-    "@aws-sdk/middleware-content-length" "3.272.0"
-    "@aws-sdk/middleware-endpoint" "3.272.0"
-    "@aws-sdk/middleware-host-header" "3.278.0"
-    "@aws-sdk/middleware-logger" "3.272.0"
-    "@aws-sdk/middleware-recursion-detection" "3.272.0"
-    "@aws-sdk/middleware-retry" "3.272.0"
-    "@aws-sdk/middleware-serde" "3.272.0"
-    "@aws-sdk/middleware-signing" "3.272.0"
-    "@aws-sdk/middleware-stack" "3.272.0"
-    "@aws-sdk/middleware-user-agent" "3.272.0"
-    "@aws-sdk/node-config-provider" "3.272.0"
-    "@aws-sdk/node-http-handler" "3.272.0"
-    "@aws-sdk/protocol-http" "3.272.0"
-    "@aws-sdk/smithy-client" "3.279.0"
-    "@aws-sdk/types" "3.272.0"
-    "@aws-sdk/url-parser" "3.272.0"
-    "@aws-sdk/util-base64" "3.208.0"
-    "@aws-sdk/util-body-length-browser" "3.188.0"
-    "@aws-sdk/util-body-length-node" "3.208.0"
-    "@aws-sdk/util-defaults-mode-browser" "3.279.0"
-    "@aws-sdk/util-defaults-mode-node" "3.279.0"
-    "@aws-sdk/util-endpoints" "3.272.0"
-    "@aws-sdk/util-retry" "3.272.0"
-    "@aws-sdk/util-user-agent-browser" "3.272.0"
-    "@aws-sdk/util-user-agent-node" "3.272.0"
-    "@aws-sdk/util-utf8" "3.254.0"
-    tslib "^2.3.1"
+    "@aws-sdk/client-sts" "3.321.1"
+    "@aws-sdk/config-resolver" "3.310.0"
+    "@aws-sdk/credential-provider-node" "3.321.1"
+    "@aws-sdk/fetch-http-handler" "3.310.0"
+    "@aws-sdk/hash-node" "3.310.0"
+    "@aws-sdk/invalid-dependency" "3.310.0"
+    "@aws-sdk/middleware-content-length" "3.310.0"
+    "@aws-sdk/middleware-endpoint" "3.310.0"
+    "@aws-sdk/middleware-host-header" "3.310.0"
+    "@aws-sdk/middleware-logger" "3.310.0"
+    "@aws-sdk/middleware-recursion-detection" "3.310.0"
+    "@aws-sdk/middleware-retry" "3.310.0"
+    "@aws-sdk/middleware-serde" "3.310.0"
+    "@aws-sdk/middleware-signing" "3.310.0"
+    "@aws-sdk/middleware-stack" "3.310.0"
+    "@aws-sdk/middleware-user-agent" "3.319.0"
+    "@aws-sdk/node-config-provider" "3.310.0"
+    "@aws-sdk/node-http-handler" "3.321.1"
+    "@aws-sdk/protocol-http" "3.310.0"
+    "@aws-sdk/smithy-client" "3.316.0"
+    "@aws-sdk/types" "3.310.0"
+    "@aws-sdk/url-parser" "3.310.0"
+    "@aws-sdk/util-base64" "3.310.0"
+    "@aws-sdk/util-body-length-browser" "3.310.0"
+    "@aws-sdk/util-body-length-node" "3.310.0"
+    "@aws-sdk/util-defaults-mode-browser" "3.316.0"
+    "@aws-sdk/util-defaults-mode-node" "3.316.0"
+    "@aws-sdk/util-endpoints" "3.319.0"
+    "@aws-sdk/util-retry" "3.310.0"
+    "@aws-sdk/util-user-agent-browser" "3.310.0"
+    "@aws-sdk/util-user-agent-node" "3.310.0"
+    "@aws-sdk/util-utf8" "3.310.0"
+    tslib "^2.5.0"
     uuid "^8.3.2"
 
 "@aws-sdk/client-sso-oidc@3.264.0":
@@ -5622,6 +5622,18 @@
     "@aws-sdk/util-utf8" "3.254.0"
     tslib "^2.3.1"
 
+"@aws-sdk/util-stream-browser@3.310.0":
+  version "3.310.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-stream-browser/-/util-stream-browser-3.310.0.tgz#223e60f7711f7a20fdc944e1b72c8dd4c1da28cf"
+  integrity sha512-bysXZHwFwvbqOTCScCdCnoLk1K3GCo0HRIYEZuL7O7MHrQmfaYRXcaft/p22+GUv9VeFXS/eJJZ5r4u32az94w==
+  dependencies:
+    "@aws-sdk/fetch-http-handler" "3.310.0"
+    "@aws-sdk/types" "3.310.0"
+    "@aws-sdk/util-base64" "3.310.0"
+    "@aws-sdk/util-hex-encoding" "3.310.0"
+    "@aws-sdk/util-utf8" "3.310.0"
+    tslib "^2.5.0"
+
 "@aws-sdk/util-stream-node@3.272.0":
   version "3.272.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/util-stream-node/-/util-stream-node-3.272.0.tgz#19e2bd5f71c3493dd06c3d37408fa9bda37995f6"
@@ -5631,6 +5643,16 @@
     "@aws-sdk/types" "3.272.0"
     "@aws-sdk/util-buffer-from" "3.208.0"
     tslib "^2.3.1"
+
+"@aws-sdk/util-stream-node@3.321.1":
+  version "3.321.1"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-stream-node/-/util-stream-node-3.321.1.tgz#57bbd20ab89f2452da37b9ad60dfdb2eb9fcc2e0"
+  integrity sha512-jvfff1zeA8q16hQWSC0BGwcHJPCwoh+bwiuAjihfl9q1tFLYuqaTzJzzkL1bntUsbW+y/ac5DO7fWcYPq0jWkw==
+  dependencies:
+    "@aws-sdk/node-http-handler" "3.321.1"
+    "@aws-sdk/types" "3.310.0"
+    "@aws-sdk/util-buffer-from" "3.310.0"
+    tslib "^2.5.0"
 
 "@aws-sdk/util-uri-escape@3.186.0":
   version "3.186.0"
@@ -7749,10 +7771,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@iot-app-kit/charts-core@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/charts-core/-/charts-core-1.8.1.tgz#2961d690aef1ce63c1719b7a6e3e49c4d7b2e305"
-  integrity sha512-rfPsZIS/NC23r6fhoZ+w78bVNEJhLVeU9IlKTSgOsu+Ins1Kdz2RhImDVruvEV+buixbMfHxcG1TfYFGqIQ4dw==
+"@iot-app-kit/charts-core@^1.8.4", "@iot-app-kit/charts-core@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/charts-core/-/charts-core-1.9.0.tgz#982ee082f949aa98c137ea913f81d80c9bd8ea65"
+  integrity sha512-81ChLOVcGQb4cgKqYhTCXQ2LX2KwZf6crJvk+ykMFz14SWBAZKPGgvo4FJul6ry42rFLTvvIavCSTf7yrrtKqg==
   dependencies:
     "@stencil/redux" "^0.1.1"
     "@types/d3" "^5.16.4"
@@ -7783,66 +7805,65 @@
     uuid "^3.3.2"
     validator "^13.6.0"
 
-"@iot-app-kit/charts@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/charts/-/charts-1.8.1.tgz#8cb17a8fe484cbe054a7fa8219fdc296f5cb1256"
-  integrity sha512-wE5lsNxGxf9ov1EjN04gg3o1qoIIoe878vV20qr4rUWDJF/rODNwGWbxginUW3Ws4y6t1iiL2ru9wad2g2ylcg==
+"@iot-app-kit/charts@^1.8.4":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/charts/-/charts-1.9.0.tgz#ebd89d6ae21683b7d242c70409055ccb821cb850"
+  integrity sha512-i1sWFnAOuZb1e+W55IjrqjkhMeyY0y9Jd0/Kj45g4HX2uQZtfJkSv525vVwF7YqZqXt9JiESd6OtP+4a3vbjkg==
   dependencies:
-    "@iot-app-kit/charts-core" "^1.8.1"
+    "@iot-app-kit/charts-core" "^1.9.0"
 
-"@iot-app-kit/components@5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/components/-/components-5.6.0.tgz#b9c3ef540625a4ef2cbd6bafc631e7d878abd8f1"
-  integrity sha512-Mn2oe9gxXWv9dcGHu0Z/yxmVIMZ6/JZ2FhCjvmaU+6a1toRAgb5ak5u90801QWiOCFKRdOzj1mZl+L78x1DTBg==
+"@iot-app-kit/components@5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/components/-/components-5.7.0.tgz#1477b1b0af0661ff085d13076b6dd62b58fe5954"
+  integrity sha512-YsfAIzSigIw7DNmj7IfEZsjGzdZkhLCQdymAtDHlXQL09R8B+gFmz7yf1UY6nnuV1w61uRcKFXGYiImj0EA+Bw==
   dependencies:
     "@awsui/collection-hooks" "^1.0.0"
     "@awsui/components-react" "^3.0.0"
     "@awsui/design-tokens" "^3.0.0"
-    "@iot-app-kit/core" "5.6.0"
-    "@iot-app-kit/related-table" "5.6.0"
+    "@iot-app-kit/core" "5.7.0"
+    "@iot-app-kit/related-table" "5.7.0"
     "@stencil/core" "^2.7.0"
     "@synchro-charts/core" "7.2.0"
     styled-components "^5.3.9"
 
-"@iot-app-kit/core-util@5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/core-util/-/core-util-5.6.0.tgz#885b00e96b2915611a6f8c0edf1bc61b3aba42de"
-  integrity sha512-WH2NIDHBUmeHXxcL0Gdho4jdyzZTDTivtqVee+YYw38q8FxdR3G111QxxGfg9rwSgmZvVT0zl09N4uQpUsfuOg==
+"@iot-app-kit/core-util@5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/core-util/-/core-util-5.7.0.tgz#d88ca532365e576895fe04dacf0bb31b26b51c5e"
+  integrity sha512-BmKuUa+c5p33w9DLMuiwKf/p0b5rvN7ihuTEcWgmokal7AMeM+opXRVTS6TFqXj0mnJAMmnBr+VC9b8yEvSwsw==
   dependencies:
-    "@aws-sdk/client-iot-events" "3.281.0"
-    "@aws-sdk/client-iotsitewise" "3.281.0"
+    "@aws-sdk/client-iot-events" "3.319.0"
+    "@aws-sdk/client-iotsitewise" "3.319.0"
 
-"@iot-app-kit/core@5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/core/-/core-5.6.0.tgz#4807e82aabafa981accf84c4c4d436427ff76d24"
-  integrity sha512-5V7Zc5hQX4/YI1kglsGdn8MuxJqBr/pWs1L48VnuaQfohdqoU8R4OK9nlAywh/bX9agjLcnbca1/TK7Hh02rzQ==
+"@iot-app-kit/core@5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/core/-/core-5.7.0.tgz#b1ca7d731b989f18fb99a1983b4e40106b8597c7"
+  integrity sha512-aqUbqNsQk+BnS8mdmCqD/68Q9OUKZhdEmFI3F0+HSPZjIzOs/Qe5m6e/OF+K/ornWtDtj6fexKuZsTlj8FoNjA==
   dependencies:
-    "@aws-sdk/client-iotsitewise" "3.281.0"
-    d3-array "^3.2.2"
+    "@aws-sdk/client-iotsitewise" "3.319.0"
+    d3-array "^3.2.3"
     intervals-fn "^3.0.3"
     parse-duration "^1.0.3"
     redux "^4.2.1"
     rxjs "^7.8.0"
     uuid "^9.0.0"
 
-"@iot-app-kit/dashboard@^5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/dashboard/-/dashboard-5.6.0.tgz#356f0c56e66a02d28dbe381cc643d6f7a51f6361"
-  integrity sha512-0KNpaAVq/1xA6UIAGAp7/Prji5icP/rA+9fS8gYAwF+IBGp0hgbx4TFw3w6DAqKnj9+t1B/hCeytBNqklzCSow==
+"@iot-app-kit/dashboard@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/dashboard/-/dashboard-5.7.0.tgz#04dc97d3816ae8edcdba74433536584faf2259ea"
+  integrity sha512-xTIkkK+/7HcHOUmsEZ0sGgkM/1GdgS0nv1/5Aq3j7+djPz6wZT3bkrooUO4ul2H9k08Xxk6wrFbc154fRNiIiA==
   dependencies:
-    "@aws-sdk/client-iot-events" "3.281.0"
-    "@aws-sdk/client-iotsitewise" "3.281.0"
+    "@aws-sdk/client-iot-events" "3.319.0"
+    "@aws-sdk/client-iotsitewise" "3.319.0"
     "@cloudscape-design/components" "^3.0.244"
     "@cloudscape-design/design-tokens" "^3.0.9"
     "@cloudscape-design/global-styles" "^1.0.7"
-    "@iot-app-kit/charts-core" "^1.8.1"
-    "@iot-app-kit/components" "5.6.0"
-    "@iot-app-kit/core" "5.6.0"
-    "@iot-app-kit/core-util" "5.6.0"
-    "@iot-app-kit/react-components" "5.6.0"
-    "@iot-app-kit/source-iotsitewise" "5.6.0"
+    "@iot-app-kit/charts-core" "^1.8.4"
+    "@iot-app-kit/components" "5.7.0"
+    "@iot-app-kit/core" "5.7.0"
+    "@iot-app-kit/core-util" "5.7.0"
+    "@iot-app-kit/react-components" "5.7.0"
+    "@iot-app-kit/source-iotsitewise" "5.7.0"
     "@popperjs/core" "^2.11.6"
-    box-intersect "^1.0.2"
     buffer "^6.0.3"
     is-hotkey "^0.2.0"
     parse-duration "^1.0.3"
@@ -7853,22 +7874,22 @@
     react-use "17.4.0"
     uuid "^9.0.0"
 
-"@iot-app-kit/react-components@5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/react-components/-/react-components-5.6.0.tgz#97268879e083d2f4107144cd01d262ee8d3feb90"
-  integrity sha512-yEoMNmUEVyYYkKNLeIpHYqgm5eKy43Ey7WEwlr0JUAPg5ujziB5H0yyhEuqdFdQsVkqFN33B8mfrXG7I28ZBHg==
+"@iot-app-kit/react-components@5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/react-components/-/react-components-5.7.0.tgz#ab2ed67d4af7269b829d3ed50fe50f385f7ad1ff"
+  integrity sha512-sMvBhgu9o2bABWrdxf3m01mr3lmSKrRqbHOX1KbStlVBMfM/I4Vo8OITuOurmrUpUY8IhtgAk1Yxnia18QUKhg==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.19"
     "@cloudscape-design/components" "^3.0.244"
     "@cloudscape-design/design-tokens" "^3.0.9"
-    "@iot-app-kit/charts" "^1.8.1"
-    "@iot-app-kit/charts-core" "^1.8.1"
-    "@iot-app-kit/components" "5.6.0"
-    "@iot-app-kit/core" "5.6.0"
-    "@iot-app-kit/core-util" "5.6.0"
-    "@iot-app-kit/source-iottwinmaker" "5.6.0"
+    "@iot-app-kit/charts" "^1.8.4"
+    "@iot-app-kit/charts-core" "^1.8.4"
+    "@iot-app-kit/components" "5.7.0"
+    "@iot-app-kit/core" "5.7.0"
+    "@iot-app-kit/core-util" "5.7.0"
+    "@iot-app-kit/source-iottwinmaker" "5.7.0"
     color "^4.2.3"
-    d3-array "^3.2.2"
+    d3-array "^3.2.3"
     d3-shape "^3.2.0"
     dompurify "2.3.4"
     lodash.omitby "^4.6.0"
@@ -7877,22 +7898,22 @@
     uuid "^9.0.0"
     video.js "7.20.3"
 
-"@iot-app-kit/related-table@5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/related-table/-/related-table-5.6.0.tgz#b267ad76ed156d4f29bcd4d90a6ef48378d3eb44"
-  integrity sha512-720Fmn9KYRhm6hVDPE89JKJnD8mabqRYtVC2KGkNK7/7TL7PElSsDed4izYjw99AplvC+oWksAPjlWBp0GyP3w==
+"@iot-app-kit/related-table@5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/related-table/-/related-table-5.7.0.tgz#fc15476b0cdf5b794024b0d1954280284cef383a"
+  integrity sha512-GkaJHWopb1etDOxkydcjey0yyb2y25IHnyisaeY+q6qxFHTaL+FK315nQYnEQhBpnkdlEtwWUhITyq/+Y1sBNQ==
   dependencies:
     uuid "^9.0.0"
 
-"@iot-app-kit/source-iotsitewise@5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iotsitewise/-/source-iotsitewise-5.6.0.tgz#dafc6b64a1c22658c0eb49b142c26d1f456bdc0b"
-  integrity sha512-6zfWE05Sc2Q9fyKqU1dvC9XZ0ZL5gwxYGWiUe5rFnUbX00WdoM+TuY+7hgGvZnVzYygt0yCfDJNETJiPDXic4g==
+"@iot-app-kit/source-iotsitewise@5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iotsitewise/-/source-iotsitewise-5.7.0.tgz#616337572222ab84988da3cd7595fb9387426e66"
+  integrity sha512-QdOSKGfe9TrLvWHYhzTtMCLo2XyOFF5dewG+oifJEd71V3hFHMizBW5jltBNJY7uu9+wGmIfLtavZogmZZoGLw==
   dependencies:
-    "@aws-sdk/client-iot-events" "3.281.0"
-    "@aws-sdk/client-iotsitewise" "3.281.0"
-    "@iot-app-kit/core" "5.6.0"
-    "@iot-app-kit/core-util" "5.6.0"
+    "@aws-sdk/client-iot-events" "3.319.0"
+    "@aws-sdk/client-iotsitewise" "3.319.0"
+    "@iot-app-kit/core" "5.7.0"
+    "@iot-app-kit/core-util" "5.7.0"
     "@synchro-charts/core" "7.2.0"
     dataloader "^2.2.2"
     lodash.isequal "^4.5.0"
@@ -7900,19 +7921,19 @@
     lodash.uniqwith "^4.5.0"
     rxjs "^7.8.0"
 
-"@iot-app-kit/source-iottwinmaker@5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iottwinmaker/-/source-iottwinmaker-5.6.0.tgz#3e9c89570183e6cd899ab4d4e1d182140e9a6793"
-  integrity sha512-9aen19R/hXRc0UtkEDCGX82bH81kvX8QknRhlkqN4pzOe+chnLR7r9ovgrkxyp0bNR4cR/nX0t4abxe9/owZCA==
+"@iot-app-kit/source-iottwinmaker@5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iottwinmaker/-/source-iottwinmaker-5.7.0.tgz#de56461ace0951e43f11a8081ff2ab449632ebce"
+  integrity sha512-2OaNPEFBHH4ZzkpX1KFN4nxd00XNTCHzrlZeyvcqP9CL38dDL1E1VS8dw+zjrH3ZXhqioi436c4ijQ3aXNzU+g==
   dependencies:
-    "@aws-sdk/client-iotsitewise" "3.281.0"
+    "@aws-sdk/client-iotsitewise" "3.319.0"
     "@aws-sdk/client-iottwinmaker" "3.297.0"
     "@aws-sdk/client-kinesis-video" "3.281.0"
-    "@aws-sdk/client-kinesis-video-archived-media" "3.281.0"
+    "@aws-sdk/client-kinesis-video-archived-media" "3.321.1"
     "@aws-sdk/client-s3" "3.281.0"
-    "@aws-sdk/client-secrets-manager" "3.281.0"
+    "@aws-sdk/client-secrets-manager" "3.321.1"
     "@aws-sdk/url-parser" "3.289.0"
-    "@iot-app-kit/core" "5.6.0"
+    "@iot-app-kit/core" "5.7.0"
     lodash "^4.17.21"
     rxjs "^7.8.0"
 
@@ -11504,11 +11525,6 @@ binary-extensions@^2.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
 
-bit-twiddle@^1.0.0, bit-twiddle@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/bit-twiddle/-/bit-twiddle-1.0.2.tgz#0c6c1fabe2b23d17173d9a61b7b7093eb9e1769e"
-  integrity sha512-B9UhK0DKFZhoTFcfvAzhqsjStvGJp9vYWf3+6SNTtdSQnvIgfkHbgHrg/e4+TH71N2GDu8tpmCVoyfrL1d7ntA==
-
 bl@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/bl/-/bl-4.1.0.tgz#451535264182bec2fbbc83a62ab98cf11d9f7b3a"
@@ -11593,14 +11609,6 @@ bowser@^2.11.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/bowser/-/bowser-2.11.0.tgz#5ca3c35757a7aa5771500c70a73a9f91ef420a8f"
   integrity sha512-AlcaJBi/pqqJBIQ8U9Mcpc9i8Aqxn88Skv5d+xBX006BY5u8N3mGLHa5Lgppa7L/HfwgwLgZ6NYs+Ag6uUmJRA==
-
-box-intersect@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/box-intersect/-/box-intersect-1.0.2.tgz#4693ad63e828868d0654b114e09364d6281f3fbd"
-  integrity sha512-yJeMwlmFPG1gIa7Rs/cGXeI6iOj6Qz5MG5PE61xLKpElUGzmJ4abm+qsLpzxKJFpsSDq742BQEocr8dI2t8Nxw==
-  dependencies:
-    bit-twiddle "^1.0.2"
-    typedarray-pool "^1.1.0"
 
 boxen@5.1.2, boxen@^5.1.2:
   version "5.1.2"
@@ -12656,7 +12664,7 @@ d3-array@2, d3-array@^2.3.0, d3-array@^2.3.2:
   dependencies:
     internmap "^1.0.0"
 
-d3-array@^3.2.2:
+d3-array@^3.2.3:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-3.2.3.tgz#39f1f4954e4a09ff69ac597c2d61906b04e84740"
   integrity sha512-JRHwbQQ84XuAESWhvIPaUV4/1UYTBOLiOPGWqgFDHZS1D5QN9c57FbH3QpEnQMYiOXNzKUQyGTZf+EVO7RT5TQ==
@@ -13219,11 +13227,6 @@ dotenv@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
-
-dup@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/dup/-/dup-1.0.0.tgz#51fc5ac685f8196469df0b905e934b20af5b4029"
-  integrity sha512-Bz5jxMMC0wgp23Zm15ip1x8IhYRqJvF3nFC0UInJUDkN1z4uNPk9jTnfCUJXbOGiQ1JbXLQsiV41Fb+HXcj5BA==
 
 duplexer@^0.1.2:
   version "0.1.2"
@@ -21219,14 +21222,6 @@ typed-array-length@^1.0.4:
     call-bind "^1.0.2"
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
-
-typedarray-pool@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/typedarray-pool/-/typedarray-pool-1.2.0.tgz#e7e90720144ba02b9ed660438af6f3aacfe33ac3"
-  integrity sha512-YTSQbzX43yvtpfRtIDAYygoYtgT+Rpjuxy9iOpczrjpXLgGoyG7aS5USJXV2d3nn8uHTeb9rXDvzS27zUg5KYQ==
-  dependencies:
-    bit-twiddle "^1.0.0"
-    dup "^1.0.0"
 
 typedarray-to-buffer@^3.1.5:
   version "3.1.5"
