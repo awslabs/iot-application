@@ -1,0 +1,36 @@
+name: Deployment
+
+run-name: Deployment action initiated by ${{ github.actor }}
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write # needed to interact with GitHub's OIDC Token endpoint
+  contents: read
+
+jobs:
+  deploy:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::535146877023:role/IotAppGithubResources-IotAppGithubRole-JIXVXHJGKXCG
+          aws-region: us-west-2
+
+      - name: Test AWS CLI
+        run: |
+          aws sts get-caller-identity
