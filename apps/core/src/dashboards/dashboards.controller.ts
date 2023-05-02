@@ -19,8 +19,10 @@ import { UpdateDashboardDto } from './dto/update-dashboard.dto';
 import { DeleteDashboardParams } from './params/delete-dashboard.params';
 import { ReadDashboardParams } from './params/read-dashboard.params';
 import { UpdateDashboardParams } from './params/update-dashboard.params';
+import { Dashboard } from './entities/dashboard.entity';
 
 import type { Cache } from 'cache-manager';
+import { isErr, isNothing } from '../types';
 
 @ApiTags('dashboards')
 @Controller('dashboards')
@@ -30,26 +32,48 @@ export class DashboardsController {
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
 
-  @Get()
-  public list() {
-    return this.dashboardsService.list();
-  }
-
-  @Post()
-  public async create(@Body() createDashboardDto: CreateDashboardDto) {
-    await this.clearCache();
-    return this.dashboardsService.create(createDashboardDto);
-  }
-
   @Get(':id')
-  public async read(@Param() params: ReadDashboardParams) {
-    const dashboard = await this.dashboardsService.read(params.id);
+  public async read(@Param() params: ReadDashboardParams): Promise<Dashboard> {
+    const eitherDashboard = await this.dashboardsService.read(params.id);
 
-    if (dashboard === undefined) {
+    if (isErr(eitherDashboard)) {
+      throw eitherDashboard.err;
+    }
+
+    if (isNothing(eitherDashboard.ok)) {
       throw new NotFoundException();
     }
 
-    return dashboard;
+    return eitherDashboard.ok;
+  }
+
+  @Get()
+  public async list() {
+    const eitherDashboards = await this.dashboardsService.list();
+
+    if (isErr(eitherDashboards)) {
+      throw eitherDashboards.err;
+    }
+
+    return eitherDashboards.ok;
+  }
+
+  @Post()
+  public async create(
+    @Body() createDashboardDto: CreateDashboardDto,
+  ): Promise<Dashboard> {
+    // cache is invalid after creating a new dashboard
+    await this.cacheManager.reset();
+
+    const eitherDashboard = await this.dashboardsService.create(
+      createDashboardDto,
+    );
+
+    if (isErr(eitherDashboard)) {
+      throw eitherDashboard.err;
+    }
+
+    return eitherDashboard.ok;
   }
 
   @Put(':id')
@@ -57,31 +81,41 @@ export class DashboardsController {
     @Param() params: UpdateDashboardParams,
     @Body() updateDashboardDto: UpdateDashboardDto,
   ) {
-    await this.clearCache();
-    const dashboard = await this.dashboardsService.update({
+    // cache is invalid after updating a dashboard
+    await this.cacheManager.reset();
+
+    const eitherDashboard = await this.dashboardsService.update({
       ...updateDashboardDto,
       ...params,
     });
 
-    if (dashboard === undefined) {
+    if (isErr(eitherDashboard)) {
+      throw eitherDashboard.err;
+    }
+
+    if (isNothing(eitherDashboard.ok)) {
       throw new NotFoundException();
     }
 
-    return dashboard;
+    return eitherDashboard.ok;
   }
 
   @HttpCode(204)
   @Delete(':id')
   public async delete(@Param() params: DeleteDashboardParams) {
-    await this.clearCache();
-    const deleted = await this.dashboardsService.delete(params.id);
+    // cache is invalid after deleting a dashboard
+    await this.cacheManager.reset();
 
-    if (!deleted) {
+    const either = await this.dashboardsService.delete(params.id);
+
+    if (isErr(either)) {
+      throw either.err;
+    }
+
+    if (!either.ok) {
       throw new NotFoundException();
     }
-  }
 
-  private async clearCache() {
-    await this.cacheManager.reset();
+    return either.ok;
   }
 }

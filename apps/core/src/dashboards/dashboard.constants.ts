@@ -9,6 +9,7 @@ export const DATABASE_GSI = {
 
 export const MESSAGES = {
   ITEM_NOT_FOUND_ERROR: 'Missing dashboard data or definition',
+  UNKNOWN_ERROR: 'Unknown error',
 };
 
 export const DASHBOARD_NAME_MAX_LENGTH = 100;
