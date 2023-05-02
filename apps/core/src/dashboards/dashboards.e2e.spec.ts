@@ -704,7 +704,9 @@ describe('DashboardsModule', () => {
       });
 
       expect(response.statusCode).toBe(200);
-      expect(JSON.parse(response.payload)).toEqual(dashboard);
+      expect(JSON.parse(response.payload)).toEqual(
+        expect.objectContaining(dashboard),
+      );
     });
 
     test.each(['x', 'x'.repeat(11), 'x'.repeat(13), '{}', '[]'])(

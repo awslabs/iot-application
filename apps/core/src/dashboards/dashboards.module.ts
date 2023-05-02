@@ -1,11 +1,12 @@
 import { Module, ModuleMetadata } from '@nestjs/common';
 
 import { DashboardsController } from './dashboards.controller';
+import { DashboardsRepository } from './dashboards.repository';
 import { DashboardsService } from './dashboards.service';
 
 export const dashboardsModuleMetadata: ModuleMetadata = {
   controllers: [DashboardsController],
-  providers: [DashboardsService],
+  providers: [DashboardsRepository, DashboardsService],
 };
 
 /** Core Dashboards Module */
