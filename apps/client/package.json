@@ -14,7 +14,7 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^4.6.0",
+    "@aws-amplify/ui-react": "^4.6.1",
     "@aws-sdk/client-iot-events": "^3.321.1",
     "@aws-sdk/client-iotsitewise": "^3.325.0",
     "@aws-sdk/credential-providers": "^3.319.0",
