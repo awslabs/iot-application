@@ -7532,10 +7532,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cloudscape-design/collection-hooks@^1.0.0", "@cloudscape-design/collection-hooks@^1.0.19":
-  version "1.0.20"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/collection-hooks/-/collection-hooks-1.0.20.tgz#7f3cd65cdc977fafa68c9c3fe49fe2048f704338"
-  integrity sha512-EFslUG3XAk29FMqhF/ffzYXMv31Qs6wLGMILBAEQuvmFEZNr+d6h3HQ0/L3JnfuN15oxJ0SQ5/eis8SnRnWtUg==
+"@cloudscape-design/collection-hooks@^1.0.0", "@cloudscape-design/collection-hooks@^1.0.19", "@cloudscape-design/collection-hooks@^1.0.21":
+  version "1.0.21"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/collection-hooks/-/collection-hooks-1.0.21.tgz#6d3f786a5e508affca5b02d9293944f69560fa5e"
+  integrity sha512-H2svaXsqHK/XX2CAgU0hxIqiiAh3rvlG490DpNHGbQ8ouXCURc8Hz0Hws+DbZ/etEczpyW44uBBO6xfIXE41iQ==
 
 "@cloudscape-design/component-toolkit@^1.0.0-beta":
   version "1.0.0-beta.12"
