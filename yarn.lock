@@ -943,22 +943,22 @@
     tslib "^2.3.1"
     uuid "^8.3.2"
 
-"@aws-sdk/client-dynamodb@^3.325.0":
-  version "3.325.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.325.0.tgz#6f592ce2294b9ead857acaf2f9686249523f1072"
-  integrity sha512-B7bCt/JyuvBO6+qi0j4UNXeBn4CoXkgHrUprWvgKe+CEnC2LHieVdRPpcFQp5zGv0OE2riI1abqrn2pAkacbVg==
+"@aws-sdk/client-dynamodb@^3.326.0":
+  version "3.326.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.326.0.tgz#8759e56f5968afe881c2055c10f4c5f698a16a36"
+  integrity sha512-Q9F5IC6z8Gd004Hr/mz/vZhisy25YQcoUycA/qlLik2fK9ZaSz+JJXskDgcrvzvfC0BoGbhOD+hAyDSEgo8STg==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.325.0"
+    "@aws-sdk/client-sts" "3.326.0"
     "@aws-sdk/config-resolver" "3.310.0"
-    "@aws-sdk/credential-provider-node" "3.325.0"
+    "@aws-sdk/credential-provider-node" "3.326.0"
     "@aws-sdk/fetch-http-handler" "3.310.0"
     "@aws-sdk/hash-node" "3.310.0"
     "@aws-sdk/invalid-dependency" "3.310.0"
     "@aws-sdk/middleware-content-length" "3.325.0"
     "@aws-sdk/middleware-endpoint" "3.325.0"
-    "@aws-sdk/middleware-endpoint-discovery" "3.325.0"
+    "@aws-sdk/middleware-endpoint-discovery" "3.326.0"
     "@aws-sdk/middleware-host-header" "3.325.0"
     "@aws-sdk/middleware-logger" "3.325.0"
     "@aws-sdk/middleware-recursion-detection" "3.325.0"
@@ -4044,10 +4044,10 @@
     "@aws-sdk/types" "3.257.0"
     tslib "^2.3.1"
 
-"@aws-sdk/middleware-endpoint-discovery@3.325.0":
-  version "3.325.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-endpoint-discovery/-/middleware-endpoint-discovery-3.325.0.tgz#e705400ac6d2d86dc46477f8d7883e6f787f7572"
-  integrity sha512-/Cyj/Tt4NfQPf/3HS1VBwrXK6zHRX2HWJwo133yA6Uh4YQuqvsTL6VjnGo/C9ZRG06D3I/WnLvdlQXC5+5BQnw==
+"@aws-sdk/middleware-endpoint-discovery@3.326.0":
+  version "3.326.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-endpoint-discovery/-/middleware-endpoint-discovery-3.326.0.tgz#d32eebc278cd5757074b2efc664554c1e82a1698"
+  integrity sha512-svA2C7+nphfn0M+/WwK9eYsGn1xHSjDBi8FzGsJoTl+DQBNvGzzVUmpxbLl/Se2OIpaVUT36/xdRtCHAN98XZA==
   dependencies:
     "@aws-sdk/endpoint-cache" "3.310.0"
     "@aws-sdk/protocol-http" "3.310.0"
