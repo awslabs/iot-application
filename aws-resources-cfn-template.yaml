@@ -18,6 +18,8 @@ Resources:
   UserPool:
     Type: 'AWS::Cognito::UserPool'
     Properties:
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: true
       UsernameConfiguration:
         CaseSensitive: false
 
