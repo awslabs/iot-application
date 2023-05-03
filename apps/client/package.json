@@ -52,7 +52,7 @@
     "@types/react": "^18.2.2",
     "@types/react-dom": "^18.2.3",
     "@vitejs/plugin-react": "^4.0.0",
-    "@vitest/ui": "^0.30.1",
+    "@vitest/ui": "^0.31.0",
     "babel-plugin-formatjs": "^10.5.1",
     "customize-cra": "^1.0.0",
     "eslint-config-custom": "*",
