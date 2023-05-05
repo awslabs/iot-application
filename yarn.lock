@@ -943,16 +943,16 @@
     tslib "^2.3.1"
     uuid "^8.3.2"
 
-"@aws-sdk/client-dynamodb@^3.327.0":
-  version "3.327.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.327.0.tgz#9772cf9ad47e0800b8b63080913f75e4f88039c4"
-  integrity sha512-JalLHKd7d+OSNRFNGQkWYLNjxa/6wFmm/PH3TKwpIDv+sdT2TmR6DNPIw+r/zPz11f9bnxGB79mrwUhqGllHYA==
+"@aws-sdk/client-dynamodb@^3.328.0":
+  version "3.328.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.328.0.tgz#a1565bdaff92d767d40f631d925637c265e7b414"
+  integrity sha512-eioWVxKUO1KV3RJUC/mmMTrpn17i+YvNO2G0Z97mTt5CR536U3Tg25QywC6X5uWuKE/t5N31zBJt2atowQerIw==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.327.0"
+    "@aws-sdk/client-sts" "3.328.0"
     "@aws-sdk/config-resolver" "3.310.0"
-    "@aws-sdk/credential-provider-node" "3.327.0"
+    "@aws-sdk/credential-provider-node" "3.328.0"
     "@aws-sdk/fetch-http-handler" "3.310.0"
     "@aws-sdk/hash-node" "3.310.0"
     "@aws-sdk/invalid-dependency" "3.310.0"
@@ -968,7 +968,7 @@
     "@aws-sdk/middleware-stack" "3.325.0"
     "@aws-sdk/middleware-user-agent" "3.327.0"
     "@aws-sdk/node-config-provider" "3.310.0"
-    "@aws-sdk/node-http-handler" "3.321.1"
+    "@aws-sdk/node-http-handler" "3.328.0"
     "@aws-sdk/protocol-http" "3.310.0"
     "@aws-sdk/smithy-client" "3.325.0"
     "@aws-sdk/types" "3.310.0"
