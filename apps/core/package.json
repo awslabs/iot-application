@@ -22,7 +22,7 @@
     "@aws-sdk/lib-dynamodb": "^3.329.0",
     "@fastify/cookie": "^8.3.0",
     "@fastify/csrf-protection": "^6.3.0",
-    "@fastify/helmet": "^10.1.0",
+    "@fastify/helmet": "^10.1.1",
     "@fastify/static": "^6.10.0",
     "@nestjs/axios": "^1.0.1",
     "@nestjs/cache-manager": "^1.0.0",
