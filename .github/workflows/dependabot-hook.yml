@@ -1,30 +1,66 @@
 name: Dependabot Hook
 
-on: pull_request
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  check_suite:
+    types:
+      - completed
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  dependabot:
+  auto_approve_pr:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
-      - name: Fetch Dependabot Metadata
-        id: metadata
-        uses: dependabot/fetch-metadata@v1
-        with:
-          github-token: '${{ secrets.GITHUB_TOKEN }}'
+      - name: Approve PR
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
+  auto_merge_pr:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
       - name: Enable Auto-Merge for PR
         run: gh pr merge --auto --rebase --delete-branch "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Approve PR
-        run: gh pr review --approve "$PR_URL"
+  close_pr_if_required_checks_fail:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'check_suite' && github.event.check_suite.conclusion == 'failure' }}
+
+    steps:
+      - name: Check for Failed Required Checks
+        id: failed_checks
+        run: |
+          REQUIRED_CHECKS=$(gh api repos/$GITHUB_REPOSITORY/branches/${{ github.event.pull_request.base.ref }}/protection/required_status_checks --jq '.contexts')
+          FAILED_CHECKS=$(gh api repos/$GITHUB_REPOSITORY/commits/${{ github.event.check_suite.head_sha }}/check-runs --jq '[.check_runs[] | select(.conclusion == "failure") | .name]')
+
+          for check in "${REQUIRED_CHECKS[@]}"; do
+            if [[ "${FAILED_CHECKS[@]}" =~ "${check}" ]]; then
+              echo "Failed required check: ${check}"
+              echo "::set-output name=close_pr::true"
+              break
+            fi
+          done
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Close PR if Required Checks Fail
+        if: ${{ steps.failed_checks.outputs.close_pr == 'true' }}
+        run: gh pr close "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
