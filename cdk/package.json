@@ -7,10 +7,11 @@
   },
   "scripts": {
     "build": "tsc",
-    "clean": "rimraf .turbo && rimraf node_modules",
+    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist",
     "watch": "tsc -w",
     "cdk": "cdk",
-    "lint": "TIMING=1 eslint \"{bin,lib}/**/*.ts\" --max-warnings 0"
+    "lint": "TIMING=1 eslint \"{bin,lib}/**/*.ts\" --max-warnings 0",
+    "lint:commit": "tsc --noEmit && TIMING=1 eslint $(git diff --name-only HEAD HEAD~1 | grep -E \"{bin,lib}/**/*.ts\" | xargs) --max-warnings 0"
   },
   "dependencies": {
     "aws-cdk-lib": "2.78.0",
@@ -18,7 +19,7 @@
     "source-map-support": "^0.5.21"
   },
   "devDependencies": {
-    "@types/node": "20.1.0",
+    "@types/node": "20.1.1",
     "aws-cdk": "2.78.0",
     "tsconfig": "*"
   }
