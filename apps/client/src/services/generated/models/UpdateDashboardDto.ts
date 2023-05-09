@@ -5,7 +5,7 @@
 import type { DashboardDefinition } from './DashboardDefinition';
 
 export type UpdateDashboardDto = {
-  name: string;
-  description: string;
-  definition: DashboardDefinition;
+  name?: string;
+  description?: string;
+  definition?: DashboardDefinition;
 };

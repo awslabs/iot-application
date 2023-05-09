@@ -54,7 +54,6 @@ export function DashboardPage() {
         invariant(params.dashboardId, 'Expected dashboard ID to be defined');
         invariant(dashboardQuery.data, 'Expected dashboard to be loaded');
         void updateDashboardMutation.mutateAsync({
-          ...dashboardQuery.data,
           id: params.dashboardId,
           definition: {
             widgets: config.widgets,

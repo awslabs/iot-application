@@ -21,10 +21,11 @@ export function useUpdateDashboardMutation() {
   const intl = useIntl();
 
   return useMutation({
-    mutationFn: ({ id, ...dto }: Dashboard) => updateDashboard(id, dto),
-    onMutate: (dashboard: Dashboard) => {
+    mutationFn: ({ id, definition }: Pick<Dashboard, 'id' | 'definition'>) =>
+      updateDashboard(id, { definition }),
+    onMutate: ({ id }: Pick<Dashboard, 'id'>) => {
       void cancelDashboardsQueries();
-      void cancelDashboardQueries(dashboard.id);
+      void cancelDashboardQueries(id);
     },
     onSuccess: (updatedDashboard: Dashboard) => {
       void invalidateDashboards();

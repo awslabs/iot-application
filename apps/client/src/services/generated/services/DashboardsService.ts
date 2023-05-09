@@ -40,7 +40,7 @@ export class DashboardsService {
     requestBody: UpdateDashboardDto,
   ): CancelablePromise<Dashboard> {
     return __request(OpenAPI, {
-      method: 'PUT',
+      method: 'PATCH',
       url: '/dashboards/{id}',
       path: {
         id: id,
