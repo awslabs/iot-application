@@ -46,6 +46,7 @@ export class DashboardsRepository {
       {
         marshallOptions: {
           convertClassInstanceToMap: true,
+          removeUndefinedValues: true,
         },
       },
     );
@@ -242,75 +243,85 @@ export class DashboardsRepository {
     name,
     description,
     definition,
-  }: Pick<Dashboard, 'id' | 'name' | 'description' | 'definition'>): Promise<
+  }: Pick<Dashboard, 'id'> &
+    Partial<Pick<Dashboard, 'name' | 'description' | 'definition'>>): Promise<
     Result<Error, Maybe<Dashboard>>
   > {
     const creationDateObj = new Date();
     const creationDate = creationDateObj.toISOString();
     const lastUpdateDate = creationDate;
 
+    const fields = [
+      { field: 'name', value: name },
+      { field: 'description', value: description },
+    ].filter((f) => f.value != null);
+
+    const definitionTransaction = {
+      Update: {
+        TableName: this.tableName,
+        Key: {
+          id,
+          resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
+        },
+        // Capture the DDB reserved words, see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
+        UpdateExpression: 'set #definition = :definition',
+        ExpressionAttributeValues: {
+          ':id': id,
+          ':resourceType': RESOURCE_TYPES.DASHBOARD_DEFINITION,
+          ':definition': definition,
+        },
+        ExpressionAttributeNames: {
+          '#definition': 'definition',
+        },
+        ConditionExpression: '(id = :id) and (resourceType = :resourceType)',
+      },
+    };
+
+    const dashboardDataTransaction = {
+      Update: {
+        TableName: this.tableName,
+        Key: {
+          id,
+          resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
+        },
+        // Capture the DDB reserved words, see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
+        UpdateExpression: `set ${fields
+          .map((f) => `#${f.field} = :${f.field}, `)
+          .join('')} lastUpdateDate = :lastUpdateDate`,
+        ExpressionAttributeValues: {
+          ':id': id,
+          ':resourceType': RESOURCE_TYPES.DASHBOARD_DATA,
+          ':name': name,
+          ':description': description,
+          ':lastUpdateDate': lastUpdateDate,
+        },
+        ExpressionAttributeNames:
+          name || description
+            ? Object.fromEntries(fields.map((f) => [`#${f.field}`, f.field]))
+            : undefined,
+        ConditionExpression: '(id = :id) and (resourceType = :resourceType)',
+      },
+    };
+
+    const transactItems = [];
+
+    // only update definition if it is defined
+    if (definition) {
+      transactItems.push(definitionTransaction);
+    }
+
+    // always update lastUpdateDate
+    transactItems.push(dashboardDataTransaction);
+
     try {
       await this.dbDocClient.send(
         new TransactWriteCommand({
-          TransactItems: [
-            {
-              Update: {
-                TableName: this.tableName,
-                Key: {
-                  id,
-                  resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
-                },
-                // Capture the DDB reserved words, see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
-                UpdateExpression: 'set #definition = :definition',
-                ExpressionAttributeValues: {
-                  ':id': id,
-                  ':resourceType': RESOURCE_TYPES.DASHBOARD_DEFINITION,
-                  ':definition': definition,
-                },
-                ExpressionAttributeNames: {
-                  '#definition': 'definition',
-                },
-                ConditionExpression:
-                  '(id = :id) and (resourceType = :resourceType)',
-              },
-            },
-            {
-              Update: {
-                TableName: this.tableName,
-                Key: {
-                  id,
-                  resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
-                },
-                // Capture the DDB reserved words, see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
-                UpdateExpression:
-                  'set #name = :name, #description = :description, lastUpdateDate = :lastUpdateDate',
-                ExpressionAttributeValues: {
-                  ':id': id,
-                  ':resourceType': RESOURCE_TYPES.DASHBOARD_DATA,
-                  ':name': name,
-                  ':description': description,
-                  ':lastUpdateDate': lastUpdateDate,
-                },
-                ExpressionAttributeNames: {
-                  '#name': 'name',
-                  '#description': 'description',
-                },
-                ConditionExpression:
-                  '(id = :id) and (resourceType = :resourceType)',
-              },
-            },
-          ],
+          TransactItems: transactItems,
         }),
       );
 
-      return ok({
-        id,
-        name,
-        definition,
-        description,
-        lastUpdateDate,
-        creationDate,
-      });
+      // return updated dashboard
+      return this.find(id);
     } catch (error) {
       if (isTransactionCanceledException(error)) {
         if (this.conditionalCheckFailed(error)) {

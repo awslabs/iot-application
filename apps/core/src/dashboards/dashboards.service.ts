@@ -21,7 +21,8 @@ export class DashboardsService {
   }
 
   public async update(
-    dashboard: Pick<Dashboard, 'id' | 'name' | 'description' | 'definition'>,
+    dashboard: Pick<Dashboard, 'id'> &
+      Partial<Pick<Dashboard, 'name' | 'description' | 'definition'>>,
   ) {
     return this.repository.update(dashboard);
   }

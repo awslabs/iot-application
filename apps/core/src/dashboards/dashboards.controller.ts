@@ -6,8 +6,8 @@ import {
   HttpCode,
   NotFoundException,
   Param,
+  Patch,
   Post,
-  Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -66,7 +66,7 @@ export class DashboardsController {
     return result.ok;
   }
 
-  @Put(':id')
+  @Patch(':id')
   public async update(
     @Param() params: UpdateDashboardParams,
     @Body() updateDashboardDto: UpdateDashboardDto,

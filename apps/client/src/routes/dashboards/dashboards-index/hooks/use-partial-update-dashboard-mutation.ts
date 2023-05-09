@@ -11,7 +11,7 @@ import {
 } from '~/data/dashboards';
 import { isApiError } from '~/helpers/predicates/is-api-error';
 import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
-import { updateDashboard, readDashboard } from '~/services';
+import { updateDashboard } from '~/services';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 import { SuccessNotification } from '~/structures/notifications/success-notification';
 
@@ -25,11 +25,7 @@ export function usePartialUpdateDashboardMutation() {
   const intl = useIntl();
 
   return useMutation({
-    mutationFn: async (update: PartialDashboardUpdate) => {
-      // TODO: Update API to enable partial updates
-      // get the rest of the dashboard
-      const dashboard = await readDashboard(update.id);
-      const { id, ...dto } = { ...dashboard, ...update };
+    mutationFn: async ({ id, ...dto }: PartialDashboardUpdate) => {
       return updateDashboard(id, dto);
     },
     onMutate: (updatingDashboard) => {
