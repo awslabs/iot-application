@@ -23,6 +23,8 @@ export type UpdateDashboard =
   typeof DashboardsService.dashboardsControllerUpdate;
 export type DeleteDashboard =
   typeof DashboardsService.dashboardsControllerDelete;
+export type BulkDeleteDashboards =
+  typeof DashboardsService.dashboardsControllerBulkDelete;
 
 export const listDashboards: ListDashboards = () =>
   DashboardsService.dashboardsControllerList();
@@ -34,3 +36,5 @@ export const updateDashboard: UpdateDashboard = (id, dto) =>
   DashboardsService.dashboardsControllerUpdate(id, dto);
 export const deleteDashboard: DeleteDashboard = (id) =>
   DashboardsService.dashboardsControllerDelete(id);
+export const bulkDeleteDashboards: BulkDeleteDashboards = (ids) =>
+  DashboardsService.dashboardsControllerBulkDelete(ids);

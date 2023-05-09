@@ -29,4 +29,9 @@ export class DashboardsService {
   public async delete(id: Dashboard['id']) {
     return this.repository.delete(id);
   }
+
+  public async bulkDelete(ids: Dashboard['id'][]) {
+    // TODO: use BatchWriteItem instead of Promise.all
+    return Promise.all(ids.map((id) => this.repository.delete(id)));
+  }
 }

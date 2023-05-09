@@ -1,12 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { deleteDashboard } from '~/services';
-import { invalidateDashboard } from '~/data/dashboards';
-
-import type { DashboardSummary } from '~/services';
+import { bulkDeleteDashboards } from '~/services';
+import { invalidateDashboards } from '~/data/dashboards';
 
 export function useDeleteDashboardMutation() {
   return useMutation({
-    mutationFn: (dashboard: DashboardSummary) => deleteDashboard(dashboard.id),
-    onSuccess: (_data, variables) => void invalidateDashboard(variables.id),
+    mutationFn: bulkDeleteDashboards,
+    onSuccess: () => void invalidateDashboards(),
   });
 }

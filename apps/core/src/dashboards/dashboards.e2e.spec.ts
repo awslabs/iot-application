@@ -1284,6 +1284,166 @@ describe('DashboardsModule', () => {
     });
   });
 
+  describe('DELETE /dashboards/bulk HTTP/1.1', () => {
+    test('returns 200 on success', async () => {
+      const dashboard1 = await seedTestDashboard('dashboard 1');
+      const dashboard2 = await seedTestDashboard('dashboard 2');
+      const dashboard3 = await seedTestDashboard('dashboard 3');
+
+      const deleteResponse = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'DELETE',
+        payload: {
+          ids: [dashboard1.id, dashboard2.id, dashboard3.id],
+        },
+        url: `/dashboards/bulk`,
+      });
+
+      expect(deleteResponse.statusCode).toBe(200);
+      expect(JSON.parse(deleteResponse.body)).toEqual({
+        deletedIds: [dashboard1.id, dashboard2.id, dashboard3.id],
+      });
+
+      const getResponse1 = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'GET',
+        url: `/dashboards/${dashboard1.id}`,
+      });
+
+      const getResponse2 = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'GET',
+        url: `/dashboards/${dashboard2.id}`,
+      });
+
+      const getResponse3 = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'GET',
+        url: `/dashboards/${dashboard3.id}`,
+      });
+
+      expect(getResponse1.statusCode).toBe(404);
+      expect(getResponse2.statusCode).toBe(404);
+      expect(getResponse3.statusCode).toBe(404);
+    });
+
+    test('returns 200 on success when deleting a single dashboard', async () => {
+      const dashboard1 = await seedTestDashboard('dashboard 1');
+      const dashboard2 = await seedTestDashboard('dashboard 2');
+      const dashboard3 = await seedTestDashboard('dashboard 3');
+
+      const deleteResponse = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'DELETE',
+        payload: {
+          ids: [dashboard2.id],
+        },
+        url: `/dashboards/bulk`,
+      });
+
+      expect(deleteResponse.statusCode).toBe(200);
+      expect(JSON.parse(deleteResponse.body)).toEqual({
+        deletedIds: [dashboard2.id],
+      });
+
+      const getResponse1 = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'GET',
+        url: `/dashboards/${dashboard1.id}`,
+      });
+
+      const getResponse2 = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'GET',
+        url: `/dashboards/${dashboard2.id}`,
+      });
+
+      const getResponse3 = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'GET',
+        url: `/dashboards/${dashboard3.id}`,
+      });
+
+      expect(getResponse1.statusCode).toBe(200);
+      expect(getResponse2.statusCode).toBe(404);
+      expect(getResponse3.statusCode).toBe(200);
+    });
+
+    test('returns 200 when called with empty id list', async () => {
+      const deleteResponse = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'DELETE',
+        payload: {
+          ids: [],
+        },
+        url: `/dashboards/bulk`,
+      });
+
+      expect(deleteResponse.statusCode).toBe(200);
+      expect(JSON.parse(deleteResponse.body)).toEqual({
+        deletedIds: [],
+      });
+    });
+
+    test('returns 404 when any dashboards are not found', async () => {
+      const dashboard1 = await seedTestDashboard('dashboard 1');
+      const dashboard2 = await seedTestDashboard('dashboard 2');
+
+      const deleteResponse = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'DELETE',
+        payload: {
+          ids: [dashboard1.id, dashboard2.id, '123456789012'],
+        },
+        url: `/dashboards/bulk`,
+      });
+
+      expect(deleteResponse.statusCode).toBe(404);
+      expect(JSON.parse(deleteResponse.body)).toEqual({
+        deletedIds: [dashboard1.id, dashboard2.id],
+      });
+
+      const getResponse1 = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'GET',
+        url: `/dashboards/${dashboard1.id}`,
+      });
+
+      const getResponse2 = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'GET',
+        url: `/dashboards/${dashboard2.id}`,
+      });
+
+      expect(getResponse1.statusCode).toBe(404);
+      expect(getResponse2.statusCode).toBe(404);
+    });
+  });
+
   describe('DELETE /dashboards/{dashboardId} HTTP/1.1', () => {
     test('returns 204 on success', async () => {
       const dashboard = await seedTestDashboard('name');

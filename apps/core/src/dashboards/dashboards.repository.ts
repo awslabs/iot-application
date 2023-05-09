@@ -324,7 +324,9 @@ export class DashboardsRepository {
     }
   }
 
-  public async delete(id: Dashboard['id']): Promise<Result<Error, boolean>> {
+  public async delete(
+    id: Dashboard['id'],
+  ): Promise<Result<Error, Maybe<string>>> {
     try {
       await this.dbDocClient.send(
         new TransactWriteCommand({
@@ -363,11 +365,11 @@ export class DashboardsRepository {
         }),
       );
 
-      return ok(true);
+      return ok(id);
     } catch (error) {
       if (isTransactionCanceledException(error)) {
         if (this.conditionalCheckFailed(error)) {
-          return ok(false);
+          return ok(undefined);
         }
       }
 
