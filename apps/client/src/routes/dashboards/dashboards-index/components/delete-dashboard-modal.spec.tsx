@@ -43,9 +43,10 @@ describe('DeleteDashboardModal', () => {
       await user.type(getConsentInput(), 'confirm');
       expect(getConsentInput()).toBeEnabled();
       await user.click(getDeleteButton());
-      expect(mockDelete).toHaveBeenCalledTimes(1);
       expect(mockDelete).toHaveBeenCalledWith(
-        defaultProps.dashboards[0],
+        {
+          ids: [defaultProps.dashboards[0].id],
+        },
         expect.anything(),
       );
     });
@@ -73,15 +74,12 @@ describe('DeleteDashboardModal', () => {
       await user.type(getConsentInput(), 'confirm');
       expect(getConsentInput()).toBeEnabled();
       await user.click(getDeleteButton());
-      expect(mockDelete).toHaveBeenCalledTimes(2);
-      expect(mockDelete).toHaveBeenNthCalledWith(
-        1,
-        multipleDashboardsProps.dashboards[0],
-        expect.anything(),
-      );
-      expect(mockDelete).toHaveBeenNthCalledWith(
-        2,
-        multipleDashboardsProps.dashboards[1],
+      expect(mockDelete).toHaveBeenCalledWith(
+        {
+          ids: multipleDashboardsProps.dashboards.map(
+            (dashboard) => dashboard.id,
+          ),
+        },
         expect.anything(),
       );
     });

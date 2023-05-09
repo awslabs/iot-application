@@ -14,7 +14,7 @@
     "lint:fix": "eslint \"{src,test}/**/*.ts*\" --fix",
     "repl": "nest start --entryFile repl --watch",
     "test": "jest --coverage",
-    "test:commit": "jest --lastCommit",
+    "test:commit": "jest --lastCommit --coverage=false",
     "test:watch": "jest --watch"
   },
   "dependencies": {
@@ -25,7 +25,6 @@
     "@fastify/helmet": "^10.1.1",
     "@fastify/static": "^6.10.0",
     "@nestjs/axios": "^1.0.1",
-    "@nestjs/cache-manager": "^1.0.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.0",
     "@nestjs/core": "^9.4.0",
@@ -34,7 +33,6 @@
     "@nestjs/terminus": "^9.2.2",
     "@nestjs/throttler": "^4.0.0",
     "aws-jwt-verify": "^4.0.0",
-    "cache-manager": "^5.2.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dynamodb-local": "^0.0.32",

@@ -13,14 +13,13 @@ import { useForm, Controller } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import invariant from 'tiny-invariant';
 
-import { invalidateDashboards } from '~/data/dashboards';
 import { isApiError } from '~/helpers/predicates/is-api-error';
 import { isJust } from '~/helpers/predicates/is-just';
 import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 import { SuccessNotification } from '~/structures/notifications/success-notification';
 
-import type { DashboardSummary } from '~/services';
+import type { Dashboard, DashboardSummary } from '~/services';
 import { useDeleteDashboardMutation } from '../hooks/use-delete-dashboard-mutation';
 
 const DELETE_CONSENT_TEXT = 'confirm' as const;
@@ -29,6 +28,12 @@ export interface DeleteDashboardModalProps {
   dashboards: readonly DashboardSummary[];
   isVisible: boolean;
   onClose: () => void;
+}
+
+function isPartialDeletion(
+  body: unknown,
+): body is { deletedIds: Dashboard['id'][] } {
+  return 'deletedIds' in (body as { deletedIds: Dashboard['id'][] });
 }
 
 export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
@@ -44,10 +49,12 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
   const mutation = useDeleteDashboardMutation();
 
   function handleDelete() {
-    props.dashboards.forEach((dashboard) => {
-      mutation.mutate(dashboard, {
-        onSuccess: (_data, variables) => {
-          void invalidateDashboards();
+    mutation.mutate(
+      {
+        ids: props.dashboards.map((dashboard) => dashboard.id),
+      },
+      {
+        onSuccess: () => {
           handleClose();
           emit(
             new SuccessNotification(
@@ -59,7 +66,7 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
                 },
                 {
                   count: props.dashboards.length,
-                  name: variables.name,
+                  name: props.dashboards[0]?.name,
                 },
               ),
             ),
@@ -67,10 +74,29 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
         },
         onError: (error) => {
           invariant(isApiError(error));
-          emit(new GenericErrorNotification(error));
+
+          if (
+            props.dashboards.length > 0 &&
+            isPartialDeletion(error.body) &&
+            error.body.deletedIds.length > 0
+          ) {
+            emit(
+              new GenericErrorNotification(
+                new Error(
+                  intl.formatMessage({
+                    defaultMessage:
+                      'An error occured, but partial deletion was successful.',
+                    description: 'partial deletion successful message',
+                  }),
+                ),
+              ),
+            );
+          } else {
+            emit(new GenericErrorNotification(error));
+          }
         },
-      });
-    });
+      },
+    );
   }
 
   function handleClose() {
