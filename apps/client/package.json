@@ -7,7 +7,7 @@
     "analyze": "source-map-explorer build/static/js/*.js",
     "build": "DISABLE_ESLINT_PLUGIN=true react-app-rewired build",
     "clean": "rimraf .turbo && rimraf node_modules && rimraf dist && rimraf build && rimraf *.tsbuildinfo",
-    "dev": "PORT=3001 react-app-rewired start",
+    "dev": "BROWSER=none PORT=3001 react-app-rewired start",
     "gen:intl": "formatjs extract \"src/**/*.ts*\" --ignore=\"**/*.d.ts\" --out-file lang/en.json --id-interpolation-pattern \"[sha512:contenthash:base64:6]\"",
     "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts*\" --max-warnings 0",
     "lint:commit": "tsc --noEmit && TIMING=1 eslint $(git diff --name-only HEAD HEAD~1 | grep -E \"src/**/*.ts*\" | xargs) --max-warnings 0",
