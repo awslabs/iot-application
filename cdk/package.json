@@ -14,7 +14,7 @@
     "lint:commit": "tsc --noEmit && TIMING=1 eslint $(git diff --name-only HEAD HEAD~1 | grep -E \"{bin,lib}/**/*.ts\" | xargs) --max-warnings 0"
   },
   "dependencies": {
-    "aws-cdk-lib": "2.78.0",
+    "aws-cdk-lib": "2.79.0",
     "constructs": "^10.2.17",
     "source-map-support": "^0.5.21"
   },
