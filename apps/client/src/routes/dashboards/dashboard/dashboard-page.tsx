@@ -30,11 +30,13 @@ export function DashboardPage() {
     return <DashboardLoadingState />;
   }
 
+  const awsRegion = Auth.configure().region || 'us-west-2';
+
   return (
     <IoTAppKitDashboard
       clientConfiguration={{
         awsCredentials: () => Auth.currentCredentials(),
-        awsRegion: 'us-west-2',
+        awsRegion,
       }}
       dashboardConfiguration={{
         ...dashboardQuery.data?.definition,

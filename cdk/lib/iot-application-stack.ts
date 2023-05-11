@@ -13,11 +13,11 @@ export class IotApplicationStack extends Stack {
       userPool: { userPoolId },
       userPoolClient: { userPoolClientId },
       identityPool: { ref: identityPoolId },
-    } = new AuthStack(this, 'Auth');
+    } = new AuthStack(this, 'Auth', props);
 
     const {
       resourceTable: { tableArn, tableName },
-    } = new DatabaseStack(this, 'Database');
+    } = new DatabaseStack(this, 'Database', props);
 
     const {
       coreService: { serviceUrl: coreServiceUrl },
@@ -28,6 +28,7 @@ export class IotApplicationStack extends Stack {
         userPoolClientId: userPoolClientId,
         userPoolId: userPoolId,
       },
+      ...props
     });
 
     const publicAssetStack = new PublicAssetStack(this, 'PublicAsset', {
@@ -35,6 +36,7 @@ export class IotApplicationStack extends Stack {
       userPoolClientId,
       userPoolId,
       coreServiceUrl: `https://${coreServiceUrl}`,
+      ...props
     });
     const { publicDistribution } = publicAssetStack;
 
