@@ -47,6 +47,18 @@ Run `yarn gen:types` in root while `yarn dev` is running.
 
 ## Deploying to AWS Cloud
 
+This will deploy the application to AWS using CDK.
+
+##### Prerequisites:
+
+1. Install docker: https://docs.docker.com/get-docker/
+1. For the initial deployment, bootstrap cdk in your account:
+   ```sh
+   yarn workspace cdk cdk bootstrap
+   ```
+
+##### Deployment to cloud:
+
 1. Install application dependencies:
    ```sh
    yarn install
