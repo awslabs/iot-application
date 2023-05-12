@@ -15,6 +15,8 @@
     "gen:types": "openapi -i ${npm_package_config_docs} -o ${npm_package_config_genpath} ${npm_package_config_genconfig} && yarn format:gen:types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:gen:types": "prettier --write \"${npm_package_config_genpath}/**/*.ts\"",
+    "install:clean": "yarn clean && yarn install",
+    "install:reset": "yarn clean && rm -rf yarn.lock && yarn install",
     "lint": "turbo run lint && tsc --noEmit && TIMING=1 eslint \"tests/**/*.ts\" --max-warnings 0",
     "lint:commit": "turbo run lint:commit --filter=[HEAD~1]",
     "lint:fix": "turbo run lint:fix && eslint \"tests/**/*.ts\" --fix",
