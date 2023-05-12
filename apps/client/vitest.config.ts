@@ -50,11 +50,6 @@ export default defineConfig({
     includeSource: ['src/**/*.{js,ts}'],
     reporters: ['verbose', 'html'],
     setupFiles: './src/test/setup.ts',
-    singleThread: true,
     testTimeout: 10000,
-  },
-  define: {
-    // enable removal from production code
-    'import.meta.vitest': false,
   },
 });

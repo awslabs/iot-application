@@ -30,7 +30,7 @@ export function DashboardPage() {
     return <DashboardLoadingState />;
   }
 
-  const awsRegion = Auth.configure().region || 'us-west-2';
+  const awsRegion = Auth.configure().region ?? 'us-west-2';
 
   return (
     <IoTAppKitDashboard

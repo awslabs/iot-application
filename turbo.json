@@ -24,15 +24,27 @@
         "DATABASE_LAUNCH_LOCAL"
       ]
     },
-    "lint": {},
-    "lint:commit": {},
-    "lint:fix": {},
-    "test": {
-      "outputs": ["coverage/**"]
+    "lint": {
+      "dependencies": ["^build"]
     },
-    "test:commit": {},
+    "lint:commit": {
+      "cache": false,
+      "dependencies": ["^build"]
+    },
+    "lint:fix": {
+      "dependencies": ["^build"]
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependencies": ["^build"]
+    },
+    "test:commit": {
+      "cache": false,
+      "dependencies": ["^build"]
+    },
     "test:watch": {
-      "cache": false
+      "cache": false,
+      "dependencies": ["^build"]
     }
   }
 }
