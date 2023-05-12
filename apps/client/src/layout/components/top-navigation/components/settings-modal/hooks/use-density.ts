@@ -1,5 +1,5 @@
 import { applyDensity, Density } from '@cloudscape-design/global-styles';
-import { useLocalStorage } from 'react-use';
+import useLocalStorage from 'react-use/lib/useLocalStorage';
 
 import { isComfortable } from '../helpers/is-comfortable';
 import { CONTENT_DENSITY_KEY, DEFAULT_CONTENT_DENSITY } from '~/constants';
