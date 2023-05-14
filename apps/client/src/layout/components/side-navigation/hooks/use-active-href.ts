@@ -15,7 +15,7 @@ export function useActiveHref() {
     (m): m is Handleable<WithActiveHref> => isJust(m?.handle?.activeHref),
   );
 
-  const lastMatch = last(matchesWithActiveHref);
+  const lastMatch = last({ as: matchesWithActiveHref });
 
   invariant(isJust(lastMatch), 'Expected at least 1 match with active href');
 
