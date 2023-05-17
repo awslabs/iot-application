@@ -1,8 +1,32 @@
 import { devices, defineConfig } from '@playwright/test';
 
+// Read environment variables
+// baseURL defaults to http://localhost:3001
+const baseURL = process.env.ENDPOINT ?? 'http://localhost:3001';
+// launchWebServer defaults to true
+const launchWebServer = process.env.LAUNCH_WEB_SERVER != 'false';
+
+// Configuration for launching the web server
+const launchWebServerConfig = [
+  {
+    command: 'yarn start:core',
+    url: 'http://localhost:3000/health',
+    reuseExistingServer: !process.env.CI,
+    timeout: 300 * 1000, // 5 minutes
+  },
+  {
+    command: 'yarn start:client',
+    url: 'http://localhost:3001',
+    reuseExistingServer: !process.env.CI,
+    timeout: 300 * 1000, // 5 minutes
+  },
+];
+// If launchWebServer is true, add the web server launching configuration
+const webServer = launchWebServer ? launchWebServerConfig : undefined;
+
 export default defineConfig({
   use: {
-    baseURL: 'http://localhost:3001',
+    baseURL,
     navigationTimeout: 30000,
     screenshot: 'only-on-failure',
     trace: 'on-first-retry',
@@ -57,18 +81,5 @@ export default defineConfig({
       dependencies: ['setup'],
     },
   ],
-  webServer: [
-    {
-      command: 'yarn start:core',
-      url: 'http://localhost:3000/health',
-      reuseExistingServer: !process.env.CI,
-      timeout: 300 * 1000, // 5 minutes
-    },
-    {
-      command: 'yarn start:client',
-      url: 'http://localhost:3001',
-      reuseExistingServer: !process.env.CI,
-      timeout: 300 * 1000, // 5 minutes
-    },
-  ],
+  webServer,
 });
