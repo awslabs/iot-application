@@ -11137,18 +11137,18 @@
   dependencies:
     tinyspy "^2.1.0"
 
-"@vitest/ui@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-0.31.0.tgz#197f2b72181363df3961aca2bd851938a4dad649"
-  integrity sha512-Dy86l6r3/dbJposgm7w+oqb/15UWJ0lDBbEQaS1ived3+0CTaMbT8OMkUf9vNBkSL47kvBHEBnZLa5fw5i9gUQ==
+"@vitest/ui@^0.31.1":
+  version "0.31.1"
+  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-0.31.1.tgz#5c4245aa94f5d16f5c8831dd66ee8eedb79414cc"
+  integrity sha512-+JJ2+rvRPAVxFLNE+WJOMzOjxqYPn7V2hl00uNwid6kquD+UHTa716Z7szfNeZMLnHOHv+fxq1UgLCymvVpE5w==
   dependencies:
-    "@vitest/utils" "0.31.0"
+    "@vitest/utils" "0.31.1"
     fast-glob "^3.2.12"
     fflate "^0.7.4"
     flatted "^3.2.7"
     pathe "^1.1.0"
     picocolors "^1.0.0"
-    sirv "^2.0.2"
+    sirv "^2.0.3"
 
 "@vitest/utils@0.31.0":
   version "0.31.0"
@@ -20733,7 +20733,7 @@ sinon@^14.0.2:
     nise "^5.1.2"
     supports-color "^7.2.0"
 
-sirv@^2.0.2:
+sirv@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/sirv/-/sirv-2.0.3.tgz#ca5868b87205a74bef62a469ed0296abceccd446"
   integrity sha512-O9jm9BsID1P+0HOi81VpXPoDxYP374pkOLzACAoyUQ/3OUVndNpsz6wMnY2z+yOxzbllCKZrM+9QrWsv4THnyA==
