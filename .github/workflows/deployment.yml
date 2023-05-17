@@ -41,8 +41,8 @@ jobs:
       - name: Install Dependencies 🔩
         run: yarn install --frozen-lockfile
 
-      - name: Build Application 👷
-        run: yarn workspace client build
+      # - name: Build Application 👷
+      #   run: yarn workspace client build
 
       - name: Configure AWS credentials 🔑
         uses: aws-actions/configure-aws-credentials@v2
@@ -50,6 +50,31 @@ jobs:
           role-to-assume: arn:aws:iam::506789550664:role/IotAppGithubActionRole-IotAppGithubRole-7P4GB3XPGF1V
           aws-region: us-west-2
 
-      - name: Deploy CDK 🚀
-        run: yarn workspace cdk cdk deploy --all --require-approval never
+      # - name: Deploy CDK 🚀
+      #   run: yarn workspace cdk cdk deploy --all --require-approval never
 
+      - name: Get App URL 🔗
+        id: app_url
+        run: |
+          app_url=$(aws cloudformation describe-stacks --stack-name IotApp --query "Stacks[0].Outputs[?OutputKey=='AppURL'].OutputValue" --output text)
+          echo "::set-output name=app_url::$app_url"
+          echo "app_url=$app_url" >> $GITHUB_OUTPUT
+
+      - name: Install Playwright Browsers 🔩
+        run: yarn playwright install --with-deps
+
+      - name: Run Playwright tests 🧑‍🔬
+        env:
+          ENDPOINT: ${{ steps.app_url.outputs.app_url }}
+          LAUNCH_WEB_SERVER: false
+          USER_PASSWORD: ${{ secrets.DEPLOYMENT_USER_PASSWORD }}
+        id: tests
+        run: yarn playwright test
+
+      - name: Store Test Artifacts on Failure 🥲
+        if: failure() && steps.tests.outcome == 'failure'
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

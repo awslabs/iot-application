@@ -27,6 +27,13 @@
     "lint": {},
     "lint:commit": {},
     "lint:fix": {},
+    "playwright": {
+      "env": [
+        "ENDPOINT",
+        "LAUNCH_WEB_SERVER",
+        "USER_PASSWORD"
+      ]
+    },
     "test": {
       "outputs": ["coverage/**"]
     },
