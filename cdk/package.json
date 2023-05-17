@@ -11,7 +11,8 @@
     "watch": "tsc -w",
     "cdk": "cdk",
     "lint": "TIMING=1 eslint \"{bin,lib}/**/*.ts\" --max-warnings 0",
-    "lint:commit": "tsc --noEmit && TIMING=1 eslint $(git diff --name-only HEAD HEAD~1 | grep -E \"{bin,lib}/**/*.ts\" | xargs) --max-warnings 0"
+    "lint:commit": "tsc --noEmit && TIMING=1 eslint $(git diff --name-only HEAD HEAD~1 | grep -E \"{bin,lib}/**/*.ts\" | xargs) --max-warnings 0",
+    "lint:fix": "eslint \"{bin,lib}/**/*.ts\" --fix"
   },
   "dependencies": {
     "aws-cdk-lib": "2.79.1",

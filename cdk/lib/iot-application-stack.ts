@@ -28,7 +28,7 @@ export class IotApplicationStack extends Stack {
         userPoolClientId: userPoolClientId,
         userPoolId: userPoolId,
       },
-      ...props
+      ...props,
     });
 
     const publicAssetStack = new PublicAssetStack(this, 'PublicAsset', {
@@ -36,7 +36,7 @@ export class IotApplicationStack extends Stack {
       userPoolClientId,
       userPoolId,
       coreServiceUrl: `https://${coreServiceUrl}`,
-      ...props
+      ...props,
     });
     const { publicDistribution } = publicAssetStack;
 
