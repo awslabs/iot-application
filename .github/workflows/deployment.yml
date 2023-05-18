@@ -41,8 +41,8 @@ jobs:
       - name: Install Dependencies 🔩
         run: yarn install --frozen-lockfile
 
-      # - name: Build Application 👷
-      #   run: yarn workspace client build
+      - name: Build Application 👷
+        run: yarn workspace client build
 
       - name: Configure AWS credentials 🔑
         uses: aws-actions/configure-aws-credentials@v2
@@ -50,8 +50,8 @@ jobs:
           role-to-assume: arn:aws:iam::506789550664:role/IotAppGithubActionRole-IotAppGithubRole-7P4GB3XPGF1V
           aws-region: us-west-2
 
-      # - name: Deploy CDK 🚀
-      #   run: yarn workspace cdk cdk deploy --all --require-approval never
+      - name: Deploy CDK 🚀
+        run: yarn workspace cdk cdk deploy --all --require-approval never
 
       - name: Get App URL 🔗
         id: app_url
