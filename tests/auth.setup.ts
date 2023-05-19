@@ -1,5 +1,8 @@
 import { test as setup, expect } from '@playwright/test';
 
+// Read environment variables
+const userPassword = process.env.USER_PASSWORD ?? 'test-Password!';
+
 const authFile = 'playwright/.auth/user.json';
 
 setup('authenticate', async ({ page }) => {
@@ -11,13 +14,10 @@ setup('authenticate', async ({ page }) => {
 
   // user enters their credentials
   await page.getByLabel('Username').fill('test-user');
-  await page.getByLabel('Password').nth(0).fill('test-Password!');
+  await page.getByLabel('Password').nth(0).fill(userPassword);
 
   // user clicks sign-in
   await page.getByRole('button', { name: 'Sign in' }).click();
-
-  // user skips email verification
-  await page.getByRole('button', { name: 'Skip' }).click();
 
   // user lands at home page
   await expect(page.getByRole('heading', { name: 'Home' })).toBeVisible();
