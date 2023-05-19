@@ -47,7 +47,7 @@ jobs:
       - name: Configure AWS credentials 🔑
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::506789550664:role/IotAppGithubActionRole-IotAppGithubRole-7P4GB3XPGF1V
+          role-to-assume: ${{ secrets.DEPLOYMENT_AWS_ROLE }}
           aws-region: us-west-2
 
       - name: Deploy CDK 🚀
@@ -57,7 +57,6 @@ jobs:
         id: app_url
         run: |
           app_url=$(aws cloudformation describe-stacks --stack-name IotApp --query "Stacks[0].Outputs[?OutputKey=='AppURL'].OutputValue" --output text)
-          echo "::set-output name=app_url::$app_url"
           echo "app_url=$app_url" >> $GITHUB_OUTPUT
 
       - name: Install Playwright Browsers 🔩
