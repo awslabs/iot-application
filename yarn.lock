@@ -208,10 +208,10 @@
     lodash "^4.17.21"
     uuid "^3.2.1"
 
-"@aws-amplify/predictions@5.1.6":
-  version "5.1.6"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/predictions/-/predictions-5.1.6.tgz#d8ca0261b4d24b36043a0eea648d881cf3c0baf0"
-  integrity sha512-ZSDVktIJQ0EmtJpIr3RBy8rNG4EQNab8G3xpfhEP0PQudUy/mR3kayNCZIUhE7xapaobJQFSQF9ZS1Bdm0wAew==
+"@aws-amplify/predictions@5.1.7":
+  version "5.1.7"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/predictions/-/predictions-5.1.7.tgz#24eece68057af1517b6d1fa176e184e49ddfcdf2"
+  integrity sha512-cDsm/mqHlRXXSjO9JiHdrL2TWYCv20AbMXCnBhB7+8wVPIFNvlxGw45ZAIYFPJASJTDsA1H15rlclhece3RIUg==
   dependencies:
     "@aws-amplify/core" "5.3.0"
     "@aws-amplify/storage" "5.2.6"
@@ -222,6 +222,7 @@
     "@aws-sdk/client-translate" "3.6.1"
     "@aws-sdk/eventstream-marshaller" "3.6.1"
     "@aws-sdk/util-utf8-node" "3.6.1"
+    buffer "4.9.2"
     tslib "^1.8.0"
     uuid "^3.2.1"
 
@@ -11174,10 +11175,10 @@ avvio@^8.2.0:
     debug "^4.0.0"
     fastq "^1.6.1"
 
-aws-amplify@^5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-5.2.1.tgz#2b3dba3f48845fa521c2a63722895ac8807e2de5"
-  integrity sha512-jui7f0yuxl2hZ2rqSWG93EjN7IlFf3MBNGqlYlmvQc+RywPuKkGGTh83+7UuXJMmvJMULzOPaqi7B19NMD0KPw==
+aws-amplify@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-5.2.2.tgz#b3f2da80cf4f6309ed16e80fff3bc3494ce368bd"
+  integrity sha512-H5J4KJvtkMMI1wA3Cf+TkwzARYK+27nEaO9nXJl8HUgNoM8xptQSKM9yyZ7WVQPIxvPH+onq/tiUAQ+qFMO/fw==
   dependencies:
     "@aws-amplify/analytics" "6.1.0"
     "@aws-amplify/api" "5.1.0"
@@ -11188,7 +11189,7 @@ aws-amplify@^5.2.1:
     "@aws-amplify/geo" "2.0.32"
     "@aws-amplify/interactions" "5.0.32"
     "@aws-amplify/notifications" "1.1.6"
-    "@aws-amplify/predictions" "5.1.6"
+    "@aws-amplify/predictions" "5.1.7"
     "@aws-amplify/pubsub" "5.1.15"
     "@aws-amplify/storage" "5.2.6"
     tslib "^2.0.0"
