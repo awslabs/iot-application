@@ -27,22 +27,13 @@ test('as a user, I can create, update, and delete my dashboard', async ({
 
   await createDashboardPage.createButton.click();
 
-  await dashboardsPage.expectIsCurrentPage();
+  await expect(page).toHaveURL(/dashboards\/[a-zA-Z0-9_-]{12}/);
   await createDashboardPage.expectIsNotCurrentPage();
 
   await expect(application.notification).toBeVisible();
   await expect(application.notification).toContainText(
     'Successfully created dashboard "My Dashboard".',
   );
-
-  const dashboardRow = dashboardsTable.getRow({
-    name: 'My dashboard',
-    description: 'My dashboard description',
-  });
-  await expect(dashboardRow).toBeVisible();
-
-  await page.getByRole('link', { name: /[a-zA-Z0-9_-]{12}/ }).click();
-  await expect(page).toHaveURL(/dashboards\/[a-zA-Z0-9_-]{12}/);
 
   // check if viewport setting persists
   await page.getByRole('button', { name: 'Time machine' }).click();
@@ -62,6 +53,11 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   );
 
   await dashboardsPage.goto();
+
+  const dashboardRow = dashboardsTable.getRow({
+    name: 'My dashboard',
+    description: 'My dashboard description',
+  });
 
   await expect(dashboardRow).toBeVisible();
   await expect(dashboardsPage.deleteButton).toBeDisabled();
