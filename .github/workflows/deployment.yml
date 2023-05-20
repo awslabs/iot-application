@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write # needed to interact with GitHub's OIDC Token endpoint
+    outputs:
+      app_url: ${{ steps.app_url.outputs.app_url }}
 
     steps:
       - name: Checkout 🛎️
@@ -59,12 +61,38 @@ jobs:
           app_url=$(aws cloudformation describe-stacks --stack-name IotApp --query "Stacks[0].Outputs[?OutputKey=='AppURL'].OutputValue" --output text)
           echo "app_url=$app_url" >> $GITHUB_OUTPUT
 
+  test:
+    needs: deploy
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Install Java 🔧
+        uses: actions/setup-java@v3
+        with:
+          distribution: corretto
+          java-version: 17
+
+      - name: Install Node.js 🔧
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install Dependencies 🔩
+        run: yarn install --frozen-lockfile
+
       - name: Install Playwright Browsers 🔩
         run: yarn playwright install --with-deps
 
       - name: Run Playwright tests 🧑‍🔬
         env:
-          ENDPOINT: ${{ steps.app_url.outputs.app_url }}
+          ENDPOINT: ${{ needs.deploy.outputs.app_url }}
           LAUNCH_WEB_SERVER: false
           USER_PASSWORD: ${{ secrets.DEPLOYMENT_USER_PASSWORD }}
         id: tests
