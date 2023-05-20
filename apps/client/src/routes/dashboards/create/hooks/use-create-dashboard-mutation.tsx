@@ -3,7 +3,6 @@ import { useMutation } from '@tanstack/react-query';
 import { useIntl, FormattedMessage } from 'react-intl';
 import invariant from 'tiny-invariant';
 
-import { DASHBOARDS_HREF } from '~/constants';
 import {
   cancelDashboardsQueries,
   invalidateDashboards,
@@ -35,7 +34,7 @@ export function useCreateDashboardMutation() {
       await invalidateDashboards();
       await prefetchDashboards();
 
-      navigate(DASHBOARDS_HREF);
+      navigate(`/dashboards/${newDashboard.id}`);
 
       emit({
         type: 'success',
