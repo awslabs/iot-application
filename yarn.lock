@@ -1121,45 +1121,45 @@
     tslib "^2.5.0"
     uuid "^8.3.2"
 
-"@aws-sdk/client-iotsitewise@^3.335.0":
-  version "3.335.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iotsitewise/-/client-iotsitewise-3.335.0.tgz#e02661b739a55eb0a87658e1a4e66107eea5fc0b"
-  integrity sha512-biCs7bfF46IkvX1PLM0J7cadJW6fn0GfrnjQbyr/BuNq48cQho9GT5XAAE3ug8Qw1aCwke9SKRcLkJwWyuHjNw==
+"@aws-sdk/client-iotsitewise@^3.337.0":
+  version "3.337.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iotsitewise/-/client-iotsitewise-3.337.0.tgz#f00671b75b2c9c24566a21c91d3bc6c6564e6a24"
+  integrity sha512-hzn0Ws2mK19iOrw/bZUABlVzFmBd7U9sXkqeTRy+VRasRV4CP+8cu0OJem1mfcVNSFSlFeYVNHncZ/piB6psNw==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.335.0"
-    "@aws-sdk/config-resolver" "3.329.0"
-    "@aws-sdk/credential-provider-node" "3.335.0"
-    "@aws-sdk/fetch-http-handler" "3.329.0"
-    "@aws-sdk/hash-node" "3.329.0"
-    "@aws-sdk/invalid-dependency" "3.329.0"
-    "@aws-sdk/middleware-content-length" "3.329.0"
-    "@aws-sdk/middleware-endpoint" "3.329.0"
-    "@aws-sdk/middleware-host-header" "3.329.0"
-    "@aws-sdk/middleware-logger" "3.329.0"
-    "@aws-sdk/middleware-recursion-detection" "3.329.0"
-    "@aws-sdk/middleware-retry" "3.329.0"
-    "@aws-sdk/middleware-serde" "3.329.0"
-    "@aws-sdk/middleware-signing" "3.329.0"
-    "@aws-sdk/middleware-stack" "3.329.0"
-    "@aws-sdk/middleware-user-agent" "3.332.0"
-    "@aws-sdk/node-config-provider" "3.329.0"
-    "@aws-sdk/node-http-handler" "3.329.0"
-    "@aws-sdk/smithy-client" "3.329.0"
-    "@aws-sdk/types" "3.329.0"
-    "@aws-sdk/url-parser" "3.329.0"
+    "@aws-sdk/client-sts" "3.337.0"
+    "@aws-sdk/config-resolver" "3.337.0"
+    "@aws-sdk/credential-provider-node" "3.337.0"
+    "@aws-sdk/fetch-http-handler" "3.337.0"
+    "@aws-sdk/hash-node" "3.337.0"
+    "@aws-sdk/invalid-dependency" "3.337.0"
+    "@aws-sdk/middleware-content-length" "3.337.0"
+    "@aws-sdk/middleware-endpoint" "3.337.0"
+    "@aws-sdk/middleware-host-header" "3.337.0"
+    "@aws-sdk/middleware-logger" "3.337.0"
+    "@aws-sdk/middleware-recursion-detection" "3.337.0"
+    "@aws-sdk/middleware-retry" "3.337.0"
+    "@aws-sdk/middleware-serde" "3.337.0"
+    "@aws-sdk/middleware-signing" "3.337.0"
+    "@aws-sdk/middleware-stack" "3.337.0"
+    "@aws-sdk/middleware-user-agent" "3.337.0"
+    "@aws-sdk/node-config-provider" "3.337.0"
+    "@aws-sdk/node-http-handler" "3.337.0"
+    "@aws-sdk/smithy-client" "3.337.0"
+    "@aws-sdk/types" "3.337.0"
+    "@aws-sdk/url-parser" "3.337.0"
     "@aws-sdk/util-base64" "3.310.0"
     "@aws-sdk/util-body-length-browser" "3.310.0"
     "@aws-sdk/util-body-length-node" "3.310.0"
-    "@aws-sdk/util-defaults-mode-browser" "3.329.0"
-    "@aws-sdk/util-defaults-mode-node" "3.329.0"
-    "@aws-sdk/util-endpoints" "3.332.0"
-    "@aws-sdk/util-retry" "3.329.0"
-    "@aws-sdk/util-user-agent-browser" "3.329.0"
-    "@aws-sdk/util-user-agent-node" "3.329.0"
+    "@aws-sdk/util-defaults-mode-browser" "3.337.0"
+    "@aws-sdk/util-defaults-mode-node" "3.337.0"
+    "@aws-sdk/util-endpoints" "3.337.0"
+    "@aws-sdk/util-retry" "3.337.0"
+    "@aws-sdk/util-user-agent-browser" "3.337.0"
+    "@aws-sdk/util-user-agent-node" "3.337.0"
     "@aws-sdk/util-utf8" "3.310.0"
-    "@aws-sdk/util-waiter" "3.329.0"
+    "@aws-sdk/util-waiter" "3.337.0"
     "@smithy/protocol-http" "^1.0.1"
     "@smithy/types" "^1.0.0"
     tslib "^2.5.0"
@@ -2431,7 +2431,7 @@
     fast-xml-parser "4.1.2"
     tslib "^2.5.0"
 
-"@aws-sdk/client-sts@^3.337.0":
+"@aws-sdk/client-sts@3.337.0", "@aws-sdk/client-sts@^3.337.0":
   version "3.337.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.337.0.tgz#5258d778924862a568a76a8f94bf7b31c12fea7a"
   integrity sha512-MxzoEgTu+bv7bxcySiLBVDciaSA2cMpBXm0ovLbJtFIbpPhM4xM6xylBA4OXByT1Ili2RUUGcDGGe+ampMtDVw==
@@ -5392,6 +5392,15 @@
   dependencies:
     "@aws-sdk/abort-controller" "3.329.0"
     "@aws-sdk/types" "3.329.0"
+    tslib "^2.5.0"
+
+"@aws-sdk/util-waiter@3.337.0":
+  version "3.337.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-waiter/-/util-waiter-3.337.0.tgz#b6d0b68ebc1b6ab4c5c124615755743ddc087510"
+  integrity sha512-tQL8O8c/xvPOJGrsOj04fmZEpGF6paxrNK13f906jXiTgJ5bsSSlPzbTRHRfinTXoNpkeoqQ2LokbAZva6K05g==
+  dependencies:
+    "@aws-sdk/abort-controller" "3.337.0"
+    "@aws-sdk/types" "3.337.0"
     tslib "^2.5.0"
 
 "@aws-sdk/util-waiter@3.6.1":
