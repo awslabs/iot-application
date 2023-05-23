@@ -52,7 +52,7 @@
     "jest-config": "*",
     "run-script-webpack-plugin": "^0.2.0",
     "source-map-support": "^0.5.20",
-    "ts-loader": "^9.2.3",
+    "ts-loader": "^9.4.3",
     "tsconfig": "*",
     "webpack": "^5.83.1",
     "webpack-node-externals": "^3.0.0"
