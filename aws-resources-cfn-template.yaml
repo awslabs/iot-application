@@ -171,6 +171,36 @@ Resources:
                   - !GetAtt ApiResourceTable.Arn
                   - !Sub ${ApiResourceTable.Arn}/index/*
 
+  CoreServiceWebACL:
+    Type: AWS::WAFv2::WebACL
+    Properties:
+      DefaultAction:
+        Allow: {}
+      Rules:
+        - Action:
+            Block: {}
+          Name: IoTAppCoreServiceRateLimit
+          Priority: 0
+          Statement:
+            RateBasedStatement:
+              AggregateKeyType: "IP"
+              Limit: 3000  # 10 TPS over 5 minutes
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: true
+            MetricName: IoTAppCoreServiceRateLimit
+            SampledRequestsEnabled: true
+      Scope: REGIONAL
+      VisibilityConfig:
+        CloudWatchMetricsEnabled: true
+        MetricName: IoTAppCoreServiceWebACL
+        SampledRequestsEnabled: true
+
+  CoreServiceWebACLAssociation:
+    Type: AWS::WAFv2::WebACLAssociation
+    Properties:
+      ResourceArn: !GetAtt CoreService.ServiceArn
+      WebACLArn: !GetAtt CoreServiceWebACL.Arn
+
   AssetBucket:
     Type: "AWS::S3::Bucket"
     UpdateReplacePolicy: Retain
@@ -217,7 +247,7 @@ Resources:
     Type: 'AWS::CloudFront::ResponseHeadersPolicy'
     Properties:
       ResponseHeadersPolicyConfig:
-        Name: IoTApplicationPublicAssetHeaders
+        Name: IoTAppPublicAssetHeaders
         SecurityHeadersConfig:
           ContentSecurityPolicy:
             ContentSecurityPolicy: !Join
