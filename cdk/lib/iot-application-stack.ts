@@ -20,7 +20,9 @@ export class IotApplicationStack extends Stack {
     } = new DatabaseStack(this, 'Database', props);
 
     const {
-      coreService: { serviceUrl: coreServiceUrl },
+      coreService: {
+        service: { attrServiceUrl: coreServiceUrl },
+      },
     } = new CoreStack(this, 'Core', {
       coreServiceProps: {
         databaseTableArn: tableArn,
