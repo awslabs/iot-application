@@ -248,6 +248,11 @@ Resources:
     Properties:
       ResponseHeadersPolicyConfig:
         Name: IoTAppPublicAssetHeaders
+        CustomHeadersConfig:
+          Items:
+          - Header: Cache-Control
+            Override: true
+            Value: no-store
         SecurityHeadersConfig:
           ContentSecurityPolicy:
             ContentSecurityPolicy: !Join
@@ -266,6 +271,15 @@ Resources:
                 - script-src 'self' 'unsafe-eval';
                 - style-src 'self' 'unsafe-inline';
                 - upgrade-insecure-requests;
+            Override: true
+          ContentTypeOptions:
+            Override: true
+          FrameOptions:
+            FrameOption: DENY
+            Override: true
+          StrictTransportSecurity:
+            AccessControlMaxAgeSec: 47304000
+            IncludeSubdomains: true
             Override: true
 
   PublicAssetDistribution:

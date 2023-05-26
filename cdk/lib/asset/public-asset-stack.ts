@@ -1,6 +1,7 @@
 import { Duration, Stack, StackProps } from 'aws-cdk-lib';
 import {
   Distribution,
+  HeadersFrameOption,
   OriginAccessIdentity,
   ResponseHeadersPolicy,
   SecurityPolicyProtocol,
@@ -122,6 +123,27 @@ export class PublicAssetStack extends Stack {
             ),
             override: true,
           },
+          contentTypeOptions: {
+            override: true,
+          },
+          frameOptions: {
+            frameOption: HeadersFrameOption.DENY,
+            override: true,
+          },
+          strictTransportSecurity: {
+            accessControlMaxAge: Duration.seconds(47304000),
+            includeSubdomains: true,
+            override: true,
+          },
+        },
+        customHeadersBehavior: {
+          customHeaders: [
+            {
+              header: 'Cache-Control',
+              override: true,
+              value: 'no-store',
+            },
+          ],
         },
       },
     );
