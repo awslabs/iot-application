@@ -41,8 +41,7 @@ export function getImgSrcDirective(): string {
 }
 
 export function getScriptSrcDirective(): string {
-  // FIXME: 'unsafe-eval' source to be removed after removal of NPM dependency box-intersect
-  return "script-src 'self' 'unsafe-eval';";
+  return "script-src 'self';";
 }
 
 export function getStyleSrcDirective(): string {

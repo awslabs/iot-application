@@ -268,7 +268,7 @@ Resources:
                 - default-src 'none';
                 - font-src 'self' data:;
                 - img-src 'self' data:;
-                - script-src 'self' 'unsafe-eval';
+                - script-src 'self';
                 - style-src 'self' 'unsafe-inline';
                 - upgrade-insecure-requests;
             Override: true
