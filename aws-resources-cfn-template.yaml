@@ -346,7 +346,7 @@ Resources:
             const { Body, Bucket, Key } = event.ResourceProperties;
 
             if (requestType === 'Create' || requestType === 'Update') {
-              s3.putObject({ Body, Bucket, Key }).promise()
+              s3.putObject({ ContentType: 'application/javascript', Body, Bucket, Key }).promise()
                 .then(() => cfnresponse.send(event, context, cfnresponse.SUCCESS))
                 .catch(err => {
                   console.err(err)
