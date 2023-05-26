@@ -75,6 +75,7 @@ export class PublicAssetStack extends Stack {
         destinationBucket: assetBucket,
         destinationKeyPrefix: assetHashKey,
         exclude: ['aws-resources.js'],
+        memoryLimit: 200,
         prune: false,
         sources: [Source.asset(path.join(__dirname, CLIENT_BUILD_DIR_PATH))],
       },
@@ -102,6 +103,7 @@ export class PublicAssetStack extends Stack {
           Body: `window.awsResources=${this.toJsonString(awsResources)};`,
           Bucket: assetBucket.bucketName,
           Key: `${assetHashKey}/aws-resources.js`,
+          ContentType: 'application/javascript',
         },
         // Update physical id to always overwrite
         physicalResourceId: PhysicalResourceId.of(Date.now().toString()),
