@@ -11656,10 +11656,10 @@ coa@^2.0.2:
     chalk "^2.4.1"
     q "^1.1.2"
 
-cognito-local@^3.23.1:
-  version "3.23.1"
-  resolved "https://registry.yarnpkg.com/cognito-local/-/cognito-local-3.23.1.tgz#7593fc9ef8a3ca90107171d41c2cd20287b0aea3"
-  integrity sha512-GUEERHlfgS3cbIrkpW16rZGIyyQ0Fp9pK5xJo0ruwGXSh52EpBAeMvF/wmdQbMqa+ahMx+hXW2qUhECEXqWbBA==
+cognito-local@^3.23.2:
+  version "3.23.2"
+  resolved "https://registry.yarnpkg.com/cognito-local/-/cognito-local-3.23.2.tgz#2288c013b21df079f5f10ea80ae93a5d598b52a8"
+  integrity sha512-HUQeCKocems4ydgba/HpO1rWiqD1iwfg5+wM2rDr2VOSeHgKKTpKR0M+nZBGHI2rwOXxkYWPgImxsVvk813lAw==
   dependencies:
     "@aws-crypto/client-node" "^3.1.1"
     aws-sdk "^2.1145.0"
