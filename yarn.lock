@@ -10677,12 +10677,12 @@
   dependencies:
     tinyspy "^2.1.0"
 
-"@vitest/ui@^0.31.1":
-  version "0.31.1"
-  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-0.31.1.tgz#5c4245aa94f5d16f5c8831dd66ee8eedb79414cc"
-  integrity sha512-+JJ2+rvRPAVxFLNE+WJOMzOjxqYPn7V2hl00uNwid6kquD+UHTa716Z7szfNeZMLnHOHv+fxq1UgLCymvVpE5w==
+"@vitest/ui@^0.31.2":
+  version "0.31.2"
+  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-0.31.2.tgz#74c0fa5a63e5556006059da1d299cc8fb63bab7f"
+  integrity sha512-2GGbU9d1Y8JIjHTQ9BN152mLh2CLjF/CcCLFOd/NEvZXFec6BfOfCqE0Zfei76ZzOonHZNF57Xe9ckkRJF699w==
   dependencies:
-    "@vitest/utils" "0.31.1"
+    "@vitest/utils" "0.31.2"
     fast-glob "^3.2.12"
     fflate "^0.7.4"
     flatted "^3.2.7"
@@ -10694,6 +10694,15 @@
   version "0.31.1"
   resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-0.31.1.tgz#b810a458b37ef16931ab0d384ce79a9500f34e07"
   integrity sha512-yFyRD5ilwojsZfo3E0BnH72pSVSuLg2356cN1tCEe/0RtDzxTPYwOomIC+eQbot7m6DRy4tPZw+09mB7NkbMmA==
+  dependencies:
+    concordance "^5.0.4"
+    loupe "^2.3.6"
+    pretty-format "^27.5.1"
+
+"@vitest/utils@0.31.2":
+  version "0.31.2"
+  resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-0.31.2.tgz#c70e06cafe844ac082eb21d2df363ff421785787"
+  integrity sha512-B2AoocMpIiBezediqFzSqvuXI7AZlmlPkh3oj20Jh3bL35c8YYWk9KfOLkEjsLCrOHOUFXoYFc+ACiELCIJVRw==
   dependencies:
     concordance "^5.0.4"
     loupe "^2.3.6"
