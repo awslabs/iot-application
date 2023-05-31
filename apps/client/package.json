@@ -71,7 +71,7 @@
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*",
     "typescript": "^5.0.4",
-    "vitest": "^0.31.2"
+    "vitest": "^0.31.3"
   },
   "browserslist": {
     "production": [">0.2%", "not dead", "not op_mini all"],
