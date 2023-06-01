@@ -3501,12 +3501,12 @@
     "@aws-sdk/util-dynamodb" "3.264.0"
     tslib "^2.3.1"
 
-"@aws-sdk/lib-dynamodb@^3.342.0":
-  version "3.342.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/lib-dynamodb/-/lib-dynamodb-3.342.0.tgz#e07546ff4a2a0a07dd7ad0fbecc878d16f996d2e"
-  integrity sha512-Wge06Ne9Inye2Ndj3oUHAM3SOK0SM77EmnJVfUZWO3Vn4nOn4+DAH6VhGiq+rH20YiT+gM+aWnXUXECaR+biww==
+"@aws-sdk/lib-dynamodb@^3.344.0":
+  version "3.344.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/lib-dynamodb/-/lib-dynamodb-3.344.0.tgz#c2286cd493b74dd03aeeabce72ee833e58ec3313"
+  integrity sha512-2t47ebRXvmPp2GINNRONTDpCbhmJ6WUVQ1EDfdGxIYp0soNib7UEjEdKr+FzibITJLoRJcmIY+TNgNyUUGEWQQ==
   dependencies:
-    "@aws-sdk/util-dynamodb" "3.342.0"
+    "@aws-sdk/util-dynamodb" "3.344.0"
     tslib "^2.5.0"
 
 "@aws-sdk/md5-js@3.329.0":
@@ -5058,10 +5058,10 @@
   dependencies:
     tslib "^2.3.1"
 
-"@aws-sdk/util-dynamodb@3.342.0":
-  version "3.342.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/util-dynamodb/-/util-dynamodb-3.342.0.tgz#b118666c4134fbdc661821b28ac4295c748da818"
-  integrity sha512-OGQvm/5ViE50+CZhRjXMAxV0sOb7el4loI5UCF/LN006E83SoImG9aF9cEUz/cyVN2NnLXwh4bRdZw53dTvKRQ==
+"@aws-sdk/util-dynamodb@3.344.0":
+  version "3.344.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-dynamodb/-/util-dynamodb-3.344.0.tgz#79ae190fce40e9908bea15145d12449958eed545"
+  integrity sha512-VWQ75CDBMoYy/HTVq1/M95iqpAtehIZI5rm4VMLJE4wWIJWw3CRKdtMIhigj+h7GOFry9ld6/aEgBOGzIv5w8A==
   dependencies:
     tslib "^2.5.0"
 
@@ -10155,15 +10155,6 @@
     pathe "^1.1.0"
     picocolors "^1.0.0"
     sirv "^2.0.3"
-
-"@vitest/utils@0.31.3":
-  version "0.31.3"
-  resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-0.31.3.tgz#11d83ceb6cd46a3df37cbb80f9b366cbb4b76b3e"
-  integrity sha512-aLxfilR38ARSw6U/E9hl5bkn2TNeWLK7rZaIWZQUpT6BBilbehwJbSVGENubW5Pb9cawqchZZ7IQMW99t0Ww3A==
-  dependencies:
-    concordance "^5.0.4"
-    loupe "^2.3.6"
-    pretty-format "^27.5.1"
 
 "@vitest/utils@0.31.4":
   version "0.31.4"
