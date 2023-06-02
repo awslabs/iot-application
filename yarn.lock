@@ -1046,16 +1046,16 @@
     "@smithy/types" "^1.0.0"
     tslib "^2.5.0"
 
-"@aws-sdk/client-iot-events@^3.344.0":
-  version "3.344.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iot-events/-/client-iot-events-3.344.0.tgz#8630d180309991b04fa3a9b32d706c7e9fa16012"
-  integrity sha512-z3STfGLhMsMlOh238IxiYVvJZUW+lx2+H5bEXfC5PWvJ+bQ1jSh2KwxPgrdLFpG4r0ipKR0FYozw2udgtjOgzA==
+"@aws-sdk/client-iot-events@^3.345.0":
+  version "3.345.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iot-events/-/client-iot-events-3.345.0.tgz#b3bbc90e7e09853acd01e797e440522b5d5370df"
+  integrity sha512-G/uuTF5RMbpU2Y4/7T7ZcDIswmQ/FgUFJVpEgXZlV0EVdT6253dQqKBHj+jtqCAYR2OB74sKB6kAF7HsqLPI8A==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.344.0"
+    "@aws-sdk/client-sts" "3.345.0"
     "@aws-sdk/config-resolver" "3.342.0"
-    "@aws-sdk/credential-provider-node" "3.344.0"
+    "@aws-sdk/credential-provider-node" "3.345.0"
     "@aws-sdk/fetch-http-handler" "3.342.0"
     "@aws-sdk/hash-node" "3.344.0"
     "@aws-sdk/invalid-dependency" "3.342.0"
@@ -1068,7 +1068,7 @@
     "@aws-sdk/middleware-serde" "3.342.0"
     "@aws-sdk/middleware-signing" "3.342.0"
     "@aws-sdk/middleware-stack" "3.342.0"
-    "@aws-sdk/middleware-user-agent" "3.342.0"
+    "@aws-sdk/middleware-user-agent" "3.345.0"
     "@aws-sdk/node-config-provider" "3.342.0"
     "@aws-sdk/node-http-handler" "3.344.0"
     "@aws-sdk/smithy-client" "3.342.0"
@@ -1081,8 +1081,8 @@
     "@aws-sdk/util-defaults-mode-node" "3.342.0"
     "@aws-sdk/util-endpoints" "3.342.0"
     "@aws-sdk/util-retry" "3.342.0"
-    "@aws-sdk/util-user-agent-browser" "3.342.0"
-    "@aws-sdk/util-user-agent-node" "3.342.0"
+    "@aws-sdk/util-user-agent-browser" "3.345.0"
+    "@aws-sdk/util-user-agent-node" "3.345.0"
     "@aws-sdk/util-utf8" "3.310.0"
     "@smithy/protocol-http" "^1.0.1"
     "@smithy/types" "^1.0.0"
