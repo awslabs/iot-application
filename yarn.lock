@@ -890,46 +890,46 @@
     tslib "^2.3.1"
     uuid "^8.3.2"
 
-"@aws-sdk/client-dynamodb@^3.345.0":
-  version "3.345.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.345.0.tgz#3ed4b7c56219421f74c9ceb450175ff3dd895b78"
-  integrity sha512-yEBGhMszFz0vnUj5DdAIj/7SJYH0eks0Va7XdL0zUNS7DdG2NhXczho7XZ6x+s70Ar0nuVhnqOnSCIbgbhSV2g==
+"@aws-sdk/client-dynamodb@^3.347.0":
+  version "3.347.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.347.0.tgz#4e2f1bcba3bcc683cb6bcc139a91208911c5bf82"
+  integrity sha512-7MH7wOAoNN9hGOr8m3PvHE0Y48T3KUlSa0wLics0l91ECaga67jWAMkXweGHKPNMw9d3k09WsNrTpqP3HV02CA==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.345.0"
-    "@aws-sdk/config-resolver" "3.342.0"
-    "@aws-sdk/credential-provider-node" "3.345.0"
-    "@aws-sdk/fetch-http-handler" "3.342.0"
-    "@aws-sdk/hash-node" "3.344.0"
-    "@aws-sdk/invalid-dependency" "3.342.0"
-    "@aws-sdk/middleware-content-length" "3.342.0"
-    "@aws-sdk/middleware-endpoint" "3.344.0"
-    "@aws-sdk/middleware-endpoint-discovery" "3.342.0"
-    "@aws-sdk/middleware-host-header" "3.342.0"
-    "@aws-sdk/middleware-logger" "3.342.0"
-    "@aws-sdk/middleware-recursion-detection" "3.342.0"
-    "@aws-sdk/middleware-retry" "3.342.0"
-    "@aws-sdk/middleware-serde" "3.342.0"
-    "@aws-sdk/middleware-signing" "3.342.0"
-    "@aws-sdk/middleware-stack" "3.342.0"
-    "@aws-sdk/middleware-user-agent" "3.345.0"
-    "@aws-sdk/node-config-provider" "3.342.0"
-    "@aws-sdk/node-http-handler" "3.344.0"
-    "@aws-sdk/smithy-client" "3.342.0"
-    "@aws-sdk/types" "3.342.0"
-    "@aws-sdk/url-parser" "3.342.0"
+    "@aws-sdk/client-sts" "3.347.0"
+    "@aws-sdk/config-resolver" "3.347.0"
+    "@aws-sdk/credential-provider-node" "3.347.0"
+    "@aws-sdk/fetch-http-handler" "3.347.0"
+    "@aws-sdk/hash-node" "3.347.0"
+    "@aws-sdk/invalid-dependency" "3.347.0"
+    "@aws-sdk/middleware-content-length" "3.347.0"
+    "@aws-sdk/middleware-endpoint" "3.347.0"
+    "@aws-sdk/middleware-endpoint-discovery" "3.347.0"
+    "@aws-sdk/middleware-host-header" "3.347.0"
+    "@aws-sdk/middleware-logger" "3.347.0"
+    "@aws-sdk/middleware-recursion-detection" "3.347.0"
+    "@aws-sdk/middleware-retry" "3.347.0"
+    "@aws-sdk/middleware-serde" "3.347.0"
+    "@aws-sdk/middleware-signing" "3.347.0"
+    "@aws-sdk/middleware-stack" "3.347.0"
+    "@aws-sdk/middleware-user-agent" "3.347.0"
+    "@aws-sdk/node-config-provider" "3.347.0"
+    "@aws-sdk/node-http-handler" "3.347.0"
+    "@aws-sdk/smithy-client" "3.347.0"
+    "@aws-sdk/types" "3.347.0"
+    "@aws-sdk/url-parser" "3.347.0"
     "@aws-sdk/util-base64" "3.310.0"
     "@aws-sdk/util-body-length-browser" "3.310.0"
     "@aws-sdk/util-body-length-node" "3.310.0"
-    "@aws-sdk/util-defaults-mode-browser" "3.342.0"
-    "@aws-sdk/util-defaults-mode-node" "3.342.0"
-    "@aws-sdk/util-endpoints" "3.342.0"
-    "@aws-sdk/util-retry" "3.342.0"
-    "@aws-sdk/util-user-agent-browser" "3.345.0"
-    "@aws-sdk/util-user-agent-node" "3.345.0"
+    "@aws-sdk/util-defaults-mode-browser" "3.347.0"
+    "@aws-sdk/util-defaults-mode-node" "3.347.0"
+    "@aws-sdk/util-endpoints" "3.347.0"
+    "@aws-sdk/util-retry" "3.347.0"
+    "@aws-sdk/util-user-agent-browser" "3.347.0"
+    "@aws-sdk/util-user-agent-node" "3.347.0"
     "@aws-sdk/util-utf8" "3.310.0"
-    "@aws-sdk/util-waiter" "3.342.0"
+    "@aws-sdk/util-waiter" "3.347.0"
     "@smithy/protocol-http" "^1.0.1"
     "@smithy/types" "^1.0.0"
     tslib "^2.5.0"
@@ -2423,7 +2423,7 @@
     fast-xml-parser "4.1.2"
     tslib "^2.5.0"
 
-"@aws-sdk/client-sts@^3.347.0":
+"@aws-sdk/client-sts@3.347.0", "@aws-sdk/client-sts@^3.347.0":
   version "3.347.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-sts/-/client-sts-3.347.0.tgz#44ddb38a7d89046702573618a0b974b5a5e7bf2b"
   integrity sha512-QcJCUlzJZLAFTFSuELKd4BF5I5W38TR/m7NX2y1tn2la9JIrWSrz+tj598zfp2V4pJPzRJ1i8RglTZxSRIvsxQ==
@@ -3737,14 +3737,14 @@
     "@aws-sdk/types" "3.257.0"
     tslib "^2.3.1"
 
-"@aws-sdk/middleware-endpoint-discovery@3.342.0":
-  version "3.342.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-endpoint-discovery/-/middleware-endpoint-discovery-3.342.0.tgz#8651da2d574b8bcf2b6ba12cf1e31f962e296273"
-  integrity sha512-IjWCaSLXM4dANY3sssS+fkFON3PghvRlK1iUvBlO7ripQcRFku+MFRVc/27UQQ5SqyuCctpOA1Wz4+iiZGSZmQ==
+"@aws-sdk/middleware-endpoint-discovery@3.347.0":
+  version "3.347.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-endpoint-discovery/-/middleware-endpoint-discovery-3.347.0.tgz#0d487e1dddaf548c65893563a4a891468e1da6c2"
+  integrity sha512-QmsZA2JoOjyoSPEZMb8WW8pD0ljK+/wFDsA1JcS4jJfzM5UOM7dpClBZ7WLI4eBZWGDHrcRMFIDyPF51LjHpug==
   dependencies:
     "@aws-sdk/endpoint-cache" "3.310.0"
-    "@aws-sdk/protocol-http" "3.342.0"
-    "@aws-sdk/types" "3.342.0"
+    "@aws-sdk/protocol-http" "3.347.0"
+    "@aws-sdk/types" "3.347.0"
     tslib "^2.5.0"
 
 "@aws-sdk/middleware-endpoint@3.264.0":
@@ -5864,6 +5864,15 @@
   dependencies:
     "@aws-sdk/abort-controller" "3.342.0"
     "@aws-sdk/types" "3.342.0"
+    tslib "^2.5.0"
+
+"@aws-sdk/util-waiter@3.347.0":
+  version "3.347.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-waiter/-/util-waiter-3.347.0.tgz#c1edc4467198ce2dfce1e17e917e1cb7e2e41bbe"
+  integrity sha512-3ze/0PkwkzUzLncukx93tZgGL0JX9NaP8DxTi6WzflnL/TEul5Z63PCruRNK0om17iZYAWKrf8q2mFoHYb4grA==
+  dependencies:
+    "@aws-sdk/abort-controller" "3.347.0"
+    "@aws-sdk/types" "3.347.0"
     tslib "^2.5.0"
 
 "@aws-sdk/util-waiter@3.6.1":
@@ -10639,15 +10648,6 @@
     pathe "^1.1.0"
     picocolors "^1.0.0"
     sirv "^2.0.3"
-
-"@vitest/utils@0.31.4":
-  version "0.31.4"
-  resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-0.31.4.tgz#5cfdcecfd604a7dbe3972cfe0f2b1e0af1246ad2"
-  integrity sha512-DobZbHacWznoGUfYU8XDPY78UubJxXfMNY1+SUdOp1NsI34eopSA6aZMeaGu10waSOeYwE8lxrd/pLfT0RMxjQ==
-  dependencies:
-    concordance "^5.0.4"
-    loupe "^2.3.6"
-    pretty-format "^27.5.1"
 
 "@vitest/utils@0.32.0":
   version "0.32.0"
