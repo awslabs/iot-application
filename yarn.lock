@@ -972,49 +972,7 @@
     "@aws-sdk/util-utf8-node" "3.6.1"
     tslib "^2.0.0"
 
-"@aws-sdk/client-iot-events@3.342.0":
-  version "3.342.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iot-events/-/client-iot-events-3.342.0.tgz#bf740737d8e808105eea4b31c9c916309804f267"
-  integrity sha512-K1S12KQv9jIb+dO/gRFG3dztvn6vr8NzzMsIrrH8unTvbPnb00Rv+2DvRZDQ9UfnghBdtKUHdfskcwhF9dHi5Q==
-  dependencies:
-    "@aws-crypto/sha256-browser" "3.0.0"
-    "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.342.0"
-    "@aws-sdk/config-resolver" "3.342.0"
-    "@aws-sdk/credential-provider-node" "3.342.0"
-    "@aws-sdk/fetch-http-handler" "3.342.0"
-    "@aws-sdk/hash-node" "3.342.0"
-    "@aws-sdk/invalid-dependency" "3.342.0"
-    "@aws-sdk/middleware-content-length" "3.342.0"
-    "@aws-sdk/middleware-endpoint" "3.342.0"
-    "@aws-sdk/middleware-host-header" "3.342.0"
-    "@aws-sdk/middleware-logger" "3.342.0"
-    "@aws-sdk/middleware-recursion-detection" "3.342.0"
-    "@aws-sdk/middleware-retry" "3.342.0"
-    "@aws-sdk/middleware-serde" "3.342.0"
-    "@aws-sdk/middleware-signing" "3.342.0"
-    "@aws-sdk/middleware-stack" "3.342.0"
-    "@aws-sdk/middleware-user-agent" "3.342.0"
-    "@aws-sdk/node-config-provider" "3.342.0"
-    "@aws-sdk/node-http-handler" "3.342.0"
-    "@aws-sdk/smithy-client" "3.342.0"
-    "@aws-sdk/types" "3.342.0"
-    "@aws-sdk/url-parser" "3.342.0"
-    "@aws-sdk/util-base64" "3.310.0"
-    "@aws-sdk/util-body-length-browser" "3.310.0"
-    "@aws-sdk/util-body-length-node" "3.310.0"
-    "@aws-sdk/util-defaults-mode-browser" "3.342.0"
-    "@aws-sdk/util-defaults-mode-node" "3.342.0"
-    "@aws-sdk/util-endpoints" "3.342.0"
-    "@aws-sdk/util-retry" "3.342.0"
-    "@aws-sdk/util-user-agent-browser" "3.342.0"
-    "@aws-sdk/util-user-agent-node" "3.342.0"
-    "@aws-sdk/util-utf8" "3.310.0"
-    "@smithy/protocol-http" "^1.0.1"
-    "@smithy/types" "^1.0.0"
-    tslib "^2.5.0"
-
-"@aws-sdk/client-iot-events@^3.345.0":
+"@aws-sdk/client-iot-events@3.345.0", "@aws-sdk/client-iot-events@^3.345.0":
   version "3.345.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-iot-events/-/client-iot-events-3.345.0.tgz#b3bbc90e7e09853acd01e797e440522b5d5370df"
   integrity sha512-G/uuTF5RMbpU2Y4/7T7ZcDIswmQ/FgUFJVpEgXZlV0EVdT6253dQqKBHj+jtqCAYR2OB74sKB6kAF7HsqLPI8A==
@@ -1186,16 +1144,16 @@
     "@smithy/types" "^1.0.0"
     tslib "^2.5.0"
 
-"@aws-sdk/client-kinesis-video-archived-media@3.344.0":
-  version "3.344.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-kinesis-video-archived-media/-/client-kinesis-video-archived-media-3.344.0.tgz#ec98901585bb61f7089a6479bcaa1371e514f84b"
-  integrity sha512-V5hnDfy/bfMqOsRZaVBvBEFmgo57ACpmucKfmFFjJiYCm6/+Q1tIjOkC1HOqWA/Y6/4vcIj33gJ+yj34dMgHFQ==
+"@aws-sdk/client-kinesis-video-archived-media@3.345.0":
+  version "3.345.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-kinesis-video-archived-media/-/client-kinesis-video-archived-media-3.345.0.tgz#fc25794ecda114cee4986679509663cdba72a964"
+  integrity sha512-6nuvPiplIDfL9puYFR4ChBbpUeTS1O/5Hi1YlOKHe0nInZ9EpzZ9f9sBvSyJqX8Ta1ku4QZ0Wcb2u2/7I/cmOA==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.344.0"
+    "@aws-sdk/client-sts" "3.345.0"
     "@aws-sdk/config-resolver" "3.342.0"
-    "@aws-sdk/credential-provider-node" "3.344.0"
+    "@aws-sdk/credential-provider-node" "3.345.0"
     "@aws-sdk/fetch-http-handler" "3.342.0"
     "@aws-sdk/hash-node" "3.344.0"
     "@aws-sdk/invalid-dependency" "3.342.0"
@@ -1208,7 +1166,7 @@
     "@aws-sdk/middleware-serde" "3.342.0"
     "@aws-sdk/middleware-signing" "3.342.0"
     "@aws-sdk/middleware-stack" "3.342.0"
-    "@aws-sdk/middleware-user-agent" "3.342.0"
+    "@aws-sdk/middleware-user-agent" "3.345.0"
     "@aws-sdk/node-config-provider" "3.342.0"
     "@aws-sdk/node-http-handler" "3.344.0"
     "@aws-sdk/smithy-client" "3.342.0"
@@ -1223,28 +1181,28 @@
     "@aws-sdk/util-retry" "3.342.0"
     "@aws-sdk/util-stream-browser" "3.342.0"
     "@aws-sdk/util-stream-node" "3.344.0"
-    "@aws-sdk/util-user-agent-browser" "3.342.0"
-    "@aws-sdk/util-user-agent-node" "3.342.0"
+    "@aws-sdk/util-user-agent-browser" "3.345.0"
+    "@aws-sdk/util-user-agent-node" "3.345.0"
     "@aws-sdk/util-utf8" "3.310.0"
     "@smithy/protocol-http" "^1.0.1"
     "@smithy/types" "^1.0.0"
     tslib "^2.5.0"
 
-"@aws-sdk/client-kinesis-video@3.342.0":
-  version "3.342.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-kinesis-video/-/client-kinesis-video-3.342.0.tgz#2dad0aa50ceb5d08506451b780a068f4a350c36a"
-  integrity sha512-L7N3iHdsqnRH6v9+x+8VlGiR58HEjGcdat1bi22H+ZeqsyVkLiRVWYto9rwCNNEBy2G/CG9a91DkF0TAndTIPw==
+"@aws-sdk/client-kinesis-video@3.345.0":
+  version "3.345.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-kinesis-video/-/client-kinesis-video-3.345.0.tgz#757e0d1b4ba3cb181931b122f65975ce00dd6db0"
+  integrity sha512-oFg8nPjHYEGr8azn1aglOuaBY7AUniLqCc1DXBKfRasARoQRPuBn1AFMnx9Vgt7LJjCXHOWgUyTsp/X/M1uK4w==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.342.0"
+    "@aws-sdk/client-sts" "3.345.0"
     "@aws-sdk/config-resolver" "3.342.0"
-    "@aws-sdk/credential-provider-node" "3.342.0"
+    "@aws-sdk/credential-provider-node" "3.345.0"
     "@aws-sdk/fetch-http-handler" "3.342.0"
-    "@aws-sdk/hash-node" "3.342.0"
+    "@aws-sdk/hash-node" "3.344.0"
     "@aws-sdk/invalid-dependency" "3.342.0"
     "@aws-sdk/middleware-content-length" "3.342.0"
-    "@aws-sdk/middleware-endpoint" "3.342.0"
+    "@aws-sdk/middleware-endpoint" "3.344.0"
     "@aws-sdk/middleware-host-header" "3.342.0"
     "@aws-sdk/middleware-logger" "3.342.0"
     "@aws-sdk/middleware-recursion-detection" "3.342.0"
@@ -1252,9 +1210,9 @@
     "@aws-sdk/middleware-serde" "3.342.0"
     "@aws-sdk/middleware-signing" "3.342.0"
     "@aws-sdk/middleware-stack" "3.342.0"
-    "@aws-sdk/middleware-user-agent" "3.342.0"
+    "@aws-sdk/middleware-user-agent" "3.345.0"
     "@aws-sdk/node-config-provider" "3.342.0"
-    "@aws-sdk/node-http-handler" "3.342.0"
+    "@aws-sdk/node-http-handler" "3.344.0"
     "@aws-sdk/smithy-client" "3.342.0"
     "@aws-sdk/types" "3.342.0"
     "@aws-sdk/url-parser" "3.342.0"
@@ -1265,8 +1223,8 @@
     "@aws-sdk/util-defaults-mode-node" "3.342.0"
     "@aws-sdk/util-endpoints" "3.342.0"
     "@aws-sdk/util-retry" "3.342.0"
-    "@aws-sdk/util-user-agent-browser" "3.342.0"
-    "@aws-sdk/util-user-agent-node" "3.342.0"
+    "@aws-sdk/util-user-agent-browser" "3.345.0"
+    "@aws-sdk/util-user-agent-node" "3.345.0"
     "@aws-sdk/util-utf8" "3.310.0"
     "@smithy/protocol-http" "^1.0.1"
     "@smithy/types" "^1.0.0"
@@ -7870,32 +7828,32 @@
   dependencies:
     "@iot-app-kit/charts-core" "^2.0.0"
 
-"@iot-app-kit/components@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/components/-/components-6.0.0.tgz#f6fc7f6274c8ba0da5104eea7110fb186d73e35f"
-  integrity sha512-I5YEcVLcyjonJYmNdIe7749D8sBpcKyYZs/93ccV/e4vMnI7TH+s0l3uSYP7jXr7bFP+iwjjvmgHSHtKqQVtVg==
+"@iot-app-kit/components@6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/components/-/components-6.1.0.tgz#dee805d1935218a389d0998a9618185534e05d58"
+  integrity sha512-Q1wUjIIPNDDJRPRYZMZDMnF8zvZelMMv5WBd6kJRudK9/SRdf9iUbRzWlyEkzHxJg/OqGJGdulYERfXSdgkD9w==
   dependencies:
     "@awsui/collection-hooks" "^1.0.51"
     "@awsui/components-react" "^3.0.0"
     "@awsui/design-tokens" "^3.0.42"
-    "@iot-app-kit/core" "6.0.0"
-    "@iot-app-kit/related-table" "6.0.0"
+    "@iot-app-kit/core" "6.1.0"
+    "@iot-app-kit/related-table" "6.1.0"
     "@stencil/core" "^2.7.0"
     "@synchro-charts/core" "7.2.0"
     styled-components "^5.3.11"
 
-"@iot-app-kit/core-util@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/core-util/-/core-util-6.0.0.tgz#71991cab007f057512dc323b0b003bfb036b8dae"
-  integrity sha512-lTIpOmqGkLGw6DVbEyZzUmcQSypxss0a4as7xulEirLQIjOn2jF4ttFDbBd6vfjP8m/CQe2CR4U28IiVDGOqMQ==
+"@iot-app-kit/core-util@6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/core-util/-/core-util-6.1.0.tgz#6e9cdb2c7855a0a4ed74f90e37119fb5d530a117"
+  integrity sha512-NI0UhDXnscbS+4ykzz8/LApmDXhRSqZpat7/fc0R0I0NGqYDwLo2uzzzad95/dDkUkXa1TG6jLmYB9EfOlAQgw==
   dependencies:
-    "@aws-sdk/client-iot-events" "3.342.0"
+    "@aws-sdk/client-iot-events" "3.345.0"
     "@aws-sdk/client-iotsitewise" "3.344.0"
 
-"@iot-app-kit/core@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/core/-/core-6.0.0.tgz#691ad81875a55c067182122fab556e65c5cb30b4"
-  integrity sha512-yngid3XzfM8tzm7L330gEWeAoa23zX/lhMaKs4IG4y5FwNVEf1t5QeHXRjNMBbI2ofIEq2xlOmPhrl79DV3IhA==
+"@iot-app-kit/core@6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/core/-/core-6.1.0.tgz#c934f282c310cdcee7c086a12d5ea2ae93c7b943"
+  integrity sha512-TdChFuC0ALprGXvboC0XcSPdAbQaG5FuFUVmIwo+pr2NYMcJx1Fi/wwwMq5jbPRouFHxAUIdsVwQMtL1n3sn+g==
   dependencies:
     "@aws-sdk/client-iotsitewise" "3.344.0"
     d3-array "^3.2.4"
@@ -7905,22 +7863,22 @@
     rxjs "^7.8.1"
     uuid "^9.0.0"
 
-"@iot-app-kit/dashboard@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/dashboard/-/dashboard-6.0.0.tgz#056571758fa0252ab79f85c46c4d59330934701a"
-  integrity sha512-kWSkRo7goOesTnY4w8B1O8JUs0pRsxINoWBIb3vFQcHTBYjq10GxjcebkL++L9qOv1RQ2hbLIyLg14Dq/9Eeog==
+"@iot-app-kit/dashboard@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/dashboard/-/dashboard-6.1.0.tgz#0d178f8c5571cf5157572da3ba5b230aa872c8a2"
+  integrity sha512-YvqiIQPijKGV8lw24mIR2MBtXl85ZCFr97eRj6EYBk0LJNfpRyHdjLtLXLX6oAnfXWfPZihBwkZmrXBGQMTPaQ==
   dependencies:
-    "@aws-sdk/client-iot-events" "3.342.0"
+    "@aws-sdk/client-iot-events" "3.345.0"
     "@aws-sdk/client-iotsitewise" "3.344.0"
     "@cloudscape-design/components" "^3.0.286"
     "@cloudscape-design/design-tokens" "^3.0.14"
     "@cloudscape-design/global-styles" "^1.0.9"
     "@iot-app-kit/charts-core" "^1.9.1"
-    "@iot-app-kit/components" "6.0.0"
-    "@iot-app-kit/core" "6.0.0"
-    "@iot-app-kit/core-util" "6.0.0"
-    "@iot-app-kit/react-components" "6.0.0"
-    "@iot-app-kit/source-iotsitewise" "6.0.0"
+    "@iot-app-kit/components" "6.1.0"
+    "@iot-app-kit/core" "6.1.0"
+    "@iot-app-kit/core-util" "6.1.0"
+    "@iot-app-kit/react-components" "6.1.0"
+    "@iot-app-kit/source-iotsitewise" "6.1.0"
     "@popperjs/core" "^2.11.8"
     "@tanstack/react-query" "^4.29.12"
     buffer "^6.0.3"
@@ -7933,20 +7891,20 @@
     react-use "17.4.0"
     uuid "^9.0.0"
 
-"@iot-app-kit/react-components@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/react-components/-/react-components-6.0.0.tgz#422826518a4f7a30848ae8b203b59d3dd405a986"
-  integrity sha512-D2wE4VW8UPEpDU0grHC7EFjfFydkFgRlfcBwX1qSqSMEyYAPKChQe+/xK7iGQlUe5EmbLYYICbcqdtuhzEVjLw==
+"@iot-app-kit/react-components@6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/react-components/-/react-components-6.1.0.tgz#da84fd74891da948fb504f42382769a5b104f8ff"
+  integrity sha512-/PkIDD5qMRG7Kp7ZeTCBK4eLQfVGIzWLa3UU6TZY+rNj3FRmSeNRbIYQmp15eUDiCGsDp4LCRhGrAGuvJYplUA==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.21"
     "@cloudscape-design/components" "^3.0.286"
     "@cloudscape-design/design-tokens" "^3.0.14"
     "@iot-app-kit/charts" "^2.0.0"
     "@iot-app-kit/charts-core" "^2.0.0"
-    "@iot-app-kit/components" "6.0.0"
-    "@iot-app-kit/core" "6.0.0"
-    "@iot-app-kit/core-util" "6.0.0"
-    "@iot-app-kit/source-iottwinmaker" "6.0.0"
+    "@iot-app-kit/components" "6.1.0"
+    "@iot-app-kit/core" "6.1.0"
+    "@iot-app-kit/core-util" "6.1.0"
+    "@iot-app-kit/source-iottwinmaker" "6.1.0"
     color "^4.2.3"
     d3-array "^3.2.3"
     d3-shape "^3.2.0"
@@ -7960,22 +7918,22 @@
     uuid "^9.0.0"
     video.js "8.3.0"
 
-"@iot-app-kit/related-table@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/related-table/-/related-table-6.0.0.tgz#5af8d3aea84c28f22ab31986bdea876888451b82"
-  integrity sha512-7TdwZMwvbVgZ7gNJtENd1C2ihonPNGhqqsPcuIG/hzwq5Ucz0SKKfMnsDLXA+kop2McSoSlxQXgEqfKLvqW5Mg==
+"@iot-app-kit/related-table@6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/related-table/-/related-table-6.1.0.tgz#faea0c031efe75677cb7df612b4f52db21f84951"
+  integrity sha512-K4oJU+33zni84rZJn1Gk7ykgoNcy4/QggsvaAg6UV1PABrQDTIrBLFcXKidxKVJIMGVbk1EfJ8N8q7R4zXSI7A==
   dependencies:
     uuid "^9.0.0"
 
-"@iot-app-kit/source-iotsitewise@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iotsitewise/-/source-iotsitewise-6.0.0.tgz#0456296c35efb51b97dbbc871ff65db261baedbe"
-  integrity sha512-wsyrguJujc2tAUV1bzHMeMjEYGcaY5uvfhhhYZvBSpu/z79NcnGln/SxuBT3lnbJR3CRi2tt0pCC9Pdt8UixHA==
+"@iot-app-kit/source-iotsitewise@6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iotsitewise/-/source-iotsitewise-6.1.0.tgz#ae0fc042f40df37f9521a33ca80db6d900a1a2d5"
+  integrity sha512-SpbBNY7QnLiKM3bk4sH20FCwwGbGQBnQV4J1ifBmVzHFUNP8Irqe/Av07D8mxXO0FuztBzgDrhGy7zRuL/0EYw==
   dependencies:
-    "@aws-sdk/client-iot-events" "3.342.0"
+    "@aws-sdk/client-iot-events" "3.345.0"
     "@aws-sdk/client-iotsitewise" "3.344.0"
-    "@iot-app-kit/core" "6.0.0"
-    "@iot-app-kit/core-util" "6.0.0"
+    "@iot-app-kit/core" "6.1.0"
+    "@iot-app-kit/core-util" "6.1.0"
     "@synchro-charts/core" "7.2.0"
     dataloader "^2.2.2"
     lodash.isequal "^4.5.0"
@@ -7983,19 +7941,19 @@
     lodash.uniqwith "^4.5.0"
     rxjs "^7.8.1"
 
-"@iot-app-kit/source-iottwinmaker@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iottwinmaker/-/source-iottwinmaker-6.0.0.tgz#83bd063a9ef80b287be8416591f999c9adf4fdd7"
-  integrity sha512-XV4lUlXSVP2VzB2BUk5aWWN05ZBkaTGu9LMovRNT8/WUiDAP5i1raFM0yaOFiShdB356qDIhQ9rjvq1vcylb7w==
+"@iot-app-kit/source-iottwinmaker@6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iottwinmaker/-/source-iottwinmaker-6.1.0.tgz#c1962337de2ff836588279f36b26bb8d591be254"
+  integrity sha512-8Exz7dSHgN5vJK/+++0hstPYUqW8+Ek6ej5yE58XMQ8Tgvzm0XdzPS1cZN7klmS0YpAaAo+XIVKzRFie4iKTHA==
   dependencies:
     "@aws-sdk/client-iotsitewise" "3.344.0"
     "@aws-sdk/client-iottwinmaker" "3.335.0"
-    "@aws-sdk/client-kinesis-video" "3.342.0"
-    "@aws-sdk/client-kinesis-video-archived-media" "3.344.0"
+    "@aws-sdk/client-kinesis-video" "3.345.0"
+    "@aws-sdk/client-kinesis-video-archived-media" "3.345.0"
     "@aws-sdk/client-s3" "3.335.0"
     "@aws-sdk/client-secrets-manager" "3.342.0"
     "@aws-sdk/url-parser" "3.342.0"
-    "@iot-app-kit/core" "6.0.0"
+    "@iot-app-kit/core" "6.1.0"
     lodash "^4.17.21"
     rxjs "^7.8.1"
 
