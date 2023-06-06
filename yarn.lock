@@ -7819,19 +7819,6 @@
     intl-messageformat "10.4.0"
     tslib "^2.4.0"
 
-"@formatjs/ts-transformer@3.13.1":
-  version "3.13.1"
-  resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-3.13.1.tgz#37aa4992aa50740f808f1f888f112b8addb617c7"
-  integrity sha512-U5BuLqFx5wre5Q0NrZhBh7itMJZISYuZGoj8HdN/UO1EKaTL2HQjE1G040GjTpY0k+AAyaHK3b8WPqgHLvIaIQ==
-  dependencies:
-    "@formatjs/icu-messageformat-parser" "2.4.0"
-    "@types/json-stable-stringify" "^1.0.32"
-    "@types/node" "14 || 16 || 17"
-    chalk "^4.0.0"
-    json-stable-stringify "^1.0.1"
-    tslib "^2.4.0"
-    typescript "^4.7 || 5"
-
 "@formatjs/ts-transformer@3.13.2", "@formatjs/ts-transformer@^3.13.1":
   version "3.13.2"
   resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-3.13.2.tgz#de28a1ee8cea830a77357e5e7da1e57395bc4e61"
@@ -11505,18 +11492,18 @@ babel-loader@^8.2.3:
     make-dir "^3.1.0"
     schema-utils "^2.6.5"
 
-babel-plugin-formatjs@^10.5.1:
-  version "10.5.1"
-  resolved "https://registry.yarnpkg.com/babel-plugin-formatjs/-/babel-plugin-formatjs-10.5.1.tgz#9baeccb590538fb1915ef85fb7dfd13aedd8b1fa"
-  integrity sha512-IkwrKjl2Zg6br2wuayPIsaPF92RzGgh5WdQj+A/9zokpYeIF7sscZGwwHmeTSoPnIAAENvjRMm/escMQkp+eKg==
+babel-plugin-formatjs@^10.5.2:
+  version "10.5.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-formatjs/-/babel-plugin-formatjs-10.5.2.tgz#1802e88822bf65df23d6ab5088d61824216ce501"
+  integrity sha512-5tn+Oa1CpEQ2wWZWU0HSWHbSeKfZxVHKaAV/a+hOLGtzvTJDYsl9TiFTEo7CL/YzXxxdR49c7hulzi1eAxZ0Fw==
   dependencies:
     "@babel/core" "^7.10.4"
     "@babel/helper-plugin-utils" "^7.10.4"
     "@babel/plugin-syntax-jsx" "7"
     "@babel/traverse" "7"
     "@babel/types" "^7.12.11"
-    "@formatjs/icu-messageformat-parser" "2.4.0"
-    "@formatjs/ts-transformer" "3.13.1"
+    "@formatjs/icu-messageformat-parser" "2.5.0"
+    "@formatjs/ts-transformer" "3.13.2"
     "@types/babel__core" "^7.1.7"
     "@types/babel__helper-plugin-utils" "^7.10.0"
     "@types/babel__traverse" "^7.1.7"
