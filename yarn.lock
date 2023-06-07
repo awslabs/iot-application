@@ -1086,16 +1086,16 @@
     tslib "^2.5.0"
     uuid "^8.3.2"
 
-"@aws-sdk/client-iotsitewise@^3.347.0":
-  version "3.347.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iotsitewise/-/client-iotsitewise-3.347.0.tgz#1f2b8d417ba2cc5f8bd72949d24da4bbd45edd70"
-  integrity sha512-rn+sxrWvzO0gNLrcvgYpqoUPtUVCc872/VDvqxuCaYKumxtOnl7FzT8XZh++EfOIo5rZ+H6ALQT3Q1e+pjppcg==
+"@aws-sdk/client-iotsitewise@^3.348.0":
+  version "3.348.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iotsitewise/-/client-iotsitewise-3.348.0.tgz#7e0624fb97e904ec571c61b537880876ae0bd188"
+  integrity sha512-i0gdTTRW0DcSr8oVeCNxcIUtsdyW3NJGj17CP8DyDlvwjiVfJRXyyGBpHXZUs8s0V2qryCDvdGEs0VMwNgn+UA==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.347.0"
+    "@aws-sdk/client-sts" "3.348.0"
     "@aws-sdk/config-resolver" "3.347.0"
-    "@aws-sdk/credential-provider-node" "3.347.0"
+    "@aws-sdk/credential-provider-node" "3.348.0"
     "@aws-sdk/fetch-http-handler" "3.347.0"
     "@aws-sdk/hash-node" "3.347.0"
     "@aws-sdk/invalid-dependency" "3.347.0"
@@ -1110,7 +1110,7 @@
     "@aws-sdk/middleware-stack" "3.347.0"
     "@aws-sdk/middleware-user-agent" "3.347.0"
     "@aws-sdk/node-config-provider" "3.347.0"
-    "@aws-sdk/node-http-handler" "3.347.0"
+    "@aws-sdk/node-http-handler" "3.348.0"
     "@aws-sdk/smithy-client" "3.347.0"
     "@aws-sdk/types" "3.347.0"
     "@aws-sdk/url-parser" "3.347.0"
