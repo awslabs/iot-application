@@ -7379,7 +7379,7 @@
     tslib "^2.4.0"
     typescript "^4.7 || 5"
 
-"@formatjs/ts-transformer@^3.13.3":
+"@formatjs/ts-transformer@3.13.3", "@formatjs/ts-transformer@^3.13.3":
   version "3.13.3"
   resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-3.13.3.tgz#249f5b5df70c51e651280732536d5504078297ff"
   integrity sha512-W6+huH4dLYx8eZfZue6fcreNzLZHoPboreqJSkickYCKIOicI35zC0Txb4xCT6kau/DXAKTpNEln3V2NgX6Igg==
@@ -10776,18 +10776,18 @@ babel-loader@^8.2.3:
     make-dir "^3.1.0"
     schema-utils "^2.6.5"
 
-babel-plugin-formatjs@^10.5.2:
-  version "10.5.2"
-  resolved "https://registry.yarnpkg.com/babel-plugin-formatjs/-/babel-plugin-formatjs-10.5.2.tgz#1802e88822bf65df23d6ab5088d61824216ce501"
-  integrity sha512-5tn+Oa1CpEQ2wWZWU0HSWHbSeKfZxVHKaAV/a+hOLGtzvTJDYsl9TiFTEo7CL/YzXxxdR49c7hulzi1eAxZ0Fw==
+babel-plugin-formatjs@^10.5.3:
+  version "10.5.3"
+  resolved "https://registry.yarnpkg.com/babel-plugin-formatjs/-/babel-plugin-formatjs-10.5.3.tgz#718e47f4f3aad663ad4f901274aedd7be0a86380"
+  integrity sha512-PBeryWyN2HY2VUGNFPQS6+DPNQ/I9zDZ97y38i1+LzIpIyTHBePECq/ehEABE73PvvF2irFiN7TCYBrQQw5+lA==
   dependencies:
     "@babel/core" "^7.10.4"
     "@babel/helper-plugin-utils" "^7.10.4"
     "@babel/plugin-syntax-jsx" "7"
     "@babel/traverse" "7"
     "@babel/types" "^7.12.11"
-    "@formatjs/icu-messageformat-parser" "2.5.0"
-    "@formatjs/ts-transformer" "3.13.2"
+    "@formatjs/icu-messageformat-parser" "2.6.0"
+    "@formatjs/ts-transformer" "3.13.3"
     "@types/babel__core" "^7.1.7"
     "@types/babel__helper-plugin-utils" "^7.10.0"
     "@types/babel__traverse" "^7.1.7"
