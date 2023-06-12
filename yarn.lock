@@ -7366,19 +7366,6 @@
     intl-messageformat "10.4.0"
     tslib "^2.4.0"
 
-"@formatjs/ts-transformer@3.13.2":
-  version "3.13.2"
-  resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-3.13.2.tgz#de28a1ee8cea830a77357e5e7da1e57395bc4e61"
-  integrity sha512-d1Q+ZgIPQfXxAVZrZ+bmdGGibzz8T83mrPMftWwAMc2bcFjdKpA79b9/pZNhaEW5ZCtXkLhuadgDEoa4ZNxNEA==
-  dependencies:
-    "@formatjs/icu-messageformat-parser" "2.5.0"
-    "@types/json-stable-stringify" "^1.0.32"
-    "@types/node" "14 || 16 || 17"
-    chalk "^4.0.0"
-    json-stable-stringify "^1.0.1"
-    tslib "^2.4.0"
-    typescript "^4.7 || 5"
-
 "@formatjs/ts-transformer@3.13.3", "@formatjs/ts-transformer@^3.13.3":
   version "3.13.3"
   resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-3.13.3.tgz#249f5b5df70c51e651280732536d5504078297ff"
@@ -13100,13 +13087,13 @@ eslint-plugin-flowtype@^8.0.3:
     lodash "^4.17.21"
     string-natural-compare "^3.0.1"
 
-eslint-plugin-formatjs@^4.10.2:
-  version "4.10.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-formatjs/-/eslint-plugin-formatjs-4.10.2.tgz#06d1931a15ae0232596b455ed730f425e541e37f"
-  integrity sha512-wUwFdZKI1m9d+QGaYKLw7OYM+/Bh0y7TVZfI0XuTikPTYUSrHW+VV8hK2e6UJIjkjGfozZYikBPESKgAtOOlfA==
+eslint-plugin-formatjs@^4.10.3:
+  version "4.10.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-formatjs/-/eslint-plugin-formatjs-4.10.3.tgz#65882730aebee3c8b6eec06381a4b0a18c0d33bd"
+  integrity sha512-EHKuEMCmWhAiMdCc8oZU8qBAvnvHPUiJuhGxPqA+GX2Nb7GBsGm2o616KYnSSffDisK+v0E9TDCrS8oJ0QLgcw==
   dependencies:
-    "@formatjs/icu-messageformat-parser" "2.5.0"
-    "@formatjs/ts-transformer" "3.13.2"
+    "@formatjs/icu-messageformat-parser" "2.6.0"
+    "@formatjs/ts-transformer" "3.13.3"
     "@types/eslint" "7 || 8"
     "@types/picomatch" "^2.3.0"
     "@typescript-eslint/typescript-estree" "5.59.0"
