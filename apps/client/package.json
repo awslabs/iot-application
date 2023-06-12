@@ -29,7 +29,7 @@
     "@tanstack/react-query": "^4.29.12",
     "@vitest/coverage-c8": "^0.32.0",
     "aws-amplify": "^5.2.5",
-    "jotai": "^2.1.1",
+    "jotai": "^2.2.0",
     "nanoid": "3.1.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
