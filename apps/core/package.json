@@ -26,7 +26,7 @@
     "@fastify/static": "^6.10.2",
     "@nestjs/axios": "^1.0.1",
     "@nestjs/common": "^9.4.2",
-    "@nestjs/config": "^2.3.3",
+    "@nestjs/config": "^2.3.4",
     "@nestjs/core": "^9.4.3",
     "@nestjs/platform-fastify": "^9.4.2",
     "@nestjs/swagger": "^6.3.0",
