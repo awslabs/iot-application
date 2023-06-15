@@ -7006,10 +7006,10 @@
     "@juggle/resize-observer" "^3.3.1"
     tslib "^2.3.1"
 
-"@cloudscape-design/components@^3.0.286", "@cloudscape-design/components@^3.0.310":
-  version "3.0.310"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.310.tgz#c1b1676df42ec2cce65cbb69be6148c54755e2f6"
-  integrity sha512-04x9kQvdJXIovSK34VkDKUHka5qs5SA8EZb8Ts/MNo/69SDaoRxDij3vh087IcQdz+DB6ToGtYPw/zoKBVLYHw==
+"@cloudscape-design/components@^3.0.286", "@cloudscape-design/components@^3.0.311":
+  version "3.0.311"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.311.tgz#eab2fdcc76b6c1beabab027274c94c351d8cf405"
+  integrity sha512-chYrJWp2hGpZhT5361G6qGAHu4N/ACEfK9quL/Ky4/daIvge+SjsDDh8Y5gg2BoBBC6QT+1fvJcQhGZLBtqUUg==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.0"
     "@cloudscape-design/component-toolkit" "^1.0.0-beta"
@@ -7026,7 +7026,6 @@
     date-fns "^2.25.0"
     intl-messageformat "^10.3.1"
     mnth "^2.0.0"
-    react-focus-lock "~2.8.1"
     react-keyed-flatten-children "^1.3.0"
     react-transition-group "^4.4.2"
     react-virtual "^2.8.2"
