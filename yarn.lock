@@ -8240,16 +8240,16 @@
   resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-2.0.0.tgz#1d65f4c1a16af30080153e9c05b86e2f5d56cf65"
   integrity sha512-JyIOY1OE4x2t8Z2ImWLQJnHVqLCBHJZXm6RqcOG3+4rIsqMQxm5smHbb7H5C6tLAdDcRYd/fG2gYK1J1GiqKLw==
 
-"@nestjs/platform-fastify@^9.4.3":
-  version "9.4.3"
-  resolved "https://registry.yarnpkg.com/@nestjs/platform-fastify/-/platform-fastify-9.4.3.tgz#806a8aef61034b9eb444a5c0b940cc17b40256d6"
-  integrity sha512-FgJyYpZQn97oaarzGKTwcKkrRZs9tv2OdwO0/roO0l/ytnG7eigc7Y3Hv/bDcxl2LngAhY3uXMAg3MMueWojsA==
+"@nestjs/platform-fastify@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/platform-fastify/-/platform-fastify-10.0.0.tgz#c3e6c0451265dd33678178dfa60b89d3e374e796"
+  integrity sha512-s5Ck3nTWLWytWH/c2l7JauuPiYt2MMszX3n+3hNWfevM3wELxhvnA/6617W2AliSOsVgFJ1m1uMCKudNo2vEUQ==
   dependencies:
     "@fastify/cors" "8.3.0"
     "@fastify/formbody" "7.4.0"
     "@fastify/middie" "8.3.0"
     fastify "4.18.0"
-    light-my-request "5.9.1"
+    light-my-request "5.10.0"
     path-to-regexp "3.2.0"
     tslib "2.5.3"
 
@@ -10063,15 +10063,6 @@
     pathe "^1.1.0"
     picocolors "^1.0.0"
     sirv "^2.0.3"
-
-"@vitest/utils@0.32.0":
-  version "0.32.0"
-  resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-0.32.0.tgz#ffbc023083e0ef8401a3562086de0ff1b0599635"
-  integrity sha512-53yXunzx47MmbuvcOPpLaVljHaeSu1G2dHdmy7+9ngMnQIkBQcvwOcoclWFnxDMxFbnq8exAfh3aKSZaK71J5A==
-  dependencies:
-    concordance "^5.0.4"
-    loupe "^2.3.6"
-    pretty-format "^27.5.1"
 
 "@vitest/utils@0.32.2":
   version "0.32.2"
@@ -16293,16 +16284,7 @@ libphonenumber-js@^1.10.14:
   resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.10.30.tgz#c0559d6c58dc1a7f189b88b7b23354c98b182848"
   integrity sha512-PLGc+xfrQrkya/YK2/5X+bPpxRmyJBHM+xxz9krUdSgk4Vs2ZwxX5/Ow0lv3r9PDlDtNWb4u+it8MY5rZ0IyGw==
 
-light-my-request@5.9.1:
-  version "5.9.1"
-  resolved "https://registry.yarnpkg.com/light-my-request/-/light-my-request-5.9.1.tgz#076f8d4cc4639408cc48381d4f2860212d469d4b"
-  integrity sha512-UT7pUk8jNCR1wR7w3iWfIjx32DiB2f3hFdQSOwy3/EPQ3n3VocyipUxcyRZR0ahoev+fky69uA+GejPa9KuHKg==
-  dependencies:
-    cookie "^0.5.0"
-    process-warning "^2.0.0"
-    set-cookie-parser "^2.4.1"
-
-light-my-request@^5.9.1:
+light-my-request@5.10.0, light-my-request@^5.9.1:
   version "5.10.0"
   resolved "https://registry.yarnpkg.com/light-my-request/-/light-my-request-5.10.0.tgz#0a2bbc1d1bb573ed3b78143960920ecdc05bf157"
   integrity sha512-ZU2D9GmAcOUculTTdH9/zryej6n8TzT+fNGdNtm6SDp5MMMpHrJJkvAdE3c6d8d2chE9i+a//dS9CWZtisknqA==
