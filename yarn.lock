@@ -1089,16 +1089,16 @@
     tslib "^2.5.0"
     uuid "^8.3.2"
 
-"@aws-sdk/client-iotsitewise@^3.353.0":
-  version "3.353.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iotsitewise/-/client-iotsitewise-3.353.0.tgz#4c040754a5492433d6a4f53eeb12f6126eb39302"
-  integrity sha512-20QerMCiZH7/a6Aj58O2GjvwF4GtOo5Gh4gAqRII7UxAysSATsSak+NDQJGl4qHCL5XBUyzntgnVkTBEPC+kkA==
+"@aws-sdk/client-iotsitewise@^3.354.0":
+  version "3.354.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iotsitewise/-/client-iotsitewise-3.354.0.tgz#b7ebcceab0f989ccb4a593486fa70c8662be03e7"
+  integrity sha512-kCBhcyDs3CcRLBQxxIX2xD2qzRKRDVMlPkkJTpqHazIBeoUNmTRu6r/s8fwvlbZW9QG3kM5kCmbYo4ZG2SZClA==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.353.0"
-    "@aws-sdk/config-resolver" "3.353.0"
-    "@aws-sdk/credential-provider-node" "3.353.0"
+    "@aws-sdk/client-sts" "3.354.0"
+    "@aws-sdk/config-resolver" "3.354.0"
+    "@aws-sdk/credential-provider-node" "3.354.0"
     "@aws-sdk/fetch-http-handler" "3.353.0"
     "@aws-sdk/hash-node" "3.347.0"
     "@aws-sdk/invalid-dependency" "3.347.0"
@@ -1107,12 +1107,12 @@
     "@aws-sdk/middleware-host-header" "3.347.0"
     "@aws-sdk/middleware-logger" "3.347.0"
     "@aws-sdk/middleware-recursion-detection" "3.347.0"
-    "@aws-sdk/middleware-retry" "3.353.0"
+    "@aws-sdk/middleware-retry" "3.354.0"
     "@aws-sdk/middleware-serde" "3.347.0"
-    "@aws-sdk/middleware-signing" "3.353.0"
+    "@aws-sdk/middleware-signing" "3.354.0"
     "@aws-sdk/middleware-stack" "3.347.0"
     "@aws-sdk/middleware-user-agent" "3.352.0"
-    "@aws-sdk/node-config-provider" "3.353.0"
+    "@aws-sdk/node-config-provider" "3.354.0"
     "@aws-sdk/node-http-handler" "3.350.0"
     "@aws-sdk/smithy-client" "3.347.0"
     "@aws-sdk/types" "3.347.0"
@@ -1121,11 +1121,11 @@
     "@aws-sdk/util-body-length-browser" "3.310.0"
     "@aws-sdk/util-body-length-node" "3.310.0"
     "@aws-sdk/util-defaults-mode-browser" "3.353.0"
-    "@aws-sdk/util-defaults-mode-node" "3.353.0"
+    "@aws-sdk/util-defaults-mode-node" "3.354.0"
     "@aws-sdk/util-endpoints" "3.352.0"
     "@aws-sdk/util-retry" "3.347.0"
     "@aws-sdk/util-user-agent-browser" "3.347.0"
-    "@aws-sdk/util-user-agent-node" "3.353.0"
+    "@aws-sdk/util-user-agent-node" "3.354.0"
     "@aws-sdk/util-utf8" "3.310.0"
     "@aws-sdk/util-waiter" "3.347.0"
     "@smithy/protocol-http" "^1.0.1"
@@ -10365,15 +10365,6 @@
     pathe "^1.1.0"
     picocolors "^1.0.0"
     sirv "^2.0.3"
-
-"@vitest/utils@0.32.0":
-  version "0.32.0"
-  resolved "https://registry.yarnpkg.com/@vitest/utils/-/utils-0.32.0.tgz#ffbc023083e0ef8401a3562086de0ff1b0599635"
-  integrity sha512-53yXunzx47MmbuvcOPpLaVljHaeSu1G2dHdmy7+9ngMnQIkBQcvwOcoclWFnxDMxFbnq8exAfh3aKSZaK71J5A==
-  dependencies:
-    concordance "^5.0.4"
-    loupe "^2.3.6"
-    pretty-format "^27.5.1"
 
 "@vitest/utils@0.32.2":
   version "0.32.2"
