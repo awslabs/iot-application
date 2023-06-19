@@ -8283,10 +8283,10 @@
     boxen "5.1.2"
     check-disk-space "3.4.0"
 
-"@nestjs/testing@^10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-10.0.0.tgz#0dbb293d866c1d94edf48d2d9e7c4e4585ff4c0b"
-  integrity sha512-U5q3+svkddpdSk51ZFCEnFpQuWxAwE4ahsX77FrqqCAYidr7HUtL/BHYOVzI5H9vUH6BvJxMbfo3tiUXQl/2aA==
+"@nestjs/testing@^10.0.2":
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-10.0.2.tgz#7d38665c2e1e629d0f37bdfae2998aa68faf6669"
+  integrity sha512-Fjj5dGcAW0MSvZI3RzVhZtGU49ZOYysHyOx8spOXWeu2jDr4B+ChkAYJDuZSx9U0x/1ONp3RNZau6gWgG8UO9w==
   dependencies:
     tslib "2.5.3"
 
