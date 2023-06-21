@@ -11776,10 +11776,10 @@ constant-case@^3.0.4:
     tslib "^2.0.3"
     upper-case "^2.0.2"
 
-constructs@^10.2.54:
-  version "10.2.54"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.2.54.tgz#f8914d0f971746c219e7cf9058d6d0e2ea0a97ac"
-  integrity sha512-jowtM7mTFgImU0/ElONN9ZD8NbFPBPtJ+gxrBZUEWWJWX5KTkt/9Fqq/s0Rih3Nq0hAlFpDCqM5+w2gatjIKHg==
+constructs@^10.2.55:
+  version "10.2.55"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.2.55.tgz#a116f6ffb83915ae0f87004753f2bc235721afbf"
+  integrity sha512-TjH8BRN9qpmjZqq0ixH1NqgPHam0tQJcMQ6puffM0Sj0dRPXaJAzOtbHpn24rhjE+90vIQ8jBAUO8v8Sdp1uAQ==
 
 content-disposition@0.5.4, content-disposition@^0.5.3:
   version "0.5.4"
