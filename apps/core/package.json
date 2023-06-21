@@ -54,7 +54,7 @@
     "source-map-support": "^0.5.20",
     "ts-loader": "^9.4.3",
     "tsconfig": "*",
-    "webpack": "^5.87.0",
+    "webpack": "^5.88.0",
     "webpack-node-externals": "^3.0.0"
   }
 }
