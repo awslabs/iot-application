@@ -18,7 +18,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.354.0",
+    "@aws-sdk/client-dynamodb": "^3.359.0",
     "@aws-sdk/lib-dynamodb": "^3.359.0",
     "@fastify/cookie": "^8.3.0",
     "@fastify/csrf-protection": "^6.3.0",
