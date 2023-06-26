@@ -8420,10 +8420,10 @@
     jsonc-parser "3.2.0"
     pluralize "8.0.0"
 
-"@nestjs/swagger@^7.0.4":
-  version "7.0.4"
-  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-7.0.4.tgz#f0c6f025916fc07ce9bb75b3bc4b495f2ad47292"
-  integrity sha512-jZydFwRWqTi75kdd6LrgSjVadiSTBIEMtQ844xDjqr18mxD7MLOG/uJTaynyA4c0FZPGkhYGXEX/0Ugr/JlUYA==
+"@nestjs/swagger@^7.0.6":
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-7.0.6.tgz#5f6108cefb25ecc409ad34804d142186da9f3fc6"
+  integrity sha512-srSOYRD0oCV5kzgClAXqCYeJmxZtp1kGefNGjhBQObNan/B69vvrSkjJFDceP4s3y7OYl3Klu2nepcmAl4vFrA==
   dependencies:
     "@nestjs/mapped-types" "2.0.2"
     js-yaml "4.1.0"
