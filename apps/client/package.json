@@ -47,7 +47,7 @@
     "@formatjs/ts-transformer": "^3.13.3",
     "@hookform/devtools": "^4.3.1",
     "@tanstack/eslint-plugin-query": "^4.29.9",
-    "@tanstack/react-query-devtools": "^4.29.17",
+    "@tanstack/react-query-devtools": "^4.29.19",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/react-hooks": "^8.0.1",
