@@ -6849,10 +6849,10 @@
     "@juggle/resize-observer" "^3.3.1"
     tslib "^2.3.1"
 
-"@cloudscape-design/components@^3.0.286", "@cloudscape-design/components@^3.0.327":
-  version "3.0.327"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.327.tgz#4c15b88d3cf613ba5edf26d6db654d6b42153ad8"
-  integrity sha512-DPh/9g32Jw8GsCBGdaAg0gKoehWGqySUX7Qr/ZeyIhzrJNtY3Hrk6davtdWVOpWyOgpl2MsOcAlUqL0Kk84SUg==
+"@cloudscape-design/components@^3.0.286", "@cloudscape-design/components@^3.0.329":
+  version "3.0.329"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.329.tgz#5e2aa9a75db383c49f85f5a24aadcf280c0b0328"
+  integrity sha512-U8cX3tA1OyXdvOFgwwKbPIYzlSM7i4NqW2KBWRm1PGOyIf8fdt6qDPAZ3ASQUKCxaHQWdv8B0WHGbdIodCI+qw==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.0"
     "@cloudscape-design/component-toolkit" "^1.0.0-beta"
