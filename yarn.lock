@@ -8473,10 +8473,10 @@
   dependencies:
     tslib "2.6.0"
 
-"@nestjs/throttler@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@nestjs/throttler/-/throttler-4.1.0.tgz#abb3c3b6231f97cf80cf6316111a5dcf001accd0"
-  integrity sha512-W6F+ckalmJuJKOGdWkOynvXg8UJnpjWSdeTV0usvvma0W6ZYHbC2mLXAbUsNau5oRo8EnvXFTHtyyzMQVf56eQ==
+"@nestjs/throttler@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/throttler/-/throttler-4.2.0.tgz#f351b9c57fe3f1aceb2c492b7c210cf92b86dfb2"
+  integrity sha512-bn14AQRxJ5i5JKP37sQkdPr10Ld01xD0HqRmOC9s3HzVYyDpzyHShkg30+WUTFSPJCXTIRBovmgbSxr8LHG1Iw==
   dependencies:
     md5 "^2.2.1"
 
