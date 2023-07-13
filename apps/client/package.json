@@ -28,7 +28,7 @@
     "@iot-app-kit/dashboard": "^6.2.0",
     "@tanstack/react-query": "^4.29.19",
     "@vitest/coverage-c8": "^0.33.0",
-    "aws-amplify": "^5.3.3",
+    "aws-amplify": "^5.3.4",
     "jotai": "^2.2.2",
     "nanoid": "3.1.31",
     "react": "^18.2.0",
