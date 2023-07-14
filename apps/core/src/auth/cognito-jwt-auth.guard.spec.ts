@@ -10,7 +10,7 @@ const constructExecutionContext = (headers?: { authorization?: string }) => {
     throw new Error('Function not implemented.');
   });
   const httpArgumentsHost: HttpArgumentsHost = {
-    getRequest: <T>(): T => ({ headers } as T),
+    getRequest: <T>(): T => ({ headers }) as T,
     getResponse: notImplementedFunction,
     getNext: notImplementedFunction,
   };

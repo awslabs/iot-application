@@ -15,13 +15,16 @@
         "AWS_REGION",
         "AWS_SECRET_ACCESS_KEY",
         "AWS_SESSION_TOKEN",
+        "COGNITO_IDENTITY_POOL_ID",
         "COGNITO_USE_LOCAL_VERIFIER",
         "COGNITO_USER_POOL_CLIENT_ID",
         "COGNITO_USER_POOL_ID",
         "DATABASE_ENDPOINT",
         "DATABASE_TABLE_NAME",
         "DATABASE_PORT",
-        "DATABASE_LAUNCH_LOCAL"
+        "DATABASE_LAUNCH_LOCAL",
+        "NODE_ENV",
+        "SERVICE_ENDPOINTS"
       ]
     },
     "lint": {},

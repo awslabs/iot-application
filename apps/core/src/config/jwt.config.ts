@@ -1,24 +1,19 @@
 import { registerAs } from '@nestjs/config';
+import { CognitoJwtVerifier } from 'aws-jwt-verify';
+import { localCognitoJwtVerifier } from './local-cognito-jwt-verifier';
 import invariant from 'tiny-invariant';
 import { isDefined } from '../types/environment';
 import { envVarRequiredMsg } from './environment';
 
-export const LOCAL_AUTH_FLOW_TYPE = 'USER_PASSWORD_AUTH';
-export const LOCAL_COGNITO_ENDPOINT = 'http://localhost:9229';
+const COGNITO_JWT_TOKEN_USE = 'access';
 
 export const configFactory = () => {
   const {
-    AWS_REGION: region,
-    COGNITO_IDENTITY_POOL_ID: identityPoolId,
     COGNITO_USE_LOCAL_VERIFIER: useLocalVerifier,
     COGNITO_USER_POOL_ID: userPoolId,
     COGNITO_USER_POOL_CLIENT_ID: userPoolWebClientId,
   } = process.env;
 
-  invariant(
-    isDefined(identityPoolId),
-    envVarRequiredMsg('COGNITO_IDENTITY_POOL_ID'),
-  );
   invariant(isDefined(userPoolId), envVarRequiredMsg('COGNITO_USER_POOL_ID'));
   invariant(
     isDefined(userPoolWebClientId),
@@ -27,21 +22,19 @@ export const configFactory = () => {
 
   if (useLocalVerifier === 'true') {
     return {
-      authenticationFlowType: LOCAL_AUTH_FLOW_TYPE,
-      cognitoEndpoint: LOCAL_COGNITO_ENDPOINT,
-      identityPoolId,
-      userPoolId,
-      userPoolWebClientId,
-      region,
+      cognitoJwtVerifier: localCognitoJwtVerifier,
     };
   }
 
-  return {
-    identityPoolId,
+  const cloudCognitoJwtVerifier = CognitoJwtVerifier.create({
+    clientId: userPoolWebClientId,
     userPoolId,
-    userPoolWebClientId,
-    region,
+    tokenUse: COGNITO_JWT_TOKEN_USE,
+  });
+
+  return {
+    cognitoJwtVerifier: cloudCognitoJwtVerifier,
   };
 };
 
-export const authConfig = registerAs('auth', configFactory);
+export const jwtConfig = registerAs('jwt', configFactory);

@@ -1,8 +1,8 @@
 import { devices, defineConfig } from '@playwright/test';
 
 // Read environment variables
-// baseURL defaults to http://localhost:3001
-const baseURL = process.env.ENDPOINT ?? 'http://localhost:3001';
+// baseURL defaults to http://localhost:3000
+const baseURL = process.env.ENDPOINT ?? 'http://localhost:3000';
 // launchWebServer defaults to true
 const launchWebServer = process.env.LAUNCH_WEB_SERVER != 'false';
 

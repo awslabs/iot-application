@@ -1,6 +1,5 @@
 import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { PublicAssetStack } from './asset/public-asset-stack';
 import { AuthStack } from './auth/auth-stack';
 import { CoreStack } from './core/core-stack';
 import { DatabaseStack } from './database/database-stack';
@@ -27,24 +26,16 @@ export class IotApplicationStack extends Stack {
       coreServiceProps: {
         databaseTableArn: tableArn,
         databaseTableName: tableName,
+        identityPoolId: identityPoolId,
         userPoolClientId: userPoolClientId,
         userPoolId: userPoolId,
       },
       ...props,
     });
 
-    const publicAssetStack = new PublicAssetStack(this, 'PublicAsset', {
-      identityPoolId,
-      userPoolClientId,
-      userPoolId,
-      coreServiceUrl: `https://${coreServiceUrl}`,
-      ...props,
-    });
-    const { publicDistribution } = publicAssetStack;
-
     new CfnOutput(this, 'App URL', {
       description: 'Endpoint to access the App',
-      value: `https://${publicDistribution.domainName}`,
+      value: `https://${coreServiceUrl}`,
     });
   }
 }
