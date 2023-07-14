@@ -1,3 +1,4 @@
+import { Aws } from 'aws-cdk-lib';
 import { CfnService } from 'aws-cdk-lib/aws-apprunner';
 import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
 import {
@@ -8,10 +9,12 @@ import {
 } from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 import path from 'path';
+import { getServicesEndpoints } from '../csp/public-asset-directives';
 
 export interface CoreServiceProps {
   readonly databaseTableArn: string;
   readonly databaseTableName: string;
+  readonly identityPoolId: string;
   readonly userPoolClientId: string;
   readonly userPoolId: string;
 }
@@ -25,6 +28,7 @@ export class CoreService extends Construct {
     const {
       databaseTableArn,
       databaseTableName,
+      identityPoolId,
       userPoolClientId,
       userPoolId,
     } = props;
@@ -78,6 +82,10 @@ export class CoreService extends Construct {
             port: '3000',
             runtimeEnvironmentVariables: [
               {
+                name: 'COGNITO_IDENTITY_POOL_ID',
+                value: identityPoolId,
+              },
+              {
                 name: 'COGNITO_USER_POOL_CLIENT_ID',
                 value: userPoolClientId,
               },
@@ -88,6 +96,11 @@ export class CoreService extends Construct {
               {
                 name: 'DATABASE_TABLE_NAME',
                 value: databaseTableName,
+              },
+              {
+                name: 'SERVICE_ENDPOINTS',
+                // Space separated
+                value: getServicesEndpoints(Aws.REGION).join(' '),
               },
             ],
           },

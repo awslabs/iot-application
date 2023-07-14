@@ -3,10 +3,18 @@ const {
   override,
   addWebpackModuleRule,
   addWebpackAlias,
+  overrideDevServer,
 } = require('customize-cra');
 const path = require('path');
 
 module.exports = {
+  devServer: overrideDevServer(
+    (config) => {
+      // writeToDisk for Core consumption https://github.com/webpack/webpack-dev-middleware#writetodisk
+      config.devMiddleware.writeToDisk = true;
+      return config
+    },
+  ),
   webpack: override(
     addWebpackAlias({
       '~': path.resolve(__dirname, 'src'),

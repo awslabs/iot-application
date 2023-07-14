@@ -1,7 +1,5 @@
-import {
-  configFactory,
-  DATABASE_TABLE_NAME_MISSING_ERROR,
-} from './database.config';
+import { configFactory } from './database.config';
+import { envVarRequiredMsg } from './environment';
 
 describe('databaseConfig', () => {
   describe('configFactory', () => {
@@ -20,7 +18,9 @@ describe('databaseConfig', () => {
     test('throws DATABASE_TABLE_NAME_MISSING_ERROR', () => {
       process.env.DATABASE_TABLE_NAME = 'undefined';
 
-      expect(() => configFactory()).toThrow(DATABASE_TABLE_NAME_MISSING_ERROR);
+      expect(() => configFactory()).toThrow(
+        envVarRequiredMsg('DATABASE_TABLE_NAME'),
+      );
     });
 
     test('returns local values', () => {

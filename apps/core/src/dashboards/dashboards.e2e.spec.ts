@@ -182,14 +182,14 @@ describe('DashboardsModule', () => {
     await app.close();
   });
 
-  describe('GET /dashboards HTTP/1.1', () => {
+  describe('GET /api/dashboards HTTP/1.1', () => {
     test('returns empty dashboard list on success', async () => {
       const response = await app.inject({
         headers: {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: '/dashboards',
+        url: '/api/dashboards',
       });
 
       expect(response.statusCode).toBe(200);
@@ -207,7 +207,7 @@ describe('DashboardsModule', () => {
           description: dummyDescription,
           definition: dummyDefinition,
         },
-        url: '/dashboards',
+        url: '/api/dashboards',
       });
       const createDashboardResponse2 = await app.inject({
         headers: {
@@ -219,7 +219,7 @@ describe('DashboardsModule', () => {
           description: dummyDescription,
           definition: dummyDefinition,
         },
-        url: '/dashboards',
+        url: '/api/dashboards',
       });
 
       const { definition: definition1, ...dashboardSummary1 } = JSON.parse(
@@ -237,7 +237,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: '/dashboards',
+        url: '/api/dashboards',
       });
 
       expect(response.statusCode).toBe(200);
@@ -253,7 +253,7 @@ describe('DashboardsModule', () => {
     });
   });
 
-  describe('POST /dashboards HTTP/1.1', () => {
+  describe('POST /api/dashboards HTTP/1.1', () => {
     test('created dashboard entry on success', async () => {
       const payload: CreateDashboardDto = {
         name: dummyName,
@@ -266,7 +266,7 @@ describe('DashboardsModule', () => {
         },
         method: 'POST',
         payload,
-        url: '/dashboards',
+        url: '/api/dashboards',
       });
 
       const { id } = JSON.parse(response.payload) as unknown as Dashboard;
@@ -290,7 +290,7 @@ describe('DashboardsModule', () => {
         },
         method: 'POST',
         payload,
-        url: '/dashboards',
+        url: '/api/dashboards',
       });
 
       const dashboard = JSON.parse(response.payload) as unknown as Dashboard;
@@ -323,7 +323,7 @@ describe('DashboardsModule', () => {
           },
           method: 'POST',
           payload,
-          url: '/dashboards',
+          url: '/api/dashboards',
         });
 
         expect(response.statusCode).toBe(201);
@@ -344,7 +344,7 @@ describe('DashboardsModule', () => {
           },
           method: 'POST',
           payload,
-          url: '/dashboards',
+          url: '/api/dashboards',
         });
 
         expect(response.statusCode).toBe(400);
@@ -362,7 +362,7 @@ describe('DashboardsModule', () => {
         },
         method: 'POST',
         payload,
-        url: '/dashboards',
+        url: '/api/dashboards',
       });
 
       expect(response.statusCode).toBe(400);
@@ -386,7 +386,7 @@ describe('DashboardsModule', () => {
           },
           method: 'POST',
           payload,
-          url: '/dashboards',
+          url: '/api/dashboards',
         });
 
         expect(response.statusCode).toBe(201);
@@ -407,7 +407,7 @@ describe('DashboardsModule', () => {
           },
           method: 'POST',
           payload,
-          url: '/dashboards',
+          url: '/api/dashboards',
         });
 
         expect(response.statusCode).toBe(400);
@@ -425,7 +425,7 @@ describe('DashboardsModule', () => {
         },
         method: 'POST',
         payload,
-        url: '/dashboards',
+        url: '/api/dashboards',
       });
 
       expect(response.statusCode).toBe(400);
@@ -447,7 +447,7 @@ describe('DashboardsModule', () => {
           },
           method: 'POST',
           payload,
-          url: '/dashboards',
+          url: '/api/dashboards',
         });
 
         expect(response.statusCode).toBe(400);
@@ -489,7 +489,7 @@ describe('DashboardsModule', () => {
         },
         method: 'POST',
         payload,
-        url: '/dashboards',
+        url: '/api/dashboards',
       });
 
       const { id } = JSON.parse(response.payload) as unknown as Dashboard;
@@ -683,7 +683,7 @@ describe('DashboardsModule', () => {
           },
           method: 'POST',
           payload,
-          url: '/dashboards',
+          url: '/api/dashboards',
         });
 
         expect(response.statusCode).toBe(400);
@@ -691,7 +691,7 @@ describe('DashboardsModule', () => {
     );
   });
 
-  describe('GET /dashboards/{dashboardId} HTTP/1.1', () => {
+  describe('GET /api/dashboards/{dashboardId} HTTP/1.1', () => {
     test('returns dashboard on success', async () => {
       const dashboard = await seedTestDashboard('name');
 
@@ -700,7 +700,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: `/dashboards/${dashboard.id}`,
+        url: `/api/dashboards/${dashboard.id}`,
       });
 
       expect(response.statusCode).toBe(200);
@@ -717,7 +717,7 @@ describe('DashboardsModule', () => {
             Authorization: `Bearer ${bearerToken}`,
           },
           method: 'GET',
-          url: `/dashboards/${dashboardId}`,
+          url: `/api/dashboards/${dashboardId}`,
         });
 
         expect(response.statusCode).toBe(400);
@@ -730,14 +730,14 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: `/dashboards/${dummyId}`,
+        url: `/api/dashboards/${dummyId}`,
       });
 
       expect(response.statusCode).toBe(404);
     });
   });
 
-  describe('PATCH /dashboards/{dashboardId} HTTP/1.1', () => {
+  describe('PATCH /api/dashboards/{dashboardId} HTTP/1.1', () => {
     test('updated dashboard entry on success', async () => {
       const dashboard = await seedTestDashboard('name');
 
@@ -766,7 +766,7 @@ describe('DashboardsModule', () => {
         },
         method: 'PATCH',
         payload: payload,
-        url: `/dashboards/${dashboard.id}`,
+        url: `/api/dashboards/${dashboard.id}`,
       });
 
       const { id } = JSON.parse(response.payload) as unknown as Dashboard;
@@ -806,7 +806,7 @@ describe('DashboardsModule', () => {
         },
         method: 'PATCH',
         payload: payload,
-        url: `/dashboards/${dashboard.id}`,
+        url: `/api/dashboards/${dashboard.id}`,
       });
 
       expect(response.statusCode).toBe(200);
@@ -831,7 +831,7 @@ describe('DashboardsModule', () => {
         },
         method: 'PATCH',
         payload: payload,
-        url: `/dashboards/${dashboard.id}`,
+        url: `/api/dashboards/${dashboard.id}`,
       });
 
       expect(response.statusCode).toBe(200);
@@ -856,7 +856,7 @@ describe('DashboardsModule', () => {
         },
         method: 'PATCH',
         payload: payload,
-        url: `/dashboards/${dashboard.id}`,
+        url: `/api/dashboards/${dashboard.id}`,
       });
 
       expect(response.statusCode).toBe(200);
@@ -894,7 +894,7 @@ describe('DashboardsModule', () => {
         },
         method: 'PATCH',
         payload: payload,
-        url: `/dashboards/${dashboard.id}`,
+        url: `/api/dashboards/${dashboard.id}`,
       });
 
       expect(response.statusCode).toBe(200);
@@ -932,7 +932,7 @@ describe('DashboardsModule', () => {
           },
           method: 'PATCH',
           payload: payload,
-          url: `/dashboards/${dashboardId}`,
+          url: `/api/dashboards/${dashboardId}`,
         });
 
         expect(response.statusCode).toBe(400);
@@ -956,7 +956,7 @@ describe('DashboardsModule', () => {
           },
           method: 'PATCH',
           payload: payload,
-          url: `/dashboards/${dashboard.id}`,
+          url: `/api/dashboards/${dashboard.id}`,
         });
 
         expect(response.statusCode).toBe(400);
@@ -987,7 +987,7 @@ describe('DashboardsModule', () => {
           },
           method: 'PATCH',
           payload: payload,
-          url: `/dashboards/${dashboard.id}`,
+          url: `/api/dashboards/${dashboard.id}`,
         });
 
         expect(response.statusCode).toBe(200);
@@ -1017,7 +1017,7 @@ describe('DashboardsModule', () => {
           },
           method: 'PATCH',
           payload: payload,
-          url: `/dashboards/${dashboard.id}`,
+          url: `/api/dashboards/${dashboard.id}`,
         });
 
         expect(response.statusCode).toBe(400);
@@ -1045,7 +1045,7 @@ describe('DashboardsModule', () => {
         },
         method: 'PATCH',
         payload: payload,
-        url: `/dashboards/${dashboard.id}`,
+        url: `/api/dashboards/${dashboard.id}`,
       });
 
       expect(response.statusCode).toBe(400);
@@ -1077,7 +1077,7 @@ describe('DashboardsModule', () => {
           },
           method: 'PATCH',
           payload: payload,
-          url: `/dashboards/${dashboard.id}`,
+          url: `/api/dashboards/${dashboard.id}`,
         });
 
         expect(response.statusCode).toBe(400);
@@ -1128,7 +1128,7 @@ describe('DashboardsModule', () => {
         },
         method: 'PATCH',
         payload: payload,
-        url: `/dashboards/${dashboard.id}`,
+        url: `/api/dashboards/${dashboard.id}`,
       });
 
       expect(response.statusCode).toBe(200);
@@ -1326,7 +1326,7 @@ describe('DashboardsModule', () => {
           },
           method: 'PATCH',
           payload: payload,
-          url: `/dashboards/${dashboard.id}`,
+          url: `/api/dashboards/${dashboard.id}`,
         });
 
         expect(response.statusCode).toBe(400);
@@ -1365,14 +1365,14 @@ describe('DashboardsModule', () => {
         },
         method: 'PATCH',
         payload: payload,
-        url: `/dashboards/${dummyId}`,
+        url: `/api/dashboards/${dummyId}`,
       });
 
       expect(response.statusCode).toBe(404);
     });
   });
 
-  describe('DELETE /dashboards/bulk HTTP/1.1', () => {
+  describe('DELETE /api/dashboards/bulk HTTP/1.1', () => {
     test('returns 200 on success', async () => {
       const dashboard1 = await seedTestDashboard('dashboard 1');
       const dashboard2 = await seedTestDashboard('dashboard 2');
@@ -1386,7 +1386,7 @@ describe('DashboardsModule', () => {
         payload: {
           ids: [dashboard1.id, dashboard2.id, dashboard3.id],
         },
-        url: `/dashboards/bulk`,
+        url: `/api/dashboards/bulk`,
       });
 
       expect(deleteResponse.statusCode).toBe(200);
@@ -1399,7 +1399,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: `/dashboards/${dashboard1.id}`,
+        url: `/api/dashboards/${dashboard1.id}`,
       });
 
       const getResponse2 = await app.inject({
@@ -1407,7 +1407,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: `/dashboards/${dashboard2.id}`,
+        url: `/api/dashboards/${dashboard2.id}`,
       });
 
       const getResponse3 = await app.inject({
@@ -1415,7 +1415,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: `/dashboards/${dashboard3.id}`,
+        url: `/api/dashboards/${dashboard3.id}`,
       });
 
       expect(getResponse1.statusCode).toBe(404);
@@ -1436,7 +1436,7 @@ describe('DashboardsModule', () => {
         payload: {
           ids: [dashboard2.id],
         },
-        url: `/dashboards/bulk`,
+        url: `/api/dashboards/bulk`,
       });
 
       expect(deleteResponse.statusCode).toBe(200);
@@ -1449,7 +1449,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: `/dashboards/${dashboard1.id}`,
+        url: `/api/dashboards/${dashboard1.id}`,
       });
 
       const getResponse2 = await app.inject({
@@ -1457,7 +1457,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: `/dashboards/${dashboard2.id}`,
+        url: `/api/dashboards/${dashboard2.id}`,
       });
 
       const getResponse3 = await app.inject({
@@ -1465,7 +1465,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: `/dashboards/${dashboard3.id}`,
+        url: `/api/dashboards/${dashboard3.id}`,
       });
 
       expect(getResponse1.statusCode).toBe(200);
@@ -1482,7 +1482,7 @@ describe('DashboardsModule', () => {
         payload: {
           ids: [],
         },
-        url: `/dashboards/bulk`,
+        url: `/api/dashboards/bulk`,
       });
 
       expect(deleteResponse.statusCode).toBe(200);
@@ -1503,7 +1503,7 @@ describe('DashboardsModule', () => {
         payload: {
           ids: [dashboard1.id, dashboard2.id, '123456789012'],
         },
-        url: `/dashboards/bulk`,
+        url: `/api/dashboards/bulk`,
       });
 
       expect(deleteResponse.statusCode).toBe(404);
@@ -1516,7 +1516,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: `/dashboards/${dashboard1.id}`,
+        url: `/api/dashboards/${dashboard1.id}`,
       });
 
       const getResponse2 = await app.inject({
@@ -1524,7 +1524,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: `/dashboards/${dashboard2.id}`,
+        url: `/api/dashboards/${dashboard2.id}`,
       });
 
       expect(getResponse1.statusCode).toBe(404);
@@ -1532,7 +1532,7 @@ describe('DashboardsModule', () => {
     });
   });
 
-  describe('DELETE /dashboards/{dashboardId} HTTP/1.1', () => {
+  describe('DELETE /api/dashboards/{dashboardId} HTTP/1.1', () => {
     test('returns 204 on success', async () => {
       const dashboard = await seedTestDashboard('name');
 
@@ -1541,7 +1541,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'DELETE',
-        url: `/dashboards/${dashboard.id}`,
+        url: `/api/dashboards/${dashboard.id}`,
       });
 
       expect(deleteResponse.statusCode).toBe(204);
@@ -1551,7 +1551,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'GET',
-        url: `/dashboards/${dashboard.id}`,
+        url: `/api/dashboards/${dashboard.id}`,
       });
 
       expect(getResponse.statusCode).toBe(404);
@@ -1565,7 +1565,7 @@ describe('DashboardsModule', () => {
             Authorization: `Bearer ${bearerToken}`,
           },
           method: 'DELETE',
-          url: `/dashboards/${dashboardId}`,
+          url: `/api/dashboards/${dashboardId}`,
         });
 
         expect(response.statusCode).toBe(400);
@@ -1578,7 +1578,7 @@ describe('DashboardsModule', () => {
           Authorization: `Bearer ${bearerToken}`,
         },
         method: 'DELETE',
-        url: `/dashboards/${dummyId}`,
+        url: `/api/dashboards/${dummyId}`,
       });
 
       expect(response.statusCode).toBe(404);

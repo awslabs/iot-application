@@ -7,7 +7,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import { authConfig } from '../config/auth.config';
+import { jwtConfig } from '../config/jwt.config';
 import { Reflector } from '@nestjs/core';
 import { isPublicMetadataKey } from './public.decorator';
 
@@ -21,7 +21,7 @@ export class CognitoJwtAuthGuard implements CanActivate {
   private readonly logger = new Logger(CognitoJwtAuthGuard.name);
 
   constructor(
-    @Inject(authConfig.KEY) private config: ConfigType<typeof authConfig>,
+    @Inject(jwtConfig.KEY) private config: ConfigType<typeof jwtConfig>,
     private reflector: Reflector,
   ) {}
 
