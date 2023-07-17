@@ -1,12 +1,7 @@
-import { RootIndexPage } from './root-index-page';
-import { ROOT_INDEX_PAGE_FORMAT } from '~/constants/format';
-
+import { Navigate } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
 
 export const rootIndexRoute = {
   index: true,
-  element: <RootIndexPage />,
-  handle: {
-    format: ROOT_INDEX_PAGE_FORMAT,
-  },
+  element: <Navigate to="/dashboards" />,
 } satisfies RouteObject;
