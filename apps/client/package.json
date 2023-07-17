@@ -26,7 +26,7 @@
     "@cloudscape-design/components": "^3.0.338",
     "@cloudscape-design/global-styles": "^1.0.11",
     "@iot-app-kit/dashboard": "^6.2.0",
-    "@tanstack/react-query": "^4.29.19",
+    "@tanstack/react-query": "^4.29.25",
     "@vitest/coverage-c8": "^0.33.0",
     "aws-amplify": "^5.3.4",
     "jotai": "^2.2.2",
