@@ -17292,10 +17292,10 @@ openapi-typescript-codegen@^0.25.0:
     handlebars "^4.7.7"
     json-schema-ref-parser "^9.0.9"
 
-openapi-typescript@^6.3.7:
-  version "6.3.7"
-  resolved "https://registry.yarnpkg.com/openapi-typescript/-/openapi-typescript-6.3.7.tgz#de2e549e58efb09be02c7a45a06e0ea78d100a3f"
-  integrity sha512-hZKa43Ii/N8tbz1fc0cyyyWBEY4CARXeEmmUwI7D5Z+pfwQz1oei94IRJH3D/ZhGTHn74ETXZWmRO5AJI0cKuA==
+openapi-typescript@^6.3.9:
+  version "6.3.9"
+  resolved "https://registry.yarnpkg.com/openapi-typescript/-/openapi-typescript-6.3.9.tgz#a6599cf1a93a2ff027a383f0eeedc659edd597a6"
+  integrity sha512-1+IHZIhkPjOjS9WQ3YF8lJq7/ZuFBoDOQfCFI2r5mJ4n2+xQ4aQbFw+mTqBl2pYSIb1cB+LWb2T8ig0K/VwI7A==
   dependencies:
     ansi-colors "^4.1.3"
     fast-glob "^3.3.0"
