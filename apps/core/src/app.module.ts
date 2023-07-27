@@ -9,12 +9,16 @@ import { HealthModule } from './health/health.module';
 import { DynamoDbLocalSetupService } from './lifecycle-hooks/dynamodb-local-setup';
 import { CognitoJwtAuthGuard } from './auth/cognito-jwt-auth.guard';
 import { authConfig } from './config/auth.config';
+import { MvcModule } from './mvc/mvc.module';
+import { jwtConfig } from './config/jwt.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ load: [databaseConfig], isGlobal: true }),
     ConfigModule.forRoot({ load: [authConfig], isGlobal: true }),
+    ConfigModule.forRoot({ load: [databaseConfig], isGlobal: true }),
+    ConfigModule.forRoot({ load: [jwtConfig], isGlobal: true }),
     DashboardsModule,
+    MvcModule,
     HealthModule,
     ThrottlerModule.forRoot({ ttl: 10, limit: 100 }),
   ],

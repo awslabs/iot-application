@@ -7,14 +7,8 @@ import {
   getSiteWiseDataPlaneEndpoint,
 } from '../endpoints/aws-endpoints';
 
-export function getConnectSrcDirective(
-  coreServiceUrl: string,
-  region: string,
-): string {
-  const directiveName = 'connect-src';
-
-  const sources = [
-    coreServiceUrl,
+export function getServicesEndpoints(region: string): string[] {
+  return [
     getCognitoIdenityPoolEndpoint(region),
     getCognitoUserPoolEndpoint(region),
     getEventsControlPlaneEndpoint(region),
@@ -22,7 +16,14 @@ export function getConnectSrcDirective(
     getSiteWiseControlPlaneEndpoint(region),
     getSiteWiseDataPlaneEndpoint(region),
   ];
+}
 
+export function getConnectSrcDirective(
+  coreServiceUrl: string,
+  region: string,
+): string {
+  const directiveName = 'connect-src';
+  const sources = [coreServiceUrl, ...getServicesEndpoints(region)];
   const policy = [directiveName, ...sources].join(' ');
 
   return `${policy};`;

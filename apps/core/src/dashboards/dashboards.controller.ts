@@ -23,7 +23,7 @@ import { Dashboard } from './entities/dashboard.entity';
 import { isErr, isJust, isNothing, isOk } from '../types';
 
 @ApiTags('dashboards')
-@Controller('dashboards')
+@Controller('api/dashboards')
 export class DashboardsController {
   constructor(private readonly dashboardsService: DashboardsService) {}
 

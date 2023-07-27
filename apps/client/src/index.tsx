@@ -12,17 +12,35 @@ import { router } from './router';
 import { queryClient } from './data/query-client';
 import { setServiceUrl } from './services';
 import metricHandler from './metrics/metric-handler';
-import type { GlobalWithResources } from './types/global-with-resources';
+import { extractedMetaTags } from './helpers/meta-tags';
 
 import '@aws-amplify/ui-react/styles.css';
 import '@cloudscape-design/global-styles/index.css';
 
-const globalWithResources = global as GlobalWithResources;
+// Extract metadata from <meta> tags
+const tags = Array.from(document.getElementsByTagName('meta'));
+const metadata = extractedMetaTags(tags);
+const {
+  authenticationFlowType,
+  cognitoEndpoint,
+  identityPoolId,
+  region,
+  userPoolId,
+  userPoolWebClientId,
+} = metadata;
 
-const awsResources = globalWithResources.awsResources.amplifyConfiguration;
-Amplify.configure(awsResources);
+Amplify.configure({
+  Auth: {
+    authenticationFlowType,
+    endpoint: cognitoEndpoint,
+    identityPoolId,
+    region,
+    userPoolId,
+    userPoolWebClientId,
+  },
+});
 
-setServiceUrl(globalWithResources.awsResources.coreServer.endpoint);
+setServiceUrl('/api');
 
 const rootEl = document.getElementById('root');
 

@@ -7,6 +7,7 @@ export const DASHBOARDS_PATH = 'dashboards';
 export const CREATE_PATH = 'create';
 export const DASHBOARD_PATH = ':dashboardId';
 
+// Add the corresponding routes under apps/core/src/mvc/mvc.controller.ts to support browser router.
 export const ROOT_HREF = '/';
 export const DASHBOARDS_HREF = '/dashboards';
 export const CREATE_DASHBOARD_HREF = '/dashboards/create';

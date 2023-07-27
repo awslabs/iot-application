@@ -10,3 +10,4 @@ export * from './lists';
 export * from './maybe';
 export * from './notification-view-model';
 export * from './predicates';
+export * from './metadata';
