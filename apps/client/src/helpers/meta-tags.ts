@@ -1,9 +1,5 @@
-import { Metadata } from '~/types';
-
-export const extractedMetaTags = (
-  metaElements: HTMLMetaElement[],
-): Metadata => {
-  const metaTags: Metadata = {
+export const extractedMetaTags = (metaElements: HTMLMetaElement[]) => {
+  const metaTags = {
     authenticationFlowType: '',
     cognitoEndpoint: '',
     identityPoolId: '',
