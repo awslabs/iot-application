@@ -6,6 +6,7 @@ import { authConfig } from '../config/auth.config';
 // Responds with the index page for all of the client routes.
 const CLIENT_ROUTES = ['', 'dashboards', 'dashboards/*'];
 
+/** Responds with index.html for all client routes. */
 @Controller()
 export class MvcController {
   constructor(
