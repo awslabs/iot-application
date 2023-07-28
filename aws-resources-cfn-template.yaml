@@ -4,13 +4,8 @@ Description: AWS Resources for IoT Application
 
 Parameters:
   CoreServiceSourceImageId:
-    Default: 'public.ecr.aws/z7i3z1i7/core:latest'
+    Default: public.ecr.aws/e1e5s5e0/core-service:44796b8f28ab52167006353b7afd0384f622b7d1
     Description: Enter the Docker source image identifier for core service.
-    Type: String
-
-  FrontEndAssetDistribution:
-    Default: d3lkiqp2d8a05e.cloudfront.net
-    Description: Enter the front-end asset distribution URL.
     Type: String
 
 
@@ -134,12 +129,23 @@ Resources:
           ImageConfiguration:
             Port: "3000"
             RuntimeEnvironmentVariables:
+              - Name: COGNITO_IDENTITY_POOL_ID
+                Value: !Ref IdentityPool
               - Name: COGNITO_USER_POOL_ID
                 Value: !Ref UserPool
               - Name: COGNITO_USER_POOL_CLIENT_ID
                 Value: !Ref UserPoolClientWeb
               - Name: DATABASE_TABLE_NAME
                 Value: !Ref ApiResourceTable
+              - Name: SERVICE_ENDPOINTS
+                Value: !Join
+                  - ' '
+                  - - !Sub https://cognito-identity.${AWS::Region}.amazonaws.com
+                    - !Sub https://cognito-idp.${AWS::Region}.amazonaws.com
+                    - !Sub https://iotevents.${AWS::Region}.amazonaws.com
+                    - !Sub https://data.iotevents.${AWS::Region}.amazonaws.com
+                    - !Sub https://api.iotsitewise.${AWS::Region}.amazonaws.com
+                    - !Sub https://data.iotsitewise.${AWS::Region}.amazonaws.com
           ImageIdentifier: !Ref CoreServiceSourceImageId
           ImageRepositoryType: ECR_PUBLIC
 
@@ -201,204 +207,7 @@ Resources:
       ResourceArn: !GetAtt CoreService.ServiceArn
       WebACLArn: !GetAtt CoreServiceWebACL.Arn
 
-  AssetBucket:
-    Type: "AWS::S3::Bucket"
-    UpdateReplacePolicy: Retain
-    DeletionPolicy: Retain
-    Properties:
-      LifecycleConfiguration:
-        Rules:
-          - NoncurrentVersionExpiration:
-              NoncurrentDays: 90
-            Status: Enabled
-      VersioningConfiguration:
-        Status: Enabled
-
-  AssetBucketOAI:
-    Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
-    Properties:
-      CloudFrontOriginAccessIdentityConfig:
-        Comment: Allows CloudFront to reach the bucket
-
-  AssetBucketPolicy:
-    Type: "AWS::S3::BucketPolicy"
-    Properties:
-      Bucket: !Ref AssetBucket
-      PolicyDocument:
-        Statement:
-          - Action:
-              - s3:*
-            Effect: Deny
-            Principal: '*'
-            Resource:
-              - !GetAtt AssetBucket.Arn
-              - !Sub ${AssetBucket.Arn}/*
-            Condition:
-              Bool:
-                'aws:SecureTransport': false
-          - Action: "s3:GetObject"
-            Effect: Allow
-            Principal:
-              CanonicalUser: !GetAtt AssetBucketOAI.S3CanonicalUserId
-            Resource: !Sub ${AssetBucket.Arn}/*
-        Version: 2012-10-17
-
-  PublicAssetHeadersPolicy:
-    Type: 'AWS::CloudFront::ResponseHeadersPolicy'
-    Properties:
-      ResponseHeadersPolicyConfig:
-        Name: IoTAppPublicAssetHeaders
-        CustomHeadersConfig:
-          Items:
-          - Header: Cache-Control
-            Override: true
-            Value: no-store
-        SecurityHeadersConfig:
-          ContentSecurityPolicy:
-            ContentSecurityPolicy: !Join
-              - ' '
-              - - connect-src
-                - !Sub https://${CoreService.ServiceUrl}
-                - !Sub https://cognito-identity.${AWS::Region}.amazonaws.com
-                - !Sub https://cognito-idp.${AWS::Region}.amazonaws.com
-                - !Sub https://iotevents.${AWS::Region}.amazonaws.com
-                - !Sub https://data.iotevents.${AWS::Region}.amazonaws.com
-                - !Sub https://api.iotsitewise.${AWS::Region}.amazonaws.com
-                - !Sub https://data.iotsitewise.${AWS::Region}.amazonaws.com;
-                - default-src 'none';
-                - font-src 'self' data:;
-                - img-src 'self' data:;
-                - script-src 'self';
-                - style-src 'self' 'unsafe-inline';
-                - upgrade-insecure-requests;
-            Override: true
-          ContentTypeOptions:
-            Override: true
-          FrameOptions:
-            FrameOption: DENY
-            Override: true
-          StrictTransportSecurity:
-            AccessControlMaxAgeSec: 47304000
-            IncludeSubdomains: true
-            Override: true
-
-  PublicAssetDistribution:
-    Type: "AWS::CloudFront::Distribution"
-    Properties:
-      DistributionConfig:
-        DefaultCacheBehavior:
-          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
-          Compress: true
-          ResponseHeadersPolicyId: !Ref PublicAssetHeadersPolicy
-          TargetOriginId: IotAppFrontEndAssetDistributionOrigin
-          ViewerProtocolPolicy: redirect-to-https
-        CacheBehaviors:
-          - PathPattern: aws-resources.js
-            TargetOriginId: IotAppS3BucketOrigin
-            ViewerProtocolPolicy: redirect-to-https
-            AllowedMethods:
-              - GET
-              - HEAD
-            CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
-        DefaultRootObject: index.html
-        Enabled: true
-        HttpVersion: http2
-        IPV6Enabled: true
-        Origins:
-          - DomainName: !Ref FrontEndAssetDistribution
-            Id: IotAppFrontEndAssetDistributionOrigin
-            CustomOriginConfig:
-              OriginProtocolPolicy: https-only
-              OriginSSLProtocols:
-                - TLSv1.2
-          - DomainName: !GetAtt AssetBucket.RegionalDomainName
-            Id: IotAppS3BucketOrigin
-            S3OriginConfig:
-              OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${AssetBucketOAI}
-
-  AwsResourcesFile:
-    Type: Custom::AwsResourcesFile
-    Properties:
-      ServiceToken: !GetAtt S3PutObjectFunction.Arn
-      Bucket: !Ref AssetBucket
-      Body: !Sub window.awsResources={"amplifyConfiguration":{"Auth":{"identityPoolId":"${IdentityPool}","region":"${AWS::Region}","userPoolId":"${UserPool}","userPoolWebClientId":"${UserPoolClientWeb}"}},"coreServer":{"endpoint":"https://${CoreService.ServiceUrl}"}};
-      Key: aws-resources.js
-
-  S3PutObjectFunction:
-    Type: AWS::Lambda::Function
-    Properties:
-      Handler: index.handler
-      Role: !GetAtt S3PutObjectFunctionRole.Arn
-      Timeout: 360
-      Runtime: nodejs16.x
-      Code:
-        ZipFile: |
-          const aws = require('aws-sdk');
-          const cfnresponse = require('./cfn-response');
-
-          const s3 = new aws.S3();
-
-          exports.handler = (event, context) => {
-            // Get the request event info
-            const requestType = event.RequestType;
-            console.log('The event type is: ', requestType);
-            console.log('The resource properties is: ', event.ResourceProperties);
-            const { Body, Bucket, Key } = event.ResourceProperties;
-
-            if (requestType === 'Create' || requestType === 'Update') {
-              s3.putObject({ ContentType: 'application/javascript', Body, Bucket, Key }).promise()
-                .then(() => cfnresponse.send(event, context, cfnresponse.SUCCESS))
-                .catch(err => {
-                  console.err(err)
-                  cfnresponse.send(event, context, cfnresponse.FAILED);
-                });
-            }
-
-            if (requestType === 'Delete') {
-              s3.deleteObject({ Bucket, Key }).promise()
-                .then(() => cfnresponse.send(event, context, cfnresponse.SUCCESS))
-                .catch(err => {
-                  console.err(err)
-                  cfnresponse.send(event, context, cfnresponse.FAILED);
-                });
-            }
-          };
-
-  S3PutObjectFunctionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Statement:
-          - Action:
-              - sts:AssumeRole
-            Effect: Allow
-            Principal:
-              Service:
-                - lambda.amazonaws.com
-        Version: "2012-10-17"
-      Policies:
-        - PolicyDocument:
-            Statement:
-              - Action:
-                  - logs:CreateLogGroup
-                  - logs:CreateLogStream
-                  - logs:PutLogEvents
-                Effect: Allow
-                Resource: arn:aws:logs:*:*:*
-            Version: "2012-10-17"
-          PolicyName: !Sub ${AWS::StackName}-${AWS::Region}-AWSLambda-CW
-        - PolicyDocument:
-            Statement:
-              - Action:
-                  - s3:PutObject
-                  - s3:DeleteObject
-                Effect: Allow
-                Resource:
-                  - !Sub ${AssetBucket.Arn}/aws-resources.js
-            Version: "2012-10-17"
-          PolicyName: !Sub ${AWS::StackName}-${AWS::Region}-AWSLambda-S3
-
 Outputs:
   AppURL:
     Description: Endpoint to access the App
-    Value: !Sub https://${PublicAssetDistribution.DomainName}
+    Value: !Sub https://${CoreService.ServiceUrl}
