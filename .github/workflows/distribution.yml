@@ -1,0 +1,44 @@
+name: Distribution
+
+run-name: Distribution action initiated by ${{ github.actor }}
+
+on: workflow_dispatch
+
+# Ensures that only one deployment is in progress
+concurrency: ${{ github.workflow }}
+
+jobs:
+  core-distribution:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # needed to interact with GitHub's OIDC Token endpoint
+
+    # Reference: https://github.com/aws-actions/amazon-ecr-login#login-to-amazon-ecr-public-then-build-and-push-a-docker-image
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Configure AWS credentials 🔑
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.DISTRIBUTION_AWS_ROLE }}
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR Public 
+        id: login-ecr-public
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registry-type: public
+
+      - name: Build, tag, and push docker image to Amazon ECR Public
+        env:
+          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          REGISTRY_ALIAS: ${{ secrets.DISTRIBUTION_REGISTRY_ALIAS }}
+          REPOSITORY: core-service
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG

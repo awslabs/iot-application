@@ -6,6 +6,7 @@ import {
   DeleteDashboardDialog,
 } from '../pages/dashboards-index.page';
 import { ApplicationFrame } from '../pages/application-frame.page';
+import { randomUUID } from 'crypto';
 
 test('as a user, I can create, update, and delete my dashboard', async ({
   page,
@@ -18,10 +19,13 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   const application = new ApplicationFrame(page);
   const deleteDashboardDialog = new DeleteDashboardDialog(page);
 
+  // Introduce uniqueness to isolate test runs
+  const dashboardDescription = `My dashboard description ${randomUUID()}`;
+
   await createDashboardPage.goto();
 
   await createDashboardPage.nameField.type('My Dashboard');
-  await createDashboardPage.descriptionField.type('My Dashboard Description');
+  await createDashboardPage.descriptionField.type(dashboardDescription);
 
   await expect(application.notification).toBeHidden();
 
@@ -36,8 +40,9 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   );
 
   // check if viewport setting persists
+  await page.getByRole('button', { name: 'Edit' }).click();
   await page.getByRole('button', { name: 'Time machine' }).click();
-  await page.getByRole('radio', { name: 'Last 300 seconds' }).click();
+  await page.getByRole('radio', { name: 'Last 10 minutes' }).click();
   await page.getByRole('button', { name: 'Apply' }).click();
 
   await page.getByRole('button', { name: 'Save' }).click();
@@ -49,14 +54,14 @@ test('as a user, I can create, update, and delete my dashboard', async ({
 
   await page.reload();
   await expect(page.getByRole('button', { name: 'Time machine' })).toHaveText(
-    'Last 300 seconds',
+    'Last 10 minutes',
   );
 
   await dashboardsPage.goto();
 
   const dashboardRow = dashboardsTable.getRow({
     name: 'My dashboard',
-    description: 'My dashboard description',
+    description: dashboardDescription,
   });
 
   await expect(dashboardRow).toBeVisible();
