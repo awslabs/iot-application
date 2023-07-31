@@ -1,3 +1,4 @@
+import { id } from '@iot-application/helpers';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
@@ -11,7 +12,6 @@ import {
 } from '@nestjs/platform-fastify';
 import { Test } from '@nestjs/testing';
 import { instanceToPlain, plainToClass } from 'class-transformer';
-import { nanoid } from 'nanoid';
 
 import {
   RESOURCE_TYPES,
@@ -60,7 +60,7 @@ const isoDateMatcher: unknown = expect.stringMatching(
 );
 
 const seedTestDashboard = async (name: Dashboard['name']) => {
-  const id = nanoid(12);
+  const dashboardId = id.gen({ length: 12 });
   const definition = instanceToPlain(dummyDefinition);
 
   await dbDocClient.send(
@@ -70,7 +70,7 @@ const seedTestDashboard = async (name: Dashboard['name']) => {
           Put: {
             TableName: databaseTableName,
             Item: {
-              id,
+              id: dashboardId,
               resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
               definition,
             },
@@ -80,7 +80,7 @@ const seedTestDashboard = async (name: Dashboard['name']) => {
           Put: {
             TableName: databaseTableName,
             Item: {
-              id,
+              id: dashboardId,
               resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
               name,
               description: dummyDescription,
@@ -94,7 +94,7 @@ const seedTestDashboard = async (name: Dashboard['name']) => {
   );
 
   return {
-    id,
+    id: dashboardId,
     name,
     definition,
     description: dummyDescription,
@@ -102,7 +102,7 @@ const seedTestDashboard = async (name: Dashboard['name']) => {
 };
 
 const assertDatabaseEntry = async function ({
-  id,
+  id: dashboardId,
   name,
   description,
   definition,
@@ -114,7 +114,7 @@ const assertDatabaseEntry = async function ({
           Get: {
             TableName: databaseTableName,
             Key: {
-              id,
+              id: dashboardId,
               resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
             },
           },
@@ -122,7 +122,10 @@ const assertDatabaseEntry = async function ({
         {
           Get: {
             TableName: databaseTableName,
-            Key: { id, resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION },
+            Key: {
+              id: dashboardId,
+              resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
+            },
           },
         },
       ],
@@ -132,7 +135,7 @@ const assertDatabaseEntry = async function ({
   expect(Responses).toEqual([
     {
       Item: {
-        id,
+        id: dashboardId,
         resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
         name,
         description,
@@ -142,7 +145,7 @@ const assertDatabaseEntry = async function ({
     },
     {
       Item: {
-        id,
+        id: dashboardId,
         resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
         definition: definition,
       },
@@ -269,11 +272,13 @@ describe('DashboardsModule', () => {
         url: '/api/dashboards',
       });
 
-      const { id } = JSON.parse(response.payload) as unknown as Dashboard;
+      const { id: dashboardId } = JSON.parse(
+        response.payload,
+      ) as unknown as Dashboard;
       expect(response.statusCode).toBe(201);
 
       await assertDatabaseEntry({
-        id,
+        id: dashboardId,
         ...payload,
       });
     });
@@ -492,10 +497,12 @@ describe('DashboardsModule', () => {
         url: '/api/dashboards',
       });
 
-      const { id } = JSON.parse(response.payload) as unknown as Dashboard;
+      const { id: dashboardId } = JSON.parse(
+        response.payload,
+      ) as unknown as Dashboard;
 
       expect(response.statusCode).toBe(201);
-      await assertDatabaseEntry({ id, ...payload } as Dashboard);
+      await assertDatabaseEntry({ id: dashboardId, ...payload } as Dashboard);
     });
 
     test.each([
@@ -769,11 +776,13 @@ describe('DashboardsModule', () => {
         url: `/api/dashboards/${dashboard.id}`,
       });
 
-      const { id } = JSON.parse(response.payload) as unknown as Dashboard;
+      const { id: dashboardId } = JSON.parse(
+        response.payload,
+      ) as unknown as Dashboard;
 
       expect(response.statusCode).toBe(200);
       await assertDatabaseEntry({
-        id,
+        id: dashboardId,
         ...payload,
       } as Dashboard);
     });

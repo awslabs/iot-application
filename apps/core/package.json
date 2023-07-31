@@ -25,6 +25,7 @@
     "@fastify/helmet": "^11.0.0",
     "@fastify/static": "^6.10.2",
     "@fastify/view": "^8.0.0",
+    "@iot-application/helpers": "*",
     "@nestjs/axios": "^1.0.1",
     "@nestjs/common": "^9.4.3",
     "@nestjs/config": "^3.0.0",

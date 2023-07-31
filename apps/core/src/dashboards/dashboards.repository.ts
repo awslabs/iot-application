@@ -1,3 +1,4 @@
+import { id } from '@iot-application/helpers';
 import {
   BatchStatementErrorCodeEnum,
   DynamoDBClient,
@@ -13,7 +14,6 @@ import {
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { plainToClass } from 'class-transformer';
-import { nanoid } from 'nanoid';
 
 import { DATABASE_GSI, MESSAGES, RESOURCE_TYPES } from './dashboard.constants';
 import { CreateDashboardDto } from './dto/create-dashboard.dto';
@@ -55,7 +55,7 @@ export class DashboardsRepository {
   }
 
   public async find(
-    id: Dashboard['id'],
+    dashboardId: Dashboard['id'],
   ): Promise<Result<Error, Maybe<Dashboard>>> {
     try {
       const transaction = await this.dbDocClient.send(
@@ -65,7 +65,7 @@ export class DashboardsRepository {
               Get: {
                 TableName: this.tableName,
                 Key: {
-                  id,
+                  id: dashboardId,
                   resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
                 },
               },
@@ -73,7 +73,10 @@ export class DashboardsRepository {
             {
               Get: {
                 TableName: this.tableName,
-                Key: { id, resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION },
+                Key: {
+                  id: dashboardId,
+                  resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
+                },
               },
             },
           ],
@@ -149,21 +152,23 @@ export class DashboardsRepository {
 
         if (queryOutput.Items) {
           dashboards = dashboards.concat(
-            queryOutput.Items.map((item) => {
-              const id = item.id;
-              const name = item.name;
-              const description = item.description;
-              const lastUpdateDate = item.lastUpdateDate;
-              const creationDate = item.creationDate;
-
-              return plainToClass(DashboardSummary, {
-                id,
+            queryOutput.Items.map(
+              ({
+                id: dashboardId,
                 name,
                 description,
                 lastUpdateDate,
                 creationDate,
-              });
-            }),
+              }) => {
+                return plainToClass(DashboardSummary, {
+                  id: dashboardId,
+                  name,
+                  description,
+                  lastUpdateDate,
+                  creationDate,
+                });
+              },
+            ),
           );
         }
 
@@ -186,7 +191,7 @@ export class DashboardsRepository {
     description,
   }: CreateDashboardDto): Promise<Result<Error, Dashboard>> {
     try {
-      const id = nanoid(12);
+      const dashboardId = id.gen({ length: 12 });
       const creationDateObj = new Date();
       const creationDate = creationDateObj.toISOString();
       const lastUpdateDate = creationDate;
@@ -198,7 +203,7 @@ export class DashboardsRepository {
               Put: {
                 TableName: this.tableName,
                 Item: {
-                  id,
+                  id: dashboardId,
                   resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
                   definition,
                 },
@@ -209,7 +214,7 @@ export class DashboardsRepository {
               Put: {
                 TableName: this.tableName,
                 Item: {
-                  id,
+                  id: dashboardId,
                   resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
                   name,
                   description,
@@ -224,10 +229,10 @@ export class DashboardsRepository {
       );
 
       return ok({
+        id: dashboardId,
         name,
         definition,
         description,
-        id,
         lastUpdateDate,
         creationDate,
       });
@@ -239,7 +244,7 @@ export class DashboardsRepository {
   }
 
   public async update({
-    id,
+    id: dashboardId,
     name,
     description,
     definition,
@@ -260,13 +265,13 @@ export class DashboardsRepository {
       Update: {
         TableName: this.tableName,
         Key: {
-          id,
+          id: dashboardId,
           resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
         },
         // Capture the DDB reserved words, see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
         UpdateExpression: 'set #definition = :definition',
         ExpressionAttributeValues: {
-          ':id': id,
+          ':id': dashboardId,
           ':resourceType': RESOURCE_TYPES.DASHBOARD_DEFINITION,
           ':definition': definition,
         },
@@ -281,7 +286,7 @@ export class DashboardsRepository {
       Update: {
         TableName: this.tableName,
         Key: {
-          id,
+          id: dashboardId,
           resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
         },
         // Capture the DDB reserved words, see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html
@@ -289,7 +294,7 @@ export class DashboardsRepository {
           .map((f) => `#${f.field} = :${f.field}, `)
           .join('')} lastUpdateDate = :lastUpdateDate`,
         ExpressionAttributeValues: {
-          ':id': id,
+          ':id': dashboardId,
           ':resourceType': RESOURCE_TYPES.DASHBOARD_DATA,
           ':name': name,
           ':description': description,
@@ -321,7 +326,7 @@ export class DashboardsRepository {
       );
 
       // return updated dashboard
-      return this.find(id);
+      return this.find(dashboardId);
     } catch (error) {
       if (isTransactionCanceledException(error)) {
         if (this.conditionalCheckFailed(error)) {
@@ -336,7 +341,7 @@ export class DashboardsRepository {
   }
 
   public async delete(
-    id: Dashboard['id'],
+    dashboardId: Dashboard['id'],
   ): Promise<Result<Error, Maybe<string>>> {
     try {
       await this.dbDocClient.send(
@@ -346,11 +351,11 @@ export class DashboardsRepository {
               Delete: {
                 TableName: this.tableName,
                 Key: {
-                  id,
+                  id: dashboardId,
                   resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
                 },
                 ExpressionAttributeValues: {
-                  ':id': id,
+                  ':id': dashboardId,
                   ':resourceType': RESOURCE_TYPES.DASHBOARD_DATA,
                 },
                 ConditionExpression:
@@ -361,11 +366,11 @@ export class DashboardsRepository {
               Delete: {
                 TableName: this.tableName,
                 Key: {
-                  id,
+                  id: dashboardId,
                   resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
                 },
                 ExpressionAttributeValues: {
-                  ':id': id,
+                  ':id': dashboardId,
                   ':resourceType': RESOURCE_TYPES.DASHBOARD_DEFINITION,
                 },
                 ConditionExpression:
@@ -376,7 +381,7 @@ export class DashboardsRepository {
         }),
       );
 
-      return ok(id);
+      return ok(dashboardId);
     } catch (error) {
       if (isTransactionCanceledException(error)) {
         if (this.conditionalCheckFailed(error)) {

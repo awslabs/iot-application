@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { nanoid } from 'nanoid';
+import { id } from '@iot-application/helpers';
 
 import { withoutIdentifiable } from '~/helpers/lists';
 import { intl } from '~/services';
@@ -40,7 +40,7 @@ export const emitNotificationAtom = atom(
       'id' | 'onDismiss' | 'dismissible'
     >,
   ) => {
-    const notificationId = nanoid();
+    const notificationId = id.gen();
 
     set(notificationsBaseAtom, () => [
       {
