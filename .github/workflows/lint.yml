@@ -3,6 +3,8 @@ name: Lint
 run-name: Lint action initiated by ${{ github.actor }}
 
 on:
+  pull_request:
+    branches: main
   push:
     branches: main
 

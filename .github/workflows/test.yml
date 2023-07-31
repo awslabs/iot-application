@@ -3,6 +3,8 @@ name: Unit Test
 run-name: Unit Test action initiated by ${{ github.actor }}
 
 on:
+  pull_request:
+    branches: main
   push:
     branches: main
 
