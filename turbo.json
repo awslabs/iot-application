@@ -28,16 +28,18 @@
         "SERVICE_ENDPOINTS"
       ]
     },
-    "lint": {},
-    "lint:commit": {},
+    "lint": {
+      "dependsOn": ["^build"]
+    },
     "lint:fix": {},
     "playwright": {
+      "dependsOn": ["^build"],
       "env": ["ENDPOINT", "LAUNCH_WEB_SERVER", "USER_PASSWORD"]
     },
     "test": {
+      "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
     },
-    "test:commit": {},
     "test:watch": {
       "cache": false
     }

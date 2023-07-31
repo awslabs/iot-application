@@ -18,12 +18,10 @@
     "install:clean": "yarn clean && yarn install",
     "install:reset": "yarn clean && rm -rf yarn.lock && yarn install",
     "lint": "turbo run lint && tsc --noEmit && TIMING=1 eslint \"tests/**/*.ts\" --max-warnings 0",
-    "lint:commit": "turbo run lint:commit --filter=[HEAD~1]",
     "lint:fix": "turbo run lint:fix && eslint \"tests/**/*.ts\" --fix",
     "start:client": "yarn workspace client dev",
     "start:core": "yarn workspace core dev",
     "test": "turbo run test",
-    "test:commit": "turbo run test:commit --filter=[HEAD~1]",
     "test:e2e": "playwright test",
     "test:watch": "turbo run test:watch"
   },

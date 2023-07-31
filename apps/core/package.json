@@ -10,11 +10,9 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "tsc --noEmit && TIMING=1 eslint \"{src,test}/**/*.ts\" --max-warnings 0",
-    "lint:commit": "tsc --noEmit && TIMING=1 eslint $(git diff --name-only HEAD HEAD~1 | grep -E \"src/**/*.ts\" | xargs) --max-warnings 0",
     "lint:fix": "eslint \"{src,test}/**/*.ts*\" --fix",
     "repl": "nest start --entryFile repl --watch",
     "test": "jest --coverage",
-    "test:commit": "jest --lastCommit --coverage=false",
     "test:watch": "jest --watch"
   },
   "dependencies": {
