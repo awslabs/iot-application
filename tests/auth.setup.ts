@@ -20,7 +20,7 @@ setup('authenticate', async ({ page }) => {
   await page.getByRole('button', { name: 'Sign in' }).click();
 
   // user lands at home page
-  await expect(page.getByRole('heading', { name: 'Home' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Dashboards' })).toBeVisible();
 
   // storage of authentication state for tests
   await page.context().storageState({ path: authFile });

@@ -1,16 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useDismissAllNotifications } from '~/hooks/notifications/use-dismiss-all-notifications';
-import { useSetNavigationVisibility } from './use-set-navigation-visibility';
 
 /** Use to control the application. */
 export function useApplication() {
   const navigateClient = useNavigate();
   const dismissNotifications = useDismissAllNotifications();
-  const setNavigationVisibility = useSetNavigationVisibility();
-
-  function closeNavigation() {
-    setNavigationVisibility(false);
-  }
 
   /**
    * Navigate the client to a new page.
@@ -23,7 +17,6 @@ export function useApplication() {
    */
   function navigate(href: string) {
     dismissNotifications();
-    closeNavigation();
     navigateClient(href);
   }
 

@@ -8,7 +8,7 @@ test.describe('Settings', () => {
     const settingsDialog = page.getByRole('dialog', { name: 'Settings' });
     const densityToggle = settingsDialog.getByRole('checkbox');
 
-    // user opens the home page
+    // user opens the dashboard page
     await page.goto('');
 
     // user opens application settings
@@ -49,7 +49,7 @@ test.describe('Settings', () => {
     const settingsDialog = page.getByRole('dialog', { name: 'Settings' });
     const densityToggle = settingsDialog.getByRole('checkbox');
 
-    // user opens the home page
+    // user opens the dashboards page
     await page.goto('');
 
     // user opens application settings

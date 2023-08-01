@@ -1,4 +1,3 @@
-import { expect } from '@playwright/test';
 import type { Page, Locator } from '@playwright/test';
 
 export class ApplicationFrame {
@@ -12,44 +11,6 @@ export class ApplicationFrame {
     this.dismissNotificationButton = this.notification.getByRole('button', {
       name: 'Dismiss notification',
     });
-  }
-}
-
-export class SideNavigation {
-  public readonly navigationDrawer: Locator;
-  public readonly openButton: Locator;
-  public readonly closeButton: Locator;
-  public readonly homeLink: Locator;
-  public readonly dashboardsPageLink: Locator;
-
-  constructor(page: Page) {
-    this.navigationDrawer = page
-      .getByRole('navigation', {
-        name: 'Navigation drawer', // XXX: Cloudscape gives two elements the same ARIA label
-      })
-      .filter({
-        has: page.getByRole('button', { name: 'Close navigation drawer' }),
-      });
-    this.openButton = page.getByRole('button', {
-      name: 'Open navigation drawer',
-    });
-    this.closeButton = this.navigationDrawer.getByRole('button', {
-      name: 'Close navigation drawer',
-    });
-    this.homeLink = this.navigationDrawer.getByRole('link', {
-      name: 'IoT Application',
-    });
-    this.dashboardsPageLink = this.navigationDrawer.getByRole('link', {
-      name: 'Dashboards',
-    });
-  }
-
-  async expectIsNotHidden() {
-    await expect(this.navigationDrawer).toBeVisible();
-  }
-
-  async expectIsHidden() {
-    await expect(this.navigationDrawer).toBeHidden();
   }
 }
 
