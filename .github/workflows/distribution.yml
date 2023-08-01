@@ -42,3 +42,15 @@ jobs:
         run: |
           docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+      
+      - name: Update and upload CloudFormation template to S3
+        env:
+          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          REGISTRY_ALIAS: ${{ secrets.DISTRIBUTION_REGISTRY_ALIAS }}
+          REPOSITORY: core-service
+          IMAGE_TAG: ${{ github.sha }}
+          S3_BUCKET: ${{ secrets.DISTRIBUTION_S3_BUCKET }}
+        run: |
+          node cfn-with-core-image.js $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          zip -r $IMAGE_TAG.zip ./cfn-template-with-core-tag.json
+          aws s3api put-object --bucket $S3_BUCKET --key $IMAGE_TAG.zip --body ./$IMAGE_TAG.zip
