@@ -1,19 +1,29 @@
+import { useCollection } from '@cloudscape-design/collection-hooks';
+import Button from '@cloudscape-design/components/button';
+import CollectionPreferences from '@cloudscape-design/components/collection-preferences';
+import Header from '@cloudscape-design/components/header';
 import Input from '@cloudscape-design/components/input';
 import Link from '@cloudscape-design/components/link';
+import Pagination from '@cloudscape-design/components/pagination';
+import PropertyFilter from '@cloudscape-design/components/property-filter';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 import Table from '@cloudscape-design/components/table';
 import { DevTool } from '@hookform/devtools';
 import { useForm, Controller } from 'react-hook-form';
-import { useIntl } from 'react-intl';
+import { useIntl, FormattedMessage } from 'react-intl';
 import type { FormatDateOptions } from 'react-intl';
 import invariant from 'tiny-invariant';
 
-import { DashboardsTableHeader } from './components/dashboard-table-header/dashboards-table-header';
+import { CREATE_DASHBOARD_HREF } from '~/constants';
 import { DeleteDashboardModal } from './components/delete-dashboard-modal';
+import { EmptyDashboardsTable } from './components/empty-dashboards-table';
+import { NoMatchDashboardsTable } from './components/no-matches-dashboards-table';
 import { isJust } from '~/helpers/predicates/is-just';
-import { useDashboardsTable } from './hooks/use-dashboards-table';
+import { useApplication } from '~/hooks/application/use-application';
+import { useDashboardsQuery } from './hooks/use-dashboards-query';
 import { useDeleteModalVisibility } from './hooks/use-delete-modal-visibility';
 import { usePartialUpdateDashboardMutation } from './hooks/use-partial-update-dashboard-mutation';
-import { useApplication } from '~/hooks/application/use-application';
+import { useTablePreferences } from './hooks/use-table-preferences';
 import { $Dashboard } from '~/services';
 
 const DateFormatOptions: FormatDateOptions = {
@@ -30,7 +40,55 @@ export function DashboardsIndexPage() {
   const [isDeleteModalVisible, setIsDeleteModalVisible] =
     useDeleteModalVisibility();
   const updateDashboardMutation = usePartialUpdateDashboardMutation();
-  const { selectedItems, tableProps } = useDashboardsTable();
+
+  const [preferences, setPreferences] = useTablePreferences();
+  const dashboardsQuery = useDashboardsQuery();
+
+  const {
+    actions,
+    collectionProps,
+    filteredItemsCount = 0,
+    items,
+    paginationProps,
+    propertyFilterProps,
+  } = useCollection(dashboardsQuery.data ?? [], {
+    propertyFiltering: {
+      filteringProperties: [
+        {
+          key: 'id',
+          propertyLabel: 'ID',
+          groupValuesLabel: 'Dashboard IDs',
+          operators: ['=', '!=', ':', '!:'],
+        },
+        {
+          key: 'name',
+          propertyLabel: 'Name',
+          groupValuesLabel: 'Dashboard names',
+          operators: ['=', '!=', ':', '!:'],
+        },
+        {
+          key: 'description',
+          propertyLabel: 'Description',
+          groupValuesLabel: 'Dashboard descriptions',
+          operators: ['=', '!=', ':', '!:'],
+        },
+      ],
+      empty: <EmptyDashboardsTable />,
+      noMatch: (
+        <NoMatchDashboardsTable
+          onClick={() =>
+            actions.setPropertyFiltering({ tokens: [], operation: 'and' })
+          }
+        />
+      ),
+    },
+    pagination: { pageSize: preferences.pageSize },
+    selection: {},
+    sorting: {},
+  });
+
+  const { selectedItems = [] } = collectionProps;
+
   const { navigate } = useApplication();
 
   const {
@@ -46,7 +104,16 @@ export function DashboardsIndexPage() {
   return (
     <>
       <Table
-        {...tableProps}
+        {...collectionProps}
+        variant="full-page"
+        resizableColumns
+        stickyHeader
+        selectionType="multi"
+        stripedRows={preferences.stripedRows}
+        wrapLines={preferences.wrapLines}
+        visibleColumns={preferences.visibleContent}
+        loading={dashboardsQuery.isLoading}
+        items={items}
         trackBy={(dashboard) => dashboard.id}
         ariaLabels={{
           itemSelectionLabel: (_selectionState, row) =>
@@ -71,10 +138,244 @@ export function DashboardsIndexPage() {
           });
         }}
         onEditCancel={() => resetForm()}
+        pagination={<Pagination {...paginationProps} />}
         header={
-          <DashboardsTableHeader
-            isDeleteDisabled={selectedItems.length === 0}
-            onClickDelete={() => setIsDeleteModalVisible(true)}
+          <Header
+            variant="h1"
+            description={intl.formatMessage({
+              defaultMessage:
+                'Manage your dashboards or select one to begin monitoring your live industrial data.',
+              description: 'dashboards table header description',
+            })}
+            actions={
+              <SpaceBetween direction="horizontal" size="xs">
+                <Button
+                  disabled={selectedItems.length !== 1}
+                  onClick={() => setIsDeleteModalVisible(true)}
+                >
+                  <FormattedMessage
+                    defaultMessage="Delete"
+                    description="dashboards table header delete button"
+                  />
+                </Button>
+
+                <Button
+                  variant="primary"
+                  onClick={() => navigate(CREATE_DASHBOARD_HREF)}
+                >
+                  <FormattedMessage
+                    defaultMessage="Create dashboard"
+                    description="dashboards table header create button"
+                  />
+                </Button>
+              </SpaceBetween>
+            }
+          >
+            <FormattedMessage
+              defaultMessage="Dashboards"
+              description="dashboards table header heading"
+            />
+          </Header>
+        }
+        filter={
+          <PropertyFilter
+            {...propertyFilterProps}
+            countText={intl.formatMessage(
+              {
+                defaultMessage: `
+                  {dashboardCount, plural,
+                   zero {# matches}
+                   one {# match}
+                   other {# matches}}
+                 `,
+                description: 'dashboards table filter count text',
+              },
+              { dashboardCount: filteredItemsCount },
+            )}
+            filteringPlaceholder={intl.formatMessage({
+              defaultMessage: 'Find dashboards',
+              description: 'dashboards table filter placeholder',
+            })}
+            // TODO: internationalize fields
+            filteringLoadingText="Loading suggestions"
+            filteringErrorText="Error fetching suggestions."
+            filteringRecoveryText="Retry"
+            filteringFinishedText="End of results"
+            filteringEmpty="No suggestions found"
+            i18nStrings={{
+              filteringAriaLabel: 'your choice',
+              dismissAriaLabel: 'Dismiss',
+              filteringPlaceholder: 'Filter assets by text, property or value',
+              groupValuesText: 'Values',
+              groupPropertiesText: 'Properties',
+              operatorsText: 'Operators',
+              operationAndText: 'and',
+              operationOrText: 'or',
+              operatorLessText: 'Less than',
+              operatorLessOrEqualText: 'Less than or equal',
+              operatorGreaterText: 'Greater than',
+              operatorGreaterOrEqualText: 'Greater than or equal',
+              operatorContainsText: 'Contains',
+              operatorDoesNotContainText: 'Does not contain',
+              operatorEqualsText: 'Equals',
+              operatorDoesNotEqualText: 'Does not equal',
+              editTokenHeader: 'Edit filter',
+              propertyText: 'Property',
+              operatorText: 'Operator',
+              valueText: 'Value',
+              cancelActionText: 'Cancel',
+              applyActionText: 'Apply',
+              allPropertiesLabel: 'All properties',
+              tokenLimitShowMore: 'Show more',
+              tokenLimitShowFewer: 'Show fewer',
+              clearFiltersText: 'Clear filters',
+              removeTokenButtonAriaLabel: (token) =>
+                `Remove token ${token.propertyKey ?? '{token}'} ${
+                  token.operator
+                } ${token.value as string}`,
+              enteredTextLabel: (text) => `Use: "${text}"`,
+            }}
+          />
+        }
+        preferences={
+          <CollectionPreferences
+            title={intl.formatMessage({
+              defaultMessage: 'Preferences',
+              description: 'dashboards table preferences title',
+            })}
+            confirmLabel={intl.formatMessage({
+              defaultMessage: 'Confirm',
+              description: 'dashboards table preferences confirm',
+            })}
+            cancelLabel={intl.formatMessage({
+              defaultMessage: 'Cancel',
+              description: 'dashboards table preferences cancel',
+            })}
+            onConfirm={(event) => setPreferences(event.detail)}
+            preferences={preferences}
+            pageSizePreference={{
+              title: intl.formatMessage({
+                defaultMessage: 'Select page size',
+                description: 'dashboards table preferences page size title',
+              }),
+              options: [
+                {
+                  value: 10,
+                  label: intl.formatMessage(
+                    {
+                      defaultMessage:
+                        '{dashboardCount, plural, other {# dashboards}}',
+                      description: 'dashboards table preferences 10 pages',
+                    },
+                    { dashboardCount: 10 },
+                  ),
+                },
+
+                {
+                  value: 25,
+                  label: intl.formatMessage(
+                    {
+                      defaultMessage:
+                        '{dashboardCount, plural, other {# dashboards}}',
+                      description: 'dashboards table preferences 25 pages',
+                    },
+                    { dashboardCount: 25 },
+                  ),
+                },
+                {
+                  value: 100,
+                  label: intl.formatMessage(
+                    {
+                      defaultMessage:
+                        '{dashboardCount, plural, other {# dashboards}}',
+                      description: 'dashboards table preferences 100 pages',
+                    },
+                    { dashboardCount: 100 },
+                  ),
+                },
+              ],
+            }}
+            wrapLinesPreference={{
+              label: intl.formatMessage({
+                defaultMessage: 'Wrap lines',
+                description: 'dashboards table preferences wrap lines label',
+              }),
+              description: intl.formatMessage({
+                defaultMessage: 'Select to see all the text and wrap the lines',
+                description:
+                  'dashboards table preferences wrap lines description',
+              }),
+            }}
+            stripedRowsPreference={{
+              label: intl.formatMessage({
+                defaultMessage: 'Striped rows',
+                description: 'dashboards table preferences striped rows label',
+              }),
+              description: intl.formatMessage({
+                defaultMessage: 'Select to add alternating shaded rows',
+                description:
+                  'dashboards table preferences striped rows description',
+              }),
+            }}
+            visibleContentPreference={{
+              title: intl.formatMessage({
+                defaultMessage: 'Select visible content',
+                description:
+                  'dashboards table preferences visible content title',
+              }),
+              options: [
+                {
+                  label: intl.formatMessage({
+                    defaultMessage: 'Dashboard properties',
+                    description:
+                      'dashboards table preferences visible content label',
+                  }),
+                  options: [
+                    {
+                      id: 'id',
+                      label: intl.formatMessage({
+                        defaultMessage: 'ID',
+                        description:
+                          'dashboards table preferences visible content id',
+                      }),
+                      editable: false,
+                    },
+                    {
+                      id: 'name',
+                      label: intl.formatMessage({
+                        defaultMessage: 'Name',
+                        description:
+                          'dashboards table preferences visible content name',
+                      }),
+                    },
+                    {
+                      id: 'description',
+                      label: intl.formatMessage({
+                        defaultMessage: 'Description',
+                        description:
+                          'dashboards table preferences visible content description',
+                      }),
+                    },
+                    {
+                      id: 'lastUpdateDate',
+                      label: intl.formatMessage({
+                        defaultMessage: 'Last update date',
+                        description:
+                          'dashboards table preferences visible content last update date',
+                      }),
+                    },
+                    {
+                      id: 'creationDate',
+                      label: intl.formatMessage({
+                        defaultMessage: 'Creation date',
+                        description:
+                          'dashboards table preferences visible content creation date',
+                      }),
+                    },
+                  ],
+                },
+              ],
+            }}
           />
         }
         columnDefinitions={[

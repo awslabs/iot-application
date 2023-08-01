@@ -11,8 +11,7 @@ export class DeleteDashboardDialog {
   constructor(page: Page) {
     this.dialog = page.getByRole('dialog', { name: 'Delete dashboard' });
     this.deleteButton = this.dialog.getByRole('button', {
-      name: 'Delete',
-      exact: true,
+      name: 'Delete dashboard',
     });
     this.cancelButton = this.dialog.getByRole('button', { name: 'Cancel' });
     this.xButton = this.dialog.getByRole('button', {

@@ -138,7 +138,7 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
                 }}
               >
                 <FormattedMessage
-                  defaultMessage="Delete"
+                  defaultMessage="Delete dashboard"
                   description="delete dashboard modal delete button"
                 />
               </Button>
