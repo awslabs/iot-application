@@ -2,6 +2,7 @@ import { vi } from 'vitest';
 import { render, screen, waitFor } from '~/helpers/tests/testing-library';
 import userEvent from '@testing-library/user-event';
 
+import { CREATE_DASHBOARD_HREF } from '~/constants';
 import { DashboardsIndexPage } from './dashboards-index-page';
 import { DashboardSummary, $Dashboard } from '~/services';
 
@@ -85,6 +86,10 @@ const queryDashboardDescriptionTooLongError = () =>
 const getCancelButton = () => screen.getByRole('button', { name: 'Cancel' });
 
 describe('<DashboardsIndexPage />', () => {
+  afterEach(() => {
+    navigateMock.mockReset();
+  });
+
   describe('navigation to dashboard', () => {
     it('should navigate to the dashboard when the id is clicked', async () => {
       render(<DashboardsIndexPage />);
@@ -94,6 +99,34 @@ describe('<DashboardsIndexPage />', () => {
       expect(navigateMock).toHaveBeenCalledWith(
         `/dashboards/${getDashboardStubs()[0].id}`,
       );
+    });
+  });
+
+  describe('header', () => {
+    it('should open the delete dashboard modal when delete button is clicked', async () => {
+      const user = userEvent.setup();
+      render(<DashboardsIndexPage />);
+
+      await user.click(
+        screen.getByRole('checkbox', { name: 'Select dashboard test name' }),
+      );
+
+      await user.click(screen.getByRole('button', { name: /^Delete$/ }));
+
+      expect(
+        screen.getByRole('dialog', { name: 'Delete dashboard' }),
+      ).toBeVisible();
+    });
+
+    it('should navigate to create dashboard page to when the create button is clicked', async () => {
+      const user = userEvent.setup();
+      render(<DashboardsIndexPage />);
+
+      await user.click(
+        screen.getByRole('button', { name: 'Create dashboard' }),
+      );
+
+      expect(navigateMock).toHaveBeenCalledWith(CREATE_DASHBOARD_HREF);
     });
   });
 

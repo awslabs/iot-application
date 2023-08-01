@@ -12,7 +12,8 @@ vi.mock('../hooks/use-delete-dashboard-mutation', () => ({
   }),
 }));
 
-const getDeleteButton = () => screen.getByRole('button', { name: 'Delete' });
+const getDeleteButton = () =>
+  screen.getByRole('button', { name: 'Delete dashboard' });
 const getConsentInput = () =>
   screen.getByLabelText(/^To confirm this deletion/);
 
