@@ -3,20 +3,16 @@ import { useIntl } from 'react-intl';
 
 import { Breadcrumbs } from './components/breadcrumbs';
 import { Notifications } from './components/notifications';
-import { SideNavigation } from './components/side-navigation';
 import { TopNavigation } from './components/top-navigation';
 
 import { useFormat } from './hooks/use-format';
 import { useFullWidth } from './hooks/use-full-width';
-import { useNavigationVisibility } from '~/hooks/application/use-navigation-visibility';
-import { useSetNavigationVisibility } from '~/hooks/application/use-set-navigation-visibility';
 
+/** User interface component responsible for the application's layout. */
 export function Layout(props: React.PropsWithChildren) {
   const intl = useIntl();
   const format = useFormat();
   const fullWidth = useFullWidth();
-  const isNavigationVisible = useNavigationVisibility();
-  const setIsNavigationVisible = useSetNavigationVisibility();
 
   return (
     <>
@@ -27,12 +23,9 @@ export function Layout(props: React.PropsWithChildren) {
         content={props.children}
         contentType={format}
         disableContentPaddings={fullWidth}
-        navigation={<SideNavigation />}
         notifications={<Notifications />}
-        navigationOpen={isNavigationVisible}
-        onNavigationChange={(event) =>
-          setIsNavigationVisible(event.detail.open)
-        }
+        // hide side navigation panel entirely
+        navigationHide={true}
         // hide help panel entirely
         toolsHide={true}
         ariaLabels={{
