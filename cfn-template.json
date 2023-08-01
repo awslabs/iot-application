@@ -1,0 +1,368 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AWS Resources for IoT Application",
+  "Resources": {
+      "UserPool": {
+          "Type": "AWS::Cognito::UserPool",
+          "Properties": {
+              "AdminCreateUserConfig": {
+                  "AllowAdminCreateUserOnly": true
+              },
+              "UsernameConfiguration": {
+                  "CaseSensitive": false
+              }
+          }
+      },
+      "UserPoolClientWeb": {
+          "Type": "AWS::Cognito::UserPoolClient",
+          "Properties": {
+              "UserPoolId": {
+                  "Ref": "UserPool"
+              }
+          },
+          "DependsOn": [
+              "UserPool"
+          ]
+      },
+      "IdentityPool": {
+          "Type": "AWS::Cognito::IdentityPool",
+          "Properties": {
+              "AllowUnauthenticatedIdentities": false,
+              "CognitoIdentityProviders": [
+                  {
+                      "ClientId": {
+                          "Ref": "UserPoolClientWeb"
+                      },
+                      "ProviderName": {
+                          "Fn::Sub": "cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}"
+                      }
+                  }
+              ]
+          }
+      },
+      "IdentityPoolRoleMap": {
+          "Type": "AWS::Cognito::IdentityPoolRoleAttachment",
+          "Properties": {
+              "IdentityPoolId": {
+                  "Ref": "IdentityPool"
+              },
+              "Roles": {
+                  "authenticated": {
+                      "Fn::GetAtt": [
+                          "AuthenticatedRole",
+                          "Arn"
+                      ]
+                  }
+              },
+              "RoleMappings": {
+                  "cognito-user-pool": {
+                      "IdentityProvider": {
+                          "Fn::Sub": "cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}:${UserPoolClientWeb}"
+                      },
+                      "Type": "Token",
+                      "AmbiguousRoleResolution": "AuthenticatedRole"
+                  }
+              }
+          },
+          "DependsOn": [
+              "IdentityPool"
+          ]
+      },
+      "AuthenticatedRole": {
+          "Type": "AWS::IAM::Role",
+          "Properties": {
+              "AssumeRolePolicyDocument": {
+                  "Version": "2012-10-17",
+                  "Statement": [
+                      {
+                          "Sid": "",
+                          "Effect": "Allow",
+                          "Principal": {
+                              "Federated": "cognito-identity.amazonaws.com"
+                          },
+                          "Action": "sts:AssumeRoleWithWebIdentity",
+                          "Condition": {
+                              "StringEquals": {
+                                  "cognito-identity.amazonaws.com:aud": {
+                                      "Ref": "IdentityPool"
+                                  }
+                              },
+                              "ForAnyValue:StringLike": {
+                                  "cognito-identity.amazonaws.com:amr": "authenticated"
+                              }
+                          }
+                      }
+                  ]
+              },
+              "Policies": [
+                  {
+                      "PolicyName": "authenticated-role-policy",
+                      "PolicyDocument": {
+                          "Version": "2012-10-17",
+                          "Statement": [
+                              {
+                                  "Sid": "SiteWisePermissions",
+                                  "Effect": "Allow",
+                                  "Action": [
+                                      "iotsitewise:DescribeAsset",
+                                      "iotsitewise:ListAssets",
+                                      "iotsitewise:ListAssociatedAssets",
+                                      "iotsitewise:DescribeAssetProperty",
+                                      "iotsitewise:GetAssetPropertyValue",
+                                      "iotsitewise:GetAssetPropertyValueHistory",
+                                      "iotsitewise:GetAssetPropertyAggregates",
+                                      "iotsitewise:BatchGetAssetPropertyAggregates",
+                                      "iotsitewise:BatchGetAssetPropertyValue",
+                                      "iotsitewise:BatchGetAssetPropertyValueHistory",
+                                      "iotsitewise:ListAssetRelationships",
+                                      "iotsitewise:DescribeAssetModel",
+                                      "iotsitewise:ListAssetModels",
+                                      "iotevents:DescribeAlarmModel",
+                                      "iotevents:ListTagsForResource"
+                                  ],
+                                  "Resource": [
+                                      "*"
+                                  ]
+                              }
+                          ]
+                      }
+                  }
+              ]
+          }
+      },
+      "ApiResourceTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "DeletionPolicy": "Retain",
+          "UpdateReplacePolicy": "Retain",
+          "Properties": {
+              "PointInTimeRecoverySpecification": {
+                  "PointInTimeRecoveryEnabled": true
+              },
+              "AttributeDefinitions": [
+                  {
+                      "AttributeName": "id",
+                      "AttributeType": "S"
+                  },
+                  {
+                      "AttributeName": "resourceType",
+                      "AttributeType": "S"
+                  }
+              ],
+              "KeySchema": [
+                  {
+                      "AttributeName": "id",
+                      "KeyType": "HASH"
+                  },
+                  {
+                      "AttributeName": "resourceType",
+                      "KeyType": "RANGE"
+                  }
+              ],
+              "BillingMode": "PAY_PER_REQUEST",
+              "GlobalSecondaryIndexes": [
+                  {
+                      "IndexName": "resourceTypeIndex",
+                      "KeySchema": [
+                          {
+                              "AttributeName": "resourceType",
+                              "KeyType": "HASH"
+                          }
+                      ],
+                      "Projection": {
+                          "ProjectionType": "ALL"
+                      }
+                  }
+              ]
+          }
+      },
+      "CoreService": {
+          "Type": "AWS::AppRunner::Service",
+          "Properties": {
+              "HealthCheckConfiguration": {
+                  "Path": "/health",
+                  "Protocol": "HTTP"
+              },
+              "InstanceConfiguration": {
+                  "InstanceRoleArn": {
+                      "Fn::GetAtt": [
+                          "CoreServiceInstanceRole",
+                          "Arn"
+                      ]
+                  }
+              },
+              "SourceConfiguration": {
+                  "ImageRepository": {
+                      "ImageConfiguration": {
+                          "Port": "3000",
+                          "RuntimeEnvironmentVariables": [
+                              {
+                                  "Name": "COGNITO_IDENTITY_POOL_ID",
+                                  "Value": {
+                                      "Ref": "IdentityPool"
+                                  }
+                              },
+                              {
+                                  "Name": "COGNITO_USER_POOL_ID",
+                                  "Value": {
+                                      "Ref": "UserPool"
+                                  }
+                              },
+                              {
+                                  "Name": "COGNITO_USER_POOL_CLIENT_ID",
+                                  "Value": {
+                                      "Ref": "UserPoolClientWeb"
+                                  }
+                              },
+                              {
+                                  "Name": "DATABASE_TABLE_NAME",
+                                  "Value": {
+                                      "Ref": "ApiResourceTable"
+                                  }
+                              },
+                              {
+                                  "Name": "SERVICE_ENDPOINTS",
+                                  "Value": {
+                                      "Fn::Join": [
+                                          " ",
+                                          [
+                                              {
+                                                  "Fn::Sub": "https://cognito-identity.${AWS::Region}.amazonaws.com"
+                                              },
+                                              {
+                                                  "Fn::Sub": "https://cognito-idp.${AWS::Region}.amazonaws.com"
+                                              },
+                                              {
+                                                  "Fn::Sub": "https://iotevents.${AWS::Region}.amazonaws.com"
+                                              },
+                                              {
+                                                  "Fn::Sub": "https://data.iotevents.${AWS::Region}.amazonaws.com"
+                                              },
+                                              {
+                                                  "Fn::Sub": "https://api.iotsitewise.${AWS::Region}.amazonaws.com"
+                                              },
+                                              {
+                                                  "Fn::Sub": "https://data.iotsitewise.${AWS::Region}.amazonaws.com"
+                                              }
+                                          ]
+                                      ]
+                                  }
+                              }
+                          ]
+                      },
+                      "ImageIdentifier": "public.ecr.aws/e1e5s5e0/core-service:latest",
+                      "ImageRepositoryType": "ECR_PUBLIC"
+                  }
+              }
+          }
+      },
+      "CoreServiceInstanceRole": {
+          "Type": "AWS::IAM::Role",
+          "Properties": {
+              "AssumeRolePolicyDocument": {
+                  "Version": "2012-10-17",
+                  "Statement": [
+                      {
+                          "Effect": "Allow",
+                          "Principal": {
+                              "Service": "tasks.apprunner.amazonaws.com"
+                          },
+                          "Action": "sts:AssumeRole"
+                      }
+                  ]
+              },
+              "Policies": [
+                  {
+                      "PolicyName": "core-service-instance-role-policy",
+                      "PolicyDocument": {
+                          "Version": "2012-10-17",
+                          "Statement": [
+                              {
+                                  "Sid": "DynamoDBPermissions",
+                                  "Effect": "Allow",
+                                  "Action": [
+                                      "dynamodb:DescribeTable",
+                                      "dynamodb:DeleteItem",
+                                      "dynamodb:GetItem",
+                                      "dynamodb:PutItem",
+                                      "dynamodb:Query",
+                                      "dynamodb:UpdateItem"
+                                  ],
+                                  "Resource": [
+                                      {
+                                          "Fn::GetAtt": [
+                                              "ApiResourceTable",
+                                              "Arn"
+                                          ]
+                                      },
+                                      {
+                                          "Fn::Sub": "${ApiResourceTable.Arn}/index/*"
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  }
+              ]
+          }
+      },
+      "CoreServiceWebACL": {
+          "Type": "AWS::WAFv2::WebACL",
+          "Properties": {
+              "DefaultAction": {
+                  "Allow": {}
+              },
+              "Rules": [
+                  {
+                      "Action": {
+                          "Block": {}
+                      },
+                      "Name": "IoTAppCoreServiceRateLimit",
+                      "Priority": 0,
+                      "Statement": {
+                          "RateBasedStatement": {
+                              "AggregateKeyType": "IP",
+                              "Limit": 3000
+                          }
+                      },
+                      "VisibilityConfig": {
+                          "CloudWatchMetricsEnabled": true,
+                          "MetricName": "IoTAppCoreServiceRateLimit",
+                          "SampledRequestsEnabled": true
+                      }
+                  }
+              ],
+              "Scope": "REGIONAL",
+              "VisibilityConfig": {
+                  "CloudWatchMetricsEnabled": true,
+                  "MetricName": "IoTAppCoreServiceWebACL",
+                  "SampledRequestsEnabled": true
+              }
+          }
+      },
+      "CoreServiceWebACLAssociation": {
+          "Type": "AWS::WAFv2::WebACLAssociation",
+          "Properties": {
+              "ResourceArn": {
+                  "Fn::GetAtt": [
+                      "CoreService",
+                      "ServiceArn"
+                  ]
+              },
+              "WebACLArn": {
+                  "Fn::GetAtt": [
+                      "CoreServiceWebACL",
+                      "Arn"
+                  ]
+              }
+          }
+      }
+  },
+  "Outputs": {
+      "AppURL": {
+          "Description": "Endpoint to access the App",
+          "Value": {
+              "Fn::Sub": "https://${CoreService.ServiceUrl}"
+          }
+      }
+  }
+}
