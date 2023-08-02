@@ -52,5 +52,5 @@ jobs:
           S3_BUCKET: ${{ secrets.DISTRIBUTION_S3_BUCKET }}
         run: |
           node cfn-with-core-image.js $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
-          zip -r $IMAGE_TAG.zip ./cfn-template-with-core-tag.json
-          aws s3api put-object --bucket $S3_BUCKET --key $IMAGE_TAG.zip --body ./$IMAGE_TAG.zip
+          zip -r cfn-template.zip ./cfn-template-with-core-tag.json
+          aws s3api put-object --bucket $S3_BUCKET --key cfn-template.zip --body ./cfn-template.zip
