@@ -419,7 +419,9 @@
                 },
                 "Configuration": {
                   "PollForSourceChanges": "true",
-                  "S3Bucket": "aws-iot-application-distribution",
+                  "S3Bucket": {
+                    "Fn::Sub": "aws-iot-application-distribution-${AWS::Region}"
+                  },
                   "S3ObjectKey": "cfn-template.zip"
                 },
                 "OutputArtifacts": [
@@ -498,13 +500,17 @@
                     "s3:GetObject",
                     "s3:GetObjectVersion"
                   ],
-                  "Resource": "arn:aws:s3:::aws-iot-application-distribution/*"
+                  "Resource": {
+                    "Fn::Sub": "arn:aws:s3:::aws-iot-application-distribution-${AWS::Region}/*"
+                  }
                 },
                 {
                   "Sid": "AllowsSourceBucketAccess",
                   "Effect": "Allow",
                   "Action": "s3:GetBucketVersioning",
-                  "Resource": "arn:aws:s3:::aws-iot-application-distribution"
+                  "Resource": {
+                    "Fn::Sub": "arn:aws:s3:::aws-iot-application-distribution-${AWS::Region}"
+                  }
                 },
                 {
                   "Sid": "AllowsOutputBucketAccess",
