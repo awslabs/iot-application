@@ -8,8 +8,8 @@ on: workflow_dispatch
 concurrency: ${{ github.workflow }}
 
 jobs:
-  core-distribution:
-    timeout-minutes: 60
+  core:
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     permissions:
       id-token: write # needed to interact with GitHub's OIDC Token endpoint
@@ -33,24 +33,64 @@ jobs:
         with:
           registry-type: public
 
-      - name: Build, tag, and push docker image to Amazon ECR Public
+      - name: Build and push Core docker image to Amazon ECR Public
         env:
-          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          REGISTRY: public.ecr.aws
           REGISTRY_ALIAS: ${{ secrets.DISTRIBUTION_REGISTRY_ALIAS }}
           REPOSITORY: core-service
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
-          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
-      
-      - name: Update and upload CloudFormation template to S3
+          CORE_IMAGE=$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          docker build -t $CORE_IMAGE .
+          docker push $CORE_IMAGE
+  
+  cfn:
+    needs: core
+    strategy:
+      matrix:
+        include:
+          - region: us-east-2
+          - region: us-east-1
+          - region: us-west-2
+          - region: ap-south-1
+          - region: ap-northeast-2
+          - region: ap-southeast-1
+          - region: ap-southeast-2
+          - region: ap-northeast-1
+          - region: ca-central-1
+          - region: eu-central-1
+          - region: eu-west-1
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # needed to interact with GitHub's OIDC Token endpoint
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3 
+        with:
+          fetch-depth: 2
+
+      - name: Configure AWS credentials 🔑
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.DISTRIBUTION_AWS_ROLE }}
+          aws-region: us-east-1
+
+      - name: Update CloudFormation template 📄
         env:
-          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          REGISTRY: public.ecr.aws
           REGISTRY_ALIAS: ${{ secrets.DISTRIBUTION_REGISTRY_ALIAS }}
           REPOSITORY: core-service
           IMAGE_TAG: ${{ github.sha }}
+        run: |
+          CORE_IMAGE=$REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          node cfn-with-core-image.js $CORE_IMAGE
+
+      - name: Upload CloudFormation template to S3 📁
+        env:
+          REGION: ${{ matrix.region }}
           S3_BUCKET: ${{ secrets.DISTRIBUTION_S3_BUCKET }}
         run: |
-          node cfn-with-core-image.js $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           zip -r cfn-template.zip ./cfn-template-with-core-tag.json
-          aws s3api put-object --bucket $S3_BUCKET --key cfn-template.zip --body ./cfn-template.zip
+          aws s3api put-object --bucket $S3_BUCKET-$REGION --key cfn-template.zip --body ./cfn-template.zip --region $REGION
