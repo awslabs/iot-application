@@ -30,7 +30,7 @@
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^9.4.3",
     "@nestjs/platform-fastify": "^9.4.3",
-    "@nestjs/swagger": "^7.1.2",
+    "@nestjs/swagger": "^7.1.8",
     "@nestjs/terminus": "^10.0.1",
     "@nestjs/throttler": "^4.2.1",
     "aws-jwt-verify": "^4.0.0",
