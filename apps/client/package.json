@@ -28,7 +28,7 @@
     "@iot-app-kit/dashboard": "^6.3.1",
     "@tanstack/react-query": "^4.32.0",
     "aws-amplify": "^5.3.7",
-    "cytoscape": "^3.25.0",
+    "cytoscape": "^3.26.0",
     "jotai": "^2.3.1",
     "nanoid": "3.1.31",
     "react": "^18.2.0",
