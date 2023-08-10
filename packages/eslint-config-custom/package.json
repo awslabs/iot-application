@@ -7,7 +7,7 @@
     "clean": "rimraf .turbo && rimraf node_modules"
   },
   "dependencies": {
-    "eslint-config-prettier": "^8.9.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-config-react": "^1.1.7",
     "eslint-config-turbo": "latest"
   },
