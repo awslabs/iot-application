@@ -3445,12 +3445,20 @@
   dependencies:
     tslib "^1.8.0"
 
-"@aws-sdk/lib-dynamodb@3.379.1", "@aws-sdk/lib-dynamodb@^3.362.0":
+"@aws-sdk/lib-dynamodb@3.379.1":
   version "3.379.1"
   resolved "https://registry.yarnpkg.com/@aws-sdk/lib-dynamodb/-/lib-dynamodb-3.379.1.tgz#987cfb566a2aca895b3f9ef1af508bd85b1a22da"
   integrity sha512-SdHuRk9Jo0G9icW5uh36w1+RQ2U1c+dBBBVJSH7a17DzWAEsmcYYDUJ96PaA61clUgC7DI1a3jwSmgZnOszPhg==
   dependencies:
     "@aws-sdk/util-dynamodb" "3.379.1"
+    tslib "^2.5.0"
+
+"@aws-sdk/lib-dynamodb@^3.391.0":
+  version "3.391.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/lib-dynamodb/-/lib-dynamodb-3.391.0.tgz#9b5b0b302fdc3b4b6246b7b5b6474189e1af4862"
+  integrity sha512-PVhjLHjmiFqBIP4FK6gtpIQGdmZJYHinewJivPooSQwZM6Elzn4T1Vr0/rFmWKQUicru6bdMALFefGg6GlzF9w==
+  dependencies:
+    "@aws-sdk/util-dynamodb" "3.391.0"
     tslib "^2.5.0"
 
 "@aws-sdk/md5-js@3.329.0":
@@ -4984,6 +4992,13 @@
   version "3.379.1"
   resolved "https://registry.yarnpkg.com/@aws-sdk/util-dynamodb/-/util-dynamodb-3.379.1.tgz#561db8f3dae3181b4d79c829f9af637f75c593aa"
   integrity sha512-789tTjt0yd8Uf8fBr4I56dYfLysncx3NlvuNhLqdLRWBpsGvfIixNZ9OSKxDpdJ0GASXMJklmyGadvGx/vXKZg==
+  dependencies:
+    tslib "^2.5.0"
+
+"@aws-sdk/util-dynamodb@3.391.0":
+  version "3.391.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-dynamodb/-/util-dynamodb-3.391.0.tgz#0f29731c5b9492f65bd58a56d77096491e436db7"
+  integrity sha512-cOqoIyWuQlLEhXorcnoq0P8mcN2iM/zyFRxazRyXYw3f6vjuDRGGAYhXHhcdkr+Nlr40pS7Al1559QktCbjb9g==
   dependencies:
     tslib "^2.5.0"
 
@@ -9176,7 +9191,7 @@
     "@smithy/util-buffer-from" "^2.0.0"
     tslib "^2.5.0"
 
-"@smithy/util-waiter@^2.0.1", "@smithy/util-waiter@^2.0.2", "@smithy/util-waiter@^2.0.3":
+"@smithy/util-waiter@^2.0.1", "@smithy/util-waiter@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@smithy/util-waiter/-/util-waiter-2.0.3.tgz#e9001142bc3856aee19c26cab21b1857705c2335"
   integrity sha512-3/Fzqoyecvh4cNvcHQDl1GznskXjGc9uZ8N6aoaPCKfsctgZad/J13xg8WC1UXc3PwKocHtuUvz0dRFDLaBppQ==
