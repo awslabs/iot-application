@@ -21,7 +21,7 @@
     "@aws-amplify/ui-react": "^5.1.0",
     "@aws-sdk/client-iot-events": "^3.391.0",
     "@aws-sdk/client-iotsitewise": "^3.391.0",
-    "@aws-sdk/credential-providers": "^3.389.0",
+    "@aws-sdk/credential-providers": "^3.391.0",
     "@cloudscape-design/collection-hooks": "^1.0.23",
     "@cloudscape-design/components": "^3.0.342",
     "@cloudscape-design/global-styles": "^1.0.12",
