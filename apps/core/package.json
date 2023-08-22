@@ -29,7 +29,7 @@
     "@nestjs/common": "^9.4.3",
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^9.4.3",
-    "@nestjs/platform-fastify": "^9.4.3",
+    "@nestjs/platform-fastify": "^10.2.1",
     "@nestjs/swagger": "^7.1.8",
     "@nestjs/terminus": "^10.0.1",
     "@nestjs/throttler": "^4.2.1",
