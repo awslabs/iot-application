@@ -1045,7 +1045,7 @@
     "@smithy/util-utf8" "^2.0.0"
     tslib "^2.5.0"
 
-"@aws-sdk/client-iotsitewise@3.391.0", "@aws-sdk/client-iotsitewise@^3.391.0":
+"@aws-sdk/client-iotsitewise@3.391.0":
   version "3.391.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-iotsitewise/-/client-iotsitewise-3.391.0.tgz#c4f787c0383418a153134dcf248197280473b33c"
   integrity sha512-34QnQy4EhUUfgi4YDS6Z2s62xFlo5MVnssI2L10X7J8LCtj7ibUDeggcqXLcrxHgCpaKq+Mq1NBDorTxA8+jcg==
@@ -1086,6 +1086,50 @@
     "@smithy/util-retry" "^2.0.0"
     "@smithy/util-utf8" "^2.0.0"
     "@smithy/util-waiter" "^2.0.3"
+    tslib "^2.5.0"
+    uuid "^8.3.2"
+
+"@aws-sdk/client-iotsitewise@^3.398.0":
+  version "3.398.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iotsitewise/-/client-iotsitewise-3.398.0.tgz#100418bcb90a482b9de58cf58eb30590cb3313db"
+  integrity sha512-EazmRfeG+PkRCt6Xb2YfnNjD9wQPLFKVd4S4d3oEiu3ylbCIiV0kv6fcPCp/FKxGUKZpveliW7lPw23Dj3VEyA==
+  dependencies:
+    "@aws-crypto/sha256-browser" "3.0.0"
+    "@aws-crypto/sha256-js" "3.0.0"
+    "@aws-sdk/client-sts" "3.398.0"
+    "@aws-sdk/credential-provider-node" "3.398.0"
+    "@aws-sdk/middleware-host-header" "3.398.0"
+    "@aws-sdk/middleware-logger" "3.398.0"
+    "@aws-sdk/middleware-recursion-detection" "3.398.0"
+    "@aws-sdk/middleware-signing" "3.398.0"
+    "@aws-sdk/middleware-user-agent" "3.398.0"
+    "@aws-sdk/types" "3.398.0"
+    "@aws-sdk/util-endpoints" "3.398.0"
+    "@aws-sdk/util-user-agent-browser" "3.398.0"
+    "@aws-sdk/util-user-agent-node" "3.398.0"
+    "@smithy/config-resolver" "^2.0.5"
+    "@smithy/fetch-http-handler" "^2.0.5"
+    "@smithy/hash-node" "^2.0.5"
+    "@smithy/invalid-dependency" "^2.0.5"
+    "@smithy/middleware-content-length" "^2.0.5"
+    "@smithy/middleware-endpoint" "^2.0.5"
+    "@smithy/middleware-retry" "^2.0.5"
+    "@smithy/middleware-serde" "^2.0.5"
+    "@smithy/middleware-stack" "^2.0.0"
+    "@smithy/node-config-provider" "^2.0.5"
+    "@smithy/node-http-handler" "^2.0.5"
+    "@smithy/protocol-http" "^2.0.5"
+    "@smithy/smithy-client" "^2.0.5"
+    "@smithy/types" "^2.2.2"
+    "@smithy/url-parser" "^2.0.5"
+    "@smithy/util-base64" "^2.0.0"
+    "@smithy/util-body-length-browser" "^2.0.0"
+    "@smithy/util-body-length-node" "^2.1.0"
+    "@smithy/util-defaults-mode-browser" "^2.0.5"
+    "@smithy/util-defaults-mode-node" "^2.0.5"
+    "@smithy/util-retry" "^2.0.0"
+    "@smithy/util-utf8" "^2.0.0"
+    "@smithy/util-waiter" "^2.0.5"
     tslib "^2.5.0"
     uuid "^8.3.2"
 
@@ -8772,14 +8816,6 @@
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.2.tgz#5981a8db18b56ba38ef0efb7d995b12aa7b51918"
   integrity sha512-sXXKG+uL9IrKqViTtao2Ws6dy0znu9sOaP1di/jKGW1M6VssO8vlpXCQcpZ+jisQ1tTFAC5Jo/EOzFbggBagFQ==
 
-"@smithy/abort-controller@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@smithy/abort-controller/-/abort-controller-2.0.3.tgz#7e7141b6c2fa90f21f4df38d3ef792f5308f94ce"
-  integrity sha512-LbQ4fdsVuQC3/18Z/uia5wnk9fk8ikfHl3laYCEGhboEMJ/6oVk3zhydqljMxBCftHGUv7yUrTnZ6EAQhOf+PA==
-  dependencies:
-    "@smithy/types" "^2.2.0"
-    tslib "^2.5.0"
-
 "@smithy/abort-controller@^2.0.5":
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@smithy/abort-controller/-/abort-controller-2.0.5.tgz#9602a9b362e84c0d043d820c4aba5d9b78028a84"
@@ -9160,13 +9196,13 @@
     "@smithy/util-buffer-from" "^2.0.0"
     tslib "^2.5.0"
 
-"@smithy/util-waiter@^2.0.1", "@smithy/util-waiter@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@smithy/util-waiter/-/util-waiter-2.0.3.tgz#e9001142bc3856aee19c26cab21b1857705c2335"
-  integrity sha512-3/Fzqoyecvh4cNvcHQDl1GznskXjGc9uZ8N6aoaPCKfsctgZad/J13xg8WC1UXc3PwKocHtuUvz0dRFDLaBppQ==
+"@smithy/util-waiter@^2.0.1", "@smithy/util-waiter@^2.0.3", "@smithy/util-waiter@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@smithy/util-waiter/-/util-waiter-2.0.5.tgz#e42161e03c53cf6726dca049ad9a105ea0967435"
+  integrity sha512-1lkkUmI/bhaDX+LIT3RiUNAn+NzPmsWjE7beMq0oQ3H1/CffaILIN67riDA0aE1YBj6xll7uWMIy4tJqc+peXw==
   dependencies:
-    "@smithy/abort-controller" "^2.0.3"
-    "@smithy/types" "^2.2.0"
+    "@smithy/abort-controller" "^2.0.5"
+    "@smithy/types" "^2.2.2"
     tslib "^2.5.0"
 
 "@stencil/core@^2.7.0":
