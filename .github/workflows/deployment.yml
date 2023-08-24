@@ -47,7 +47,7 @@ jobs:
         run: yarn workspace client build
 
       - name: Configure AWS credentials 🔑
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: ${{ secrets.DEPLOYMENT_AWS_ROLE }}
           aws-region: us-west-2
