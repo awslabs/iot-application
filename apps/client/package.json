@@ -72,7 +72,7 @@
     "sass": "^1.65.1",
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "vitest": "^0.34.2"
   },
   "browserslist": {
