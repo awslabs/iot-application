@@ -9,6 +9,7 @@ import { Breadcrumbs } from './components/breadcrumbs';
 import { Notifications } from './components/notifications';
 import { TopNavigation } from './components/top-navigation';
 import { SideNavigationPanel } from './components/side-navigation-panel';
+import { Footer } from './components/footer';
 
 import { useFormat } from './hooks/use-format';
 import { useFullWidth } from './hooks/use-full-width';
@@ -30,6 +31,7 @@ export function Layout(props: React.PropsWithChildren) {
       <AppLayout
         breadcrumbs={!isDashboard ? <Breadcrumbs /> : null}
         headerSelector="#h"
+        footerSelector="#app-footer"
         navigationOpen={isSideNavCollapsed}
         onNavigationChange={() => {
           setIsSideNavCollapsed(!isSideNavCollapsed);
@@ -58,6 +60,7 @@ export function Layout(props: React.PropsWithChildren) {
           }),
         }}
       />
+      <Footer />
     </>
   );
 }

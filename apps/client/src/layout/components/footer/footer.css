@@ -1,0 +1,14 @@
+/**Custom footer component CSS*/
+
+.dashboard-footer-container { 
+    z-index: 1002; 
+    position:sticky;
+    bottom:0;
+    width: 100%;
+    overflow: hidden;
+    align-items: center;
+}
+
+.dashboard-footer-right-content {
+    float: right;
+}
