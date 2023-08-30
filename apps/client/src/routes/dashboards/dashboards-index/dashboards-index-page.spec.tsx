@@ -155,10 +155,15 @@ describe('<DashboardsIndexPage />', () => {
         screen.getByRole('checkbox', { name: 'Select dashboard test name' }),
       );
 
-      await user.click(screen.getByRole('button', { name: /^Delete$/ }));
+      const deleteButtons = screen.getAllByRole('button', { name: /^Delete$/ });
+      const firstDeleteButton = deleteButtons[0];
+
+      if (firstDeleteButton) {
+        await user.click(firstDeleteButton);
+      }
 
       expect(
-        screen.getByRole('dialog', { name: 'Delete dashboard' }),
+        screen.getByRole('dialog', { name: 'Delete dashboard?' }),
       ).toBeVisible();
     });
 

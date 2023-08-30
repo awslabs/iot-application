@@ -12,10 +12,7 @@ vi.mock('../hooks/use-delete-dashboard-mutation', () => ({
   }),
 }));
 
-const getDeleteButton = () =>
-  screen.getByRole('button', { name: 'Delete dashboard' });
-const getConsentInput = () =>
-  screen.getByLabelText(/^To confirm this deletion/);
+const getDeleteButton = () => screen.getByRole('button', { name: 'Delete' });
 
 describe('DeleteDashboardModal', () => {
   const defaultProps = {
@@ -37,12 +34,10 @@ describe('DeleteDashboardModal', () => {
   });
 
   describe('single dashboard', () => {
-    test('delete button is enabled with consent given', async () => {
+    test('delete button is enabled without consent given', async () => {
       render(<DeleteDashboardModal {...defaultProps} />);
       const user = userEvent.setup();
 
-      await user.type(getConsentInput(), 'confirm');
-      expect(getConsentInput()).toBeEnabled();
       await user.click(getDeleteButton());
       expect(mockDelete).toHaveBeenCalledWith(
         {
@@ -68,12 +63,10 @@ describe('DeleteDashboardModal', () => {
       ],
     } as const satisfies DeleteDashboardModalProps;
 
-    test('delete button is enabled with consent given', async () => {
+    test('delete button is enabled without consent given', async () => {
       render(<DeleteDashboardModal {...multipleDashboardsProps} />);
       const user = userEvent.setup();
 
-      await user.type(getConsentInput(), 'confirm');
-      expect(getConsentInput()).toBeEnabled();
       await user.click(getDeleteButton());
       expect(mockDelete).toHaveBeenCalledWith(
         {
@@ -83,48 +76,6 @@ describe('DeleteDashboardModal', () => {
         },
         expect.anything(),
       );
-    });
-  });
-
-  describe('invalid consent', () => {
-    test('delete button is disabled without consent given', async () => {
-      render(<DeleteDashboardModal {...defaultProps} />);
-      const user = userEvent.setup();
-
-      expect(getDeleteButton()).toBeDisabled();
-      await user.click(getDeleteButton());
-      expect(mockDelete).not.toHaveBeenCalled();
-    });
-
-    test('delete button is disabled with consent is removed', async () => {
-      render(<DeleteDashboardModal {...defaultProps} />);
-      const user = userEvent.setup();
-
-      await user.type(getConsentInput(), 'confirm');
-      await user.clear(getConsentInput());
-      expect(getDeleteButton()).toBeDisabled();
-      await user.click(getDeleteButton());
-      expect(mockDelete).not.toHaveBeenCalled();
-    });
-
-    test('delete button is disabled when consent text is incorrect', async () => {
-      render(<DeleteDashboardModal {...defaultProps} />);
-      const user = userEvent.setup();
-
-      await user.type(getConsentInput(), 'incorrect');
-      expect(getDeleteButton()).toBeDisabled();
-      await user.click(getDeleteButton());
-      expect(mockDelete).not.toHaveBeenCalled();
-    });
-
-    test('delete button is disabled when consent text is incomplete', async () => {
-      render(<DeleteDashboardModal {...defaultProps} />);
-      const user = userEvent.setup();
-
-      await user.type(getConsentInput(), 'conf');
-      expect(getDeleteButton()).toBeDisabled();
-      await user.click(getDeleteButton());
-      expect(mockDelete).not.toHaveBeenCalled();
     });
   });
 });
