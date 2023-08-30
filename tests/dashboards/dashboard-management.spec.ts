@@ -75,8 +75,6 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   await dashboardsPage.deleteButton.click();
   await deleteDashboardDialog.expectIsVisible();
 
-  await expect(deleteDashboardDialog.deleteButton).toBeDisabled();
-  await deleteDashboardDialog.consentInput.type('confirm');
   await expect(deleteDashboardDialog.deleteButton).toBeEnabled();
 
   await expect(application.notification).toBeHidden();

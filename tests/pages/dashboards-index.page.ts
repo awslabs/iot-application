@@ -6,18 +6,16 @@ export class DeleteDashboardDialog {
   public readonly deleteButton: Locator;
   public readonly cancelButton: Locator;
   public readonly xButton: Locator;
-  public readonly consentInput: Locator;
 
   constructor(page: Page) {
     this.dialog = page.getByRole('dialog', { name: 'Delete dashboard' });
     this.deleteButton = this.dialog.getByRole('button', {
-      name: 'Delete dashboard',
+      name: /^Delete$/,
     });
     this.cancelButton = this.dialog.getByRole('button', { name: 'Cancel' });
     this.xButton = this.dialog.getByRole('button', {
       name: 'Close delete dialog',
     });
-    this.consentInput = this.dialog.getByPlaceholder('confirm');
   }
 
   async expectIsVisible() {
@@ -31,7 +29,6 @@ export class DeleteDashboardDialog {
 
 export class PreferencesDialog {
   public readonly dialog: Locator;
-  public readonly confirmButton: Locator;
   public readonly cancelButton: Locator;
   public readonly xButton: Locator;
   public readonly wrapLinesCheckbox: Locator;
@@ -47,7 +44,6 @@ export class PreferencesDialog {
 
   constructor(page: Page) {
     this.dialog = page.getByRole('dialog');
-    this.confirmButton = this.dialog.getByRole('button', { name: 'Confirm' });
     this.cancelButton = this.dialog
       .getByRole('button', { name: 'Cancel' })
       .filter({ hasText: 'Cancel' });
