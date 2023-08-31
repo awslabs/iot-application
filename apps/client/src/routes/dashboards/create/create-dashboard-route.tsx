@@ -11,7 +11,7 @@ export const createDashboardRoute = {
   handle: {
     crumb: () => ({
       text: intl.formatMessage({
-        defaultMessage: 'Create',
+        defaultMessage: 'Create dashboard',
         description: 'create dashboard route breadcrumb text',
       }),
       href: CREATE_DASHBOARD_HREF,

@@ -1,9 +1,14 @@
-import AppLayout from '@cloudscape-design/components/app-layout';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useIntl } from 'react-intl';
+import AppLayout from '@cloudscape-design/components/app-layout';
+
+import { DASHBOARDS_HREF } from '~/constants';
 
 import { Breadcrumbs } from './components/breadcrumbs';
 import { Notifications } from './components/notifications';
 import { TopNavigation } from './components/top-navigation';
+import { SideNavigationPanel } from './components/side-navigation-panel';
 
 import { useFormat } from './hooks/use-format';
 import { useFullWidth } from './hooks/use-full-width';
@@ -13,21 +18,27 @@ export function Layout(props: React.PropsWithChildren) {
   const intl = useIntl();
   const format = useFormat();
   const fullWidth = useFullWidth();
+  const { pathname } = useLocation();
+
+  const isDashboard = pathname === DASHBOARDS_HREF;
+
+  const [isSideNavCollapsed, setIsSideNavCollapsed] = useState(false);
 
   return (
     <>
       <TopNavigation />
       <AppLayout
-        breadcrumbs={<Breadcrumbs />}
+        breadcrumbs={!isDashboard ? <Breadcrumbs /> : null}
         headerSelector="#h"
+        navigationOpen={isSideNavCollapsed}
+        onNavigationChange={() => {
+          setIsSideNavCollapsed(!isSideNavCollapsed);
+        }}
+        navigation={<SideNavigationPanel />}
         content={props.children}
         contentType={format}
         disableContentPaddings={fullWidth}
         notifications={<Notifications />}
-        // hide side navigation panel entirely
-        navigationHide={true}
-        // hide help panel entirely
-        toolsHide={true}
         ariaLabels={{
           navigation: intl.formatMessage({
             defaultMessage: 'Navigation drawer',

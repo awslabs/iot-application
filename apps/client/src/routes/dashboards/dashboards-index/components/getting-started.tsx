@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   ColumnLayout,
-  ContentLayout,
   ExpandableSection,
   Link,
   SpaceBetween,
@@ -103,54 +102,52 @@ const GettingStarted = () => {
   };
 
   return (
-    <ContentLayout>
-      <ExpandableSection
-        defaultExpanded
-        variant="container"
-        headerText={
+    <ExpandableSection
+      defaultExpanded
+      variant="container"
+      headerText={
+        <FormattedMessage
+          defaultMessage="Getting started"
+          description="Getting started title"
+        />
+      }
+      headerInfo={
+        <Link variant="info">
+          <FormattedMessage defaultMessage="Info" description="Info link" />
+        </Link>
+      }
+      headerActions={
+        <Button onClick={handleWhatsNew}>
           <FormattedMessage
-            defaultMessage="Getting started"
-            description="Getting started title"
+            defaultMessage="What's new"
+            description="What's new button title"
           />
-        }
-        headerInfo={
-          <Link variant="info">
-            <FormattedMessage defaultMessage="Info" description="Info link" />
-          </Link>
-        }
-        headerActions={
-          <Button onClick={handleWhatsNew}>
-            <FormattedMessage
-              defaultMessage="What's new"
-              description="What's new button title"
-            />
-          </Button>
-        }
-      >
-        <ColumnLayout columns={3} variant="text-grid">
-          {gettingStartedColumnArray.map((col, idx) => (
-            <SpaceBetween size="l" key={`${col.columnTitle}-${idx}`}>
-              <Box textAlign="center">
-                <div className={col.className}>
-                  <img src={col.icon} alt={col.buttonTitle} />
-                </div>
-              </Box>
-              <ValueWithLabel label={col.columnTitle}>
-                {col.columnDescription}
-              </ValueWithLabel>
-              <div className="getting-started-col-btn">
-                <Button
-                  data-testid={`getting-started-${col.buttonTitle}`}
-                  onClick={col.handleCallback}
-                >
-                  {col.buttonTitle}
-                </Button>
+        </Button>
+      }
+    >
+      <ColumnLayout columns={3} variant="text-grid">
+        {gettingStartedColumnArray.map((col, idx) => (
+          <SpaceBetween size="l" key={`${col.columnTitle}-${idx}`}>
+            <Box textAlign="center">
+              <div className={col.className}>
+                <img src={col.icon} alt={col.buttonTitle} />
               </div>
-            </SpaceBetween>
-          ))}
-        </ColumnLayout>
-      </ExpandableSection>
-    </ContentLayout>
+            </Box>
+            <ValueWithLabel label={col.columnTitle}>
+              {col.columnDescription}
+            </ValueWithLabel>
+            <div className="getting-started-col-btn">
+              <Button
+                data-testid={`getting-started-${col.buttonTitle}`}
+                onClick={col.handleCallback}
+              >
+                {col.buttonTitle}
+              </Button>
+            </div>
+          </SpaceBetween>
+        ))}
+      </ColumnLayout>
+    </ExpandableSection>
   );
 };
 

@@ -24,7 +24,7 @@ export const rootRoute = {
     activeHref: ROOT_HREF,
     crumb: () => ({
       text: intl.formatMessage({
-        defaultMessage: 'IoT Application',
+        defaultMessage: 'Centurion Home',
         description: 'root route breadcrumb text',
       }),
       href: ROOT_HREF,

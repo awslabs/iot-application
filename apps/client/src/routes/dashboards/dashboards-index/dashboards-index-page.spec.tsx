@@ -139,6 +139,14 @@ describe('<DashboardsIndexPage />', () => {
   });
 
   describe('header', () => {
+    it('should render the Centurion Home text on dashboard page', () => {
+      render(<DashboardsIndexPage />);
+
+      const centurionHomeText = screen.getByText('Centurion Home');
+
+      expect(centurionHomeText).toBeInTheDocument();
+    });
+
     it('should open the delete dashboard modal when delete button is clicked', async () => {
       const user = userEvent.setup();
       render(<DashboardsIndexPage />);
