@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { CREATE_DASHBOARD_HREF } from '~/constants';
 import { DashboardsIndexPage } from './dashboards-index-page';
 import { DashboardSummary, $Dashboard } from '~/services';
+import GettingStarted from './components/getting-started';
 
 const navigateMock = vi.fn();
 vi.mock('~/hooks/application/use-application', () => ({
@@ -90,6 +91,41 @@ describe('<DashboardsIndexPage />', () => {
     navigateMock.mockReset();
   });
 
+  describe('Getting started', () => {
+    it('by default Getting started should be in expanded mode', () => {
+      render(<GettingStarted />);
+
+      const gettingStartedText = screen.getByText('Getting started');
+      const whatsNewBtn = screen.getByRole('button', {
+        name: "What's new",
+      });
+      const createDashboardBtn = screen.getByTestId(
+        'getting-started-Create dashboard',
+      );
+      const exploreWidgetsBtn = screen.getByRole('button', {
+        name: 'Explore widgets',
+      });
+      const learnAboutAssets = screen.getByRole('button', {
+        name: 'Learn about assets',
+      });
+
+      expect(gettingStartedText).toBeInTheDocument();
+      expect(whatsNewBtn).toBeInTheDocument();
+      expect(createDashboardBtn).toBeInTheDocument();
+      expect(exploreWidgetsBtn).toBeInTheDocument();
+      expect(learnAboutAssets).toBeInTheDocument();
+    });
+
+    it('clicking on Create dashboard should redirect to create dashboard route', async () => {
+      const user = userEvent.setup();
+      render(<GettingStarted />);
+
+      await user.click(screen.getByTestId('getting-started-Create dashboard'));
+
+      expect(navigateMock).toHaveBeenCalledWith(CREATE_DASHBOARD_HREF);
+    });
+  });
+
   describe('navigation to dashboard', () => {
     it('should navigate to the dashboard when the id is clicked', async () => {
       render(<DashboardsIndexPage />);
@@ -122,9 +158,7 @@ describe('<DashboardsIndexPage />', () => {
       const user = userEvent.setup();
       render(<DashboardsIndexPage />);
 
-      await user.click(
-        screen.getByRole('button', { name: 'Create dashboard' }),
-      );
+      await user.click(screen.getByTestId('table-create-dashboard'));
 
       expect(navigateMock).toHaveBeenCalledWith(CREATE_DASHBOARD_HREF);
     });
