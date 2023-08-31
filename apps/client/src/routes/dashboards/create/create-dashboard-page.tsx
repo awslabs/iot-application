@@ -11,6 +11,7 @@ import { DashboardDescriptionField } from './components/dashboard-description-fi
 import { useCreateDashboardForm } from './hooks/use-create-dashboard-form';
 import { useCreateDashboardMutation } from './hooks/use-create-dashboard-mutation';
 import { isNotFatal } from '~/helpers/predicates/is-not-fatal';
+import { Box, ContentLayout } from '@cloudscape-design/components';
 
 export function CreateDashboardPage() {
   const createDashboardMutation = useCreateDashboardMutation();
@@ -23,7 +24,20 @@ export function CreateDashboardPage() {
   }
 
   return (
-    <>
+    <ContentLayout
+      header={
+        <Box padding={{ top: 'xs' }}>
+          <SpaceBetween size="m">
+            <Header variant="h1">
+              <FormattedMessage
+                defaultMessage="Create Dashboard"
+                description="create dashboard heading"
+              />
+            </Header>
+          </SpaceBetween>
+        </Box>
+      }
+    >
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -35,14 +49,6 @@ export function CreateDashboardPage() {
       >
         <Form
           variant="full-page"
-          header={
-            <Header variant="h1">
-              <FormattedMessage
-                defaultMessage="Create dashboard"
-                description="create dashboard heading"
-              />
-            </Header>
-          }
           actions={
             <CreateDashboardFormActions
               isLoading={createDashboardMutation.isLoading}
@@ -60,6 +66,6 @@ export function CreateDashboardPage() {
       </form>
 
       <DevTool control={control} />
-    </>
+    </ContentLayout>
   );
 }

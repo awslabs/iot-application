@@ -11,6 +11,7 @@ import Table from '@cloudscape-design/components/table';
 import { colorBackgroundHomeHeader } from '@cloudscape-design/design-tokens';
 import { BaseNavigationDetail } from '@cloudscape-design/components/internal/events';
 import { Box } from '@cloudscape-design/components';
+import ContentLayout from '@cloudscape-design/components/content-layout';
 import { DevTool } from '@hookform/devtools';
 import { useForm, Controller } from 'react-hook-form';
 import { useIntl, FormattedMessage } from 'react-intl';
@@ -122,8 +123,31 @@ export function DashboardsIndexPage() {
   };
 
   return (
-    <>
-      <Box padding={{ top: 'l' }}>
+    <ContentLayout
+      header={
+        <Box padding={{ top: 'xs' }}>
+          <SpaceBetween size="m">
+            <Header
+              variant="h1"
+              info={
+                <Link>
+                  <FormattedMessage
+                    defaultMessage="Info"
+                    description="info link"
+                  />
+                </Link>
+              }
+            >
+              <FormattedMessage
+                defaultMessage="Centurion Home"
+                description="centurion home heading"
+              />
+            </Header>
+          </SpaceBetween>
+        </Box>
+      }
+    >
+      <Box>
         <GettingStarted />
       </Box>
       <Box padding={{ top: 'l' }}>
@@ -629,6 +653,6 @@ export function DashboardsIndexPage() {
       />
 
       <DevTool control={control} />
-    </>
+    </ContentLayout>
   );
 }
