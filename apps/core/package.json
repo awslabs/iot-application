@@ -27,7 +27,7 @@
     "@fastify/view": "^8.0.0",
     "@nestjs/axios": "^1.0.1",
     "@nestjs/common": "^9.4.3",
-    "@nestjs/config": "^3.0.0",
+    "@nestjs/config": "^3.0.1",
     "@nestjs/core": "^9.4.3",
     "@nestjs/platform-fastify": "^9.4.3",
     "@nestjs/swagger": "^7.1.10",
