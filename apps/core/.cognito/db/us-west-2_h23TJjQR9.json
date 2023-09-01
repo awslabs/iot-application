@@ -21,7 +21,9 @@
       "UserStatus": "CONFIRMED",
       "UserCreateDate": "2023-02-18T10:18:04.493Z",
       "UserLastModifiedDate": "2023-02-18T10:20:48.241Z",
-      "RefreshTokens": []
+      "RefreshTokens": [
+        "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2duaXRvOnVzZXJuYW1lIjoidGVzdC11c2VyIiwiZW1haWwiOiJ0ZXN0LXVzZXJAYW1hem9uLmNvbSIsImlhdCI6MTY5MzkzMDMwMiwianRpIjoiMTBhOWZmMWItMWMyZi00N2I4LTkyMjgtNjFiYTIxOWQ4OTNhIiwiZXhwIjoxNjk0NTM1MTAyLCJpc3MiOiJodHRwczovL2NvZ25pdG8taWRwLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tL3VzLXdlc3QtMl9oMjNUSmpRUjkifQ.hkS-gwDVPuX0fTxLE2qL10HLPY8LzT8fuRevobTdSkg9RLLerzMahMeG1fKuCjst-gAQnfEphLLFJQdZxukouZq5rnNaWSrUifNuBn1upVqKi1zJyEMgW22uuXRhVyULYAtXDnuxwJnkhwdZfAyPLxNCx5vBUKXvGVQIIFYyFP8UqNibpMDFBJxnvCXrmfHf4ngn2t8X2yj8VdhhmexfG2Q8ezknZeRMCoDWbjYQIsRcvWfsIZZOhn9kMUDHjxljxTJF2f5ZG1yzk1FiMexYkgLvADmsW8p7qT676xXBPn-NVJCc95slWBBC9M8prlCRA8eMuDGDz-cHLzdNjsJ_ZQ"
+      ]
     }
   },
   "Options": {

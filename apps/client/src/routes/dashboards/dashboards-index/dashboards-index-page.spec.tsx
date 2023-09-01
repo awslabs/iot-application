@@ -154,6 +154,19 @@ describe('<DashboardsIndexPage />', () => {
       ).toBeVisible();
     });
 
+    it('should navigate to view dashboard page to when the view button is clicked', async () => {
+      const user = userEvent.setup();
+      render(<DashboardsIndexPage />);
+
+      await user.click(screen.getByRole('button', { name: 'View' }));
+
+      await userEvent.click(getDashboardLink(getDashboardStubs()[0].id));
+
+      expect(navigateMock).toHaveBeenCalledWith(
+        `/dashboards/${getDashboardStubs()[0].id}`,
+      );
+    });
+
     it('should navigate to create dashboard page to when the create button is clicked', async () => {
       const user = userEvent.setup();
       render(<DashboardsIndexPage />);

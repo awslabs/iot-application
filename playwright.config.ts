@@ -29,7 +29,7 @@ export default defineConfig({
     baseURL,
     navigationTimeout: 30000,
     screenshot: 'only-on-failure',
-    trace: 'on-first-retry',
+    trace: 'on',
     video: 'retain-on-failure',
   },
   testDir: './tests',

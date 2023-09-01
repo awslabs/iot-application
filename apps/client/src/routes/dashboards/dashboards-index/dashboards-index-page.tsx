@@ -8,6 +8,8 @@ import Pagination from '@cloudscape-design/components/pagination';
 import PropertyFilter from '@cloudscape-design/components/property-filter';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import Table from '@cloudscape-design/components/table';
+import { colorBackgroundHomeHeader } from '@cloudscape-design/design-tokens';
+import { BaseNavigationDetail } from '@cloudscape-design/components/internal/events';
 import { Box } from '@cloudscape-design/components';
 import { DevTool } from '@hookform/devtools';
 import { useForm, Controller } from 'react-hook-form';
@@ -26,7 +28,9 @@ import { useDashboardsQuery } from './hooks/use-dashboards-query';
 import { useDeleteModalVisibility } from './hooks/use-delete-modal-visibility';
 import { usePartialUpdateDashboardMutation } from './hooks/use-partial-update-dashboard-mutation';
 import { useTablePreferences } from './hooks/use-table-preferences';
-import { $Dashboard } from '~/services';
+import { $Dashboard, DashboardSummary } from '~/services';
+
+import './styles.css';
 
 const DateFormatOptions: FormatDateOptions = {
   year: 'numeric',
@@ -103,6 +107,20 @@ export function DashboardsIndexPage() {
     mode: 'onChange',
   });
 
+  const handleViewDashboard = (selected?: DashboardSummary | undefined) => {
+    if (selected?.id) {
+      navigate(`/dashboards/${selected.id}`);
+    }
+  };
+
+  const handleOnFollow = (event: CustomEvent<BaseNavigationDetail>) => {
+    event.preventDefault();
+
+    invariant(isJust(event.detail.href), 'Expected href to be defined');
+
+    navigate(event.detail.href);
+  };
+
   return (
     <>
       <Box padding={{ top: 'l' }}>
@@ -166,14 +184,27 @@ export function DashboardsIndexPage() {
                   </Button>
 
                   <Button
+                    disabled={selectedItems.length !== 1}
+                    onClick={() => handleViewDashboard(selectedItems[0])}
+                  >
+                    <FormattedMessage
+                      defaultMessage="View"
+                      description="dashboards table header view button"
+                    />
+                  </Button>
+
+                  <Button
                     data-testid={`table-create-dashboard`}
+                    className="btn-custom-primary"
                     variant="primary"
                     onClick={() => navigate(CREATE_DASHBOARD_HREF)}
                   >
-                    <FormattedMessage
-                      defaultMessage="Create dashboard"
-                      description="dashboards table header create button"
-                    />
+                    <span style={{ color: colorBackgroundHomeHeader }}>
+                      <FormattedMessage
+                        defaultMessage="Create dashboard"
+                        description="dashboards table header create button"
+                      />
+                    </span>
                   </Button>
                 </SpaceBetween>
               }
@@ -278,7 +309,6 @@ export function DashboardsIndexPage() {
                       { dashboardCount: 10 },
                     ),
                   },
-
                   {
                     value: 25,
                     label: intl.formatMessage(
@@ -390,31 +420,6 @@ export function DashboardsIndexPage() {
           }
           columnDefinitions={[
             {
-              id: 'id',
-              header: intl.formatMessage({
-                defaultMessage: 'ID',
-                description: 'dashboards table ID column header',
-              }),
-              cell: (dashboard) => (
-                <Link
-                  href={`/dashboards/${dashboard.id}`}
-                  onFollow={(event) => {
-                    event.preventDefault();
-
-                    invariant(
-                      isJust(event.detail.href),
-                      'Expected href to be defined',
-                    );
-
-                    navigate(event.detail.href);
-                  }}
-                >
-                  {dashboard.id}
-                </Link>
-              ),
-              sortingField: 'id',
-            },
-            {
               id: 'name',
               header: intl.formatMessage({
                 defaultMessage: 'Name',
@@ -491,6 +496,22 @@ export function DashboardsIndexPage() {
                   );
                 },
               },
+            },
+            {
+              id: 'id',
+              header: intl.formatMessage({
+                defaultMessage: 'ID',
+                description: 'dashboards table ID column header',
+              }),
+              cell: (dashboard) => (
+                <Link
+                  href={`/dashboards/${dashboard.id}`}
+                  onFollow={handleOnFollow}
+                >
+                  {dashboard.id}
+                </Link>
+              ),
+              sortingField: 'id',
             },
             {
               id: 'description',
@@ -578,24 +599,24 @@ export function DashboardsIndexPage() {
               },
             },
             {
-              id: 'lastUpdateDate',
-              header: intl.formatMessage({
-                defaultMessage: 'Last update date',
-                description: 'dashboards table last update date column header',
-              }),
-              cell: (dashboard) =>
-                intl.formatDate(dashboard.lastUpdateDate, DateFormatOptions),
-              sortingField: 'lastUpdateDate',
-            },
-            {
               id: 'creationDate',
               header: intl.formatMessage({
-                defaultMessage: 'Creation date',
+                defaultMessage: 'Date created',
                 description: 'dashboards table creation date column header',
               }),
               cell: (dashboard) =>
                 intl.formatDate(dashboard.creationDate, DateFormatOptions),
               sortingField: 'creationDate',
+            },
+            {
+              id: 'lastUpdateDate',
+              header: intl.formatMessage({
+                defaultMessage: 'Date modified',
+                description: 'dashboards table last update date column header',
+              }),
+              cell: (dashboard) =>
+                intl.formatDate(dashboard.lastUpdateDate, DateFormatOptions),
+              sortingField: 'lastUpdateDate',
             },
           ]}
         />
