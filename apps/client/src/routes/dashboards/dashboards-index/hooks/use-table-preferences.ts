@@ -6,7 +6,7 @@ const DEFAULT_PREFERENCES = {
   pageSize: 10,
   wrapLines: true,
   stripedRows: false,
-  visibleContent: ['name', 'description'],
+  visibleContent: ['name', 'description', 'lastUpdateDate', 'creationDate'],
 };
 const NON_PREFERENCES = {
   // ensure that the id column is always visible

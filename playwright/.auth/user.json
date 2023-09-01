@@ -1,0 +1,46 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [
+        {
+          "name": "CognitoIdentityServiceProvider.9cehli62qxmki9mg5adjmucuq.test-user.idToken",
+          "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNvZ25pdG9Mb2NhbCJ9.eyJjb2duaXRvOnVzZXJuYW1lIjoidGVzdC11c2VyIiwiYXV0aF90aW1lIjoxNjkzOTMwMzAyLCJlbWFpbCI6InRlc3QtdXNlckBhbWF6b24uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImV2ZW50X2lkIjoiOGVlNDRhOTEtNzNhYS00Y2I5LTg1ZTktNGEzZTBjYzQ5MjUyIiwiaWF0IjoxNjkzOTMwMzAyLCJqdGkiOiI5ZjRiMTE3NC03YWE2LTRlNmEtYWRmNC0wN2JlM2EzZTBjMTEiLCJzdWIiOiJjNDQzYWYzNy0yZWFiLTQ0NjUtYWM5NC03ZWM4YjgxNGFiYWQiLCJ0b2tlbl91c2UiOiJpZCIsImV4cCI6MTY5NDAxNjcwMiwiYXVkIjoiOWNlaGxpNjJxeG1raTltZzVhZGptdWN1cSIsImlzcyI6Imh0dHBzOi8vY29nbml0by1pZHAudXMtd2VzdC0yLmFtYXpvbmF3cy5jb20vdXMtd2VzdC0yX2gyM1RKalFSOSJ9.UncD6nIzOswojfsIka58iUbyrUyx-0WlYc7RBCFVvFq_k0gnDaNQ2F5vKytRbiodeaGBg-jT_IVwc8tNhnfT18oFlfawEj_mOnFVBSSqmXlb2WxSE_wRKk1nVFsWd1H8uXUhdYkdezTEQRu6tkYQh4n0ik0FoD3Ai3d4Av70_v3SNbdFU8t47uY9tq2stOFRTfq_yPJ_4xL5O57UnGlOFVd6ZulmWlce1ww7j9N3ZvVyDZB0jFS1YmScTu2Uaxj-uuSttXAd2AQBSYpTO1f1i84TfaYkmadP_D_hdgt0QB4hFlv2_1-PtURNOktW4TgrerpQYm9BP0PkYVtzPGe8pg"
+        },
+        {
+          "name": "CognitoIdentityServiceProvider.9cehli62qxmki9mg5adjmucuq.LastAuthUser",
+          "value": "test-user"
+        },
+        {
+          "name": "CognitoIdentityServiceProvider.9cehli62qxmki9mg5adjmucuq.test-user.accessToken",
+          "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNvZ25pdG9Mb2NhbCJ9.eyJhdXRoX3RpbWUiOjE2OTM5MzAzMDIsImNsaWVudF9pZCI6IjljZWhsaTYycXhta2k5bWc1YWRqbXVjdXEiLCJldmVudF9pZCI6IjhlZTQ0YTkxLTczYWEtNGNiOS04NWU5LTRhM2UwY2M0OTI1MiIsImlhdCI6MTY5MzkzMDMwMiwianRpIjoiNWY4MTg5YjAtMDNhZS00N2YyLTgzMzQtNTdjYzgzOTMzZTU5Iiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsInN1YiI6ImM0NDNhZjM3LTJlYWItNDQ2NS1hYzk0LTdlYzhiODE0YWJhZCIsInRva2VuX3VzZSI6ImFjY2VzcyIsInVzZXJuYW1lIjoidGVzdC11c2VyIiwiZXhwIjoxNjk0MDE2NzAyLCJpc3MiOiJodHRwczovL2NvZ25pdG8taWRwLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tL3VzLXdlc3QtMl9oMjNUSmpRUjkifQ.owK8AiY6b_sA3XYnbfr2c-ZzfsuFzBTetkM-kRVcRS_loeaqmBHAUfPy9GMy2DlwLxI4mX0W_t3GlazRz_Qp0LJ5Qknfgc_a8fG2PmGHg9W9n9JwnLiLHiw5lNs5JFIwJ0AgnaywqCWxecWd5rw5q48toho2x6wL5S38Pkdp4FNNZWU6Xu8dQiyC-47A0BGI21R7yhFI0C2NnZrVygWyTLrnPymWlQq-R8l9nOfKX3p4cYtY6NCcXO-ByeJogPY6_h3tNwumS8kXpJAhfKVftuBjIn8Dp4rb7CN6KmatJFo0CHhkWVIBUacg7JrfXBwwY1YhOoDnOcpaW61EF_bTBg"
+        },
+        {
+          "name": "CognitoIdentityServiceProvider.9cehli62qxmki9mg5adjmucuq.test-user.refreshToken",
+          "value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2duaXRvOnVzZXJuYW1lIjoidGVzdC11c2VyIiwiZW1haWwiOiJ0ZXN0LXVzZXJAYW1hem9uLmNvbSIsImlhdCI6MTY5MzkzMDMwMiwianRpIjoiMTBhOWZmMWItMWMyZi00N2I4LTkyMjgtNjFiYTIxOWQ4OTNhIiwiZXhwIjoxNjk0NTM1MTAyLCJpc3MiOiJodHRwczovL2NvZ25pdG8taWRwLnVzLXdlc3QtMi5hbWF6b25hd3MuY29tL3VzLXdlc3QtMl9oMjNUSmpRUjkifQ.hkS-gwDVPuX0fTxLE2qL10HLPY8LzT8fuRevobTdSkg9RLLerzMahMeG1fKuCjst-gAQnfEphLLFJQdZxukouZq5rnNaWSrUifNuBn1upVqKi1zJyEMgW22uuXRhVyULYAtXDnuxwJnkhwdZfAyPLxNCx5vBUKXvGVQIIFYyFP8UqNibpMDFBJxnvCXrmfHf4ngn2t8X2yj8VdhhmexfG2Q8ezknZeRMCoDWbjYQIsRcvWfsIZZOhn9kMUDHjxljxTJF2f5ZG1yzk1FiMexYkgLvADmsW8p7qT676xXBPn-NVJCc95slWBBC9M8prlCRA8eMuDGDz-cHLzdNjsJ_ZQ"
+        },
+        {
+          "name": "amplify-signin-with-hostedUI",
+          "value": "false"
+        },
+        {
+          "name": "CognitoIdentityServiceProvider.9cehli62qxmki9mg5adjmucuq.test-user.clockDrift",
+          "value": "0"
+        },
+        {
+          "name": "CognitoIdentityServiceProvider.9cehli62qxmki9mg5adjmucuq.test-user.userData",
+          "value": "{\"UserAttributes\":[{\"Name\":\"sub\",\"Value\":\"c443af37-2eab-4465-ac94-7ec8b814abad\"},{\"Name\":\"email\",\"Value\":\"test-user@amazon.com\"},{\"Name\":\"email_verified\",\"Value\":true}],\"Username\":\"test-user\"}"
+        },
+        {
+          "name": "table-preferences",
+          "value": "{\"pageSize\":10,\"wrapLines\":true,\"stripedRows\":false,\"visibleContent\":[\"name\",\"description\",\"lastUpdateDate\",\"creationDate\"]}"
+        },
+        {
+          "name": "content-density",
+          "value": "\"comfortable\""
+        }
+      ]
+    }
+  ]
+}
