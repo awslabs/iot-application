@@ -20,8 +20,10 @@ export class CreateDashboardPage {
   constructor(page: Page) {
     this.page = page;
     this.heading = page.getByRole('heading', { name: 'Create dashboard' });
-    this.nameField = page.getByLabel('Dashboard name');
-    this.descriptionField = page.getByLabel('Dashboard description');
+    this.nameField = page.getByRole('textbox', { name: 'Dashboard name' });
+    this.descriptionField = page.getByRole('textbox', {
+      name: 'Dashboard description',
+    });
     this.createButton = page.getByRole('button', { name: 'Create' });
     this.cancelButton = page.getByRole('button', { name: 'Cancel' });
     this.nameRequiredError = page.getByText('Dashboard name is required.');

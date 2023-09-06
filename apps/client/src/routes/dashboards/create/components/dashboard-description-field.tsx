@@ -8,6 +8,7 @@ import { $Dashboard } from '~/services';
 import type { Control } from 'react-hook-form';
 import { CreateDashboardFormValues } from '../types/create-dashboard-form-values';
 import { isJust } from '~/helpers/predicates/is-just';
+import { Link } from '@cloudscape-design/components';
 
 interface DashboardDescriptionFieldProps {
   control: Control<CreateDashboardFormValues>;
@@ -44,17 +45,13 @@ export function DashboardDescriptionField(
       render={({ field, fieldState }) => (
         <FormField
           label={intl.formatMessage({
-            defaultMessage: 'Dashboard description',
+            defaultMessage: 'Dashboard description - optional',
             description: 'create dashboard form description label',
           })}
-          description={intl.formatMessage({
-            defaultMessage: 'Enter the description for your dashboard.',
-            description: 'create dashboard form description description',
-          })}
+          info={<Link variant="info">Info</Link>}
           constraintText={intl.formatMessage(
             {
-              defaultMessage:
-                'Dashboard description must be between {minLength} and {maxLength} characters',
+              defaultMessage: 'Description must be fewer than 512 characters.',
               description: 'create dashboard form description constraint',
             },
             {
@@ -66,10 +63,6 @@ export function DashboardDescriptionField(
         >
           <Textarea
             ariaRequired
-            placeholder={intl.formatMessage({
-              defaultMessage: 'Dashboard description',
-              description: 'create dashboard form description placeholder',
-            })}
             onChange={(event) => field.onChange(event.detail.value)}
             value={field.value}
           />

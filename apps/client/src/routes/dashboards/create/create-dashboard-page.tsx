@@ -56,7 +56,19 @@ export function CreateDashboardPage() {
           }
           errorText={getFormErrorText()}
         >
-          <Container>
+          <Container
+            header={
+              <Header
+                variant="h1"
+                description="Create a dashboard to monitor your assets and properties."
+              >
+                <FormattedMessage
+                  defaultMessage="General details"
+                  description="Create dashboard modal header"
+                />
+              </Header>
+            }
+          >
             <SpaceBetween size="l">
               <DashboardNameField control={control} />
               <DashboardDescriptionField control={control} />

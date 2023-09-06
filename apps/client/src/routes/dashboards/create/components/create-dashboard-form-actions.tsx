@@ -1,5 +1,6 @@
 import Button from '@cloudscape-design/components/button';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import { colorBackgroundHomeHeader } from '@cloudscape-design/design-tokens';
 import { FormattedMessage } from 'react-intl';
 
 import { DASHBOARDS_HREF } from '~/constants';
@@ -16,18 +17,29 @@ export function CreateDashboardFormActions(
 
   return (
     <SpaceBetween direction="horizontal" size="xs">
-      <Button formAction="none" onClick={() => navigate(DASHBOARDS_HREF)}>
+      <Button
+        formAction="none"
+        variant="link"
+        onClick={() => navigate(DASHBOARDS_HREF)}
+      >
         <FormattedMessage
           defaultMessage="Cancel"
           description="create dashboard form cancel button"
         />
       </Button>
 
-      <Button variant="primary" loading={props.isLoading} formAction="submit">
-        <FormattedMessage
-          defaultMessage="Create"
-          description="create dashboard form confirm button"
-        />
+      <Button
+        variant="primary"
+        loading={props.isLoading}
+        formAction="submit"
+        className="btn-custom-primary"
+      >
+        <span style={{ color: colorBackgroundHomeHeader }}>
+          <FormattedMessage
+            defaultMessage="Create dashboard"
+            description="create dashboard form confirm button"
+          />
+        </span>
       </Button>
     </SpaceBetween>
   );
