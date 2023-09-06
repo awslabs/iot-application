@@ -8,6 +8,7 @@ import { $Dashboard } from '~/services';
 import type { Control } from 'react-hook-form';
 import type { CreateDashboardFormValues } from '../types/create-dashboard-form-values';
 import { isJust } from '~/helpers/predicates/is-just';
+import { Link } from '@cloudscape-design/components';
 
 interface DashboardNameFieldProps {
   control: Control<CreateDashboardFormValues>;
@@ -43,14 +44,11 @@ export function DashboardNameField(props: DashboardNameFieldProps) {
             defaultMessage: 'Dashboard name',
             description: 'create dashboard form name label',
           })}
-          description={intl.formatMessage({
-            defaultMessage: 'Enter the name you want to give your dashboard.',
-            description: 'create dashboard form name description',
-          })}
+          info={<Link variant="info">Info</Link>}
           constraintText={intl.formatMessage(
             {
               defaultMessage:
-                'Dashboard name must be between {minLength} and {maxLength} characters',
+                'Name must be alphanumeric, unique and fewer than 63 characters, It can include hyphen(-) and spaces.',
               description: 'create dashboard form name constraint',
             },
             {
@@ -63,7 +61,7 @@ export function DashboardNameField(props: DashboardNameFieldProps) {
           <Input
             ariaRequired
             placeholder={intl.formatMessage({
-              defaultMessage: 'Dashboard name',
+              defaultMessage: 'dashboard name',
               description: 'create dashboard form name placeholder',
             })}
             onChange={(event) => field.onChange(event.detail.value)}
