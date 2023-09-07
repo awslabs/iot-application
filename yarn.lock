@@ -7532,32 +7532,32 @@
   dependencies:
     "@iot-app-kit/charts-core" "^2.1.1"
 
-"@iot-app-kit/components@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/components/-/components-7.3.0.tgz#8672038cdf942d4a4bf4427763ef5e089d06e055"
-  integrity sha512-ijizQbTYoysq0InLvaLFRJuOrhZDjwAZUQOIenyaEm/rnqOxoL9M6wiU0jcvJTFvTjpJsacTzhIRRAwqRwTgpg==
+"@iot-app-kit/components@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/components/-/components-7.3.1.tgz#c3a91866f9cd8b3478fa2d28c0873126ef20eae8"
+  integrity sha512-gEvxSUu/mw21chJRdmow9dMj4tF/kgIc5AX+S5PnDTDm7TIWhcKrT2lVo02d4HEj25sIMwdnrioDSwgsM0TuWw==
   dependencies:
     "@awsui/collection-hooks" "^1.0.51"
     "@awsui/components-react" "^3.0.0"
     "@awsui/design-tokens" "^3.0.41"
-    "@iot-app-kit/core" "7.3.0"
-    "@iot-app-kit/related-table" "7.3.0"
+    "@iot-app-kit/core" "7.3.1"
+    "@iot-app-kit/related-table" "7.3.1"
     "@stencil/core" "^2.7.0"
     "@synchro-charts/core" "7.2.0"
     styled-components "^5.3.11"
 
-"@iot-app-kit/core-util@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/core-util/-/core-util-7.3.0.tgz#12c81090428688a14c023c5d67dff6f8b0fef44e"
-  integrity sha512-Qif/n2O49Clio3ChvlavEWH/uAMuHXUJTuspEYQ735jAtCKZI3pS2x2Y2lSE10CjA8WLaqkGuSyaB7FJlZPQkQ==
+"@iot-app-kit/core-util@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/core-util/-/core-util-7.3.1.tgz#b678efed9425ebfbfb50b8ab38b5bd93c1b0dfe6"
+  integrity sha512-Hx4hfa4EXNJglv0US5nHqwBnUd9S9snEGhSCOI/3KsCYnUtpieRi1t7RLBR+C4o15hYPWYGJSbwG3Vrak+eFZw==
   dependencies:
     "@aws-sdk/client-iot-events" "3.354.0"
     "@aws-sdk/client-iotsitewise" "3.391.0"
 
-"@iot-app-kit/core@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/core/-/core-7.3.0.tgz#f44f1189e10dba35bc3443d3cfaa02279ce02258"
-  integrity sha512-wsr57wTqIBuoHlH5mG19dQD/6FNf8JfMIXwVnKjiyqhLqW11Bm3o+8Yv2gx+KwPfOqBTzHtMn8ie29yqtuSXFA==
+"@iot-app-kit/core@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/core/-/core-7.3.1.tgz#5b21f0c771aaf658504e473e3d9cd597338c8154"
+  integrity sha512-9k0hy+WQCPSdvug4wrQ6M3us2MMdf9NftdS4a04rcK9JO3fUNf6d1lUA1py4DoDqJZjo8FHSz6QfIJ8oLUUEtQ==
   dependencies:
     "@aws-sdk/client-iotsitewise" "3.391.0"
     d3-array "^3.2.4"
@@ -7567,10 +7567,10 @@
     rxjs "^7.8.1"
     uuid "^9.0.0"
 
-"@iot-app-kit/dashboard@^7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/dashboard/-/dashboard-7.3.0.tgz#4542b59eb274fb6bcb8800f36c0d1c8262df0cba"
-  integrity sha512-Ze636n65tiqlFi6bV5gmDv1nufshy6/g75R+XgAS1LP19IeaTXDGz/n0yqggRgVK6ckjDJWjIbQQyT8EZNhtKg==
+"@iot-app-kit/dashboard@^7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/dashboard/-/dashboard-7.3.1.tgz#79199897254780374c0c27778a2437c76792c689"
+  integrity sha512-OdLSSMAShe/0ZVVg/kTRI8j2zwg6w7sFtxqvaoHDzePX1ql+srN/2N+afrWiSr8MkBo9EdKwVUnvhMniyrgpWg==
   dependencies:
     "@aws-sdk/client-iot-events" "3.354.0"
     "@aws-sdk/client-iotsitewise" "3.391.0"
@@ -7579,11 +7579,11 @@
     "@cloudscape-design/design-tokens" "^3.0.15"
     "@cloudscape-design/global-styles" "^1.0.12"
     "@iot-app-kit/charts-core" "^2.1.1"
-    "@iot-app-kit/components" "7.3.0"
-    "@iot-app-kit/core" "7.3.0"
-    "@iot-app-kit/core-util" "7.3.0"
-    "@iot-app-kit/react-components" "7.3.0"
-    "@iot-app-kit/source-iotsitewise" "7.3.0"
+    "@iot-app-kit/components" "7.3.1"
+    "@iot-app-kit/core" "7.3.1"
+    "@iot-app-kit/core-util" "7.3.1"
+    "@iot-app-kit/react-components" "7.3.1"
+    "@iot-app-kit/source-iotsitewise" "7.3.1"
     "@popperjs/core" "^2.11.8"
     "@tanstack/react-query" "^4.29.15"
     buffer "^6.0.3"
@@ -7598,20 +7598,20 @@
     tiny-invariant "^1.3.1"
     uuid "^9.0.0"
 
-"@iot-app-kit/react-components@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/react-components/-/react-components-7.3.0.tgz#2e103d8a5744b46b0247d7a35e58df37ea69403d"
-  integrity sha512-yhg6Kpz779Qc/tdOhMEzxK2mmsKI6yIuQ5eOYF3DNO8Up07jR0Z7SnrNIpTGqmHZzkTE5/iIkF1h+aUHMJmakg==
+"@iot-app-kit/react-components@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/react-components/-/react-components-7.3.1.tgz#7c120162a688b55cc66a1da7ae94cf4b0f775328"
+  integrity sha512-zdveF6UFifR4J+5G6pwiQe7MCZhqjIHmj815kkemX2j9e7AnhFs9++EryD5qlhvRma6+UE7G02fsqklOaX1uRA==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.22"
     "@cloudscape-design/components" "^3.0.286"
     "@cloudscape-design/design-tokens" "^3.0.15"
     "@iot-app-kit/charts" "^2.1.1"
     "@iot-app-kit/charts-core" "^2.1.1"
-    "@iot-app-kit/components" "7.3.0"
-    "@iot-app-kit/core" "7.3.0"
-    "@iot-app-kit/core-util" "7.3.0"
-    "@iot-app-kit/source-iottwinmaker" "7.3.0"
+    "@iot-app-kit/components" "7.3.1"
+    "@iot-app-kit/core" "7.3.1"
+    "@iot-app-kit/core-util" "7.3.1"
+    "@iot-app-kit/source-iottwinmaker" "7.3.1"
     color "^4.2.3"
     copy-to-clipboard "^3.3.3"
     d3-array "^3.2.3"
@@ -7619,6 +7619,7 @@
     d3-shape "^3.2.0"
     dompurify "3.0.5"
     echarts "^5.4.3"
+    is-hotkey "^0.2.0"
     lodash.maxby "4.6.0"
     lodash.minby "4.6.0"
     lodash.omitby "^4.6.0"
@@ -7635,22 +7636,22 @@
     video.js "8.3.0"
     zustand "^4.3.9"
 
-"@iot-app-kit/related-table@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/related-table/-/related-table-7.3.0.tgz#ca14e4cfdb8ec815115ecac74c8d4acd91abe009"
-  integrity sha512-8gQFckI0RlmgHDJcYIYe6zuewNkJL+ZJlxvjFibhXKVqZjIYTkmiNmF9oUAyAdPnvXmuFLYMJDD3YE5dQCBtBQ==
+"@iot-app-kit/related-table@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/related-table/-/related-table-7.3.1.tgz#930e7815bd66bceb20a3de85f942e6bb02c3bb5a"
+  integrity sha512-435bO2UxrzHKnf3gs9fsucitpu07zKYb5oXwgQcCyZ8jWbsRiy9WZbbm0tdsFhnZfKRUMH5Ep9Dvsf7IJMsTtg==
   dependencies:
     uuid "^9.0.0"
 
-"@iot-app-kit/source-iotsitewise@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iotsitewise/-/source-iotsitewise-7.3.0.tgz#a2f54e865fc884c7da1ba9aa4034836566abebfa"
-  integrity sha512-kmAQG/fPjcgmyMvFMMoiVJHTVmZu8on2UTFLv4JtXGB+AZ/mJrwxdJo+xuU/bQEbgi9yC2V++KS7wtQisD8hOA==
+"@iot-app-kit/source-iotsitewise@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iotsitewise/-/source-iotsitewise-7.3.1.tgz#008215b13735eec94816e2eba94b73ca99df9198"
+  integrity sha512-6cpHcpESO6x1M3OGRaij8GpLADhiNNSnUvDsUIrRIgEAt5tj6EAsqDJvu7nFXHikXWzA5Y3kUQsnbiilynir4A==
   dependencies:
     "@aws-sdk/client-iot-events" "3.354.0"
     "@aws-sdk/client-iotsitewise" "3.391.0"
-    "@iot-app-kit/core" "7.3.0"
-    "@iot-app-kit/core-util" "7.3.0"
+    "@iot-app-kit/core" "7.3.1"
+    "@iot-app-kit/core-util" "7.3.1"
     "@synchro-charts/core" "7.2.0"
     dataloader "^2.2.2"
     lodash.isequal "^4.5.0"
@@ -7658,10 +7659,10 @@
     lodash.uniqwith "^4.5.0"
     rxjs "^7.8.1"
 
-"@iot-app-kit/source-iottwinmaker@7.3.0":
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iottwinmaker/-/source-iottwinmaker-7.3.0.tgz#66ecd25bca273945606169cb8bb091eff1d6131d"
-  integrity sha512-1UAnAKSWMJ82YtcgetAE8RHjn98CsO5Fay8BHYwxIsFeXLBbfH7AH0V7VZ7mL4DytdezMviqEat+8et/p63RuQ==
+"@iot-app-kit/source-iottwinmaker@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iottwinmaker/-/source-iottwinmaker-7.3.1.tgz#a5663f54779adb2121ae0131f8e53fdc849f6df9"
+  integrity sha512-sZ8cum3MNpdTCkUQnQRc1yI1fRmNSB9DCRPU1KhyfywU49MewDr5eDX1oBRFA9Cv72fKod8+lA6cImkCWWp62g==
   dependencies:
     "@aws-sdk/client-iotsitewise" "3.391.0"
     "@aws-sdk/client-iottwinmaker" "3.335.0"
@@ -7670,7 +7671,7 @@
     "@aws-sdk/client-s3" "3.335.0"
     "@aws-sdk/client-secrets-manager" "3.353.0"
     "@aws-sdk/url-parser" "3.374.0"
-    "@iot-app-kit/core" "7.3.0"
+    "@iot-app-kit/core" "7.3.1"
     "@tanstack/query-core" "^4.29.15"
     lodash "^4.17.21"
     rxjs "^7.8.1"
