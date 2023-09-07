@@ -20,7 +20,7 @@
     "source-map-support": "^0.5.21"
   },
   "devDependencies": {
-    "@types/node": "20.5.8",
+    "@types/node": "20.5.9",
     "aws-cdk": "2.94.0",
     "tsconfig": "*"
   }
