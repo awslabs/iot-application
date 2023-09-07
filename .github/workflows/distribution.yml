@@ -17,7 +17,7 @@ jobs:
     # Reference: https://github.com/aws-actions/amazon-ecr-login#login-to-amazon-ecr-public-then-build-and-push-a-docker-image
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
 
@@ -67,7 +67,7 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3 
+        uses: actions/checkout@v4 
         with:
           fetch-depth: 2
 
