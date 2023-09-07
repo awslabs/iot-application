@@ -1,9 +1,9 @@
-name: Deployment
+name: Deployment PR
 
 run-name: Deployment action initiated by ${{ github.actor }}
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -11,7 +11,7 @@ on:
 concurrency: ${{ github.workflow }}
 
 jobs:
-  deploy:
+  deploy-pr:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     permissions:
@@ -48,16 +48,16 @@ jobs:
           aws-region: us-west-2
 
       - name: Deploy CDK 🚀
-        run: yarn workspace cdk cdk deploy --all --require-approval never
+        run: yarn workspace cdk cdk deploy -c stackName=IotAppPr --all --require-approval never
 
       - name: Get App URL 🔗
         id: app_url
         run: |
-          app_url=$(aws cloudformation describe-stacks --stack-name IotApp --query "Stacks[0].Outputs[?OutputKey=='AppURL'].OutputValue" --output text)
+          app_url=$(aws cloudformation describe-stacks --stack-name IotAppPr --query "Stacks[0].Outputs[?OutputKey=='AppURL'].OutputValue" --output text)
           echo "app_url=$app_url" >> $GITHUB_OUTPUT
 
-  test:
-    needs: deploy
+  test-pr:
+    needs: deploy-pr
     timeout-minutes: 15
     runs-on: ubuntu-latest
 
@@ -87,9 +87,9 @@ jobs:
 
       - name: Run Playwright tests 🧑‍🔬
         env:
-          ENDPOINT: ${{ needs.deploy.outputs.app_url }}
+          ENDPOINT: ${{ needs.deploy-pr.outputs.app_url }}
           LAUNCH_WEB_SERVER: false
-          USER_PASSWORD: ${{ secrets.DEPLOYMENT_USER_PASSWORD }}
+          USER_PASSWORD: ${{ secrets.DEPLOYMENT_PR_USER_PASSWORD }}
         id: tests
         run: yarn playwright test
 

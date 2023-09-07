@@ -63,14 +63,16 @@ This will deploy the application to AWS using CDK.
    ```sh
    yarn install
    ```
-1. Build the client
-   ```sh
-   yarn workspace client build
-   ```
 1. Deploy the Core service and resource dependencies:
    ```sh
    yarn workspace cdk cdk deploy --all
    ```
+
+To specify a stack name, use the --context (-c) option, as shown in the following example.
+
+```sh
+yarn workspace cdk cdk deploy -c stackName=my-stack-name
+```
 
 ## Environments
 
