@@ -73,7 +73,7 @@
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.3"
+    "vitest": "^0.34.4"
   },
   "browserslist": {
     "production": [
