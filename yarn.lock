@@ -10823,12 +10823,12 @@
   dependencies:
     tinyspy "^2.1.1"
 
-"@vitest/ui@^0.34.3":
-  version "0.34.3"
-  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-0.34.3.tgz#c54a6384bf4a346027b67ca420bb25a2a438cf95"
-  integrity sha512-iNcOQ0xML9znOReiwpKJrTLSj5zFxmveD3VCxIJNqnsaMYpONSbSiiJLC1Y1dYlkmiHylp+ElNcUZYIMWdxRvA==
+"@vitest/ui@^0.34.4":
+  version "0.34.4"
+  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-0.34.4.tgz#fb4389e1347b80cbb326d790e2b5416b99992f47"
+  integrity sha512-gz0m0r9ErFG32r+DRdwuLJpUDpbi+jrMcw9nJZAau48Fs4LDIBg561PvczvGqyYxzbyFU7vgkSnSlSDfK0d53w==
   dependencies:
-    "@vitest/utils" "0.34.3"
+    "@vitest/utils" "0.34.4"
     fast-glob "^3.3.0"
     fflate "^0.8.0"
     flatted "^3.2.7"
