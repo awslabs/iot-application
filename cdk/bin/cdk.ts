@@ -4,7 +4,7 @@ import { App } from 'aws-cdk-lib';
 import { IotApplicationStack } from '../lib/iot-application-stack';
 
 const app = new App();
-const stackName = app.node.tryGetContext('stackName');
+const stackName = app.node.tryGetContext('stackName') as string;
 new IotApplicationStack(app, stackName, {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
