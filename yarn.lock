@@ -13907,13 +13907,13 @@ eslint-plugin-flowtype@^8.0.3:
     lodash "^4.17.21"
     string-natural-compare "^3.0.1"
 
-eslint-plugin-formatjs@^4.10.4:
-  version "4.10.4"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-formatjs/-/eslint-plugin-formatjs-4.10.4.tgz#6a266097cacc3ca7cd7646e6aa34b0b0ab1b6bc0"
-  integrity sha512-O7UHSfI65LXcuEqUf+iYCM9SkGiJ9DpBft/9Kk1QJ7qKaV+1hYY/W0cOq06qv8qA6rKU3gR5jppJQKI2isL6jQ==
+eslint-plugin-formatjs@^4.10.5:
+  version "4.10.5"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-formatjs/-/eslint-plugin-formatjs-4.10.5.tgz#3b38ce5da1f8e9d135298df777cf87115e4d0818"
+  integrity sha512-pBPA4idiYHXPQMrIb9/Le+D0snlNa7MFQsw12yIzyva/z9uz0u/4NOK3NkfyENMBNMeTX2tZXtugk9FyqM5SRw==
   dependencies:
-    "@formatjs/icu-messageformat-parser" "2.6.1"
-    "@formatjs/ts-transformer" "3.13.4"
+    "@formatjs/icu-messageformat-parser" "2.6.2"
+    "@formatjs/ts-transformer" "3.13.5"
     "@types/eslint" "7 || 8"
     "@types/picomatch" "^2.3.0"
     "@typescript-eslint/typescript-estree" "5.62.0"
