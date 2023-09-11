@@ -8469,10 +8469,10 @@
   dependencies:
     axios "1.2.1"
 
-"@nestjs/cli@^10.1.15":
-  version "10.1.15"
-  resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-10.1.15.tgz#4f64b4ad84289c5ff6b095f34ac106adb36b7991"
-  integrity sha512-BYUAacihz0OE1nGeGrfpn9wvFffOVPtlVFanegmHdWip0kngqiZnwlb6nQL5047JRghuPnLTIBycgLQWoeI+jw==
+"@nestjs/cli@^10.1.17":
+  version "10.1.17"
+  resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-10.1.17.tgz#c7e90e443e0967be2b12dc912957f89ed4b5c992"
+  integrity sha512-jUEnR2DgC15Op+IhcRWb6cyJrhec9CUQO+GtxCF2Dv9MwLcr4sTDq1UOkfs09HAhpuI8otgF2LoWGTlW3qRuqg==
   dependencies:
     "@angular-devkit/core" "16.2.0"
     "@angular-devkit/schematics" "16.2.0"
