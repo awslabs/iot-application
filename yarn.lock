@@ -8621,10 +8621,10 @@
     boxen "5.1.2"
     check-disk-space "3.4.0"
 
-"@nestjs/testing@^10.2.3":
-  version "10.2.3"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-10.2.3.tgz#eca5562bc89662d20a1cc0c1bc57da771bff698a"
-  integrity sha512-+EaUx3gQVQgosuLxr+pwfPAhIobgRCfyBe4l/9jhquxW7UwTXhXjOIeL45zdqSXLsKn2++F+oKYRi9cceu3vWQ==
+"@nestjs/testing@^10.2.5":
+  version "10.2.5"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-10.2.5.tgz#349953109bf6b6aa45c1f36d25bc987c1638e162"
+  integrity sha512-CaM8STNVyDdMhYnDD6aYnVWPz2ienrSDgMl7nkCAC0wcvKhldWuXQ2syTvQE243IIFOX/bMNuW3MsiqbaXfXxQ==
   dependencies:
     tslib "2.6.2"
 
