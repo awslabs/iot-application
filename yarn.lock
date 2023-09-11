@@ -7451,12 +7451,25 @@
     intl-messageformat "10.5.2"
     tslib "^2.4.0"
 
-"@formatjs/ts-transformer@3.13.4", "@formatjs/ts-transformer@^3.13.3":
+"@formatjs/ts-transformer@3.13.4":
   version "3.13.4"
   resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-3.13.4.tgz#586582ab3aee75b7e24d37f7090ab270062a9bf5"
   integrity sha512-AOOHpHBJyjcNLkJcT82zeU7IlaogHI4qBjPlFgyeqcSbGwR4b+LGY7Frf7N5eM8Y9yGnTDVIUA/u3gHUA3SHQg==
   dependencies:
     "@formatjs/icu-messageformat-parser" "2.6.1"
+    "@types/json-stable-stringify" "^1.0.32"
+    "@types/node" "14 || 16 || 17"
+    chalk "^4.0.0"
+    json-stable-stringify "^1.0.1"
+    tslib "^2.4.0"
+    typescript "^4.7 || 5"
+
+"@formatjs/ts-transformer@3.13.5", "@formatjs/ts-transformer@^3.13.3":
+  version "3.13.5"
+  resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-3.13.5.tgz#8b4f5dcb02940e3f12b9f6c95b47f52777a9969d"
+  integrity sha512-dh2mmZqkId0UeM+FQtmwugpMGvyzTBmXj5LjwD4M5OeSm62tcgkScjqeO/1EetaNS/JkTUBbsFBnHzaDzh3yOw==
+  dependencies:
+    "@formatjs/icu-messageformat-parser" "2.6.2"
     "@types/json-stable-stringify" "^1.0.32"
     "@types/node" "14 || 16 || 17"
     chalk "^4.0.0"
@@ -11186,18 +11199,18 @@ babel-loader@^8.2.3:
     make-dir "^3.1.0"
     schema-utils "^2.6.5"
 
-babel-plugin-formatjs@^10.5.4:
-  version "10.5.4"
-  resolved "https://registry.yarnpkg.com/babel-plugin-formatjs/-/babel-plugin-formatjs-10.5.4.tgz#98837caedcdb64f118048f19e59ad0c94f55b5aa"
-  integrity sha512-6JSpDS/YVjMu74NzHkuEduWqDsmUbUm1qc6sNeccgknixW9Z3hbQqv3Fvfjrh4opBzJ+CRaAZaUlQQL+xDTQzw==
+babel-plugin-formatjs@^10.5.5:
+  version "10.5.5"
+  resolved "https://registry.yarnpkg.com/babel-plugin-formatjs/-/babel-plugin-formatjs-10.5.5.tgz#678e35d5a06103030d7d6205592779d235a25591"
+  integrity sha512-p7q/kJ+ss1xY2b3tTePllIi2xWJDRRBGw2kFV8Ve18uYG0eMn3xoEq3zW1GLQTJpdWzL++qTyTJ0oj428nzU6Q==
   dependencies:
     "@babel/core" "^7.10.4"
     "@babel/helper-plugin-utils" "^7.10.4"
     "@babel/plugin-syntax-jsx" "7"
     "@babel/traverse" "7"
     "@babel/types" "^7.12.11"
-    "@formatjs/icu-messageformat-parser" "2.6.1"
-    "@formatjs/ts-transformer" "3.13.4"
+    "@formatjs/icu-messageformat-parser" "2.6.2"
+    "@formatjs/ts-transformer" "3.13.5"
     "@types/babel__core" "^7.1.7"
     "@types/babel__helper-plugin-utils" "^7.10.0"
     "@types/babel__traverse" "^7.1.7"
