@@ -7211,10 +7211,10 @@
     fast-querystring "^1.0.0"
     fastify-plugin "^4.0.0"
 
-"@fastify/helmet@^11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@fastify/helmet/-/helmet-11.0.0.tgz#e38849750f8811614444ca89b963bae231f61464"
-  integrity sha512-YSFhJFR4Pk2azmTkX54f0Z/O7h5j4ruCQUlagf/Rw1P45u5/2u+F+I83DRyIKryM6prXl++X2yY0Ib0RXAlZ7Q==
+"@fastify/helmet@^11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@fastify/helmet/-/helmet-11.1.0.tgz#f558e64e9173cb697fddac86121ac29d6c848523"
+  integrity sha512-vajWu4/6RlmY01Lcjyr7bx/mx0SBjP9H5PPMPSm/Nrsuc+k5QrsYm600h6ZaPuYdmogazatQ6FSqr/exotsMLw==
   dependencies:
     fastify-plugin "^4.2.1"
     helmet "^7.0.0"
