@@ -7253,10 +7253,10 @@
     p-limit "^3.1.0"
     readable-stream "^4.0.0"
 
-"@fastify/view@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@fastify/view/-/view-8.0.0.tgz#ccd4fa217a36c8058a723296d09a8a6a48a004a2"
-  integrity sha512-XfAffgqRj+AtEtkZeAAkMwTtu32Ve6xWkhxWQ9JOwXm2qQM6Fj+xphxnLvqpvQ0hJAYFYGiTOpB5ZS2VI5u00Q==
+"@fastify/view@^8.1.0":
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/@fastify/view/-/view-8.1.0.tgz#280a563a3be4252cacc76ecf5c2dede6e7a0b5f0"
+  integrity sha512-O2a7ylzevXB7HtEaZmBFzaOsBc2J6zbAhoSyEYQMOQOYZz8AHxlLR+gH+mFkcd9lHdJaMBhMiWC+smftA/5fXg==
   dependencies:
     fastify-plugin "^4.0.0"
     hashlru "^2.3.0"
