@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.410.0",
-    "@aws-sdk/lib-dynamodb": "^3.410.0",
+    "@aws-sdk/lib-dynamodb": "^3.413.0",
     "@fastify/cookie": "^9.0.4",
     "@fastify/csrf-protection": "^6.3.0",
     "@fastify/helmet": "^11.1.0",
