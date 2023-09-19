@@ -7270,10 +7270,10 @@
     glob "^8.0.1"
     p-limit "^3.1.0"
 
-"@fastify/view@^8.1.0":
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/@fastify/view/-/view-8.1.0.tgz#280a563a3be4252cacc76ecf5c2dede6e7a0b5f0"
-  integrity sha512-O2a7ylzevXB7HtEaZmBFzaOsBc2J6zbAhoSyEYQMOQOYZz8AHxlLR+gH+mFkcd9lHdJaMBhMiWC+smftA/5fXg==
+"@fastify/view@^8.2.0":
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/@fastify/view/-/view-8.2.0.tgz#80ef9569198ca3a0f3207fa25b2dd6d0c12fc4c7"
+  integrity sha512-hBSiBofCnJNlPHEMZWpO1SL84eqOaqujJ1hR3jntFyZZCkweH5jMs12DKYyGesjVll7SJFRRxPUBB8kmUmneRQ==
   dependencies:
     fastify-plugin "^4.0.0"
     hashlru "^2.3.0"
