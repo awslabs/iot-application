@@ -14,31 +14,9 @@ permissions:
   pull-requests: write
 
 jobs:
-  auto_approve_pr:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    if: ${{ github.actor == 'dependabot[bot]' }}
-    steps:
-      - name: Approve PR
-        run: gh pr review --approve "$PR_URL"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
-  auto_merge_pr:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    if: ${{ github.actor == 'dependabot[bot]' }}
-    steps:
-      - name: Enable Auto-Merge for PR
-        run: gh pr merge --auto --rebase --delete-branch "$PR_URL"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
   close_pr_if_required_checks_fail:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 30
     if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'check_suite' && github.event.check_suite.conclusion == 'failure' }}
 
     steps:
@@ -61,6 +39,30 @@ jobs:
       - name: Close PR if Required Checks Fail
         if: ${{ steps.failed_checks.outputs.close_pr == 'true' }}
         run: gh pr close "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+  auto_approve_pr:
+    needs: close_pr_if_required_checks_fail
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Approve PR
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+  auto_merge_pr:
+    needs: close_pr_if_required_checks_fail
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Enable Auto-Merge for PR
+        run: gh pr merge --auto --rebase --delete-branch "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
