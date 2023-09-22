@@ -9,4 +9,5 @@ export interface Metadata {
   region: string;
   userPoolId: string;
   userPoolWebClientId: string;
+  domainName: string;
 }

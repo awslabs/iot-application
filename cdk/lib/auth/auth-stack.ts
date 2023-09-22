@@ -4,9 +4,11 @@ import {
   CfnIdentityPoolRoleAttachment,
   UserPool,
   UserPoolClient,
+  UserPoolDomain,
 } from 'aws-cdk-lib/aws-cognito';
 import { FederatedPrincipal, PolicyStatement, Role } from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
+import { randomUUID } from 'crypto';
 
 export interface AuthStackProps extends StackProps {
   readonly applicationName: string;
@@ -18,6 +20,7 @@ export class AuthStack extends Stack {
   readonly identityPool: CfnIdentityPool;
   readonly userPool: UserPool;
   readonly userPoolClient: UserPoolClient;
+  readonly domain: UserPoolDomain;
 
   constructor(scope: Construct, id: string, props: AuthStackProps) {
     super(scope, id, props);
@@ -31,6 +34,27 @@ export class AuthStack extends Stack {
 
     this.userPoolClient = new UserPoolClient(this, 'UserPoolClient', {
       userPool: this.userPool,
+      oAuth: {
+        flows: {
+          implicitCodeGrant: true,
+        },
+        callbackUrls: [
+          'https://<your-url>.awsapprunner.com'
+        ]
+      }
+    });
+
+    // Generate a unique name for the userpool domain (required for SSO integration)
+    const domainPrefix = 'sitewise-' + randomUUID().toLowerCase().substring(0, 6);
+
+    this.domain = this.userPool.addDomain('Domain', {
+      cognitoDomain: {
+        domainPrefix
+      }
+    });
+
+    this.domain.signInUrl(this.userPoolClient, {
+      redirectUri: 'https://<your-url>.awsapprunner.com'
     });
 
     this.identityPool = new CfnIdentityPool(this, 'IdentityPool', {
