@@ -45,7 +45,7 @@ export function DashboardDescriptionField(
       render={({ field, fieldState }) => (
         <FormField
           label={intl.formatMessage({
-            defaultMessage: 'Dashboard description - optional',
+            defaultMessage: 'Description',
             description: 'create dashboard form description label',
           })}
           info={<Link variant="info">Info</Link>}

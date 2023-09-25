@@ -41,7 +41,7 @@ export function DashboardNameField(props: DashboardNameFieldProps) {
       render={({ field, fieldState }) => (
         <FormField
           label={intl.formatMessage({
-            defaultMessage: 'Dashboard name',
+            defaultMessage: 'Name',
             description: 'create dashboard form name label',
           })}
           info={<Link variant="info">Info</Link>}
