@@ -36,7 +36,7 @@ export function CreateDashboardFormActions(
       >
         <span style={{ color: colorBackgroundHomeHeader }}>
           <FormattedMessage
-            defaultMessage="Create dashboard"
+            defaultMessage="Create"
             description="create dashboard form confirm button"
           />
         </span>

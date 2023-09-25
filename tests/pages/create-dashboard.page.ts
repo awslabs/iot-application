@@ -20,9 +20,9 @@ export class CreateDashboardPage {
   constructor(page: Page) {
     this.page = page;
     this.heading = page.getByRole('heading', { name: 'Create dashboard' });
-    this.nameField = page.getByRole('textbox', { name: 'Dashboard name' });
+    this.nameField = page.getByRole('textbox', { name: 'Name' });
     this.descriptionField = page.getByRole('textbox', {
-      name: 'Dashboard description',
+      name: 'Description',
     });
     this.createButton = page.getByRole('button', { name: 'Create' });
     this.cancelButton = page.getByRole('button', { name: 'Cancel' });

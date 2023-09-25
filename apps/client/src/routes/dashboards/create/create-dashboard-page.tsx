@@ -28,7 +28,10 @@ export function CreateDashboardPage() {
       header={
         <Box padding={{ top: 'xs' }}>
           <SpaceBetween size="m">
-            <Header variant="h1">
+            <Header
+              variant="h1"
+              description="Create a dashboard to monitor your assets and properties."
+            >
               <FormattedMessage
                 defaultMessage="Create Dashboard"
                 description="create dashboard heading"
@@ -56,19 +59,7 @@ export function CreateDashboardPage() {
           }
           errorText={getFormErrorText()}
         >
-          <Container
-            header={
-              <Header
-                variant="h1"
-                description="Create a dashboard to monitor your assets and properties."
-              >
-                <FormattedMessage
-                  defaultMessage="General details"
-                  description="Create dashboard modal header"
-                />
-              </Header>
-            }
-          >
+          <Container>
             <SpaceBetween size="l">
               <DashboardNameField control={control} />
               <DashboardDescriptionField control={control} />
