@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import {
   Box,
-  Button,
   ColumnLayout,
   ExpandableSection,
   Link,
@@ -9,8 +8,6 @@ import {
 } from '@cloudscape-design/components';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { useApplication } from '~/hooks/application/use-application';
-import { CREATE_DASHBOARD_HREF } from '~/constants';
 import { gettingStartedColumnsTypes } from './types';
 import Dashboard from '../assets/Dashboard.svg';
 import Widget from '../assets/Widget.svg';
@@ -32,7 +29,6 @@ const ValueWithLabel = ({
 
 const GettingStarted = () => {
   const intl = useIntl();
-  const { navigate } = useApplication();
 
   const gettingStartedColumnArray: gettingStartedColumnsTypes[] = [
     {
@@ -47,13 +43,6 @@ const GettingStarted = () => {
           "Data models explorer defines data elements required to align your business objectives with Amazon Fraud Detector's data models.",
         description: 'step 1 description',
       }),
-      buttonTitle: intl.formatMessage({
-        defaultMessage: 'Create dashboard',
-        description: 'Create dashboard button title',
-      }),
-      handleCallback: () => {
-        navigate(CREATE_DASHBOARD_HREF);
-      },
     },
     {
       columnTitle: intl.formatMessage({
@@ -67,13 +56,6 @@ const GettingStarted = () => {
           "Data models explorer defines data elements required to align your business objectives with Amazon Fraud Detector's data models.",
         description: 'step 2 description',
       }),
-      buttonTitle: intl.formatMessage({
-        defaultMessage: 'Explore widgets',
-        description: 'Explore widgets button title',
-      }),
-      handleCallback: () => {
-        //TODO
-      },
     },
     {
       columnTitle: intl.formatMessage({
@@ -87,19 +69,8 @@ const GettingStarted = () => {
           'Select your training data source (53 or ingested events) and begin model training with only a few clicks.',
         description: 'step 3 desc',
       }),
-      buttonTitle: intl.formatMessage({
-        defaultMessage: 'Learn about assets',
-        description: 'Learn about assets button title',
-      }),
-      handleCallback: () => {
-        //TODO
-      },
     },
   ];
-
-  const handleWhatsNew = () => {
-    //TODO
-  };
 
   return (
     <ExpandableSection
@@ -112,17 +83,12 @@ const GettingStarted = () => {
         />
       }
       headerInfo={
-        <Link variant="info">
+        <Link
+          variant="info"
+          href="https://github.com/awslabs/iot-application/blob/main/docs/user-guide.md"
+        >
           <FormattedMessage defaultMessage="Info" description="Info link" />
         </Link>
-      }
-      headerActions={
-        <Button onClick={handleWhatsNew}>
-          <FormattedMessage
-            defaultMessage="What's new"
-            description="What's new button title"
-          />
-        </Button>
       }
     >
       <ColumnLayout columns={3} variant="text-grid">
@@ -130,20 +96,12 @@ const GettingStarted = () => {
           <SpaceBetween size="l" key={`${col.columnTitle}-${idx}`}>
             <Box textAlign="center">
               <div className={col.className}>
-                <img src={col.icon} alt={col.buttonTitle} />
+                <img src={col.icon} alt={col.columnTitle} />
               </div>
             </Box>
             <ValueWithLabel label={col.columnTitle}>
               {col.columnDescription}
             </ValueWithLabel>
-            <div className="getting-started-col-btn">
-              <Button
-                data-testid={`getting-started-${col.buttonTitle}`}
-                onClick={col.handleCallback}
-              >
-                {col.buttonTitle}
-              </Button>
-            </div>
           </SpaceBetween>
         ))}
       </ColumnLayout>

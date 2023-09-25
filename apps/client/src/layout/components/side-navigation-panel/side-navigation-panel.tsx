@@ -35,14 +35,6 @@ export const SideNavigationPanel = () => {
       }),
       href: '#/templating',
     },
-    {
-      type: 'link',
-      text: intl.formatMessage({
-        defaultMessage: "What's new",
-        description: "What's new link",
-      }),
-      href: '#/whatsnew',
-    },
     { type: 'divider' },
     {
       type: 'link',
