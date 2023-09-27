@@ -96,33 +96,8 @@ describe('<DashboardsIndexPage />', () => {
       render(<GettingStarted />);
 
       const gettingStartedText = screen.getByText('Getting started');
-      const whatsNewBtn = screen.getByRole('button', {
-        name: "What's new",
-      });
-      const createDashboardBtn = screen.getByTestId(
-        'getting-started-Create dashboard',
-      );
-      const exploreWidgetsBtn = screen.getByRole('button', {
-        name: 'Explore widgets',
-      });
-      const learnAboutAssets = screen.getByRole('button', {
-        name: 'Learn about assets',
-      });
 
       expect(gettingStartedText).toBeInTheDocument();
-      expect(whatsNewBtn).toBeInTheDocument();
-      expect(createDashboardBtn).toBeInTheDocument();
-      expect(exploreWidgetsBtn).toBeInTheDocument();
-      expect(learnAboutAssets).toBeInTheDocument();
-    });
-
-    it('clicking on Create dashboard should redirect to create dashboard route', async () => {
-      const user = userEvent.setup();
-      render(<GettingStarted />);
-
-      await user.click(screen.getByTestId('getting-started-Create dashboard'));
-
-      expect(navigateMock).toHaveBeenCalledWith(CREATE_DASHBOARD_HREF);
     });
   });
 

@@ -108,7 +108,7 @@ export function DashboardsIndexPage() {
     mode: 'onChange',
   });
 
-  const handleViewDashboard = (selected?: DashboardSummary | undefined) => {
+  const handleViewDashboard = (selected?: DashboardSummary) => {
     if (selected?.id) {
       navigate(`/dashboards/${selected.id}`);
     }
@@ -127,17 +127,7 @@ export function DashboardsIndexPage() {
       header={
         <Box padding={{ top: 'xs' }}>
           <SpaceBetween size="m">
-            <Header
-              variant="h1"
-              info={
-                <Link>
-                  <FormattedMessage
-                    defaultMessage="Info"
-                    description="info link"
-                  />
-                </Link>
-              }
-            >
+            <Header variant="h1">
               <FormattedMessage
                 defaultMessage="Centurion Home"
                 description="centurion home heading"
@@ -225,7 +215,7 @@ export function DashboardsIndexPage() {
                   >
                     <span style={{ color: colorBackgroundHomeHeader }}>
                       <FormattedMessage
-                        defaultMessage="Create dashboard"
+                        defaultMessage="Create"
                         description="dashboards table header create button"
                       />
                     </span>
@@ -444,6 +434,22 @@ export function DashboardsIndexPage() {
           }
           columnDefinitions={[
             {
+              id: 'id',
+              header: intl.formatMessage({
+                defaultMessage: 'ID',
+                description: 'dashboards table ID column header',
+              }),
+              cell: (dashboard) => (
+                <Link
+                  href={`/dashboards/${dashboard.id}`}
+                  onFollow={handleOnFollow}
+                >
+                  {dashboard.id}
+                </Link>
+              ),
+              sortingField: 'id',
+            },
+            {
               id: 'name',
               header: intl.formatMessage({
                 defaultMessage: 'Name',
@@ -520,22 +526,6 @@ export function DashboardsIndexPage() {
                   );
                 },
               },
-            },
-            {
-              id: 'id',
-              header: intl.formatMessage({
-                defaultMessage: 'ID',
-                description: 'dashboards table ID column header',
-              }),
-              cell: (dashboard) => (
-                <Link
-                  href={`/dashboards/${dashboard.id}`}
-                  onFollow={handleOnFollow}
-                >
-                  {dashboard.id}
-                </Link>
-              ),
-              sortingField: 'id',
             },
             {
               id: 'description',

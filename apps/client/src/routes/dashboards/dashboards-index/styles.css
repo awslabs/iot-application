@@ -1,11 +1,11 @@
 @import '../../../styles/variables.css';
 
 .btn-custom-primary {
- background: var(--colors-background-button) !important;
- border-color: var(--colors-background-button) !important;
+  background: var(--colors-background-button) !important;
+  border-color: var(--colors-background-button) !important;
 }
 
 .btn-custom-primary:hover {
- background: var(--colors-button-hover) !important;
- border-color: var(--colors-button-hover) !important;
+  background: var(--colors-button-hover) !important;
+  border-color: var(--colors-button-hover) !important;
 }

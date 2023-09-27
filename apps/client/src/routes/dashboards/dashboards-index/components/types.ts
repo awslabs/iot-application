@@ -3,6 +3,4 @@ export interface gettingStartedColumnsTypes {
   icon: string;
   className: string;
   columnDescription: string;
-  buttonTitle: string;
-  handleCallback: () => void;
 }
