@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.3.0",
-    "@aws-sdk/client-iot-events": "^3.414.0",
+    "@aws-sdk/client-iot-events": "^3.421.0",
     "@aws-sdk/client-iotsitewise": "^3.414.0",
     "@aws-sdk/credential-providers": "^3.414.0",
     "@cloudscape-design/collection-hooks": "^1.0.23",
