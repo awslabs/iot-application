@@ -50,15 +50,12 @@ Amplify.configure({
     userPoolWebClientId,
     oauth: {
       domain: domainName,
-      scope: [
-        'email',
-        'aws.cognito.signin.user.admin'
-      ],
+      scope: ['email', 'aws.cognito.signin.user.admin'],
       redirectSignIn: '', // config in cognito
       redirectSignOut: '', // config in cognito
       clientId: userPoolWebClientId,
-      responseType: 'token'
-    }
+      responseType: 'token',
+    },
   },
 });
 
