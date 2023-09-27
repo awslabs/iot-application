@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import AppLayout from '@cloudscape-design/components/app-layout';
@@ -8,7 +7,6 @@ import { DASHBOARDS_HREF } from '~/constants';
 import { Breadcrumbs } from './components/breadcrumbs';
 import { Notifications } from './components/notifications';
 import { TopNavigation } from './components/top-navigation';
-import { SideNavigationPanel } from './components/side-navigation-panel';
 import { Footer } from './components/footer';
 
 import { useFormat } from './hooks/use-format';
@@ -23,8 +21,6 @@ export function Layout(props: React.PropsWithChildren) {
 
   const isDashboard = pathname === DASHBOARDS_HREF;
 
-  const [isSideNavCollapsed, setIsSideNavCollapsed] = useState(false);
-
   return (
     <>
       <TopNavigation />
@@ -32,11 +28,10 @@ export function Layout(props: React.PropsWithChildren) {
         breadcrumbs={!isDashboard ? <Breadcrumbs /> : null}
         headerSelector="#h"
         footerSelector="#app-footer"
-        navigationOpen={isSideNavCollapsed}
-        onNavigationChange={() => {
-          setIsSideNavCollapsed(!isSideNavCollapsed);
-        }}
-        navigation={<SideNavigationPanel />}
+        // hide side navigation panel entirely
+        navigationHide
+        // hide help panel entirely
+        toolsHide
         content={props.children}
         contentType={format}
         disableContentPaddings={fullWidth}
