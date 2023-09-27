@@ -12,7 +12,7 @@ export class IotApplicationStack extends Stack {
       userPool: { userPoolId },
       userPoolClient: { userPoolClientId },
       identityPool: { ref: identityPoolId },
-      domain: { domainName }
+      domain: { domainName },
     } = new AuthStack(this, 'Auth', props);
 
     const {
