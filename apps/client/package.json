@@ -29,7 +29,7 @@
     "@tanstack/react-query": "^4.35.3",
     "aws-amplify": "^5.3.11",
     "cytoscape": "^3.26.0",
-    "jotai": "^2.4.2",
+    "jotai": "^2.4.3",
     "nanoid": "3.1.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
