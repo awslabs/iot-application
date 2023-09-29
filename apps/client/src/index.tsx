@@ -40,7 +40,7 @@ Amplify.configure({
     userPoolId,
     userPoolWebClientId,
     oauth: {
-      domain: domainName,
+      domain: `${domainName}.auth.${region}.amazoncognito.com`,
       scope: ['email', 'aws.cognito.signin.user.admin'],
       redirectSignIn: '', // config in cognito
       redirectSignOut: '', // config in cognito
