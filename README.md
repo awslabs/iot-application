@@ -132,6 +132,10 @@ Log in using IAM Identity Center. This url is different from the original cognit
 
 User management is handled from the IAM Identity Center console.
 
+#### Sign out
+1. Click the `sign-out` button in the application, you will be redirected to the IAM Identity Center applications page. 
+1. Click the signout button in the top right navigation of this page to complete signing out of the application.
+
 ## Environments
 
 ### Service Dependencies
