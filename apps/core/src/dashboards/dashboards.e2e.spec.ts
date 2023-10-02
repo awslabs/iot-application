@@ -455,6 +455,7 @@ describe('DashboardsModule', () => {
     );
 
     test.each([
+      DashboardWidgetType.LineScatterChart,
       DashboardWidgetType.LineChart,
       DashboardWidgetType.ScatterChart,
       DashboardWidgetType.BarChart,
@@ -1092,6 +1093,7 @@ describe('DashboardsModule', () => {
     );
 
     test.each([
+      DashboardWidgetType.LineScatterChart,
       DashboardWidgetType.LineChart,
       DashboardWidgetType.ScatterChart,
       DashboardWidgetType.BarChart,

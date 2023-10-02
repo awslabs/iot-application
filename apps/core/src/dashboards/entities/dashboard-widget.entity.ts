@@ -4,6 +4,7 @@ import { IsEnum, IsInt, IsNumber, IsObject, IsString } from 'class-validator';
  * List of available widget types.
  */
 export enum DashboardWidgetType {
+  LineScatterChart = 'line-scatter-chart',
   LineChart = 'line-chart',
   ScatterChart = 'scatter-chart',
   BarChart = 'bar-chart',
