@@ -102,6 +102,7 @@ Configure an IAM Identity Center application to be used for authentication. Visi
 1. Note down the URL of the `IAM Identity Center SAML metadatafile` as `metadata-url`
 1. Click next and assign any SSO users you want to be able to access this application
 1. Add environment information at bottom of page. Here you will need some of the values noted earlier.
+   * Application start URL = `https://<domain-prefix>.auth.<region>.amazoncognito.com/login?response_type=token&client_id=<client-id>&redirect_uri=<signin-url>`
    * ACS URL = `https://<domain-prefix>.auth.<region>.amazoncognito.com/saml2/idpresponse`
    * Application SAML audience = `urn:amazon:cognito:sp:<userpool-id>`
 1. Save changes
@@ -115,6 +116,7 @@ Configure your cognito identity pool for identity center integration.
 1. Configure user pool to use IAM Identity Center
    * Go to the cognito console and find the userpool that was just created
    * Go to sign-in experience &rarr; federated sign-in &rarr; add an identity provider
+   * Check `Add sign-out flow` which is required for sign-out to work
    * Under metadata document, enter hte metadata URL you noted earlier
    * Configure the SAML attriute mapping
       * Choose email, and for `User pool attribute`, type `Email`
