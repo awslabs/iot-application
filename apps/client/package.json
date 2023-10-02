@@ -42,7 +42,7 @@
     "web-vitals": "^3.5.0"
   },
   "devDependencies": {
-    "@aws-sdk/client-sts": "^3.398.0",
+    "@aws-sdk/client-sts": "^3.423.0",
     "@formatjs/cli": "^6.2.0",
     "@formatjs/ts-transformer": "^3.13.3",
     "@hookform/devtools": "^4.3.1",
