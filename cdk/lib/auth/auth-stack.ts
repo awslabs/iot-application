@@ -71,6 +71,7 @@ export class AuthStack extends Stack {
     authenticatedRole.addToPolicy(
       new PolicyStatement({
         actions: [
+	        'iottwinmaker:ExecuteQuery',
           'iotsitewise:DescribeAsset',
           'iotsitewise:ListAssets',
           'iotsitewise:ListAssociatedAssets',
@@ -84,6 +85,7 @@ export class AuthStack extends Stack {
           'iotsitewise:ListAssetRelationships',
           'iotsitewise:DescribeAssetModel',
           'iotsitewise:ListAssetModels',
+	        'iotsitewise:ListTimeSeries',
           'iotevents:DescribeAlarmModel',
           'iotevents:ListTagsForResource',
         ],
