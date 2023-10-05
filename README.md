@@ -20,13 +20,13 @@ Start using IoT Application today to quickly create, manage, and view your IoT d
 1. Install [Volta](https://docs.volta.sh/guide/getting-started).
 1. Install [Node.js@18 with Volta](https://docs.volta.sh/guide/#features).
 1. Install [Yarn with Volta](https://docs.volta.sh/guide/#features).
-1. Install global dependencies:
-   ```sh
-   yarn add global nest turbo typescript
-   ```
 
 ## Getting Started with local development
 
+1. Install nest a global dependency for using the Nest CLI:
+   ```sh
+   yarn add global nest
+   ```
 1. Install application dependencies:
    ```sh
    yarn install
