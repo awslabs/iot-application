@@ -5,6 +5,8 @@ run-name: Unit Test action initiated by ${{ github.actor }}
 on:
   push:
     branches: main
+  pull_request:
+    branches: main
 
 jobs:
   test:
