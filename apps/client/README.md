@@ -1,5 +1,7 @@
 # Client
 
+
+
 # Guidelines
 
 Please follow Cloudscape best practices https://cloudscape.design/
