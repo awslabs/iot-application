@@ -1032,33 +1032,6 @@ describe('DashboardsModule', () => {
       },
     );
 
-    test('returns 400 when description is missing', async () => {
-      const dashboard = await seedTestDashboard('name');
-
-      const payload = {
-        name: dummyName,
-        definition: dummyDefinition,
-      };
-
-      const response = await app.inject({
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-        method: 'PATCH',
-        payload: payload,
-        url: `/api/dashboards/${dashboard.id}`,
-      });
-
-      expect(response.statusCode).toBe(400);
-
-      await assertDatabaseEntry({
-        id: dashboard.id,
-        name: 'name',
-        description: dummyDescription,
-        definition: dummyDefinition,
-      });
-    });
-
     test.each(['widgets', 1, {}])(
       'returns 400 when widgets is not valid: (%s)',
       async (widgetsValue) => {

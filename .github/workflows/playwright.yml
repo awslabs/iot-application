@@ -9,7 +9,7 @@ on:
     branches: main
 
 jobs:
-  test:
+  playwright:
     timeout-minutes: 15
     runs-on: ubuntu-latest
 
