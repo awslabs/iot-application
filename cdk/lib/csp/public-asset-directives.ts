@@ -5,6 +5,8 @@ import {
   getEventsDataPlaneEndpoint,
   getSiteWiseControlPlaneEndpoint,
   getSiteWiseDataPlaneEndpoint,
+  getTwinMakerControlPlaneEndpoint,
+  getTwinMakerDataPlaneEndpoint,
 } from '../endpoints/aws-endpoints';
 
 export function getServicesEndpoints(region: string): string[] {
@@ -15,6 +17,8 @@ export function getServicesEndpoints(region: string): string[] {
     getEventsDataPlaneEndpoint(region),
     getSiteWiseControlPlaneEndpoint(region),
     getSiteWiseDataPlaneEndpoint(region),
+    getTwinMakerControlPlaneEndpoint(region),
+    getTwinMakerDataPlaneEndpoint(region),
   ];
 }
 
