@@ -27,3 +27,13 @@ export function getSiteWiseControlPlaneEndpoint(region: string): string {
 export function getSiteWiseDataPlaneEndpoint(region: string): string {
   return `https://data.iotsitewise.${region}.amazonaws.com`;
 }
+
+// Endpoint from: https://docs.aws.amazon.com/general/latest/gr/iot-twinmaker.html
+export function getTwinMakerControlPlaneEndpoint(region: string): string {
+  return `api.iottwinmaker.${region}.amazonaws.com`;
+}
+
+// Endpoint from: https://docs.aws.amazon.com/general/latest/gr/iot-twinmaker.html
+export function getTwinMakerDataPlaneEndpoint(region: string): string {
+  return `data.iottwinmaker.${region}.amazonaws.com`;
+}
