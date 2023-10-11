@@ -1,4 +1,4 @@
-import { Get, Controller, Render, Inject } from '@nestjs/common';
+import { Get, Controller, Render, Inject, Header } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { Public } from '../auth/public.decorator';
 import { authConfig } from '../config/auth.config';
@@ -14,6 +14,7 @@ export class MvcController {
 
   @Public()
   @Get(CLIENT_ROUTES)
+  @Header('Cache-Control', 'no-store') // Cache-Control: no-store
   @Render('index.html')
   root() {
     const {

@@ -40,6 +40,17 @@ export const bootstrapSecurity = async (app: NestFastifyApplication) => {
         upgradeInsecureRequests,
       },
     },
+    // X-Content-Type-Options: nosniff
+    noSniff: true,
+    // X-Frame-Options: DENY
+    xFrameOptions: {
+      action: 'deny',
+    },
+    // strict-transport-security: max-age=47304000; includeSubDomains
+    strictTransportSecurity: {
+      maxAge: 47304000,
+      includeSubDomains: true,
+    },
   });
   await app.register(fastifyCookie);
   await app.register(fastifyCsrf);
