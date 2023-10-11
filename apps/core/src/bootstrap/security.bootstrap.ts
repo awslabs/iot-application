@@ -31,7 +31,7 @@ export const bootstrapSecurity = async (app: NestFastifyApplication) => {
   await app.register(helmet, {
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ['none'],
+        defaultSrc: [`'none'`],
         connectSrc: [`'self'`, ...serviceEndpoints],
         fontSrc: [`'self'`, 'data:'],
         imgSrc: [`'self'`, 'data:'],
@@ -39,6 +39,17 @@ export const bootstrapSecurity = async (app: NestFastifyApplication) => {
         styleSrc: [`'self'`, `'unsafe-inline'`],
         upgradeInsecureRequests,
       },
+    },
+    // X-Content-Type-Options: nosniff
+    noSniff: true,
+    // X-Frame-Options: DENY
+    xFrameOptions: {
+      action: 'deny',
+    },
+    // strict-transport-security: max-age=47304000; includeSubDomains
+    strictTransportSecurity: {
+      maxAge: 47304000,
+      includeSubDomains: true,
     },
   });
   await app.register(fastifyCookie);
