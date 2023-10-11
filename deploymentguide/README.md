@@ -9,6 +9,10 @@ This will deploy the application to your AWS account using CDK.
 1. Complete the general [prerequisites](https://github.com/awslabs/iot-application/blob/main/README.md#prerequisites)
 1. [Configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) AWS CLI credentials for making AWS service calls to setup the application
 1. Install docker: https://docs.docker.com/get-docker/. Docker must be running when you run the deployment commands.
+1. Install application dependencies:
+   ```sh
+   yarn install
+   ```
 1. For the initial deployment, bootstrap cdk in your account:
    ```sh
    yarn workspace cdk cdk bootstrap
@@ -42,6 +46,8 @@ During an update, cdk will look at your local cdk code (which `git pull` ensured
    * This typically happens when there is an issue with docker not running or having issues. Try restarting docker to fix this issue.
 1. `User pool already has a domain configured`
    * This can happen if the domain name created by cdk is updated. AWS Cognito does not allow updates to the domain name. To fix this error, hardcode the existing domain name [here](https://github.com/awslabs/iot-application/blob/main/cdk/lib/auth/auth-stack.ts#L38).
+1. `FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory`
+   * This can happen if there is a circular dependency. This can be caused by the `yarn.lock` file, which keeps track of dependency versions, having an issue. Try deleting `yarn.lock` and running `yarn install` again to re-install the dependencies and fix the issue.
 
 ##### Updating a specific stack
 Most of the time you can use `yarn workspace cdk cdk deploy --all`, but if you wish to specify a stack name, use the --context (-c) option, as shown in the following example.

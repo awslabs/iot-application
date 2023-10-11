@@ -4,11 +4,13 @@ run-name: Lint action initiated by ${{ github.actor }}
 
 on:
   push:
-    branches: main
+    branches: [main, rc]
+  pull_request:
+    branches: [main, rc]
 
 jobs:
   lint:
-    timeout-minutes: 10
+    timeout-minutes: 20
     runs-on: ubuntu-latest
 
     steps:

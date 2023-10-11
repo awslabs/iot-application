@@ -4,12 +4,12 @@ run-name: Playwright Test action initiated by ${{ github.actor }}
 
 on:
   push:
-    branches: main
+    branches: [main, rc]
   pull_request:
-    branches: main
+    branches: [main, rc]
 
 jobs:
-  test:
+  playwright:
     timeout-minutes: 15
     runs-on: ubuntu-latest
 

@@ -4,8 +4,7 @@ run-name: Deployment action initiated by ${{ github.actor }}
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main, rc]
 
 # Ensures that only one deployment is in progress
 concurrency: ${{ github.workflow }}

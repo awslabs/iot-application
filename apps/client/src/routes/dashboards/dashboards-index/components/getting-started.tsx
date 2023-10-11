@@ -40,7 +40,7 @@ const GettingStarted = () => {
       className: 'getting-started-step1-icon',
       columnDescription: intl.formatMessage({
         defaultMessage:
-          "Data models explorer defines data elements required to align your business objectives with Amazon Fraud Detector's data models.",
+          'Create a dashboard in AWS IoT SiteWise Monitor. The dashboard provides a shared view of asset properties.',
         description: 'step 1 description',
       }),
     },
@@ -52,8 +52,7 @@ const GettingStarted = () => {
       icon: Widget,
       className: 'getting-started-step2-icon',
       columnDescription: intl.formatMessage({
-        defaultMessage:
-          "Data models explorer defines data elements required to align your business objectives with Amazon Fraud Detector's data models.",
+        defaultMessage: 'Drag the desired widgets to the dashboard.',
         description: 'step 2 description',
       }),
     },
@@ -65,8 +64,7 @@ const GettingStarted = () => {
       icon: AssetsSearch,
       className: 'getting-started-step3-icon',
       columnDescription: intl.formatMessage({
-        defaultMessage:
-          'Select your training data source (53 or ingested events) and begin model training with only a few clicks.',
+        defaultMessage: 'Add asset properties to your dashboard.',
         description: 'step 3 desc',
       }),
     },

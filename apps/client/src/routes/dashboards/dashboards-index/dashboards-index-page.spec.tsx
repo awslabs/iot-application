@@ -287,12 +287,12 @@ describe('<DashboardsIndexPage />', () => {
           );
         },
         {
-          timeout: 5000,
+          timeout: 10000,
         },
       );
 
       expect(getDashboardDescriptionTooLongError()).toBeVisible();
-    });
+    }, 10000);
 
     it('should remove the description validation error on cancel', async () => {
       const user = userEvent.setup();

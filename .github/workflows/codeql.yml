@@ -4,9 +4,9 @@ run-name: CodeQL action initiated by ${{ github.actor }}
 
 on:
   push:
-    branches: main
+    branches: [main, rc]
   pull_request:
-    branches: main
+    branches: [main, rc]
   schedule:
     - cron: '26 3 * * 0'
 

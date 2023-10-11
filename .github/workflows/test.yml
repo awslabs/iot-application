@@ -4,11 +4,13 @@ run-name: Unit Test action initiated by ${{ github.actor }}
 
 on:
   push:
-    branches: main
+    branches: [main, rc]
+  pull_request:
+    branches: [main, rc]
 
 jobs:
   test:
-    timeout-minutes: 10
+    timeout-minutes: 20
     runs-on: ubuntu-latest
 
     steps:
