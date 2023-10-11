@@ -4,9 +4,9 @@ run-name: Build action initiated by ${{ github.actor }}
 
 on:
   push:
-    branches: main
+    branches: [main, rc]
   pull_request:
-    branches: main
+    branches: [main, rc]
 
 jobs:
   build:
