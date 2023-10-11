@@ -31,7 +31,7 @@ export const bootstrapSecurity = async (app: NestFastifyApplication) => {
   await app.register(helmet, {
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ['none'],
+        defaultSrc: [`'none'`],
         connectSrc: [`'self'`, ...serviceEndpoints],
         fontSrc: [`'self'`, 'data:'],
         imgSrc: [`'self'`, 'data:'],
