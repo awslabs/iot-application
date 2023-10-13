@@ -4,6 +4,8 @@
 
 export type DashboardWidget = {
   type:
+    | 'xy-plot'
+    | 'line-scatter-chart'
     | 'line-chart'
     | 'scatter-chart'
     | 'bar-chart'

@@ -24,6 +24,22 @@ export function DashboardPage() {
   );
 
   const dashboardQuery = useDashboardQuery(params.dashboardId);
+
+  const dashboardDefinition = {
+    ...dashboardQuery.data?.definition,
+    widgets: dashboardQuery.data?.definition.widgets.map((widget) => {
+      // legacy naming support of line-scatter-chart
+      if (widget.type === 'line-scatter-chart') {
+        return {
+          ...widget,
+          type: 'xy-plot',
+        };
+      }
+
+      return widget;
+    }),
+  };
+
   const updateDashboardMutation = useUpdateDashboardMutation();
   const [viewport, saveViewport] = useViewport(params.dashboardId);
   if (dashboardQuery.isInitialLoading) {
@@ -39,7 +55,7 @@ export function DashboardPage() {
         awsRegion,
       }}
       dashboardConfiguration={{
-        ...dashboardQuery.data?.definition,
+        ...dashboardDefinition,
         // TODO: remove display settings once dynanic sizing is released
         displaySettings: {
           numRows: 600,
