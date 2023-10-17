@@ -230,65 +230,68 @@ export function DashboardsIndexPage() {
             </Header>
           }
           filter={
-            <PropertyFilter
-              {...propertyFilterProps}
-              countText={intl.formatMessage(
-                {
-                  defaultMessage: `
+            // no props available for this in cloudscape to show full width
+            <div className="dashboard-table-filter">
+              <PropertyFilter
+                {...propertyFilterProps}
+                countText={intl.formatMessage(
+                  {
+                    defaultMessage: `
                 {dashboardCount, plural,
                   zero {# matches}
                   one {# match}
                   other {# matches}}
                 `,
-                  description: 'dashboards table filter count text',
-                },
-                { dashboardCount: filteredItemsCount },
-              )}
-              filteringPlaceholder={intl.formatMessage({
-                defaultMessage: 'Find dashboards',
-                description: 'dashboards table filter placeholder',
-              })}
-              // TODO: internationalize fields
-              filteringLoadingText="Loading suggestions"
-              filteringErrorText="Error fetching suggestions."
-              filteringRecoveryText="Retry"
-              filteringFinishedText="End of results"
-              filteringEmpty="No suggestions found"
-              i18nStrings={{
-                filteringAriaLabel: 'your choice',
-                dismissAriaLabel: 'Dismiss',
-                filteringPlaceholder:
-                  'Filter assets by text, property or value',
-                groupValuesText: 'Values',
-                groupPropertiesText: 'Properties',
-                operatorsText: 'Operators',
-                operationAndText: 'and',
-                operationOrText: 'or',
-                operatorLessText: 'Less than',
-                operatorLessOrEqualText: 'Less than or equal',
-                operatorGreaterText: 'Greater than',
-                operatorGreaterOrEqualText: 'Greater than or equal',
-                operatorContainsText: 'Contains',
-                operatorDoesNotContainText: 'Does not contain',
-                operatorEqualsText: 'Equals',
-                operatorDoesNotEqualText: 'Does not equal',
-                editTokenHeader: 'Edit filter',
-                propertyText: 'Property',
-                operatorText: 'Operator',
-                valueText: 'Value',
-                cancelActionText: 'Cancel',
-                applyActionText: 'Apply',
-                allPropertiesLabel: 'All properties',
-                tokenLimitShowMore: 'Show more',
-                tokenLimitShowFewer: 'Show fewer',
-                clearFiltersText: 'Clear filters',
-                removeTokenButtonAriaLabel: (token) =>
-                  `Remove token ${token.propertyKey ?? '{token}'} ${
-                    token.operator
-                  } ${token.value as string}`,
-                enteredTextLabel: (text) => `Use: "${text}"`,
-              }}
-            />
+                    description: 'dashboards table filter count text',
+                  },
+                  { dashboardCount: filteredItemsCount },
+                )}
+                filteringPlaceholder={intl.formatMessage({
+                  defaultMessage: 'Find dashboards',
+                  description: 'dashboards table filter placeholder',
+                })}
+                // TODO: internationalize fields
+                filteringLoadingText="Loading suggestions"
+                filteringErrorText="Error fetching suggestions."
+                filteringRecoveryText="Retry"
+                filteringFinishedText="End of results"
+                filteringEmpty="No suggestions found"
+                i18nStrings={{
+                  filteringAriaLabel: 'your choice',
+                  dismissAriaLabel: 'Dismiss',
+                  filteringPlaceholder:
+                    'Filter assets by text, property or value',
+                  groupValuesText: 'Values',
+                  groupPropertiesText: 'Properties',
+                  operatorsText: 'Operators',
+                  operationAndText: 'and',
+                  operationOrText: 'or',
+                  operatorLessText: 'Less than',
+                  operatorLessOrEqualText: 'Less than or equal',
+                  operatorGreaterText: 'Greater than',
+                  operatorGreaterOrEqualText: 'Greater than or equal',
+                  operatorContainsText: 'Contains',
+                  operatorDoesNotContainText: 'Does not contain',
+                  operatorEqualsText: 'Equals',
+                  operatorDoesNotEqualText: 'Does not equal',
+                  editTokenHeader: 'Edit filter',
+                  propertyText: 'Property',
+                  operatorText: 'Operator',
+                  valueText: 'Value',
+                  cancelActionText: 'Cancel',
+                  applyActionText: 'Apply',
+                  allPropertiesLabel: 'All properties',
+                  tokenLimitShowMore: 'Show more',
+                  tokenLimitShowFewer: 'Show fewer',
+                  clearFiltersText: 'Clear filters',
+                  removeTokenButtonAriaLabel: (token) =>
+                    `Remove token ${token.propertyKey ?? '{token}'} ${
+                      token.operator
+                    } ${token.value as string}`,
+                  enteredTextLabel: (text) => `Use: "${text}"`,
+                }}
+              />
+            </div>
           }
           preferences={
             <CollectionPreferences

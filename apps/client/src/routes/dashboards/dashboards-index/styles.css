@@ -9,3 +9,7 @@
   background: var(--colors-button-hover) !important;
   border-color: var(--colors-button-hover) !important;
 }
+
+.dashboard-table-filter div div {
+  max-width: 100% !important;
+}
