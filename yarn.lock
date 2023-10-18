@@ -9841,10 +9841,12 @@
     uuid "^3.3.2"
     validator "^13.6.0"
 
-"@tanstack/eslint-plugin-query@^4.34.1":
-  version "4.34.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/eslint-plugin-query/-/eslint-plugin-query-4.34.1.tgz#e3d8452461d8d796afd2e47a6aec11fd606b2a53"
-  integrity sha512-RflOwyXamuHhuMX5RL6wtKiVw9Hi5Hhiv9gW2/ICVc4omflB+GflrxwvQ+EWRKrSRv3C0YcR0UzRxuiZ4mLq7Q==
+"@tanstack/eslint-plugin-query@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/eslint-plugin-query/-/eslint-plugin-query-5.0.0.tgz#45afa6bc2944d24736626f2ee6405334367ff0ea"
+  integrity sha512-jHGeUY9cdM1pp/C4y24vynaFjWZDBhx9xPap5v4ysXiQRZAe2W8bdMq6PcnnKJJG8XsGLrvgK6G+hkcGO3yHqw==
+  dependencies:
+    "@typescript-eslint/utils" "^5.54.0"
 
 "@tanstack/query-core@4.36.1", "@tanstack/query-core@^4.29.15":
   version "4.36.1"
@@ -10716,7 +10718,7 @@
     eslint-scope "^5.1.1"
     semver "^7.3.7"
 
-"@typescript-eslint/utils@5.62.0", "@typescript-eslint/utils@^5.10.0", "@typescript-eslint/utils@^5.58.0":
+"@typescript-eslint/utils@5.62.0", "@typescript-eslint/utils@^5.10.0", "@typescript-eslint/utils@^5.54.0", "@typescript-eslint/utils@^5.58.0":
   version "5.62.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/utils/-/utils-5.62.0.tgz#141e809c71636e4a75daa39faed2fb5f4b10df86"
   integrity sha512-n8oxjeb5aIbPFEtmQxQYOLI0i9n5ySBEY/ZEHHZqKQSFnxio1rv6dthascc9dLuwrL0RC5mPCxB7vnAVGAYWAQ==
