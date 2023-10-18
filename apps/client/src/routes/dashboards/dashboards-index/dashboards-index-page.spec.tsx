@@ -165,6 +165,21 @@ describe('<DashboardsIndexPage />', () => {
     });
   });
 
+  it('should navigate to edit dashboard page when the Build button is clicked', async () => {
+    const user = userEvent.setup();
+    render(<DashboardsIndexPage />);
+
+    await user.click(
+      screen.getByRole('checkbox', { name: 'Select dashboard test name' }),
+    );
+
+    await user.click(screen.getByRole('button', { name: 'Build' }));
+
+    expect(navigateMock).toHaveBeenCalledWith(
+      `/dashboards/${getDashboardStubs()[0].id}`,
+    );
+  });
+
   describe('inline editing', () => {
     it('should render a validation error when the name is empty', async () => {
       const user = userEvent.setup();
