@@ -5,6 +5,7 @@ import {
 import { Auth } from 'aws-amplify';
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
+import { useAtomValue } from 'jotai';
 
 import { DashboardLoadingState } from './components/dashboard-loading-state';
 import { isJust } from '~/helpers/predicates/is-just';
@@ -14,9 +15,12 @@ import './styles.css';
 
 import type { DashboardDefinition } from '~/services';
 import { useViewport } from '~/hooks/dashboard/use-viewport';
+import { getDashboardEditMode } from '~/store/viewMode';
 
 export function DashboardPage() {
   const params = useParams<{ dashboardId: string }>();
+
+  const editMode = useAtomValue(getDashboardEditMode);
 
   invariant(
     isJust(params.dashboardId),
@@ -63,7 +67,7 @@ export function DashboardPage() {
         },
         viewport,
       }}
-      initialViewMode="preview"
+      initialViewMode={editMode ? 'edit' : 'preview'}
       onSave={(
         config: DashboardDefinition & Omit<DashboardConfiguration, 'widgets'>,
       ) => {

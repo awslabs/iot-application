@@ -40,7 +40,7 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   );
 
   // check if viewport setting persists
-  await page.getByRole('button', { name: 'Edit' }).click();
+  await page.getByRole('button', { name: 'Preview' }).click();
   await page.getByRole('button', { name: 'Time machine' }).click();
   await page.getByRole('radio', { name: 'Last 5 minutes' }).click();
   await page.getByRole('button', { name: 'Apply' }).click();
