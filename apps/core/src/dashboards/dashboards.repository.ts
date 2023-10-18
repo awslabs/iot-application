@@ -6,8 +6,8 @@ import {
 } from '@aws-sdk/client-dynamodb';
 import {
   DynamoDBDocumentClient,
+  GetCommand,
   QueryCommand,
-  TransactGetCommand,
   TransactWriteCommand,
 } from '@aws-sdk/lib-dynamodb';
 import { Inject, Injectable, Logger } from '@nestjs/common';
@@ -58,42 +58,34 @@ export class DashboardsRepository {
     id: Dashboard['id'],
   ): Promise<Result<Error, Maybe<Dashboard>>> {
     try {
-      const transaction = await this.dbDocClient.send(
-        new TransactGetCommand({
-          TransactItems: [
-            {
-              Get: {
-                TableName: this.tableName,
-                Key: {
-                  id,
-                  resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
-                },
-              },
-            },
-            {
-              Get: {
-                TableName: this.tableName,
-                Key: { id, resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION },
-              },
-            },
-          ],
+      const dashboardDataRequest = this.dbDocClient.send(
+        new GetCommand({
+          Key: {
+            id,
+            resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
+          },
+          TableName: this.tableName,
+        }),
+      );
+      const dashboardDefinitionDataRequest = this.dbDocClient.send(
+        new GetCommand({
+          Key: {
+            id,
+            resourceType: RESOURCE_TYPES.DASHBOARD_DEFINITION,
+          },
+          TableName: this.tableName,
         }),
       );
 
-      const responses = transaction.Responses as Maybe<
-        [
-          { Item: Maybe<Dashboard> },
-          { Item: Maybe<Pick<Dashboard, 'definition'>> },
-        ]
+      const dashboardResponses = await Promise.all([
+        dashboardDataRequest,
+        dashboardDefinitionDataRequest,
+      ]);
+
+      const dashboardData = dashboardResponses[0].Item as Maybe<Dashboard>;
+      const dashboardDefinitionData = dashboardResponses[1].Item as Maybe<
+        Pick<Dashboard, 'definition'>
       >;
-
-      // no data is found
-      if (isNothing(responses)) {
-        return ok(undefined);
-      }
-
-      const dashboardData = responses[0].Item;
-      const dashboardDefinitionData = responses[1].Item;
 
       // dashboard is not found
       if (isNothing(dashboardData) && isNothing(dashboardDefinitionData)) {
