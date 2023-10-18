@@ -17,6 +17,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useIntl, FormattedMessage } from 'react-intl';
 import type { FormatDateOptions } from 'react-intl';
 import invariant from 'tiny-invariant';
+import { useSetAtom } from 'jotai';
 
 import { CREATE_DASHBOARD_HREF } from '~/constants';
 import { DeleteDashboardModal } from './components/delete-dashboard-modal';
@@ -30,6 +31,7 @@ import { useDeleteModalVisibility } from './hooks/use-delete-modal-visibility';
 import { usePartialUpdateDashboardMutation } from './hooks/use-partial-update-dashboard-mutation';
 import { useTablePreferences } from './hooks/use-table-preferences';
 import { $Dashboard, DashboardSummary } from '~/services';
+import { setDashboardEditMode } from '~/store/viewMode';
 
 import './styles.css';
 
@@ -43,6 +45,7 @@ const DateFormatOptions: FormatDateOptions = {
 };
 
 export function DashboardsIndexPage() {
+  const emitEditMode = useSetAtom(setDashboardEditMode);
   const intl = useIntl();
   const [isDeleteModalVisible, setIsDeleteModalVisible] =
     useDeleteModalVisibility();
@@ -110,6 +113,14 @@ export function DashboardsIndexPage() {
 
   const handleViewDashboard = (selected?: DashboardSummary) => {
     if (selected?.id) {
+      emitEditMode(false);
+      navigate(`/dashboards/${selected.id}`);
+    }
+  };
+
+  const handleEditDashboard = (selected?: DashboardSummary) => {
+    if (selected?.id) {
+      emitEditMode(true);
       navigate(`/dashboards/${selected.id}`);
     }
   };
@@ -119,6 +130,7 @@ export function DashboardsIndexPage() {
 
     invariant(isJust(event.detail.href), 'Expected href to be defined');
 
+    emitEditMode(false);
     navigate(event.detail.href);
   };
 
@@ -204,6 +216,16 @@ export function DashboardsIndexPage() {
                     <FormattedMessage
                       defaultMessage="View"
                       description="dashboards table header view button"
+                    />
+                  </Button>
+
+                  <Button
+                    disabled={selectedItems.length !== 1}
+                    onClick={() => handleEditDashboard(selectedItems[0])}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Build"
+                      description="dashboards table header build button"
                     />
                   </Button>
 

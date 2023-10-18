@@ -2,6 +2,7 @@ import Button from '@cloudscape-design/components/button';
 import { useMutation } from '@tanstack/react-query';
 import { useIntl, FormattedMessage } from 'react-intl';
 import invariant from 'tiny-invariant';
+import { useSetAtom } from 'jotai';
 
 import {
   cancelDashboardsQueries,
@@ -14,6 +15,7 @@ import { useEmitNotification } from '~/hooks/notifications/use-emit-notification
 import { useApplication } from '~/hooks/application/use-application';
 import { createDashboard } from '~/services';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
+import { setDashboardEditMode } from '~/store/viewMode';
 
 import type { Dashboard } from '~/services';
 
@@ -21,6 +23,7 @@ export function useCreateDashboardMutation() {
   const emit = useEmitNotification();
   const intl = useIntl();
   const { navigate } = useApplication();
+  const emitEditMode = useSetAtom(setDashboardEditMode);
 
   return useMutation({
     mutationFn: (formData: Pick<Dashboard, 'name' | 'description'>) => {
@@ -35,6 +38,7 @@ export function useCreateDashboardMutation() {
       await prefetchDashboards();
 
       navigate(`/dashboards/${newDashboard.id}`);
+      emitEditMode(true);
 
       emit({
         type: 'success',
