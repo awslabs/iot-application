@@ -4,7 +4,6 @@ import Button from '@cloudscape-design/components/button';
 import Modal from '@cloudscape-design/components/modal';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import { colorBackgroundHomeHeader } from '@cloudscape-design/design-tokens';
-import { DevTool } from '@hookform/devtools';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, useIntl } from 'react-intl';
 import invariant from 'tiny-invariant';
@@ -34,7 +33,6 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
   const intl = useIntl();
   const emit = useEmitNotification();
   const {
-    control,
     formState: { isValid },
     handleSubmit,
     reset,
@@ -186,8 +184,6 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
           </Alert>
         </SpaceBetween>
       </Modal>
-
-      <DevTool control={control} />
     </>
   );
 }
