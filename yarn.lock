@@ -11485,10 +11485,10 @@ aws-amplify@^5.3.11:
     "@aws-amplify/storage" "5.9.5"
     tslib "^2.0.0"
 
-aws-cdk-lib@2.101.1:
-  version "2.101.1"
-  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.101.1.tgz#cd096f2cf57f5ddd446d4b271cb7717b2b0d9322"
-  integrity sha512-kKrJ0CcD82IyohjB3TRy34whf22GI6Y2bIrkBmui+fCb2t13+ToJb7zKBRmL6C090OsoiU/q+H6/WIZWOoYDvQ==
+aws-cdk-lib@2.102.0:
+  version "2.102.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.102.0.tgz#a2a7a970f4be24a2a7cca75293be58b4c1e6af39"
+  integrity sha512-pYcKGlshU2j7n3f8TbJ1CCrwNnLsgGd17G7p/s9njIU8xakU4tIwuNyo4Q9HHQA7aUb3enPI/afAn1A6gp7TrA==
   dependencies:
     "@aws-cdk/asset-awscli-v1" "^2.2.200"
     "@aws-cdk/asset-kubectl-v20" "^2.1.2"
