@@ -2,7 +2,11 @@
   "name": "iot-application",
   "private": true,
   "version": "0.0.0",
-  "workspaces": ["apps/*", "cdk", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "cdk",
+    "packages/*"
+  ],
   "config": {
     "docs": "http://localhost:3000/docs-json",
     "genpath": "apps/client/src/services/generated",
@@ -33,6 +37,7 @@
     "@types/node": "20.8.5",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
+    "@axe-core/playwright": "^4.8.0",
     "eslint": "^8.51.0",
     "eslint-config-custom": "*",
     "eslint-plugin-playwright": "^0.16.0",
@@ -53,5 +58,5 @@
   "volta": {
     "node": "18.14.0",
     "yarn": "1.22.19"
-  }
+    }
 }
