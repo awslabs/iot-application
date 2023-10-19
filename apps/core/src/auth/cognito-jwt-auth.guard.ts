@@ -11,6 +11,11 @@ import { jwtConfig } from '../config/jwt.config';
 import { Reflector } from '@nestjs/core';
 import { isPublicMetadataKey } from './public.decorator';
 
+interface HttpRequest {
+  headers?: { authorization?: string };
+  url: string;
+}
+
 /**
  * Authorization guard to verify the request bearer token against the Cognito user pool client.
  * It supports exemption by adding a `@Public()` decorated at the controller class or handler,
@@ -52,8 +57,15 @@ export class CognitoJwtAuthGuard implements CanActivate {
     );
 
     try {
-      await this.config.cognitoJwtVerifier.verify(this.getBearerToken(context));
-      this.logger.log(`Request authorized to ${controllerName}.${handlerName}`);
+      const httpRequest = context.switchToHttp().getRequest<HttpRequest>();
+      const { url } = httpRequest;
+
+      const { sub } = await this.config.cognitoJwtVerifier.verify(
+        this.getBearerToken(httpRequest),
+      );
+      this.logger.log(
+        `User ID "${sub}" authorized to ${controllerName}.${handlerName} (url: "${url}")`,
+      );
 
       return true;
     } catch (e) {
@@ -66,12 +78,8 @@ export class CognitoJwtAuthGuard implements CanActivate {
     }
   }
 
-  private getBearerToken(context: ExecutionContext): string {
-    const { headers: { authorization = '' } = { authorization: '' } } = context
-      .switchToHttp()
-      .getRequest<{
-        headers: { authorization: string | undefined } | undefined;
-      }>();
+  private getBearerToken(httpRequest: HttpRequest): string {
+    const authorization = httpRequest.headers?.authorization ?? '';
 
     return authorization.replace(/^Bearer /, '');
   }
