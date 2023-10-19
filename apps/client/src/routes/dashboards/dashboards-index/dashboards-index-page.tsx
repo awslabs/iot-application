@@ -97,6 +97,16 @@ export function DashboardsIndexPage() {
     sorting: {},
   });
 
+  const paginationPropsWithAriaLabels = {
+    ...paginationProps,
+    ariaLabels: {
+      nextPageLabel: 'Next page',
+      paginationLabel: 'Dashboard Table pagination',
+      previousPageLabel: 'Previous page',
+      pageLabel: (pageNumber: number) => `Page ${pageNumber}`,
+    },
+  };
+
   const { selectedItems = [] } = collectionProps;
 
   const { navigate } = useApplication();
@@ -193,7 +203,7 @@ export function DashboardsIndexPage() {
             });
           }}
           onEditCancel={() => resetForm()}
-          pagination={<Pagination {...paginationProps} />}
+          pagination={<Pagination {...paginationPropsWithAriaLabels} />}
           header={
             <Header
               variant="h1"
