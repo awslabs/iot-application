@@ -174,6 +174,11 @@ export function DashboardsIndexPage() {
                 },
                 { name: row.name },
               ),
+            allItemsSelectionLabel: () =>
+              intl.formatMessage({
+                defaultMessage: 'Select dashboard checkbox',
+                description: 'dashboards table selection checkbox label',
+              }),
           }}
           submitEdit={async (item, column) => {
             invariant(column.id, 'Expected column to be defined');
