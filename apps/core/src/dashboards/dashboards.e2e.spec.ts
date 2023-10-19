@@ -251,6 +251,15 @@ describe('DashboardsModule', () => {
         ]),
       );
     });
+
+    test('returns 401 when request is unauthenticated', async () => {
+      const response = await app.inject({
+        method: 'GET',
+        url: '/api/dashboards',
+      });
+
+      expect(response.statusCode).toBe(401);
+    });
   });
 
   describe('POST /api/dashboards HTTP/1.1', () => {
@@ -691,6 +700,15 @@ describe('DashboardsModule', () => {
         expect(response.statusCode).toBe(400);
       },
     );
+
+    test('returns 401 when request is unauthenticated', async () => {
+      const response = await app.inject({
+        method: 'POST',
+        url: '/api/dashboards',
+      });
+
+      expect(response.statusCode).toBe(401);
+    });
   });
 
   describe('GET /api/dashboards/{dashboardId} HTTP/1.1', () => {
@@ -736,6 +754,15 @@ describe('DashboardsModule', () => {
       });
 
       expect(response.statusCode).toBe(404);
+    });
+
+    test('returns 401 when request is unauthenticated', async () => {
+      const response = await app.inject({
+        method: 'GET',
+        url: `/api/dashboards/${dummyId}`,
+      });
+
+      expect(response.statusCode).toBe(401);
     });
   });
 
@@ -1347,6 +1374,15 @@ describe('DashboardsModule', () => {
 
       expect(response.statusCode).toBe(404);
     });
+
+    test('returns 401 when request is unauthenticated', async () => {
+      const response = await app.inject({
+        method: 'PATCH',
+        url: `/api/dashboards/${dummyId}`,
+      });
+
+      expect(response.statusCode).toBe(401);
+    });
   });
 
   describe('DELETE /api/dashboards/bulk HTTP/1.1', () => {
@@ -1507,6 +1543,18 @@ describe('DashboardsModule', () => {
       expect(getResponse1.statusCode).toBe(404);
       expect(getResponse2.statusCode).toBe(404);
     });
+
+    test('returns 401 when request is unauthenticated', async () => {
+      const deleteResponse = await app.inject({
+        method: 'DELETE',
+        payload: {
+          ids: [dummyId],
+        },
+        url: `/api/dashboards/bulk`,
+      });
+
+      expect(deleteResponse.statusCode).toBe(401);
+    });
   });
 
   describe('DELETE /api/dashboards/{dashboardId} HTTP/1.1', () => {
@@ -1559,6 +1607,15 @@ describe('DashboardsModule', () => {
       });
 
       expect(response.statusCode).toBe(404);
+    });
+
+    test('returns 401 when request is unauthenticated', async () => {
+      const response = await app.inject({
+        method: 'DELETE',
+        url: `/api/dashboards/${dummyId}`,
+      });
+
+      expect(response.statusCode).toBe(401);
     });
   });
 });
