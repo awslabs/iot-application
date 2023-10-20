@@ -51,7 +51,7 @@
     "aws-sdk-client-mock": "^3.0.0",
     "cognito-local": "^3.23.2",
     "eslint-config-custom": "*",
-    "eslint-plugin-jest": "^27.4.0",
+    "eslint-plugin-jest": "^27.4.3",
     "jest-config": "*",
     "run-script-webpack-plugin": "^0.2.0",
     "source-map-support": "^0.5.20",
