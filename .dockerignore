@@ -8,7 +8,7 @@
 **/lerna-debug.log*
 
 **/node_modules
-**/build
+**/!.client/build
 **/dist
 **/dist-ssr
 **/*.local
