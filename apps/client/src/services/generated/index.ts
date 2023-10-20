@@ -23,4 +23,5 @@ export { $DashboardWidget } from './schemas/$DashboardWidget';
 export { $UpdateDashboardDto } from './schemas/$UpdateDashboardDto';
 
 export { DashboardsService } from './services/DashboardsService';
+export { MigrationService } from './services/MigrationService';
 export { DefaultService } from './services/DefaultService';
