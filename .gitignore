@@ -8,7 +8,6 @@ pnpm-debug.log*
 lerna-debug.log*
 
 cdk.out
-cfn-template-with-core-tag.json
 node_modules
 build
 dist
