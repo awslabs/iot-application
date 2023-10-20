@@ -49,4 +49,6 @@ export class Dashboard {
 
   @IsDateString()
   public readonly lastUpdateDate: string;
+
+  // TODO: Add SWM DashboardId
 }

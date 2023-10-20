@@ -1,7 +1,7 @@
 export * from './generated';
 export { intl } from './intl';
 
-import { OpenAPI, DashboardsService } from './generated';
+import { OpenAPI, DashboardsService, MigrationService } from './generated';
 import { Auth } from 'aws-amplify';
 
 async function getToken() {
@@ -15,6 +15,7 @@ export function setServiceUrl(url: string) {
   OpenAPI.BASE = url;
 }
 
+// Dashboard API
 export type ListDashboards = typeof DashboardsService.dashboardsControllerList;
 export type CreateDashboard =
   typeof DashboardsService.dashboardsControllerCreate;
@@ -38,3 +39,10 @@ export const deleteDashboard: DeleteDashboard = (id) =>
   DashboardsService.dashboardsControllerDelete(id);
 export const bulkDeleteDashboards: BulkDeleteDashboards = (ids) =>
   DashboardsService.dashboardsControllerBulkDelete(ids);
+
+// Migration API
+export type DashboardMigration =
+  typeof MigrationService.migrationControllerMigration;
+
+export const dashboardMigration: DashboardMigration = () =>
+  MigrationService.migrationControllerMigration();
