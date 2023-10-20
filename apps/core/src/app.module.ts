@@ -11,6 +11,7 @@ import { CognitoJwtAuthGuard } from './auth/cognito-jwt-auth.guard';
 import { authConfig } from './config/auth.config';
 import { MvcModule } from './mvc/mvc.module';
 import { jwtConfig } from './config/jwt.config';
+import { MigrationModule } from './migration/migration.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { jwtConfig } from './config/jwt.config';
     ConfigModule.forRoot({ load: [databaseConfig], isGlobal: true }),
     ConfigModule.forRoot({ load: [jwtConfig], isGlobal: true }),
     DashboardsModule,
+    MigrationModule,
     MvcModule,
     HealthModule,
     ThrottlerModule.forRoot({ ttl: 10, limit: 100 }),
