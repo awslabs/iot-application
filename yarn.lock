@@ -9009,10 +9009,10 @@
   dependencies:
     tslib "2.6.2"
 
-"@nestjs/throttler@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@nestjs/throttler/-/throttler-4.2.1.tgz#7a27bb3fed899396beab04648ed72b5c682fc61b"
-  integrity sha512-wVPMuIyr0KdrK1RVVQceWVNesogCm9IgYC1V5EkaTZ+usIE4qxEyzdwU5IqQLgOO/Loiq98MLwReDxazX7i9Uw==
+"@nestjs/throttler@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/throttler/-/throttler-5.0.1.tgz#54e49009f8d8d355cac7fda7e0da3178b55d8c56"
+  integrity sha512-6gHmKmus7LDgzK/wRh7W9cT3gtZw1rY4mLVymvx6pYyRA46A9fMvjmZNQKJbo02jGg2R7gNo+3pyfvNnjDqg4A==
   dependencies:
     md5 "^2.2.1"
 
