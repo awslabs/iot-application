@@ -27,10 +27,6 @@ Note: All commands should be run in the workspace root directory. We are using [
    ```sh
    yarn install
    ```
-1. Build the Client code:
-   ```sh
-   yarn workspace client build
-   ```
 1. Deploy the Core service and resource dependencies:
    ```sh
    yarn workspace cdk cdk deploy --all
