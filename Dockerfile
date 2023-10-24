@@ -14,14 +14,15 @@ RUN yarn add global nest turbo typescript
 COPY ./package.json ./package.json
 COPY ./yarn.lock ./yarn.lock
 COPY ./turbo.json ./turbo.json
+COPY ./apps/client ./apps/client/
 COPY ./apps/core ./apps/core/
 COPY ./packages/tsconfig ./packages/tsconfig/
 
 # Install all dependencies
 RUN yarn install
 
-# Build core
-RUN yarn workspace core build
+# Build both client and core
+RUN yarn build
 
 FROM --platform=linux/amd64 node:alpine as core-modules-installer
 
@@ -33,7 +34,7 @@ COPY ./package.json ./package.json
 COPY ./yarn.lock ./yarn.lock
 COPY ./apps/core/package.json ./apps/core/package.json
 
-# Install dependencies for core only
+# # Install dependencies for core only
 RUN yarn install --production
 
 FROM --platform=linux/amd64  node:alpine as packager
@@ -44,11 +45,8 @@ WORKDIR /usr/src/app
 COPY --from=core-modules-installer /usr/src/core-modules/node_modules ./node_modules/
 COPY --from=core-modules-installer /usr/src/core-modules/apps/core/node_modules ./apps/core/node_modules/
 
-# Copy the yarn.lock
-COPY --from=builder /usr/src/app-build/yarn.lock ./yarn.lock
-
 # Copy the client build
-COPY ./apps/client/build ./apps/client/build/
+COPY --from=builder /usr/src/app-build/apps/client/build ./apps/client/build/
 
 # Copy the core build
 COPY --from=builder /usr/src/app-build/apps/core/dist ./apps/core/dist/
