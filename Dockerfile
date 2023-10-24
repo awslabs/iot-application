@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM --platform=linux/amd64 node:alpine as builder
+FROM --platform=linux/amd64 node:18-alpine as builder
 
 WORKDIR /usr/src/app-build
 
@@ -24,7 +24,7 @@ RUN yarn install
 # Build both client and core
 RUN yarn build
 
-FROM --platform=linux/amd64 node:alpine as core-modules-installer
+FROM --platform=linux/amd64 node:18-alpine as core-modules-installer
 
 WORKDIR /usr/src/core-modules
 
@@ -34,16 +34,19 @@ COPY ./package.json ./package.json
 COPY ./yarn.lock ./yarn.lock
 COPY ./apps/core/package.json ./apps/core/package.json
 
-# # Install dependencies for core only
+# Install dependencies for core only
 RUN yarn install --production
 
-FROM --platform=linux/amd64  node:alpine as packager
+FROM --platform=linux/amd64  node:18-alpine as packager
 
 WORKDIR /usr/src/app
 
 # Copy the node_modules
 COPY --from=core-modules-installer /usr/src/core-modules/node_modules ./node_modules/
 COPY --from=core-modules-installer /usr/src/core-modules/apps/core/node_modules ./apps/core/node_modules/
+
+# Copy the yarn.lock
+COPY --from=builder /usr/src/app-build/yarn.lock ./yarn.lock
 
 # Copy the client build
 COPY --from=builder /usr/src/app-build/apps/client/build ./apps/client/build/
