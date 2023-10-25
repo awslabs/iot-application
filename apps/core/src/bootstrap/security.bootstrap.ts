@@ -3,7 +3,7 @@ import fastifyCsrf from '@fastify/csrf-protection';
 import helmet from '@fastify/helmet';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { envVarRequiredMsg } from '../config/environment';
-import { isDefined } from '../types/environment';
+import { isDefined, isDevEnv } from '../types/environment';
 import invariant from 'tiny-invariant';
 
 /**
@@ -16,7 +16,7 @@ import invariant from 'tiny-invariant';
  * @see {@link https://docs.nestjs.com/security/csrf | CSRF Protection}
  */
 export const bootstrapSecurity = async (app: NestFastifyApplication) => {
-  const { SERVICE_ENDPOINTS, NODE_ENV } = process.env;
+  const { SERVICE_ENDPOINTS } = process.env;
 
   // Split the space separated service endpoints
   invariant(
@@ -26,7 +26,7 @@ export const bootstrapSecurity = async (app: NestFastifyApplication) => {
   const serviceEndpoints = SERVICE_ENDPOINTS.split(' ');
 
   // Upgrade insecure requests for all non DEV environment
-  const upgradeInsecureRequests = NODE_ENV === 'development' ? null : [];
+  const upgradeInsecureRequests = isDevEnv() ? null : [];
 
   await app.register(helmet, {
     contentSecurityPolicy: {
