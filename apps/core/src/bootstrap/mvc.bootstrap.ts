@@ -6,9 +6,9 @@ const CLIENT_BUILD_FOLDER = join(process.cwd(), '..', 'client', 'build');
 
 export const bootstrapMvc = (app: NestFastifyApplication) => {
   app.useStaticAssets({
-    root: join(CLIENT_BUILD_FOLDER, 'static'),
-    prefix: '/static/',
+    root: join(CLIENT_BUILD_FOLDER),
   });
+
   app.setViewEngine({
     engine: {
       handlebars: Handlebars,
