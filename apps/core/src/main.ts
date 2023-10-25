@@ -6,6 +6,7 @@ import {
 
 import { AppModule } from './app.module';
 import { bootstrap } from './bootstrap';
+import { randomUUID } from 'crypto';
 
 /**
  * Start Core
@@ -28,7 +29,18 @@ const main = async () => {
   /** NestJS application */
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter(),
+    new FastifyAdapter({
+      // Uses the header provided request id for request id; otherwise, random generated;
+      genReqId: (request: { headers?: Record<string, unknown> }) => {
+        const requestId = request.headers?.['x-request-id'];
+        if (typeof requestId === 'string') {
+          return requestId;
+        }
+
+        return randomUUID();
+      },
+    }),
+    { bufferLogs: true },
   );
 
   await bootstrap(app);

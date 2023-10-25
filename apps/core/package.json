@@ -38,10 +38,12 @@
     "class-validator": "^0.14.0",
     "dynamodb-local": "^0.0.32",
     "handlebars": "^4.7.8",
-    "tiny-invariant": "^1.3.1",
     "nanoid": "3.1.31",
+    "nestjs-pino": "^3.5.0",
+    "pino-http": "^8.5.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "tiny-invariant": "^1.3.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.1.17",
