@@ -9,3 +9,7 @@ export function isUndefined<T>(maybe: Maybe<T>): maybe is Undefined {
 export function isDefined<T>(maybe: Maybe<T>): maybe is Defined<T> {
   return !isUndefined(maybe);
 }
+
+export function isDevEnv() {
+  return process.env.NODE_ENV === 'development';
+}
