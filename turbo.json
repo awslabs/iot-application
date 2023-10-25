@@ -2,7 +2,10 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "outputs": ["build/**", "dist/**"]
+      "outputs": [
+        "build/**",
+        "dist/**"
+      ]
     },
     "clean": {
       "cache": false
@@ -24,6 +27,7 @@
         "DATABASE_TABLE_NAME",
         "DATABASE_PORT",
         "DATABASE_LAUNCH_LOCAL",
+        "PUBLIC_URL",
         "NODE_ENV",
         "SERVICE_ENDPOINTS"
       ]
@@ -39,7 +43,9 @@
       ]
     },
     "test": {
-      "outputs": ["coverage/**"]
+      "outputs": [
+        "coverage/**"
+      ]
     },
     "test:commit": {},
     "test:watch": {

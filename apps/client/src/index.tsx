@@ -13,6 +13,7 @@ import { queryClient } from './data/query-client';
 import { setServiceUrl } from './services';
 import metricHandler from './metrics/metric-handler';
 import { extractedMetaTags } from './helpers/meta-tags';
+import { registerServiceWorker } from './register-service-worker';
 
 import '@aws-amplify/ui-react/styles.css';
 import '@cloudscape-design/global-styles/index.css';
@@ -68,5 +69,7 @@ if (rootEl != null) {
     </React.StrictMode>,
   );
 }
+
+registerServiceWorker();
 
 metricHandler.reportWebVitals();
