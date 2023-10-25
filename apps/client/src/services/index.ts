@@ -1,6 +1,7 @@
 export * from './generated';
 export { intl } from './intl';
 
+import { v4 as uuid } from 'uuid';
 import { OpenAPI, DashboardsService, MigrationService } from './generated';
 import { Auth } from 'aws-amplify';
 
@@ -10,6 +11,14 @@ async function getToken() {
 }
 
 OpenAPI.TOKEN = getToken;
+
+function getHeaders() {
+  return Promise.resolve({
+    'X-Request-ID': uuid(),
+  });
+}
+
+OpenAPI.HEADERS = getHeaders;
 
 export function setServiceUrl(url: string) {
   OpenAPI.BASE = url;
