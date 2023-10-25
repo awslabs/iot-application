@@ -12,6 +12,7 @@ import { authConfig } from './config/auth.config';
 import { MvcModule } from './mvc/mvc.module';
 import { jwtConfig } from './config/jwt.config';
 import { MigrationModule } from './migration/migration.module';
+import { LoggerModule } from './logging/logger.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { MigrationModule } from './migration/migration.module';
     MigrationModule,
     MvcModule,
     HealthModule,
+    LoggerModule.forRoot(),
     ThrottlerModule.forRoot({ ttl: 10, limit: 100 }),
   ],
   providers: [
