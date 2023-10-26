@@ -882,16 +882,16 @@
     tslib "^2.5.0"
     uuid "^8.3.2"
 
-"@aws-sdk/client-dynamodb@^3.433.0":
-  version "3.433.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.433.0.tgz#0f036f075e6ad845dc5d08a283f7b4f62963d6b9"
-  integrity sha512-2ILYyeq+11mARlVaEnC5rkT0ZbqxnX5MDB3JalvFOE+y9EWnNbIKjUzFV9OOCyBRSxzQP3TV2xOPn0nv2iZHyg==
+"@aws-sdk/client-dynamodb@^3.437.0":
+  version "3.437.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.437.0.tgz#68a2f41ccad6d7b503fd470899ad491d8c8d5f05"
+  integrity sha512-z7gnSKVhX2FxAA+jlCQHABrL6xE3jKupUrP9xXOi1Hp7GGXajh71gCAI6l2ay0YTnnu8dlIH4gd+p95g52CQTw==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.433.0"
-    "@aws-sdk/core" "3.433.0"
-    "@aws-sdk/credential-provider-node" "3.433.0"
+    "@aws-sdk/client-sts" "3.437.0"
+    "@aws-sdk/core" "3.436.0"
+    "@aws-sdk/credential-provider-node" "3.437.0"
     "@aws-sdk/middleware-endpoint-discovery" "3.433.0"
     "@aws-sdk/middleware-host-header" "3.433.0"
     "@aws-sdk/middleware-logger" "3.433.0"
@@ -902,7 +902,7 @@
     "@aws-sdk/types" "3.433.0"
     "@aws-sdk/util-endpoints" "3.433.0"
     "@aws-sdk/util-user-agent-browser" "3.433.0"
-    "@aws-sdk/util-user-agent-node" "3.433.0"
+    "@aws-sdk/util-user-agent-node" "3.437.0"
     "@smithy/config-resolver" "^2.0.16"
     "@smithy/fetch-http-handler" "^2.2.4"
     "@smithy/hash-node" "^2.0.12"
@@ -2760,10 +2760,10 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/core@3.433.0":
-  version "3.433.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/core/-/core-3.433.0.tgz#3755ac494b95da29ddbcc7eee205b6672369085d"
-  integrity sha512-wS5clEFFdNHbM6mCARUzdKDXgMGL2uWMGyEi8xvudgd/QN/ZotBUTCAe0mpKemV/UWdKKzIU1sp673i1gMjkNg==
+"@aws-sdk/core@3.436.0":
+  version "3.436.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/core/-/core-3.436.0.tgz#d85ecde9ac524a8f3cfe7e29b9e16942d7291723"
+  integrity sha512-vX5/LjXvCejC2XUY6TSg1oozjqK6BvkE75t0ys9dgqyr5PlZyZksMoeAFHUlj0sCjhT3ziWCujP1oiSpPWY9hg==
   dependencies:
     "@smithy/smithy-client" "^2.1.12"
 
