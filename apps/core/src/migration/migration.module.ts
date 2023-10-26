@@ -1,11 +1,12 @@
 import { Module, ModuleMetadata } from '@nestjs/common';
 
 import { MigrationController } from './migration.controller';
+import { DashboardsRepository } from '../dashboards/dashboards.repository';
 import { MigrationService } from './migration.service';
 
 export const migrationModuleMetadata: ModuleMetadata = {
   controllers: [MigrationController],
-  providers: [MigrationService],
+  providers: [DashboardsRepository, MigrationService],
 };
 
 /** Core Dashboards Module */

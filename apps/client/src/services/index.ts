@@ -43,10 +43,6 @@ export const bulkDeleteDashboards: BulkDeleteDashboards = (ids) =>
 // Migration API
 export type DashboardMigration =
   typeof MigrationService.migrationControllerMigration;
-export type DashboardMigrationStatus =
-  typeof MigrationService.migrationControllerGetMigrationStatus;
 
 export const dashboardMigration: DashboardMigration = () =>
   MigrationService.migrationControllerMigration();
-export const dashboardMigrationStatus: DashboardMigrationStatus = () =>
-  MigrationService.migrationControllerGetMigrationStatus();
