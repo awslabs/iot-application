@@ -196,6 +196,21 @@ export function DashboardsIndexPage() {
                 defaultMessage: 'Select dashboard checkbox',
                 description: 'dashboards table selection checkbox label',
               }),
+            cancelEditLabel: () =>
+              intl.formatMessage({
+                defaultMessage: 'Cancel table inline edit',
+                description: 'dashboards table inline cancel edit label',
+              }),
+            submitEditLabel: () =>
+              intl.formatMessage({
+                defaultMessage: 'Submit table inline edit',
+                description: 'dashboards table inline edit submit label',
+              }),
+            activateEditLabel: () =>
+              intl.formatMessage({
+                defaultMessage: 'Activate table inline edit',
+                description: 'dashboards table inline edit activate label',
+              }),
           }}
           submitEdit={async (item, column) => {
             invariant(column.id, 'Expected column to be defined');
