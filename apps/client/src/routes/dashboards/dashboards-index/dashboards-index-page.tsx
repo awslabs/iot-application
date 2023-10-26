@@ -23,6 +23,7 @@ import { CREATE_DASHBOARD_HREF } from '~/constants';
 import { DeleteDashboardModal } from './components/delete-dashboard-modal';
 import { EmptyDashboardsTable } from './components/empty-dashboards-table';
 import GettingStarted from './components/getting-started';
+import Migration from './components/migration';
 import { NoMatchDashboardsTable } from './components/no-matches-dashboards-table';
 import { isJust } from '~/helpers/predicates/is-just';
 import { useApplication } from '~/hooks/application/use-application';
@@ -34,6 +35,7 @@ import { $Dashboard, DashboardSummary } from '~/services';
 import { setDashboardEditMode } from '~/store/viewMode';
 
 import './styles.css';
+import { Features, featureEnabled } from '~/helpers/featureFlag/featureFlag';
 
 const DateFormatOptions: FormatDateOptions = {
   year: 'numeric',
@@ -162,6 +164,11 @@ export function DashboardsIndexPage() {
       <Box>
         <GettingStarted />
       </Box>
+      {featureEnabled(Features.MIGRATION) && (
+        <Box padding={{ top: 'l' }}>
+          <Migration />
+        </Box>
+      )}
       <Box padding={{ top: 'l' }}>
         <Table
           {...collectionProps}
