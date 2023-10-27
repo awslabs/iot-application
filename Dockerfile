@@ -4,6 +4,9 @@ FROM --platform=linux/amd64 node:18-alpine as builder
 
 WORKDIR /usr/src/app-build
 
+# Configure Node memory allocation
+ENV NODE_OPTIONS=--max_old_space_size=4096
+
 # Install missing dep for turbo
 RUN apk add --no-cache libc6-compat
 
