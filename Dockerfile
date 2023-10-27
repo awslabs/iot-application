@@ -22,7 +22,8 @@ COPY ./packages/tsconfig ./packages/tsconfig/
 RUN yarn install
 
 # Build both client and core
-RUN yarn build
+RUN yarn workspace client build
+RUN yarn workspace core build
 
 FROM --platform=linux/amd64 node:18-alpine as core-modules-installer
 
