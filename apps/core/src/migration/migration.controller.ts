@@ -1,6 +1,7 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, HttpCode, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MigrationService } from './migration.service';
+import { MigrationStatus } from './entities/migration-status.entity';
 
 @ApiTags('migration')
 @Controller('api/migration')
@@ -8,8 +9,13 @@ export class MigrationController {
   constructor(private readonly migrationService: MigrationService) {}
 
   @Post()
+  @HttpCode(202)
   public migration() {
-    // Purposely don't use await so this request can process after the response
-    return this.migrationService.migrate();
+    this.migrationService.migrate();
+  }
+
+  @Get()
+  public getMigrationStatus(): MigrationStatus {
+    return this.migrationService.getMigrationStatus();
   }
 }
