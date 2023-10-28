@@ -3,7 +3,9 @@ import { accessibilityTest } from './accessibility';
 import { DashboardsIndexPage } from '../pages/dashboards-index.page';
 
 test.describe('Accessibility', () => {
-  test.skip(' As a user, I can check settings in dashboard', async ({ page }) => {
+  test.skip(' As a user, I can check settings in dashboard', async ({
+    page,
+  }) => {
     const dashboardsIndexPage = new DashboardsIndexPage(page);
     // const PreferencesDialog = new PreferencesDialog(page);
 

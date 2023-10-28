@@ -6,7 +6,9 @@ import { accessibilityTest } from './accessibility';
 import { deleteDashboard } from './delete-utils';
 
 test.describe('Accessibility', () => {
-  test.skip(' As a user, I can check settings in edit page', async ({ page }) => {
+  test.skip(' As a user, I can check settings in edit page', async ({
+    page,
+  }) => {
     const createDashboardPage = new CreateDashboardPage(page);
     const application = new ApplicationFrame(page);
     // Introduce uniqueness to isolate test runs
