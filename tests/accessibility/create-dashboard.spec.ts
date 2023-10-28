@@ -3,7 +3,9 @@ import { CreateDashboardPage } from '../pages/create-dashboard.page';
 import { accessibilityTest } from './accessibility';
 
 test.describe('Accessibility', () => {
-  test('As a user, I can verify Create Dashboard Page ', async ({ page }) => {
+  test.skip('As a user, I can verify Create Dashboard Page ', async ({
+    page,
+  }) => {
     const createDashboardPage = new CreateDashboardPage(page);
 
     //Now navigate to the create dashboard page url

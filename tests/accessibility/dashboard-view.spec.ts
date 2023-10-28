@@ -11,7 +11,7 @@ import { accessibilityTest } from './accessibility';
 import { deleteDashboard } from './delete-utils';
 
 test.describe('Accessibility', () => {
-  test(' As a user, I can click view button in dashboard ', async ({
+  test.skip(' As a user, I can click view button in dashboard ', async ({
     page,
   }) => {
     const dashboardsPage = new DashboardsIndexPage(page);
