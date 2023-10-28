@@ -141,6 +141,8 @@ export class DashboardsIndexPage {
   public readonly deleteButton: Locator;
   public readonly emptyCreateButton: Locator;
   public readonly dashboardFilter: Locator;
+  public readonly viewButton: Locator;
+  public readonly buildButton: Locator;
 
   private readonly url = 'dashboards';
 
@@ -158,6 +160,8 @@ export class DashboardsIndexPage {
     this.dashboardFilter = page.getByRole('form', {
       name: 'Filter dashboards',
     });
+    this.viewButton = page.getByRole('button', { name: 'View' });
+    this.buildButton = page.getByRole('button', { name: 'Build' });
   }
 
   public async goto() {
