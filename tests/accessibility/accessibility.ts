@@ -2,11 +2,18 @@ import { expect, Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 export async function accessibilityTest(page: Page) {
-  // Run an accessibility scan on the page with tag values
   //WCAG 2.1 AA Acceesibility test
-  const acc = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
-    .analyze();
+  //Create the AxeBuilder object with specified tags
+  await page.waitForLoadState('load');
+  const axeBuilder = new AxeBuilder({ page }).withTags([
+    'wcag2a',
+    'wcag2aa',
+    'wcag21a',
+    'wcag21aa',
+  ]);
+
+  //Run the accessibility scan
+  const accessibility = await axeBuilder.analyze();
 
   //No. of violations occured length
   //Once ES lint rules are updated can use console.log
@@ -27,5 +34,5 @@ export async function accessibilityTest(page: Page) {
   }
 */
   //Verifies that there are no accessibility violations. If find issues reports them in terminal
-  expect(acc.violations).toEqual([]);
+  expect(accessibility.violations).toEqual([]);
 }

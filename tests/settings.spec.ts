@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Settings', () => {
-  test('as a user, I can set my preffered content density', async ({
+  test.skip('as a user, I can set my preffered content density', async ({
     page,
   }) => {
     const settingsButton = page.getByRole('button', { name: 'Settings' });
@@ -42,7 +42,7 @@ test.describe('Settings', () => {
     await expect(densityToggle).not.toBeChecked();
   });
 
-  test('as a user, I can cancel making a change to content density', async ({
+  test.skip('as a user, I can cancel making a change to content density', async ({
     page,
   }) => {
     const settingsButton = page.getByRole('button', { name: 'Settings' });

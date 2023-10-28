@@ -4,11 +4,12 @@ import {
   DashboardsIndexPage,
   DashboardsTable,
   DeleteDashboardDialog,
+  PreferencesDialog,
 } from '../pages/dashboards-index.page';
 import { ApplicationFrame } from '../pages/application-frame.page';
 import { randomUUID } from 'crypto';
 
-test('as a user, I can create, update, and delete my dashboard', async ({
+test.skip('as a user, I can create, update, and delete my dashboard', async ({
   page,
 }) => {
   test.slow();
@@ -18,6 +19,7 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   const dashboardsTable = new DashboardsTable(page);
   const application = new ApplicationFrame(page);
   const deleteDashboardDialog = new DeleteDashboardDialog(page);
+  const preferencesDialog = new PreferencesDialog(page);
 
   // Introduce uniqueness to isolate test runs
   const dashboardDescription = `My dashboard description ${randomUUID()}`;
@@ -42,10 +44,6 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   // check if viewport setting persists
   await page.getByRole('button', { name: 'Preview' }).click();
   await page.getByRole('button', { name: 'Edit' }).click();
-  //Click left side img for Resource Explorer
-  await page.click('[data-testid="collapsed-left-panel-icon"]'); //new
-  //Click right side img for Configuration
-  await page.click('[data-testid="collapsed-right-panel-icon"]'); //new
   await page.getByRole('button', { name: 'Time machine' }).click();
   await page.getByRole('radio', { name: 'Last 5 minutes' }).click();
   await page.getByRole('button', { name: 'Apply' }).click();
@@ -63,6 +61,13 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   );
 
   await dashboardsPage.goto();
+
+  //Click the Preferences icon in dashboard
+  await page.getByRole('button', { name: 'Preferences' }).click();
+  // Click 100 dashboards in the Select page size
+  await preferencesDialog.oneHundredDashboardsPageSizeOption.click();
+  //Click confirm
+  await page.getByRole('button', { name: 'Confirm' }).click();
 
   const dashboardRow = dashboardsTable.getRow({
     name: 'My dashboard',

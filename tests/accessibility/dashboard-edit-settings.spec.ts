@@ -1,24 +1,16 @@
-import { expect, test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { CreateDashboardPage } from '../pages/create-dashboard.page';
-import {
-  DashboardsIndexPage,
-  PreferencesDialog,
-} from '../pages/dashboards-index.page';
 import { ApplicationFrame } from '../pages/application-frame.page';
 import { randomUUID } from 'crypto';
 import { accessibilityTest } from './accessibility';
 import { deleteDashboard } from './delete-utils';
 
 test.describe('Accessibility', () => {
-  test.skip(' As a user, I can delete dashboard ', async ({ page }) => {
+  test.skip(' As a user, I can check settings in edit page', async ({ page }) => {
     const createDashboardPage = new CreateDashboardPage(page);
     const application = new ApplicationFrame(page);
-    const dashboardsPage = new DashboardsIndexPage(page);
-    const preferencesDialog = new PreferencesDialog(page);
-
     // Introduce uniqueness to isolate test runs
     const dashboardDescription = `My dashboard description ${randomUUID()}`;
-
     await createDashboardPage.goto();
     await createDashboardPage.nameField.type('My Dashboard');
     await createDashboardPage.descriptionField.type(dashboardDescription);
@@ -30,21 +22,21 @@ test.describe('Accessibility', () => {
     await expect(application.notification).toContainText(
       'Successfully created dashboard "My Dashboard".',
     );
-    await dashboardsPage.goto();
 
-    //Click the Preferences icon in dashboard
-    await page.getByRole('button', { name: 'Preferences' }).click();
-    // Click 100 dashboards in the Select page size
-    await preferencesDialog.oneHundredDashboardsPageSizeOption.click();
-    //Click confirm
-    await page.getByRole('button', { name: 'Confirm' }).click();
+    // check if viewport setting persists
+    await page.getByRole('button', { name: 'Preview' }).click();
+    await page.getByRole('button', { name: 'Edit' }).click();
+    //Click Settings icon in Edit page
+    const settingsIcon = page.locator(
+      'button[type=submit].awsui_button_vjswe_1j0eq_101.awsui_variant-icon_vjswe_1j0eq_166.awsui_button-no-text_vjswe_1j0eq_971',
+    );
+    await settingsIcon.click();
+    // Accessibility test for Settings in Edit page
+    //Once ES lint rules are updated can use console.log
+    // console.log('Acessibility issues for Settings in Edit page : ');
+    await accessibilityTest(page);
 
     //Delete the created dashboard
     await deleteDashboard(page, 'My dashboard', dashboardDescription);
-
-    //Accessibility test for Delete Dashboard with notification
-    //Once ES lint rules are updated can use console.log
-    //console.log('Accessibility Issues for Delete Dashboard with notification : ');
-    await accessibilityTest(page);
   });
 });
