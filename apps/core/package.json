@@ -21,7 +21,7 @@
     "@aws-sdk/client-dynamodb": "^3.438.0",
     "@aws-sdk/lib-dynamodb": "^3.437.0",
     "@fastify/cookie": "^9.1.0",
-    "@fastify/csrf-protection": "^6.3.0",
+    "@fastify/csrf-protection": "^6.4.0",
     "@fastify/helmet": "^11.1.1",
     "@fastify/static": "^6.11.2",
     "@fastify/view": "^8.2.0",
