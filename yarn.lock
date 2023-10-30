@@ -7882,10 +7882,10 @@
     fastify-plugin "^4.0.0"
     mnemonist "0.39.5"
 
-"@fastify/csrf-protection@^6.3.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@fastify/csrf-protection/-/csrf-protection-6.3.0.tgz#19fc05d8da265f633026de0433297d3ea9f6cc76"
-  integrity sha512-RktewyPbVMSbKrRKmn0VzKfqtRp+0mYodAz7tbJMmz1QJFWFeP5F5mS8Ym1djaM0EFqCBItIceJizeLOD+UILA==
+"@fastify/csrf-protection@^6.4.0":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@fastify/csrf-protection/-/csrf-protection-6.4.0.tgz#df0ef0c7524b71c05ae2c3387570c59ff566c94e"
+  integrity sha512-x8JLaa18A5OMGXVLY35gN6nEaOBSI1uoUjjnNKRYqyXq/HMGCwc+ZuSOhgrN7zkhruVoAO5s4gQ0i7Fp+BvTrQ==
   dependencies:
     "@fastify/csrf" "^6.0.0"
     "@fastify/error" "^3.0.0"
