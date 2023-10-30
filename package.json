@@ -24,11 +24,7 @@
     "start:core": "yarn workspace core dev",
     "test": "turbo run test",
     "test:commit": "turbo run test:commit --filter=[HEAD~1]",
-    "test:chrome-e2e": "npx playwright test --project=chrome-e2e",
-    "test:firefox-e2e": "npx playwright test --project=firefox-e2e",
-    "test:webkit-e2e": "npx playwright test --project=webkit-e2e",
-    "test:e2e": "npm run test:chrome-e2e && npm run test:firefox-e2e && npm run test:webkit-e2e",
-    "test:accessibility": "playwright test tests/accessibility/**",
+    "test:e2e": "playwright test",
     "test:watch": "turbo run test:watch"
   },
   "devDependencies": {

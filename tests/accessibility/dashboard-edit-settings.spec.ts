@@ -24,7 +24,9 @@ test.describe('Accessibility', () => {
     await page.getByRole('button', { name: 'Edit' }).click();
     //Click Settings icon in Edit page
 
-    await page.locator('.awsui_variant-icon_vjswe_1u1vg_165').click();
+    await page
+      .locator('[data-analytics-funnel-value="button:r81:"][type="submit"]')
+      .click();
     // Accessibility test for Settings in Edit page
     //Once ES lint rules are updated can use console.log
     // console.log('Acessibility issues for Settings in Edit page : ');
