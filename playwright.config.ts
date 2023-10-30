@@ -80,6 +80,37 @@ export default defineConfig({
       },
       dependencies: ['setup'],
     },
+
+    {
+      name: 'chrome-e2e',
+      testIgnore: ['tests/accessibility/*.spec.ts'],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      testMatch: ['tests/dashboards/*.spec.ts', 'tests/settings.spec.ts'],
+      dependencies: ['setup'],
+    },
+    {
+      name: 'firefox-e2e',
+      testIgnore: ['tests/accessibility/*.spec.ts'],
+      use: {
+        ...devices['Desktop Firefox'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      testMatch: ['tests/dashboards/*.spec.ts', 'tests/settings.spec.ts'],
+      dependencies: ['setup'],
+    },
+    {
+      name: 'webkit-e2e',
+      testIgnore: ['tests/accessibility/*.spec.ts'],
+      use: {
+        ...devices['Desktop Safari'],
+        storageState: 'playwright/.auth/user.json',
+      },
+      testMatch: ['tests/dashboards/*.spec.ts', 'tests/settings.spec.ts'],
+      dependencies: ['setup'],
+    },
   ],
   webServer,
 });
