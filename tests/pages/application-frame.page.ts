@@ -47,3 +47,26 @@ export class Breadcrumbs {
     });
   }
 }
+
+//Added Footer class
+export class Footer {
+  public readonly footerElement: Locator;
+  public readonly copyrightElement: Locator;
+
+  constructor(page: Page) {
+    this.footerElement = page.locator('#app-footer');
+    this.copyrightElement = this.footerElement.locator(
+      '[data-testid="copy-right"]',
+    );
+  }
+
+  // Method to check if the footer is visible.
+  async isFooterVisible() {
+    await this.footerElement.waitFor({ state: 'visible' });
+  }
+
+  // Method to get the copyright text from the footer.
+  async getCopyrightText() {
+    return await this.copyrightElement.innerText();
+  }
+}
