@@ -42,20 +42,32 @@ export const emitNotificationAtom = atom(
   ) => {
     const notificationId = nanoid();
 
-    set(notificationsBaseAtom, () => [
-      {
-        ...notification,
-        id: notificationId,
-        dismissible: true,
-        onDismiss: () => {
-          set(dismissNotificationAtom, notificationId);
+    // For Migration only display one status notification at a time
+    const existingNotifications = get(notificationsAtom);
+    const foundDuplicate = existingNotifications.find(
+      (notif) => notif.content === notification.content,
+    );
+    const preventNotification =
+      foundDuplicate &&
+      typeof notification.content === 'string' &&
+      notification.content.toLowerCase().includes('migration');
+
+    if (!preventNotification) {
+      set(notificationsBaseAtom, () => [
+        {
+          ...notification,
+          id: notificationId,
+          dismissible: true,
+          onDismiss: () => {
+            set(dismissNotificationAtom, notificationId);
+          },
+          dismissLabel: intl.formatMessage({
+            defaultMessage: 'Dismiss notification',
+            description: 'dismiss notification aria label',
+          }),
         },
-        dismissLabel: intl.formatMessage({
-          defaultMessage: 'Dismiss notification',
-          description: 'dismiss notification aria label',
-        }),
-      },
-      ...get(notificationsAtom),
-    ]);
+        ...get(notificationsAtom),
+      ]);
+    }
   },
 );
