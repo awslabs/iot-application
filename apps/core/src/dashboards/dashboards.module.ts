@@ -7,6 +7,7 @@ import { DashboardsService } from './dashboards.service';
 export const dashboardsModuleMetadata: ModuleMetadata = {
   controllers: [DashboardsController],
   providers: [DashboardsRepository, DashboardsService],
+  exports: [DashboardsService],
 };
 
 /** Core Dashboards Module */

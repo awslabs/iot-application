@@ -166,7 +166,9 @@ export function DashboardsIndexPage() {
       </Box>
       {featureEnabled(Features.MIGRATION) && (
         <Box padding={{ top: 'l' }}>
-          <Migration />
+          <Migration
+            onMigrationComplete={() => void dashboardsQuery.refetch()}
+          />
         </Box>
       )}
       <Box padding={{ top: 'l' }}>

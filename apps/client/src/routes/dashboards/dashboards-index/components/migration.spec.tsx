@@ -8,8 +8,13 @@ import {
 } from '~/services/generated/models/MigrationStatus';
 import userEvent from '@testing-library/user-event';
 import Migration from './migration';
+import { SuccessNotification } from '~/structures/notifications/success-notification';
+import { LoadingNotification } from '~/structures/notifications/loading-notification';
+import { ErrorNotification } from '~/structures/notifications/error-notification';
 
 const mockRefetch = vi.fn();
+const mockEmit = vi.fn();
+const onMigrate = vi.fn();
 
 vi.mock('../hooks/use-migration-query', () => ({
   useMigrationQuery: () => ({
@@ -18,6 +23,10 @@ vi.mock('../hooks/use-migration-query', () => ({
 }));
 
 vi.mock('../hooks/use-migration-status-query');
+
+vi.mock('~/hooks/notifications/use-emit-notification', () => ({
+  useEmitNotification: () => mockEmit,
+}));
 
 const getMigrationButton = () =>
   screen.getByRole('button', { name: 'Migrate' });
@@ -35,13 +44,13 @@ describe('Migration', () => {
   });
 
   test('initial form loads', () => {
-    render(<Migration />);
+    render(<Migration onMigrationComplete={onMigrate} />);
 
     expect(screen.getByText('Dashboard migration')).toBeVisible();
   });
 
   test('clicking migrate button starts migration', async () => {
-    render(<Migration />);
+    render(<Migration onMigrationComplete={onMigrate} />);
 
     expect(screen.getByText('Dashboard migration')).toBeVisible();
 
@@ -57,10 +66,12 @@ describe('Migration', () => {
       },
     } as UseQueryResult<MigrationStatus>);
 
-    render(<Migration />);
+    render(<Migration onMigrationComplete={onMigrate} />);
 
     expect(screen.getByText('Dashboard migration')).toBeVisible();
-    expect(screen.getByText('Migration in-progress')).toBeVisible();
+    expect(mockEmit).toHaveBeenCalledWith(
+      new LoadingNotification('Migration in-progress'),
+    );
   });
 
   test('display complete message when migration API is complete', () => {
@@ -69,10 +80,13 @@ describe('Migration', () => {
         status: Status.COMPLETE,
       },
     } as UseQueryResult<MigrationStatus>);
-    render(<Migration />);
+    render(<Migration onMigrationComplete={onMigrate} />);
 
     expect(screen.getByText('Dashboard migration')).toBeVisible();
-    expect(screen.getByText('Migration complete')).toBeVisible();
+    expect(mockEmit).toHaveBeenCalledWith(
+      new SuccessNotification('Migration complete'),
+    );
+    expect(onMigrate).toHaveBeenCalled();
   });
 
   test('displays error for migration failing', () => {
@@ -82,14 +96,14 @@ describe('Migration', () => {
         message: 'There was a migration error',
       },
     } as UseQueryResult<MigrationStatus>);
-    render(<Migration />);
+    render(<Migration onMigrationComplete={onMigrate} />);
 
     expect(screen.getByText('Dashboard migration')).toBeVisible();
-    expect(
-      screen.getByText(
+    expect(mockEmit).toHaveBeenCalledWith(
+      new ErrorNotification(
         'There was an error during migration: There was a migration error',
       ),
-    ).toBeVisible();
+    );
   });
 
   test('displays error for general api errors', () => {
@@ -99,10 +113,10 @@ describe('Migration', () => {
       },
       isError: true,
     } as UseQueryResult<MigrationStatus>);
-    render(<Migration />);
+    render(<Migration onMigrationComplete={onMigrate} />);
 
-    expect(
-      screen.getByText('There was an error during migration'),
-    ).toBeVisible();
+    expect(mockEmit).toHaveBeenCalledWith(
+      new ErrorNotification('There was an error during migration'),
+    );
   });
 });

@@ -1,53 +1,55 @@
 import { memo } from 'react';
 import Box from '@cloudscape-design/components/box';
 import Button from '@cloudscape-design/components/button';
-import ColumnLayout from '@cloudscape-design/components/column-layout';
 import ExpandableSection from '@cloudscape-design/components/expandable-section';
 import { FormattedMessage } from 'react-intl';
 import { colorBackgroundHomeHeader } from '@cloudscape-design/design-tokens';
 import { useMigrationStatusQuery } from '../hooks/use-migration-status-query';
 import { useMigrationQuery } from '../hooks/use-migration-query';
-import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import { Status } from '~/services/generated/models/MigrationStatus';
+import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
+import { LoadingNotification } from '~/structures/notifications/loading-notification';
+import { SuccessNotification } from '~/structures/notifications/success-notification';
+import { ErrorNotification } from '~/structures/notifications/error-notification';
 
-const Migration = () => {
+export interface MigrationProps {
+  onMigrationComplete: () => void;
+}
+
+const Migration = (props: MigrationProps) => {
   // TODO: handle more API errors once API is implemented
   const { data, isError } = useMigrationStatusQuery();
-  const { refetch, isRefetching } = useMigrationQuery();
+  const { refetch, isRefetching, isLoading } = useMigrationQuery();
+  const emit = useEmitNotification();
 
-  let statusElement;
-
-  if (isRefetching || data?.status === Status.IN_PROGRESS) {
-    statusElement = (
-      <StatusIndicator type="loading">Migration in-progress</StatusIndicator>
-    );
+  if ((isRefetching && isLoading) || data?.status === Status.IN_PROGRESS) {
+    emit(new LoadingNotification('Migration in-progress'));
   }
 
   if (data?.status === Status.COMPLETE) {
-    statusElement = (
-      <StatusIndicator type="success">Migration complete</StatusIndicator>
-    );
+    emit(new SuccessNotification('Migration complete'));
+    props.onMigrationComplete();
   }
 
   if (isError) {
-    statusElement = (
-      <StatusIndicator type="error">
-        There was an error during migration
-      </StatusIndicator>
-    );
+    emit(new ErrorNotification('There was an error during migration'));
   }
 
   if (data?.status === Status.ERROR) {
-    statusElement = (
-      <StatusIndicator type="error">
-        There was an error during migration: {data.message}
-      </StatusIndicator>
-    );
+    if (data.message) {
+      emit(
+        new ErrorNotification(
+          `There was an error during migration: ${data.message}`,
+        ),
+      );
+    } else {
+      emit(new ErrorNotification('There was an error during migration'));
+    }
   }
 
   return (
     <ExpandableSection
-      defaultExpanded={false}
+      defaultExpanded={true}
       variant="container"
       headerText={
         <FormattedMessage
@@ -55,30 +57,28 @@ const Migration = () => {
           description="Migrate your dashboards from SiteWise Monitor to IoT Application."
         />
       }
+      headerActions={
+        <Button
+          variant="primary"
+          className="btn-custom-primary"
+          onClick={() => {
+            void refetch();
+          }}
+        >
+          <span style={{ color: colorBackgroundHomeHeader }}>
+            <FormattedMessage
+              defaultMessage="Migrate"
+              description="Migrate SiteWise Monitor Dashboards to IoT Application dashboards."
+            />
+          </span>
+        </Button>
+      }
     >
-      <ColumnLayout columns={3}>
-        <Box>
-          You can migrate your dashboards from SiteWise Monitor to IoT
-          Application.
-        </Box>
-        <Box textAlign="center">{statusElement}</Box>
-        <Box float="right">
-          <Button
-            variant="primary"
-            className="btn-custom-primary"
-            onClick={() => {
-              void refetch();
-            }}
-          >
-            <span style={{ color: colorBackgroundHomeHeader }}>
-              <FormattedMessage
-                defaultMessage="Migrate"
-                description="Migrate SiteWise Monitor Dashboards to Centurion dashboards."
-              />
-            </span>
-          </Button>
-        </Box>
-      </ColumnLayout>
+      <Box>
+        You can migrate your dashboards from SiteWise Monitor to IoT
+        Application. This will migrate all dashboards you have in this region
+        accross all portals.
+      </Box>
     </ExpandableSection>
   );
 };
