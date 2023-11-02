@@ -5,6 +5,7 @@ import {
   IsString,
   Length,
   ValidateNested,
+  IsOptional,
 } from 'class-validator';
 
 import { DashboardDefinition } from './dashboard-definition.entity';
@@ -16,6 +17,7 @@ import {
 export type DashboardId = string;
 export type DashboardName = string;
 export type DashboardDescription = string;
+export type SiteWiseMonitorDashboardId = string;
 
 export class Dashboard {
   /**
@@ -50,5 +52,7 @@ export class Dashboard {
   @IsDateString()
   public readonly lastUpdateDate: string;
 
-  // TODO: Add SWM DashboardId
+  @IsString()
+  @IsOptional()
+  public readonly sitewiseMonitorId?: SiteWiseMonitorDashboardId;
 }
