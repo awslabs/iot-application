@@ -1,4 +1,4 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MigrationService } from './migration.service';
 
@@ -9,7 +9,11 @@ export class MigrationController {
 
   @Post()
   public migration() {
-    // Purposely don't use await so this request can process after the response
-    return this.migrationService.migrate();
+    void this.migrationService.migrate();
+  }
+
+  @Get()
+  public getMigrationStatus(): MigrationStatus {
+    return this.migrationService.getMigrationStatus();
   }
 }
