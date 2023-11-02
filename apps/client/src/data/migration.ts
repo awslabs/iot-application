@@ -8,7 +8,10 @@ export const MIGRATION_STATUS_QUERY_KEY = [...MIGRATION_QUERY_KEY, 'status'];
 
 export const MIGRATION_QUERY = {
   queryKey: MIGRATION_START_QUERY_KEY,
-  queryFn: dashboardMigration,
+  queryFn: async () => {
+    await dashboardMigration();
+    return {};
+  },
 };
 
 export const MIGRATION_STATUS_QUERY = {

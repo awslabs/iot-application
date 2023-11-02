@@ -97,15 +97,30 @@ export class DashboardsRepository {
         return err(new Error(MESSAGES.ITEM_NOT_FOUND_ERROR));
       }
 
-      // deserialize dashboard
-      const dashboard = plainToClass(Dashboard, {
-        id: dashboardData.id,
-        description: dashboardData.description,
-        name: dashboardData.name,
-        definition: dashboardDefinitionData.definition,
-        lastUpdateDate: dashboardData.lastUpdateDate,
-        creationDate: dashboardData.creationDate,
-      });
+      let dashboard;
+
+      if (dashboardData.sitewiseMonitorId) {
+        // deserialize dashboard
+        dashboard = plainToClass(Dashboard, {
+          id: dashboardData.id,
+          description: dashboardData.description,
+          name: dashboardData.name,
+          definition: dashboardDefinitionData.definition,
+          lastUpdateDate: dashboardData.lastUpdateDate,
+          creationDate: dashboardData.creationDate,
+          sitewiseMonitorId: dashboardData.sitewiseMonitorId,
+        });
+      } else {
+        // deserialize dashboard
+        dashboard = plainToClass(Dashboard, {
+          id: dashboardData.id,
+          description: dashboardData.description,
+          name: dashboardData.name,
+          definition: dashboardDefinitionData.definition,
+          lastUpdateDate: dashboardData.lastUpdateDate,
+          creationDate: dashboardData.creationDate,
+        });
+      }
 
       return ok(dashboard);
     } catch (error) {
@@ -148,13 +163,25 @@ export class DashboardsRepository {
               const lastUpdateDate = item.lastUpdateDate;
               const creationDate = item.creationDate;
 
-              return plainToClass(DashboardSummary, {
-                id,
-                name,
-                description,
-                lastUpdateDate,
-                creationDate,
-              });
+              if (item.sitewiseMonitorId) {
+                const sitewiseMonitorId = item.sitewiseMonitorId;
+                return plainToClass(DashboardSummary, {
+                  id,
+                  name,
+                  description,
+                  lastUpdateDate,
+                  creationDate,
+                  sitewiseMonitorId,
+                });
+              } else {
+                return plainToClass(DashboardSummary, {
+                  id,
+                  name,
+                  description,
+                  lastUpdateDate,
+                  creationDate,
+                });
+              }
             }),
           );
         }
@@ -176,12 +203,55 @@ export class DashboardsRepository {
     name,
     definition,
     description,
+    sitewiseMonitorId,
   }: CreateDashboardDto): Promise<Result<Error, Dashboard>> {
     try {
       const id = nanoid(12);
       const creationDateObj = new Date();
       const creationDate = creationDateObj.toISOString();
       const lastUpdateDate = creationDate;
+
+      let dbItem, response;
+
+      if (sitewiseMonitorId) {
+        dbItem = {
+          id,
+          resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
+          name,
+          description,
+          creationDate,
+          lastUpdateDate,
+          sitewiseMonitorId,
+        };
+
+        response = {
+          name,
+          definition,
+          description,
+          id,
+          lastUpdateDate,
+          creationDate,
+          sitewiseMonitorId,
+        };
+      } else {
+        dbItem = {
+          id,
+          resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
+          name,
+          description,
+          creationDate,
+          lastUpdateDate,
+        };
+
+        response = {
+          name,
+          definition,
+          description,
+          id,
+          lastUpdateDate,
+          creationDate,
+        };
+      }
 
       await this.dbDocClient.send(
         new TransactWriteCommand({
@@ -200,14 +270,7 @@ export class DashboardsRepository {
             {
               Put: {
                 TableName: this.tableName,
-                Item: {
-                  id,
-                  resourceType: RESOURCE_TYPES.DASHBOARD_DATA,
-                  name,
-                  description,
-                  creationDate,
-                  lastUpdateDate,
-                },
+                Item: dbItem,
                 ConditionExpression: 'attribute_not_exists(id)',
               },
             },
@@ -215,14 +278,7 @@ export class DashboardsRepository {
         }),
       );
 
-      return ok({
-        name,
-        definition,
-        description,
-        id,
-        lastUpdateDate,
-        creationDate,
-      });
+      return ok(response);
     } catch (error) {
       return error instanceof Error
         ? err(error)
