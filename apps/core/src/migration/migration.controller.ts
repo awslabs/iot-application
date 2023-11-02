@@ -11,7 +11,7 @@ export class MigrationController {
   @Post()
   @HttpCode(202)
   public migration() {
-    this.migrationService.migrate();
+    void this.migrationService.migrate();
   }
 
   @Get()
