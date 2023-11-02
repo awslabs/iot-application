@@ -7,4 +7,5 @@ export class UpdateDashboardDto extends OmitType(PartialType(Dashboard), [
   'id',
   'creationDate',
   'lastUpdateDate',
+  'sitewiseMonitorId',
 ] as const) {}

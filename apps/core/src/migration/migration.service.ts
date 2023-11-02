@@ -14,6 +14,7 @@ import {
 } from '@aws-sdk/client-iotsitewise';
 import { CreateDashboardDto } from 'src/dashboards/dto/create-dashboard.dto';
 import { convertSiteWiseMonitorToApplicationDefinition } from './util/convertSiteWiseMonitorToApplicationDefinition';
+import { Result, err, ok, isOk, isErr } from '../types';
 
 @Injectable()
 export class MigrationService {
@@ -148,7 +149,7 @@ export class MigrationService {
     return describedDashboards;
   }
 
-  private async getSiteWiseMonitorInformation(): Promise<
+  private async getSiteWiseMonitorDashboards(): Promise<
     DescribeDashboardCommandOutput[]
   > {
     const portals = await this.getPortals();
@@ -170,47 +171,81 @@ export class MigrationService {
       definition: convertSiteWiseMonitorToApplicationDefinition(
         dashboard.dashboardDefinition,
       ),
+      sitewiseMonitorId: dashboard.dashboardId,
     }));
   }
 
   private async createApplicationDashboards(
     siteWiseMonitorDashboards: CreateDashboardDto[],
   ) {
+    const existingDashboardsResult = await this.dashboardsService.list();
+
+    if (isErr(existingDashboardsResult)) {
+      throw existingDashboardsResult.err;
+    }
+
+    const listDashboards = existingDashboardsResult.ok.map(
+      (dashboard) => dashboard.sitewiseMonitorId,
+    );
+
     for (const dashboard of siteWiseMonitorDashboards) {
-      await this.dashboardsService.create(dashboard);
+      // Only create dashboards that haven't already been migrated
+      if (!listDashboards.includes(dashboard.sitewiseMonitorId)) {
+        const result = await this.dashboardsService.create(dashboard);
+        if (isErr(result)) {
+          throw result.err;
+        }
+      }
     }
   }
 
-  // TODO: finish functionality
-  private async process() {
-    this.migrationStatus = { status: Status.IN_PROGRESS };
+  private async process(): Promise<Result<Error, undefined>> {
+    try {
+      // Get SiteWise Monitor dashboards
+      const dashboards: DescribeDashboardCommandOutput[] =
+        await this.getSiteWiseMonitorDashboards();
 
-    const dashboards: DescribeDashboardCommandOutput[] =
-      await this.getSiteWiseMonitorInformation();
+      if (dashboards.length) {
+        // Convert dashbaord definitions to IoT Application format
+        const convertedDashboards =
+          this.convertSWMToApplicationDashboards(dashboards);
 
-    if (dashboards.length) {
-      const convertedDashboards =
-        this.convertSWMToApplicationDashboards(dashboards);
-      await this.createApplicationDashboards(convertedDashboards);
-      this.migrationStatus = { status: Status.COMPLETE };
-    } else {
-      // No SWM dashboards to convert
-      this.migrationStatus = { status: Status.COMPLETE };
+        // Create IoT Application dashboards
+        await this.createApplicationDashboards(convertedDashboards);
+        return ok(undefined);
+      } else {
+        // No SWM dashboards to convert
+        return ok(undefined);
+      }
+    } catch (error) {
+      // Error during the processing
+      return error instanceof Error ? err(error) : err(new Error());
     }
   }
 
-  // Purposely don't use async/await so we can return the inital status first
-  public migrate() {
+  public async migrate() {
     if (
       this.migrationStatus.status === Status.NOT_STARTED ||
       this.migrationStatus.status === Status.COMPLETE
     ) {
-      try {
-        void this.process();
-      } catch (error) {
+      this.migrationStatus = { status: Status.IN_PROGRESS };
+
+      const result = await this.process();
+
+      if (isOk(result)) {
+        this.migrationStatus = { status: Status.COMPLETE };
+      }
+
+      if (isErr(result)) {
+        let errorMessage = 'Error processing the dashboard migration';
+
+        if (result.err instanceof Error && result.err.message) {
+          errorMessage = result.err.message;
+        }
+
         this.migrationStatus = {
           status: Status.ERROR,
-          message: 'error processing the dashboard migration',
+          message: errorMessage,
         };
       }
     }

@@ -11,7 +11,7 @@ export class MigrationService {
    * @returns void
    * @throws ApiError
    */
-  public static migrationControllerMigration() {
+  public static migrationControllerMigration(): CancelablePromise<void> {
     return __request(OpenAPI, {
       method: 'POST',
       url: '/migration',

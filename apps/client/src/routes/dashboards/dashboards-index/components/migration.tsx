@@ -17,7 +17,6 @@ export interface MigrationProps {
 }
 
 const Migration = (props: MigrationProps) => {
-  // TODO: handle more API errors once API is implemented
   const { data, isError } = useMigrationStatusQuery();
   const { refetch, isRefetching, isLoading } = useMigrationQuery();
   const emit = useEmitNotification();
