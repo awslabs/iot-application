@@ -174,3 +174,33 @@ export class DashboardsIndexPage {
     await expect(this.heading).toBeHidden();
   }
 }
+
+// Adding Getting Started section
+export class GettingStartedSection {
+  public readonly gettingStartedButton: Locator;
+
+  constructor(page: Page) {
+    this.gettingStartedButton = page.getByRole('button', {
+      name: 'Getting Started',
+    });
+  }
+
+  public async expandGettingStarted() {
+    await this.gettingStartedButton.click();
+  }
+
+  public async collapseGettingStarted() {
+    await this.gettingStartedButton.click();
+  }
+
+  public async isExpanded() {
+    const ariaExpandedValue =
+      await this.gettingStartedButton.getAttribute('aria-expanded');
+    return ariaExpandedValue === 'true';
+  }
+  public async isGettingStartedExpandable() {
+    const expand =
+      await this.gettingStartedButton.getAttribute('aria-expanded');
+    return expand === 'false';
+  }
+}
