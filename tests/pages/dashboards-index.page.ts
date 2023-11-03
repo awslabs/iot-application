@@ -141,6 +141,10 @@ export class DashboardsIndexPage {
   public readonly deleteButton: Locator;
   public readonly emptyCreateButton: Locator;
   public readonly dashboardFilter: Locator;
+  // Adding view button locator
+  public readonly viewButton: Locator;
+  // Adding build button locator
+  public readonly buildButton: Locator;
 
   private readonly url = 'dashboards';
 
@@ -158,6 +162,10 @@ export class DashboardsIndexPage {
     this.dashboardFilter = page.getByRole('form', {
       name: 'Filter dashboards',
     });
+    // Adding View button path locator
+    this.viewButton = page.getByRole('button', { name: 'View' });
+    // Adding Build button path locator
+    this.buildButton = page.getByRole('button', { name: 'Build' });
   }
 
   public async goto() {
@@ -172,5 +180,18 @@ export class DashboardsIndexPage {
   public async expectIsNotCurrentPage() {
     await expect(this.page).not.toHaveURL(this.url);
     await expect(this.heading).toBeHidden();
+  }
+
+  //Adding methods for delete, view, build buttons disability
+  public async expectDeleteButtonDisabled() {
+    await expect(this.deleteButton).toBeDisabled();
+  }
+
+  public async expectViewButtonDisabled() {
+    await expect(this.viewButton).toBeDisabled();
+  }
+
+  public async expectBuildButtonDisabled() {
+    await expect(this.buildButton).toBeDisabled();
   }
 }

@@ -14,6 +14,10 @@ export class CreateDashboardPage {
   readonly descriptionMaxLengthError: Locator;
   readonly nameMaxLength = 100;
   readonly descriptionMaxLength = 200;
+  //Adding exceedMaxLengthName
+  readonly exceedMaxLengthName = 101;
+  //Adding exceedMaxLengthName
+  readonly exceedMaxLengthDescription = 201;
 
   private readonly url = 'dashboards/create';
 
@@ -50,6 +54,11 @@ export class CreateDashboardPage {
     await this.typeName(Array(this.nameMaxLength).fill('a').join(''));
   }
 
+  //Adding typeExceedMaxLengthName method
+  async typeExceedMaxLengthName() {
+    await this.typeName(Array(this.exceedMaxLengthName).fill('a').join(''));
+  }
+
   async clearName() {
     await this.nameField.clear();
   }
@@ -61,6 +70,13 @@ export class CreateDashboardPage {
   async typeMaxLengthDescription() {
     await this.typeDescription(
       Array(this.descriptionMaxLength).fill('a').join(''),
+    );
+  }
+
+  //Adding typeExceedMaxLengthDescription method
+  async typeExceedMaxLengthDescription() {
+    await this.typeDescription(
+      Array(this.exceedMaxLengthDescription).fill('a').join(''),
     );
   }
 
