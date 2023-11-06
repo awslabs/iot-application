@@ -17053,10 +17053,10 @@ jmespath@0.16.0:
   resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.16.0.tgz#b15b0a85dfd4d930d43e69ed605943c802785076"
   integrity sha512-9FzQjJ7MATs1tSpnco1K6ayiYE3figslrXA72G2HQ/n76RzvYlofyi5QM+iX4YRs/pu3yzxlVQSST23+dMDknw==
 
-jotai@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.5.0.tgz#dcf4fcfe5e9503fa7d0292eb30eaa4225b01dea3"
-  integrity sha512-iPJDFrhNw3KU4o4SSAESeZoW+nM1L/76VULXZWF23qmivBEcbAQjiF5n1W4Hn5dXAol4tmtEYe4HH7d9emEz0Q==
+jotai@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.5.1.tgz#eed05a32a4ac1264c531a77e86478f7ad3197ca3"
+  integrity sha512-vanPCCSuHczUXNbVh/iUunuMfrWRL4FdBtAbTRmrfqezJcKb8ybBTg8iivyYuUHapjcDETyJe1E4inlo26bVHA==
 
 joycon@^3.1.1:
   version "3.1.1"
