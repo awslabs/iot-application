@@ -7737,10 +7737,10 @@
     fastify-plugin "^4.0.0"
     mnemonist "0.39.5"
 
-"@fastify/csrf-protection@^6.4.0":
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/@fastify/csrf-protection/-/csrf-protection-6.4.0.tgz#df0ef0c7524b71c05ae2c3387570c59ff566c94e"
-  integrity sha512-x8JLaa18A5OMGXVLY35gN6nEaOBSI1uoUjjnNKRYqyXq/HMGCwc+ZuSOhgrN7zkhruVoAO5s4gQ0i7Fp+BvTrQ==
+"@fastify/csrf-protection@^6.4.1":
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/@fastify/csrf-protection/-/csrf-protection-6.4.1.tgz#4804e83d271a012e937052ab5b700ea935ae1ff3"
+  integrity sha512-nP1xjruddvWMvqjxTVzpLqWVLAX7P/XWkeTaARg3bXVrVmpDWjDMN7KfV3swIT/XexjDooMo+QG/n0n6ynZaiw==
   dependencies:
     "@fastify/csrf" "^6.0.0"
     "@fastify/error" "^3.0.0"
