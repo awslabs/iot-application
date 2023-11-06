@@ -100,24 +100,19 @@ export class DashboardsTable {
   public readonly idColumnHeader: Locator;
   public readonly nameColumnHeader: Locator;
   public readonly descriptionColumnHeader: Locator;
-  public readonly lastUpdateDateColumnHeader: Locator;
-  public readonly creationDateColumnHeader: Locator;
+  public readonly dateCreatedColumnHeader: Locator;
+  public readonly dateModifiedColumnHeader: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.table = page.getByRole('table');
-
-    this.idColumnHeader = page.getByRole('columnheader', { name: 'ID' });
-    this.nameColumnHeader = page.getByRole('columnheader', { name: 'Name' });
-    this.descriptionColumnHeader = page.getByRole('columnheader', {
-      name: 'Description',
-    });
-    this.lastUpdateDateColumnHeader = page.getByRole('columnheader', {
-      name: 'Last update date',
-    });
-    this.creationDateColumnHeader = page.getByRole('columnheader', {
-      name: 'Creation date',
-    });
+    this.table = page.locator(
+      '//table[@role="table" and @letxpath="letxpathtable"]',
+    );
+    this.idColumnHeader = page.locator("(//th[@scope='col'])[2]");
+    this.nameColumnHeader = page.locator("(//th[@scope='col'])[3]");
+    this.descriptionColumnHeader = page.locator("(//th[@scope='col'])[4]");
+    this.dateCreatedColumnHeader = page.locator("(//th[@scope='col'])[5]");
+    this.dateModifiedColumnHeader = page.locator("(//th[@scope='col'])[6]");
   }
 
   public getCell(name: string) {
@@ -130,6 +125,16 @@ export class DashboardsTable {
       .filter({ has: this.getCell(dashboard.name) })
       .filter({ has: this.getCell(dashboard.description) })
       .nth(0);
+  }
+
+  // Function to sort a column and check the sorting
+  public async sortColumnAndCheck(
+    columnLocator: Locator,
+    expectedSort: string,
+  ) {
+    await columnLocator.click();
+    const actualSort = await columnLocator.getAttribute('aria-sort');
+    expect(actualSort).toBe(expectedSort);
   }
 }
 
