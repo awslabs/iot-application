@@ -23,7 +23,7 @@
     "@aws-sdk/client-iotsitewise": "^3.441.0",
     "@aws-sdk/credential-providers": "^3.438.0",
     "@cloudscape-design/collection-hooks": "^1.0.25",
-    "@cloudscape-design/components": "^3.0.342",
+    "@cloudscape-design/components": "^3.0.430",
     "@cloudscape-design/design-tokens": "3.0.28",
     "@cloudscape-design/global-styles": "^1.0.15",
     "@iot-app-kit/dashboard": "^9.4.0",
