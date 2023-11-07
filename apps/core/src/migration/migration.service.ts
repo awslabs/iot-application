@@ -13,7 +13,7 @@ import {
   DashboardSummary,
 } from '@aws-sdk/client-iotsitewise';
 import { CreateDashboardDto } from 'src/dashboards/dto/create-dashboard.dto';
-import { convertSiteWiseMonitorToApplicationDefinition } from './util/convertSiteWiseMonitorToApplicationDefinition';
+import { convertMonitorToAppDefinition } from './util/convertMonitorToAppDefinition';
 import { Result, err, ok, isOk, isErr } from '../types';
 
 @Injectable()
@@ -168,9 +168,7 @@ export class MigrationService {
       description: dashboard.dashboardDescription
         ? dashboard.dashboardDescription
         : '',
-      definition: convertSiteWiseMonitorToApplicationDefinition(
-        dashboard.dashboardDefinition,
-      ),
+      definition: convertMonitorToAppDefinition(dashboard.dashboardDefinition),
       sitewiseMonitorId: dashboard.dashboardId,
     }));
   }
