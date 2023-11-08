@@ -1,5 +1,8 @@
 import { Aws } from 'aws-cdk-lib';
-import { CfnService } from 'aws-cdk-lib/aws-apprunner';
+import {
+  CfnAutoScalingConfiguration,
+  CfnService,
+} from 'aws-cdk-lib/aws-apprunner';
 import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
 import {
   ManagedPolicy,
@@ -71,6 +74,12 @@ export class CoreService extends Construct {
       directory: path.join(__dirname, '../../..'),
     });
 
+    const { attrAutoScalingConfigurationArn: autoScalingConfigArn } =
+      new CfnAutoScalingConfiguration(this, 'AutoScalingConfig', {
+        maxSize: 1,
+        minSize: 1,
+      });
+
     this.service = new CfnService(this, 'Service', {
       sourceConfiguration: {
         authenticationConfiguration: {
@@ -117,8 +126,11 @@ export class CoreService extends Construct {
         protocol: 'HTTP',
       },
       instanceConfiguration: {
+        cpu: '1 vCPU',
         instanceRoleArn: serviceInstanceRole.roleArn,
+        memory: '2 GB',
       },
+      autoScalingConfigurationArn: autoScalingConfigArn,
     });
   }
 }
