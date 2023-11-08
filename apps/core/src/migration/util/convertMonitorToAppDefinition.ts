@@ -7,41 +7,43 @@ import {
   MonitorWidgetType,
   MonitorMetric,
   SiteWiseMonitorDashboardDefinition,
+  MonitorAnnotations,
 } from './monitorDashboardDefinition';
+import { nanoid } from 'nanoid';
 
 const defaultResolution = '1m';
 const defaultAggregationType = 'AVERAGE';
 
 /**
  * Default Monitor size is 3x3 squares
- * Default Application size is 84x52 pixels
+ * A similar sized application dashboard is 99x42 cells
  */
-const pixelsPerWidthUnit = 28; // 84 / 3
-const pixelsPerHeightUnit = 17; // 52 / 3
+const appCellsPerMonitorSquareWidth = 33; // 99 / 3
+const appCellPerMonitorSquareHeight = 14; // 42 / 3
 
 const convertType = (monitorChartType: string) => {
   switch (monitorChartType) {
     case MonitorWidgetType.LineChart:
-      return DashboardWidgetType.LineScatterChart;
+      return DashboardWidgetType.XYPlot;
     default:
-      return DashboardWidgetType.LineScatterChart;
+      return DashboardWidgetType.XYPlot;
   }
 };
 
 const convertHeight = (height: number) => {
-  return height * pixelsPerHeightUnit;
+  return height * appCellPerMonitorSquareHeight;
 };
 
 const convertWidth = (width: number) => {
-  return width * pixelsPerWidthUnit;
+  return width * appCellsPerMonitorSquareWidth;
 };
 
 const convertX = (x: number) => {
-  return x * pixelsPerWidthUnit;
+  return x * appCellsPerMonitorSquareWidth;
 };
 
 const convertY = (y: number) => {
-  return y * pixelsPerHeightUnit;
+  return y * appCellPerMonitorSquareHeight;
 };
 
 const convertResolution = (resolution?: string) => {
@@ -54,7 +56,30 @@ const convertResolution = (resolution?: string) => {
   return defaultResolution;
 };
 
-const convertProperties = (monitorMetrics?: MonitorMetric[]) => {
+const convertThresholds = (monitorAnnotations?: MonitorAnnotations) => {
+  // Annotations are only added to the y axis array in Monitor
+  if (monitorAnnotations?.y) {
+    const applicationThresholds = [];
+    for (const annotation of monitorAnnotations.y) {
+      const newThreshold = {
+        id: nanoid(12),
+        visible: annotation.showValue,
+        color: annotation.color,
+        value: annotation.value,
+        comparisonOperator: annotation.comparisonOperator,
+      };
+      applicationThresholds.push(newThreshold);
+    }
+    return { thresholds: applicationThresholds };
+  }
+  return undefined;
+};
+
+const convertProperties = (
+  monitorMetrics?: MonitorMetric[],
+  monitorAnnotations?: MonitorAnnotations,
+  monitorTitle?: string,
+) => {
   const defaultProperties = {
     symbol: {
       style: 'filled-circle',
@@ -103,6 +128,8 @@ const convertProperties = (monitorMetrics?: MonitorMetric[]) => {
     return {
       ...defaultProperties,
       ...queryConfig,
+      ...convertThresholds(monitorAnnotations),
+      title: monitorTitle,
     };
   }
   return defaultProperties;
@@ -113,19 +140,26 @@ export const convertMonitorToAppDefinition = (
 ): DashboardDefinition => {
   const newDashboardDefinition: DashboardDefinition = { widgets: [] };
 
+  let numWidgets = 0;
+
   if (monitorDashboardDefinition.widgets) {
     for (const widget of monitorDashboardDefinition.widgets) {
       const newAppWidget: DashboardWidget = {
         type: convertType(widget.type),
-        id: widget.title,
+        id: nanoid(12),
         x: convertX(widget.x),
         y: convertY(widget.y),
-        z: 0,
+        z: numWidgets, // Stack widgets in case of overlap
         width: convertWidth(widget.width),
         height: convertHeight(widget.height),
-        properties: convertProperties(widget.metrics),
+        properties: convertProperties(
+          widget.metrics,
+          widget.annotations,
+          widget.title,
+        ),
       };
 
+      numWidgets++;
       newDashboardDefinition.widgets.push(newAppWidget);
     }
   }

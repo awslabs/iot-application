@@ -2,8 +2,13 @@ export enum MonitorWidgetType {
   LineChart = 'sc-line-chart',
 }
 
+export interface MonitorTrend {
+  type: string;
+  color: string;
+}
+
 export interface MonitorAnalysis {
-  trends: string[];
+  trends?: string[]; // We don't currently support trend lines but Monitor does
 }
 
 export interface MonitorMetric {
@@ -16,8 +21,16 @@ export interface MonitorMetric {
   analysis?: MonitorAnalysis;
 }
 
+export interface MonitorAnnotation {
+  color: string;
+  comparisonOperator: string;
+  showValue: boolean;
+  value: number;
+}
+
 export interface MonitorAnnotations {
-  y: string[];
+  x?: MonitorAnnotation[];
+  y?: MonitorAnnotation[];
 }
 
 export interface MonitorProperties {
@@ -34,7 +47,7 @@ export interface MonitorWidget {
   properties?: MonitorProperties;
   metrics?: MonitorMetric[];
   annotations?: MonitorAnnotations;
-  alarms?: string[]; // We don't support alarms but Monitor does
+  alarms?: string[]; // We don't currently support alarms but Monitor does
 }
 
 export interface SiteWiseMonitorDashboardDefinition {
