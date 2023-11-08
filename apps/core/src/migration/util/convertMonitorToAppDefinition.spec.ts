@@ -78,9 +78,8 @@ describe('Dashboard definition conversion', () => {
         },
       ],
     };
-    const applicationDefinition = convertMonitorToAppDefinition(
-      JSON.stringify(lineChartDefinition),
-    );
+    const applicationDefinition =
+      convertMonitorToAppDefinition(lineChartDefinition);
     expect(applicationDefinition).toEqual(expectedDefinition);
   });
 });

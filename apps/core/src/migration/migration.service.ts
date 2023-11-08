@@ -14,6 +14,7 @@ import {
 } from '@aws-sdk/client-iotsitewise';
 import { CreateDashboardDto } from 'src/dashboards/dto/create-dashboard.dto';
 import { convertMonitorToAppDefinition } from './util/convertMonitorToAppDefinition';
+import { SiteWiseMonitorDashboardDefinition } from './util/monitorDashboardDefinition';
 import { Result, err, ok, isOk, isErr } from '../types';
 
 @Injectable()
@@ -24,6 +25,8 @@ export class MigrationService {
   private migrationStatus: MigrationStatus = {
     status: Status.NOT_STARTED,
   };
+
+  private parsingErrors: Error[] = [];
 
   private sitewise = new IoTSiteWiseClient({
     credentials: {
@@ -158,6 +161,23 @@ export class MigrationService {
     return await this.getDescribedDashboards(dashboards);
   }
 
+  private parseDashboardDefinition(
+    monitorDashboardDefinition?: string,
+    dashboardName?: string,
+  ): SiteWiseMonitorDashboardDefinition {
+    if (monitorDashboardDefinition) {
+      try {
+        return JSON.parse(
+          monitorDashboardDefinition,
+        ) as SiteWiseMonitorDashboardDefinition;
+      } catch (error) {
+        // Catch any parsing errors so we can return them at the end
+        this.parsingErrors.push(new Error(dashboardName));
+      }
+    }
+    return { widgets: [] };
+  }
+
   private convertSWMToApplicationDashboards(
     siteWiseMonitorDashboards: DescribeDashboardCommandOutput[],
   ): CreateDashboardDto[] {
@@ -168,7 +188,12 @@ export class MigrationService {
       description: dashboard.dashboardDescription
         ? dashboard.dashboardDescription
         : '',
-      definition: convertMonitorToAppDefinition(dashboard.dashboardDefinition),
+      definition: convertMonitorToAppDefinition(
+        this.parseDashboardDefinition(
+          dashboard.dashboardDefinition,
+          dashboard.dashboardName,
+        ),
+      ),
       sitewiseMonitorId: dashboard.dashboardId,
     }));
   }
@@ -210,6 +235,17 @@ export class MigrationService {
 
         // Create IoT Application dashboards
         await this.createApplicationDashboards(convertedDashboards);
+
+        if (this.parsingErrors.length !== 0) {
+          const messages = this.parsingErrors.map((error) => error.message);
+          const errorMessage = `error parsing dashboard definitions for SiteWise Monitor dashboard(s): ${messages.join()}`;
+
+          // Reset errors for next time migration is called
+          this.parsingErrors = [];
+
+          return err(new Error(errorMessage));
+        }
+
         return ok(undefined);
       } else {
         // No SWM dashboards to convert
@@ -250,8 +286,11 @@ export class MigrationService {
   }
 
   public getMigrationStatus(): MigrationStatus {
-    // When migration is complete, set it back to NOT_STARTED state
-    if (this.migrationStatus.status === Status.COMPLETE) {
+    // When migration is settled (COMPLETE or ERROR), set it back to NOT_STARTED state
+    if (
+      this.migrationStatus.status === Status.COMPLETE ||
+      this.migrationStatus.status === Status.ERROR
+    ) {
       const oldStatus = this.migrationStatus;
       this.migrationStatus = { status: Status.NOT_STARTED };
       return oldStatus;
