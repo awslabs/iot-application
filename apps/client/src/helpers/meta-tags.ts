@@ -10,7 +10,6 @@ export const extractedMetaTags = (
     region: '',
     userPoolId: '',
     userPoolWebClientId: '',
-    domainName: '',
   };
 
   metaElements.forEach(

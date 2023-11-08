@@ -17,7 +17,6 @@ export interface CoreServiceProps {
   readonly identityPoolId: string;
   readonly userPoolClientId: string;
   readonly userPoolId: string;
-  readonly domainName: string;
 }
 
 export class CoreService extends Construct {
@@ -32,7 +31,6 @@ export class CoreService extends Construct {
       identityPoolId,
       userPoolClientId,
       userPoolId,
-      domainName,
     } = props;
 
     const serviceSourceRolePrincipal = new ServicePrincipal(
@@ -94,10 +92,6 @@ export class CoreService extends Construct {
               {
                 name: 'COGNITO_USER_POOL_ID',
                 value: userPoolId,
-              },
-              {
-                name: 'COGNITO_DOMAIN_NAME',
-                value: domainName,
               },
               {
                 name: 'DATABASE_TABLE_NAME',

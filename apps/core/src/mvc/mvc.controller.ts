@@ -24,7 +24,6 @@ export class MvcController {
       region,
       userPoolWebClientId,
       userPoolId,
-      domainName,
     } = this.config;
 
     return {
@@ -34,7 +33,6 @@ export class MvcController {
       region,
       userPoolId,
       userPoolWebClientId,
-      domainName,
     };
   }
 }
