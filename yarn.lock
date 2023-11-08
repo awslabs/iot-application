@@ -7899,15 +7899,6 @@
     "@formatjs/icu-skeleton-parser" "1.6.2"
     tslib "^2.4.0"
 
-"@formatjs/icu-messageformat-parser@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-2.7.0.tgz#9b13f2710a3b4efddfeb544480f684f27a53483b"
-  integrity sha512-7uqC4C2RqOaBQtcjqXsSpGRYVn+ckjhNga5T/otFh6MgxRrCJQqvjfbrGLpX1Lcbxdm5WH3Z2WZqt1+Tm/cn/Q==
-  dependencies:
-    "@formatjs/ecma402-abstract" "1.17.2"
-    "@formatjs/icu-skeleton-parser" "1.6.2"
-    tslib "^2.4.0"
-
 "@formatjs/icu-messageformat-parser@2.7.1":
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-2.7.1.tgz#3968a48fdf4064cdd2d0b751afb8ed6d55574019"
@@ -19740,10 +19731,10 @@ react-generate-context@1.0.1:
   resolved "https://registry.yarnpkg.com/react-generate-context/-/react-generate-context-1.0.1.tgz#4454cfecb0b3f27502185dfa5c63d5f5ec14b936"
   integrity sha512-rOFGh3KgC2Ot66DmVCcT1p8lVJCmmCjzGE5WK/KsyDFi43wpIbW1PYcr04cQ3mbF4LaIkY6SpK7k1DOgwtpUXA==
 
-react-hook-form@^7.46.1:
-  version "7.46.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.46.1.tgz#39347dbff19d980cb41087ac32a57abdc6045bb3"
-  integrity sha512-0GfI31LRTBd5tqbXMGXT1Rdsv3rnvy0FjEk8Gn9/4tp6+s77T7DPZuGEpBRXOauL+NhyGT5iaXzdIM2R6F/E+w==
+react-hook-form@^7.46.1, react-hook-form@^7.48.2:
+  version "7.48.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.48.2.tgz#01150354d2be61412ff56a030b62a119283b9935"
+  integrity sha512-H0T2InFQb1hX7qKtDIZmvpU1Xfn/bdahWBN1fH19gSe4bBEqTfmlr7H3XWTaVtiK4/tpPaI1F3355GPMZYge+A==
 
 react-hotkeys@^2.0.0:
   version "2.0.0"
