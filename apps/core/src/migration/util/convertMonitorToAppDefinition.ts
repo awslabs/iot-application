@@ -109,36 +109,26 @@ const convertProperties = (monitorMetrics?: MonitorMetric[]) => {
 };
 
 export const convertMonitorToAppDefinition = (
-  monitorDashboardDefinition?: string,
+  monitorDashboardDefinition: SiteWiseMonitorDashboardDefinition,
 ): DashboardDefinition => {
-  if (monitorDashboardDefinition) {
-    const definition = JSON.parse(
-      monitorDashboardDefinition,
-    ) as SiteWiseMonitorDashboardDefinition;
+  const newDashboardDefinition: DashboardDefinition = { widgets: [] };
 
-    if (definition.widgets) {
-      const newDashboardDefinition: DashboardDefinition = { widgets: [] };
+  if (monitorDashboardDefinition.widgets) {
+    for (const widget of monitorDashboardDefinition.widgets) {
+      const newAppWidget: DashboardWidget = {
+        type: convertType(widget.type),
+        id: widget.title,
+        x: convertX(widget.x),
+        y: convertY(widget.y),
+        z: 0,
+        width: convertWidth(widget.width),
+        height: convertHeight(widget.height),
+        properties: convertProperties(widget.metrics),
+      };
 
-      for (const widget of definition.widgets) {
-        const newAppWidget: DashboardWidget = {
-          type: convertType(widget.type),
-          id: widget.title,
-          x: convertX(widget.x),
-          y: convertY(widget.y),
-          z: 0,
-          width: convertWidth(widget.width),
-          height: convertHeight(widget.height),
-          properties: convertProperties(widget.metrics),
-        };
-
-        newDashboardDefinition.widgets.push(newAppWidget);
-      }
-
-      return newDashboardDefinition;
+      newDashboardDefinition.widgets.push(newAppWidget);
     }
-
-    return { widgets: [] };
   }
 
-  return { widgets: [] };
+  return newDashboardDefinition;
 };
