@@ -267,23 +267,23 @@
     fast-xml-parser "^4.2.5"
     tslib "^1.8.0"
 
-"@aws-amplify/ui-react-core@2.1.32":
-  version "2.1.32"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react-core/-/ui-react-core-2.1.32.tgz#54ca67b5976069c469c6d02025981564ed172b5a"
-  integrity sha512-V5UD3wM2pxuTrjYYuTx2j4GN8TLT09k1S6zfbi5rXKKtfT3DduzPjA+qpRfCzb2/GkFdhaDo0t8zIBsa9PKyvg==
+"@aws-amplify/ui-react-core@2.1.33":
+  version "2.1.33"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react-core/-/ui-react-core-2.1.33.tgz#24d84f23e46852ffb149223c91623a9aeeda12f9"
+  integrity sha512-4f+8713lRy/qzFSAwVAhboVsui9qiQE5Mu3AX9AO6VlUtTdqPAY+RZWNqojZyWmLISm/Y4wHZRhvYe5/6x1Mgw==
   dependencies:
-    "@aws-amplify/ui" "5.8.0"
+    "@aws-amplify/ui" "5.8.1"
     "@xstate/react" "3.0.1"
     lodash "4.17.21"
     xstate "^4.33.6"
 
-"@aws-amplify/ui-react@^5.3.0":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-5.3.0.tgz#160bdd22f0a11a60df15b76e038cd10162f9fdf1"
-  integrity sha512-Ih29xThYhcgh3vY0rr6ILomBITOdN6Q474siIozqw2pJbv9KXaWs5VVFy7/lry22tOdW6M6h//mznFa+KVt1rQ==
+"@aws-amplify/ui-react@^5.3.2":
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-5.3.2.tgz#ed1d2aa1f1b0d249ddbd4bbb1dce8a635619deb6"
+  integrity sha512-CzLUb7acrXroDHloKhjOWZwLAjFfaj7F1L/HpxcG9x3hV6klwvaECgN8qthDeI675XtHQNx48Pfk2DRrViXL0w==
   dependencies:
-    "@aws-amplify/ui" "5.8.0"
-    "@aws-amplify/ui-react-core" "2.1.32"
+    "@aws-amplify/ui" "5.8.1"
+    "@aws-amplify/ui-react-core" "2.1.33"
     "@radix-ui/react-accordion" "1.0.0"
     "@radix-ui/react-direction" "1.0.0"
     "@radix-ui/react-dropdown-menu" "1.0.0"
@@ -297,10 +297,10 @@
     react-generate-context "1.0.1"
     tslib "2.4.1"
 
-"@aws-amplify/ui@5.8.0":
-  version "5.8.0"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-5.8.0.tgz#d1a881c8b319c474bbdf6baf8741834bca5dfd04"
-  integrity sha512-stjGfp8TbcTtICBshKJ93wMkU6nc5Z62eQLSog06rXswBs4TD+n4duf40mB7qLneqAiX+bcatWRMdQybN12Stg==
+"@aws-amplify/ui@5.8.1":
+  version "5.8.1"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-5.8.1.tgz#3d3006cd24c7225c773c21953a7a44c1b1d1996e"
+  integrity sha512-f7CYveXr3QzkWCjEcIzXe2ywoAc+j3cux7CBh/hS1X64dfleS8AhgHgnf1eJ+CQqNzEF51rZIJ8lrR62KBPAIQ==
   dependencies:
     csstype "^3.1.1"
     lodash "4.17.21"
@@ -7894,15 +7894,6 @@
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-2.6.2.tgz#9bbb29099416e4ce2c7df50029c48985d4f901b3"
   integrity sha512-nF/Iww7sc5h+1MBCDRm68qpHTCG4xvGzYs/x9HFcDETSGScaJ1Fcadk5U/NXjXeCtzD+DhN4BAwKFVclHfKMdA==
-  dependencies:
-    "@formatjs/ecma402-abstract" "1.17.2"
-    "@formatjs/icu-skeleton-parser" "1.6.2"
-    tslib "^2.4.0"
-
-"@formatjs/icu-messageformat-parser@2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-2.7.0.tgz#9b13f2710a3b4efddfeb544480f684f27a53483b"
-  integrity sha512-7uqC4C2RqOaBQtcjqXsSpGRYVn+ckjhNga5T/otFh6MgxRrCJQqvjfbrGLpX1Lcbxdm5WH3Z2WZqt1+Tm/cn/Q==
   dependencies:
     "@formatjs/ecma402-abstract" "1.17.2"
     "@formatjs/icu-skeleton-parser" "1.6.2"
