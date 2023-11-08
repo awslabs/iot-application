@@ -278,6 +278,39 @@ describe('MigrationModule', () => {
       expect(status).toEqual({ message: errorMessage, status: Status.ERROR });
     });
 
+    test('returns parsing errors when there are errors parsing dashboard definition', async () => {
+      sitewiseMock.on(ListPortalsCommand).resolves(testPortals);
+      sitewiseMock.on(ListProjectsCommand).resolves(testProjects);
+      sitewiseMock.on(ListDashboardsCommand).resolves(testDashboards);
+      sitewiseMock.on(DescribeDashboardCommand).resolves({
+        dashboardId: dashboardId,
+        dashboardArn: 'testArn',
+        dashboardCreationDate: new Date(),
+        dashboardDefinition: 'invalidJson',
+        dashboardLastUpdateDate: new Date(),
+        dashboardName: 'testDashboard',
+        dashboardDescription: 'testDescription',
+        projectId: 'testProjectId',
+      });
+
+      await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'POST',
+        url: '/api/migration',
+      });
+
+      const status = await waitForStatus();
+
+      const expectedMessage =
+        'error parsing dashboard definitions for SiteWise Monitor dashboard(s): testDashboard';
+      expect(status).toEqual({
+        message: expectedMessage,
+        status: Status.ERROR,
+      });
+    });
+
     test('handles paginated results in SiteWise API', async () => {
       sitewiseMock
         .on(ListPortalsCommand)

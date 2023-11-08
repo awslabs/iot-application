@@ -35,6 +35,7 @@ const Migration = (props: MigrationProps) => {
   }
 
   if (data?.status === Status.ERROR) {
+    props.onMigrationComplete();
     if (data.message) {
       emit(
         new ErrorNotification(
