@@ -5,6 +5,7 @@ run-name: Deployment action initiated by ${{ github.actor }}
 on:
   push:
     branches: [main, rc]
+  workflow_dispatch:
 
 # Ensures that only one deployment is in progress
 concurrency: ${{ github.workflow }}
