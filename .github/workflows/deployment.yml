@@ -3,6 +3,8 @@ name: Deployment
 run-name: Deployment action initiated by ${{ github.actor }}
 
 on:
+  pull_request:
+    branches: [main, rc]
   push:
     branches: [main, rc]
   workflow_dispatch:
