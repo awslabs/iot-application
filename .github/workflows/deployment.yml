@@ -48,12 +48,12 @@ jobs:
           aws-region: us-west-2
 
       - name: Deploy CDK 🚀
-        run: yarn workspace cdk cdk deploy --all --require-approval never
+        run: yarn workspace cdk cdk deploy --all --require-approval never -c stackName=IotApp${{github.ref}}
 
       - name: Get App URL 🔗
         id: app_url
         run: |
-          app_url=$(aws cloudformation describe-stacks --stack-name IotApp --query "Stacks[0].Outputs[?OutputKey=='AppURL'].OutputValue" --output text)
+          app_url=$(aws cloudformation describe-stacks --stack-name IotApp${{github.ref}} --query "Stacks[0].Outputs[?OutputKey=='IotApp${{github.ref}}'].OutputValue" --output text)
           echo "app_url=$app_url" >> $GITHUB_OUTPUT
 
   test:
