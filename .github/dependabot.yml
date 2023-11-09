@@ -9,7 +9,13 @@ updates:
     schedule:
       interval: daily
     open-pull-requests-limit: 25
-
+    groups:
+      aws-sdk:
+        patterns:
+        - "@aws-sdk*"
+      tanstack:
+        patterns:
+          - "@tanstack*"
   - package-ecosystem: github-actions
     directory: /
     schedule:
