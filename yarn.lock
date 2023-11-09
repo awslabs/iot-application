@@ -10142,10 +10142,10 @@
     uuid "^3.3.2"
     validator "^13.6.0"
 
-"@tanstack/eslint-plugin-query@^5.0.5":
-  version "5.0.5"
-  resolved "https://registry.yarnpkg.com/@tanstack/eslint-plugin-query/-/eslint-plugin-query-5.0.5.tgz#3f1fc0ad472462c3ca0a8a99601206049dfa7211"
-  integrity sha512-kYbh5Cboz1BzN6LeUWnI1B0BCikXMYQjxaEO7cV+0rycllU0qZqSEkd2LdgWIZhuLTc4WBt0li1s+O6RhM5Cog==
+"@tanstack/eslint-plugin-query@^5.6.0":
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/eslint-plugin-query/-/eslint-plugin-query-5.6.0.tgz#e1e0e9edf33a50e39a68e83262ec95685bda75c9"
+  integrity sha512-A0D8fXIh6fuHcT7e+VaL+QnlLhY9V5QmiaLOTLOIcyVKCpWVZLSHrLP6ghZV6CB+JLalHWCAUF0QW0UaEyyz7g==
   dependencies:
     "@typescript-eslint/utils" "^5.54.0"
 
