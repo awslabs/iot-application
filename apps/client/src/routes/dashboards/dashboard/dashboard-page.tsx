@@ -6,21 +6,25 @@ import { Auth } from 'aws-amplify';
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 import { useAtomValue } from 'jotai';
+import { useEffect } from 'react';
 
 import { DashboardLoadingState } from './components/dashboard-loading-state';
 import { isJust } from '~/helpers/predicates/is-just';
+import { isNotFatal } from '~/helpers/predicates/is-not-fatal';
 import { useDashboardQuery } from '~/routes/dashboards/dashboard/hooks/use-dashboard-query';
 import { useUpdateDashboardMutation } from '~/routes/dashboards/dashboard/hooks/use-update-dashboard-mutation';
-import './styles.css';
-
 import type { DashboardDefinition } from '~/services';
 import { useViewport } from '~/hooks/dashboard/use-viewport';
+import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
 import { getDashboardEditMode } from '~/store/viewMode';
+import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
+
+import './styles.css';
 
 export function DashboardPage() {
   const params = useParams<{ dashboardId: string }>();
-
   const editMode = useAtomValue(getDashboardEditMode);
+  const emitNotification = useEmitNotification();
 
   invariant(
     isJust(params.dashboardId),
@@ -28,6 +32,12 @@ export function DashboardPage() {
   );
 
   const dashboardQuery = useDashboardQuery(params.dashboardId);
+
+  useEffect(() => {
+    if (dashboardQuery.isError && isNotFatal(dashboardQuery.error)) {
+      emitNotification(new GenericErrorNotification(dashboardQuery.error));
+    }
+  }, [dashboardQuery.error, dashboardQuery.isError, emitNotification]);
 
   const dashboardDefinition = {
     ...dashboardQuery.data?.definition,

@@ -6,6 +6,6 @@ export function useMigrationStatusQuery() {
     ...MIGRATION_STATUS_QUERY,
     refetchInterval: 2000,
     staleTime: 0,
-    cacheTime: 0,
+    gcTime: 0,
   });
 }

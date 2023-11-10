@@ -13,6 +13,7 @@ import { BaseNavigationDetail } from '@cloudscape-design/components/internal/eve
 import { Box } from '@cloudscape-design/components';
 import ContentLayout from '@cloudscape-design/components/content-layout';
 import { DevTool } from '@hookform/devtools';
+import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useIntl, FormattedMessage } from 'react-intl';
 import type { FormatDateOptions } from 'react-intl';
@@ -29,10 +30,12 @@ import { isJust } from '~/helpers/predicates/is-just';
 import { useApplication } from '~/hooks/application/use-application';
 import { useDashboardsQuery } from './hooks/use-dashboards-query';
 import { useDeleteModalVisibility } from './hooks/use-delete-modal-visibility';
+import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
 import { usePartialUpdateDashboardMutation } from './hooks/use-partial-update-dashboard-mutation';
 import { useTablePreferences } from './hooks/use-table-preferences';
 import { $Dashboard, DashboardSummary } from '~/services';
 import { setDashboardEditMode } from '~/store/viewMode';
+import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 
 import './styles.css';
 import { Features, featureEnabled } from '~/helpers/featureFlag/featureFlag';
@@ -55,6 +58,13 @@ export function DashboardsIndexPage() {
 
   const [preferences, setPreferences] = useTablePreferences();
   const dashboardsQuery = useDashboardsQuery();
+  const emitNotification = useEmitNotification();
+
+  useEffect(() => {
+    if (dashboardsQuery.isError) {
+      emitNotification(new GenericErrorNotification(dashboardsQuery.error));
+    }
+  }, [dashboardsQuery.error, dashboardsQuery.isError, emitNotification]);
 
   const {
     actions,
