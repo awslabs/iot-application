@@ -10,6 +10,8 @@ import {
   MonitorAnnotations,
 } from './monitorDashboardDefinition';
 import { nanoid } from 'nanoid';
+import { colorPalette } from './colorPalette';
+import { randomUUID } from 'crypto';
 
 const defaultResolution = '1m';
 const defaultAggregationType = 'AVERAGE';
@@ -24,6 +26,10 @@ const appCellPerMonitorSquareHeight = 14; // 42 / 3
 const convertType = (monitorChartType: string) => {
   switch (monitorChartType) {
     case MonitorWidgetType.LineChart:
+      return DashboardWidgetType.XYPlot;
+    case MonitorWidgetType.BarChart:
+      return DashboardWidgetType.BarChart;
+    case MonitorWidgetType.ScatterChart:
       return DashboardWidgetType.XYPlot;
     default:
       return DashboardWidgetType.XYPlot;
@@ -70,69 +76,184 @@ const convertThresholds = (monitorAnnotations?: MonitorAnnotations) => {
       };
       applicationThresholds.push(newThreshold);
     }
-    return { thresholds: applicationThresholds };
+
+    if (applicationThresholds.length !== 0) {
+      return { thresholds: applicationThresholds };
+    }
+  }
+  return undefined;
+};
+
+const defaultProperties = {
+  aggregationType: defaultAggregationType,
+};
+
+const barChartProperties = {
+  ...defaultProperties,
+  axis: {
+    showY: true,
+    showX: true,
+  },
+};
+
+const lineChartProperties = {
+  ...defaultProperties,
+  axis: {
+    yVisible: true,
+    xVisible: true,
+  },
+  symbol: {
+    style: 'filled-circle',
+  },
+  line: {
+    connectionStyle: 'linear',
+    style: 'solid',
+  },
+  legend: {
+    visible: true,
+  },
+};
+
+const scatterChartProperties = {
+  ...defaultProperties,
+  axis: {
+    yVisible: true,
+    xVisible: true,
+  },
+  symbol: {
+    style: 'filled-circle',
+  },
+  line: {
+    connectionStyle: 'none',
+    style: 'solid',
+  },
+  legend: {
+    visible: true,
+  },
+};
+
+const getStaticProperties = (widgetType: MonitorWidgetType) => {
+  switch (widgetType) {
+    case MonitorWidgetType.LineChart:
+      return lineChartProperties;
+    case MonitorWidgetType.BarChart:
+      return barChartProperties;
+    case MonitorWidgetType.ScatterChart:
+      return scatterChartProperties;
+  }
+  return lineChartProperties;
+};
+
+interface ApplicationProperty {
+  aggregationType: string;
+  propertyId: string;
+  resolution?: string;
+  refId?: string;
+}
+
+const getProperty = (metric: MonitorMetric, widgetType: MonitorWidgetType) => {
+  let property: ApplicationProperty = {
+    aggregationType: defaultAggregationType, // Monitor has no aggregationType and appliation defaults to AVERAGE
+    propertyId: metric.propertyId,
+    resolution: convertResolution(metric.resolution),
+  };
+
+  if (widgetType === MonitorWidgetType.BarChart) {
+    const refId = randomUUID();
+    property = {
+      ...property,
+      refId,
+    };
+  }
+  return property;
+};
+
+const convertMetricsToQueryConfig = (
+  monitorMetrics: MonitorMetric[],
+  widgetType: MonitorWidgetType,
+) => {
+  const assetMap = new Map<string, ApplicationProperty[]>();
+  const refIds = [];
+
+  for (const metric of monitorMetrics) {
+    const property = getProperty(metric, widgetType);
+
+    let newProperties = [property];
+    const existingProperties = assetMap.get(metric.assetId);
+
+    if (existingProperties) {
+      newProperties = [...existingProperties, property];
+    }
+
+    // Map each assetId to the array of associated properties
+    assetMap.set(metric.assetId, newProperties);
+
+    if (property.refId) {
+      refIds.push(property.refId);
+    }
+  }
+
+  const assets = [];
+  for (const [key, value] of assetMap) {
+    assets.push({
+      assetId: key,
+      properties: value,
+    });
+  }
+
+  const queryConfig = {
+    queryConfig: {
+      source: 'iotsitewise',
+      query: {
+        properties: [],
+        assets,
+      },
+    },
+  };
+
+  return { queryConfig, refIds };
+};
+
+const getStyleSettings = (widgetType: MonitorWidgetType, refIds: string[]) => {
+  let styleSettings = {};
+  if (widgetType === MonitorWidgetType.BarChart) {
+    for (const [index, refId] of refIds.entries()) {
+      styleSettings = {
+        ...styleSettings,
+        [refId]: {
+          color: colorPalette[index],
+        },
+      };
+    }
+    return { styleSettings };
   }
   return undefined;
 };
 
 const convertProperties = (
+  widgetType: MonitorWidgetType,
   monitorMetrics?: MonitorMetric[],
   monitorAnnotations?: MonitorAnnotations,
   monitorTitle?: string,
 ) => {
-  const defaultProperties = {
-    symbol: {
-      style: 'filled-circle',
-    },
-    axis: {
-      yVisible: true,
-      xVisible: true,
-    },
-    line: {
-      connectionStyle: 'linear',
-      style: 'solid',
-    },
-    legend: {
-      visible: true,
-    },
-  };
-
   if (monitorMetrics) {
-    const assets = [];
-
-    for (const metric of monitorMetrics) {
-      const asset = {
-        assetId: metric.assetId,
-        properties: [
-          {
-            aggregationType: defaultAggregationType, // Monitor has no aggregationType and appliation defaults to AVERAGE
-            propertyId: metric.propertyId,
-            resolution: convertResolution(metric.resolution),
-          },
-        ],
-      };
-
-      assets.push(asset);
-    }
-
-    const queryConfig = {
-      queryConfig: {
-        source: 'iotsitewise',
-        query: {
-          properties: [],
-          assets,
-        },
-      },
-    };
+    const staticProperties = getStaticProperties(widgetType);
+    const { queryConfig, refIds } = convertMetricsToQueryConfig(
+      monitorMetrics,
+      widgetType,
+    );
+    const thresholds = convertThresholds(monitorAnnotations);
+    const styleSettings = getStyleSettings(widgetType, refIds);
 
     return {
-      ...defaultProperties,
+      ...staticProperties,
       ...queryConfig,
-      ...convertThresholds(monitorAnnotations),
+      ...thresholds,
+      ...styleSettings,
       title: monitorTitle,
     };
   }
-  return defaultProperties;
+  return getStaticProperties(widgetType);
 };
 
 export const convertMonitorToAppDefinition = (
@@ -140,26 +261,27 @@ export const convertMonitorToAppDefinition = (
 ): DashboardDefinition => {
   const newDashboardDefinition: DashboardDefinition = { widgets: [] };
 
-  let numWidgets = 0;
-
   if (monitorDashboardDefinition.widgets) {
-    for (const widget of monitorDashboardDefinition.widgets) {
+    for (const [
+      index,
+      widget,
+    ] of monitorDashboardDefinition.widgets.entries()) {
       const newAppWidget: DashboardWidget = {
         type: convertType(widget.type),
         id: nanoid(12),
         x: convertX(widget.x),
         y: convertY(widget.y),
-        z: numWidgets, // Stack widgets in case of overlap
+        z: index, // Stack widgets in case of overlap
         width: convertWidth(widget.width),
         height: convertHeight(widget.height),
         properties: convertProperties(
+          widget.type,
           widget.metrics,
           widget.annotations,
           widget.title,
         ),
       };
 
-      numWidgets++;
       newDashboardDefinition.widgets.push(newAppWidget);
     }
   }
