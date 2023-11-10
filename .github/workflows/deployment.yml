@@ -53,7 +53,7 @@ jobs:
       - name: Get App URL 🔗
         id: app_url
         run: |
-          app_url=$(aws cloudformation describe-stacks --stack-name IotApp-${{github.ref_name}} --query "Stacks[0].Outputs[?OutputKey=='IotApp${{github.ref_name}}'].OutputValue" --output text)
+          app_url=$(aws cloudformation describe-stacks --stack-name IotApp-${{github.ref_name}} --query "Stacks[0].Outputs[?OutputKey=='AppURL'].OutputValue" --output text)
           echo "app_url=$app_url" >> $GITHUB_OUTPUT
 
   test:
