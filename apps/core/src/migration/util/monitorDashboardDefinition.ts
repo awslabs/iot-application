@@ -1,5 +1,11 @@
 export enum MonitorWidgetType {
   LineChart = 'sc-line-chart',
+  ScatterChart = 'sc-scatter-chart',
+  BarChart = 'sc-bar-chart',
+  StatusTimeline = 'sc-status-timeline',
+  Kpi = 'sc-kpi',
+  StatusGrid = 'sc-status-grid',
+  Table = 'sc-table',
 }
 
 export interface MonitorTrend {
@@ -38,7 +44,7 @@ export interface MonitorProperties {
 }
 
 export interface MonitorWidget {
-  type: string;
+  type: MonitorWidgetType;
   title: string;
   x: number;
   y: number;
