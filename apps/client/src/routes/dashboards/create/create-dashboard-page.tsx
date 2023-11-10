@@ -54,7 +54,7 @@ export function CreateDashboardPage() {
           variant="full-page"
           actions={
             <CreateDashboardFormActions
-              isLoading={createDashboardMutation.isLoading}
+              isLoading={createDashboardMutation.isPending}
             />
           }
           errorText={getFormErrorText()}

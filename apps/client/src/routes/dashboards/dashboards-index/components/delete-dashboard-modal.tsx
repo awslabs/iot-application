@@ -123,7 +123,7 @@ export function DeleteDashboardModal(props: DeleteDashboardModalProps) {
                 disabled={!isValid}
                 variant="primary"
                 className="btn-custom-primary"
-                loading={mutation.isLoading}
+                loading={mutation.isPending}
                 onClick={() => {
                   void handleSubmit(() => {
                     handleDelete();
