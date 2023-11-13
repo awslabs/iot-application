@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@types/node": "20.9.0",
-    "aws-cdk": "2.105.0",
+    "aws-cdk": "2.107.0",
     "tsconfig": "*"
   }
 }
