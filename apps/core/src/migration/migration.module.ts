@@ -1,7 +1,7 @@
 import { Module, ModuleMetadata } from '@nestjs/common';
 
 import { MigrationController } from './migration.controller';
-import { MigrationService } from './migration.service';
+import { MigrationService } from './service/migration.service';
 import { DashboardsModule } from '../dashboards/dashboards.module';
 
 export const migrationModuleMetadata: ModuleMetadata = {
