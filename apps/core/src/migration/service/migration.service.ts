@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { MigrationStatus, Status } from './entities/migration-status.entity';
-import { DashboardsService } from '../dashboards/dashboards.service';
+import { MigrationStatus, Status } from '../entities/migration-status.entity';
+import { DashboardsService } from '../../dashboards/dashboards.service';
 import {
   IoTSiteWiseClient,
   ListPortalsCommand,
@@ -13,9 +13,9 @@ import {
   DashboardSummary,
 } from '@aws-sdk/client-iotsitewise';
 import { CreateDashboardDto } from 'src/dashboards/dto/create-dashboard.dto';
-import { convertMonitorToAppDefinition } from './util/convertMonitorToAppDefinition';
-import { SiteWiseMonitorDashboardDefinition } from './util/monitorDashboardDefinition';
-import { Result, err, ok, isOk, isErr } from '../types';
+import { convertMonitorToAppDefinition } from './convert-monitor-to-app-definition';
+import { SiteWiseMonitorDashboardDefinition } from './monitor-dashboard-definition';
+import { Result, err, ok, isOk, isErr } from '../../types';
 
 @Injectable()
 export class MigrationService {
