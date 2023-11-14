@@ -8,10 +8,36 @@ import {
   MonitorMetric,
   SiteWiseMonitorDashboardDefinition,
   MonitorAnnotations,
-} from './monitorDashboardDefinition';
+} from './monitor-dashboard-definition';
 import { nanoid } from 'nanoid';
-import { colorPalette } from './colorPalette';
+import { colorPalette } from '../util/colorPalette';
 import { randomUUID } from 'crypto';
+
+interface ApplicationProperty {
+  propertyId: string;
+  aggregationType?: string;
+  resolution?: string;
+  refId?: string;
+}
+
+interface ApplicationAsset {
+  assetId: string;
+  properties: ApplicationProperty[];
+}
+
+interface ApplicationQuery {
+  properties: string[];
+  assets: ApplicationAsset[];
+}
+
+interface ApplicationQueryConfig {
+  source: string;
+  query: ApplicationQuery;
+}
+
+interface QueryConfig {
+  queryConfig: ApplicationQueryConfig;
+}
 
 const defaultResolution = '1m';
 const defaultAggregationType = 'AVERAGE';
@@ -31,6 +57,10 @@ const convertType = (monitorChartType: string) => {
       return DashboardWidgetType.BarChart;
     case MonitorWidgetType.ScatterChart:
       return DashboardWidgetType.XYPlot;
+    case MonitorWidgetType.StatusTimeline:
+      return DashboardWidgetType.StatusTimeline;
+    case MonitorWidgetType.Table:
+      return DashboardWidgetType.Table;
     default:
       return DashboardWidgetType.XYPlot;
   }
@@ -52,7 +82,18 @@ const convertY = (y: number) => {
   return y * appCellPerMonitorSquareHeight;
 };
 
-const convertResolution = (resolution?: string) => {
+const convertResolution = (
+  widgetType: MonitorWidgetType,
+  resolution?: string,
+) => {
+  if (
+    widgetType === MonitorWidgetType.StatusTimeline ||
+    widgetType === MonitorWidgetType.Table
+  ) {
+    // Timeline has resolution set to 0
+    return '0';
+  }
+
   if (resolution) {
     if (resolution === 'raw') {
       return defaultResolution;
@@ -132,6 +173,13 @@ const scatterChartProperties = {
   },
 };
 
+const timelineProperties = {
+  axis: {
+    showY: true,
+    showX: true,
+  },
+};
+
 const getStaticProperties = (widgetType: MonitorWidgetType) => {
   switch (widgetType) {
     case MonitorWidgetType.LineChart:
@@ -140,25 +188,27 @@ const getStaticProperties = (widgetType: MonitorWidgetType) => {
       return barChartProperties;
     case MonitorWidgetType.ScatterChart:
       return scatterChartProperties;
+    case MonitorWidgetType.StatusTimeline:
+      return timelineProperties;
+    case MonitorWidgetType.Table:
+      return {};
+    default:
+      return lineChartProperties;
   }
-  return lineChartProperties;
 };
-
-interface ApplicationProperty {
-  aggregationType: string;
-  propertyId: string;
-  resolution?: string;
-  refId?: string;
-}
 
 const getProperty = (metric: MonitorMetric, widgetType: MonitorWidgetType) => {
   let property: ApplicationProperty = {
     aggregationType: defaultAggregationType, // Monitor has no aggregationType and appliation defaults to AVERAGE
     propertyId: metric.propertyId,
-    resolution: convertResolution(metric.resolution),
+    resolution: convertResolution(widgetType, metric.resolution),
   };
 
-  if (widgetType === MonitorWidgetType.BarChart) {
+  if (
+    widgetType === MonitorWidgetType.BarChart ||
+    widgetType === MonitorWidgetType.StatusTimeline ||
+    widgetType === MonitorWidgetType.Table
+  ) {
     const refId = randomUUID();
     property = {
       ...property,
@@ -168,25 +218,30 @@ const getProperty = (metric: MonitorMetric, widgetType: MonitorWidgetType) => {
   return property;
 };
 
+type AssetMap = Record<string, ApplicationProperty[]>;
+
 const convertMetricsToQueryConfig = (
   monitorMetrics: MonitorMetric[],
   widgetType: MonitorWidgetType,
 ) => {
-  const assetMap = new Map<string, ApplicationProperty[]>();
+  const assetMap: AssetMap = {};
   const refIds = [];
 
   for (const metric of monitorMetrics) {
     const property = getProperty(metric, widgetType);
 
     let newProperties = [property];
-    const existingProperties = assetMap.get(metric.assetId);
+    const existingAssetIds = Object.keys(assetMap);
 
-    if (existingProperties) {
-      newProperties = [...existingProperties, property];
+    if (existingAssetIds.includes(metric.assetId)) {
+      const existingProperties = assetMap[metric.assetId];
+      if (existingProperties) {
+        newProperties = [...existingProperties, property];
+      }
     }
 
     // Map each assetId to the array of associated properties
-    assetMap.set(metric.assetId, newProperties);
+    assetMap[metric.assetId] = newProperties;
 
     if (property.refId) {
       refIds.push(property.refId);
@@ -194,14 +249,15 @@ const convertMetricsToQueryConfig = (
   }
 
   const assets = [];
-  for (const [key, value] of assetMap) {
-    assets.push({
-      assetId: key,
-      properties: value,
-    });
+  const assetIds = Object.keys(assetMap);
+  for (const assetId of assetIds) {
+    const properties = assetMap[assetId];
+    if (properties) {
+      assets.push({ assetId, properties });
+    }
   }
 
-  const queryConfig = {
+  const queryConfig: QueryConfig = {
     queryConfig: {
       source: 'iotsitewise',
       query: {
@@ -216,7 +272,11 @@ const convertMetricsToQueryConfig = (
 
 const getStyleSettings = (widgetType: MonitorWidgetType, refIds: string[]) => {
   let styleSettings = {};
-  if (widgetType === MonitorWidgetType.BarChart) {
+  if (
+    widgetType === MonitorWidgetType.BarChart ||
+    widgetType === MonitorWidgetType.StatusTimeline ||
+    widgetType === MonitorWidgetType.Table
+  ) {
     for (const [index, refId] of refIds.entries()) {
       styleSettings = {
         ...styleSettings,

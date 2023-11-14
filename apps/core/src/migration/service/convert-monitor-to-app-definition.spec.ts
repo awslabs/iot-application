@@ -1,10 +1,10 @@
-import { convertMonitorToAppDefinition } from './convertMonitorToAppDefinition';
+import { convertMonitorToAppDefinition } from './convert-monitor-to-app-definition';
 import {
   MonitorAnnotations,
   MonitorMetric,
   MonitorWidgetType,
   SiteWiseMonitorDashboardDefinition,
-} from './monitorDashboardDefinition';
+} from './monitor-dashboard-definition';
 import { DashboardWidgetType } from '../../dashboards/entities/dashboard-widget.entity';
 
 const createMonitorChartWidget = (
@@ -292,6 +292,101 @@ describe('Dashboard definition conversion', () => {
       widgets: [
         createApplicationChartDefinition('xy-plot', expectedProperties),
       ],
+    };
+    const applicationDefinition =
+      convertMonitorToAppDefinition(lineChartDefinition);
+    expect(applicationDefinition).toMatchObject(expectedDefinition);
+  });
+
+  it('convers a single SiteWise Monitor timeline chart into an application timeline chart', () => {
+    const metrics = [
+      {
+        type: 'iotsitewise',
+        label: 'Total Average Power (Demo Wind Farm Asset)',
+        assetId: '3d196ab5-85db-4c90-854f-4e29d579b898',
+        propertyId: 'c07c2fa5-265e-4ed4-bbf0-e94fe01e4d54',
+        dataType: 'DOUBLE',
+      },
+    ];
+
+    const timelineChartDefinition: SiteWiseMonitorDashboardDefinition = {
+      widgets: [
+        createMonitorChartWidget(MonitorWidgetType.StatusTimeline, metrics),
+      ],
+    };
+
+    const expectedProperties = {
+      title: 'test',
+      queryConfig: {
+        source: 'iotsitewise',
+        query: {
+          properties: [],
+          assets: [
+            {
+              assetId: '3d196ab5-85db-4c90-854f-4e29d579b898',
+              properties: [
+                {
+                  aggregationType: 'AVERAGE',
+                  propertyId: 'c07c2fa5-265e-4ed4-bbf0-e94fe01e4d54',
+                  resolution: '0',
+                },
+              ],
+            },
+          ],
+        },
+      },
+      styleSettings: {}, // refId is randomly generated so we are just asserting that styleSettings exists
+    };
+    const expectedDefinition = {
+      widgets: [
+        createApplicationChartDefinition('status-timeline', expectedProperties),
+      ],
+    };
+    const applicationDefinition = convertMonitorToAppDefinition(
+      timelineChartDefinition,
+    );
+    expect(applicationDefinition).toMatchObject(expectedDefinition);
+  });
+
+  it('convers a single SiteWise Monitor table chart into an application table chart', () => {
+    const metrics = [
+      {
+        type: 'iotsitewise',
+        label: 'Total Average Power (Demo Wind Farm Asset)',
+        assetId: '3d196ab5-85db-4c90-854f-4e29d579b898',
+        propertyId: 'c07c2fa5-265e-4ed4-bbf0-e94fe01e4d54',
+        dataType: 'DOUBLE',
+      },
+    ];
+
+    const lineChartDefinition: SiteWiseMonitorDashboardDefinition = {
+      widgets: [createMonitorChartWidget(MonitorWidgetType.Table, metrics)],
+    };
+
+    const expectedProperties = {
+      title: 'test',
+      queryConfig: {
+        source: 'iotsitewise',
+        query: {
+          properties: [],
+          assets: [
+            {
+              assetId: '3d196ab5-85db-4c90-854f-4e29d579b898',
+              properties: [
+                {
+                  aggregationType: 'AVERAGE',
+                  propertyId: 'c07c2fa5-265e-4ed4-bbf0-e94fe01e4d54',
+                  resolution: '0',
+                },
+              ],
+            },
+          ],
+        },
+      },
+      styleSettings: {}, // refId is randomly generated so we are just asserting that styleSettings exists
+    };
+    const expectedDefinition = {
+      widgets: [createApplicationChartDefinition('table', expectedProperties)],
     };
     const applicationDefinition =
       convertMonitorToAppDefinition(lineChartDefinition);

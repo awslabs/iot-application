@@ -19,7 +19,7 @@ import {
 } from '@aws-sdk/client-iotsitewise';
 
 import { mockClient } from 'aws-sdk-client-mock';
-import { MigrationService } from './migration.service';
+import { MigrationService } from './service/migration.service';
 import { DashboardsService } from '../dashboards/dashboards.service';
 import { DashboardsModule } from '../dashboards/dashboards.module';
 import { MigrationStatus, Status } from './entities/migration-status.entity';
