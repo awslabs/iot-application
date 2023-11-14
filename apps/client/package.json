@@ -45,7 +45,7 @@
   "devDependencies": {
     "@aws-sdk/client-sts": "^3.445.0",
     "@formatjs/cli": "^6.2.0",
-    "@formatjs/ts-transformer": "^3.13.3",
+    "@formatjs/ts-transformer": "^3.13.9",
     "@hookform/devtools": "^4.3.1",
     "@tanstack/eslint-plugin-query": "^5.8.3",
     "@tanstack/react-query-devtools": "^5.8.1",
