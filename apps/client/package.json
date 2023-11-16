@@ -20,9 +20,11 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.3.2",
-    "@aws-sdk/client-iot-events": "^3.428.0",
-    "@aws-sdk/client-iotsitewise": "^3.451.0",
-    "@aws-sdk/credential-providers": "^3.438.0",
+    "@aws-sdk/client-cloudwatch": "3.450.0",
+    "@aws-sdk/client-cloudwatch-logs": "3.450.0",
+    "@aws-sdk/client-iot-events": "3.450.0",
+    "@aws-sdk/client-iotsitewise": "3.450.0",
+    "@aws-sdk/credential-providers": "3.450.0",
     "@cloudscape-design/collection-hooks": "^1.0.25",
     "@cloudscape-design/components": "^3.0.342",
     "@cloudscape-design/design-tokens": "3.0.28",
@@ -45,7 +47,7 @@
     "web-vitals": "^3.5.0"
   },
   "devDependencies": {
-    "@aws-sdk/client-sts": "^3.445.0",
+    "@aws-sdk/client-sts": "^3.450.0",
     "@formatjs/cli": "^6.2.0",
     "@formatjs/ts-transformer": "^3.13.9",
     "@hookform/devtools": "^4.3.1",
@@ -61,7 +63,8 @@
     "@vitejs/plugin-react": "^4.1.1",
     "@vitest/coverage-v8": "^0.34.4",
     "@vitest/ui": "^0.34.6",
-    "babel-plugin-formatjs": "^10.5.8",
+    "aws-sdk-client-mock": "^3.0.0",
+    "babel-plugin-formatjs": "^10.5.7",
     "customize-cra": "^1.0.0",
     "eslint-config-custom": "*",
     "eslint-plugin-formatjs": "^4.11.1",
