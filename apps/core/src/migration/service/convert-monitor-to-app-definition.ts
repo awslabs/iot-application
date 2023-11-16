@@ -8,6 +8,7 @@ import {
   MonitorMetric,
   SiteWiseMonitorDashboardDefinition,
   MonitorAnnotations,
+  MonitorWidget,
 } from './monitor-dashboard-definition';
 import { nanoid } from 'nanoid';
 import { colorPalette } from '../util/colorPalette';
@@ -49,6 +50,9 @@ const defaultAggregationType = 'AVERAGE';
 const appCellsPerMonitorSquareWidth = 33; // 99 / 3
 const appCellPerMonitorSquareHeight = 14; // 42 / 3
 
+const minWidth = appCellsPerMonitorSquareWidth - 0.5;
+const minHeight = appCellPerMonitorSquareHeight - 0.5;
+
 const convertType = (monitorChartType: string) => {
   switch (monitorChartType) {
     case MonitorWidgetType.LineChart:
@@ -61,17 +65,23 @@ const convertType = (monitorChartType: string) => {
       return DashboardWidgetType.StatusTimeline;
     case MonitorWidgetType.Table:
       return DashboardWidgetType.Table;
+    case MonitorWidgetType.Kpi:
+      return DashboardWidgetType.Kpi;
+    case MonitorWidgetType.StatusGrid:
+      return DashboardWidgetType.Status;
     default:
       return DashboardWidgetType.XYPlot;
   }
 };
 
 const convertHeight = (height: number) => {
-  return height * appCellPerMonitorSquareHeight;
+  // Add some space between widgets by subtracting 0.5
+  return Math.max(height * appCellPerMonitorSquareHeight - 0.5, minHeight);
 };
 
 const convertWidth = (width: number) => {
-  return width * appCellsPerMonitorSquareWidth;
+  // Add some space between widgets by subtracting 0.5
+  return Math.max(width * appCellsPerMonitorSquareWidth - 0.5, minWidth);
 };
 
 const convertX = (x: number) => {
@@ -316,22 +326,104 @@ const convertProperties = (
   return getStaticProperties(widgetType);
 };
 
-export const convertMonitorToAppDefinition = (
-  monitorDashboardDefinition: SiteWiseMonitorDashboardDefinition,
-): DashboardDefinition => {
-  const newDashboardDefinition: DashboardDefinition = { widgets: [] };
+const getKPIAndGridData = (monitorWidget: MonitorWidget) => {
+  const numWidgets = monitorWidget.metrics?.length;
+  let widgetHeight = convertHeight(1);
+  let widgetWidth = convertWidth(1);
 
-  if (monitorDashboardDefinition.widgets) {
-    for (const [
-      index,
-      widget,
-    ] of monitorDashboardDefinition.widgets.entries()) {
+  if (numWidgets && numWidgets >= 1 && numWidgets < monitorWidget.width) {
+    widgetWidth = convertWidth(Math.floor(monitorWidget.width / numWidgets));
+    widgetHeight = convertHeight(monitorWidget.height);
+  }
+
+  // max x value is the end of the monitor widget (monitor x + monitor width - (individual widget length))
+  const maxXCoord = monitorWidget.x + monitorWidget.width - 1;
+
+  return { widgetWidth, widgetHeight, maxXCoord };
+};
+
+const convertKpiAndGridWidget = (
+  monitorWidget: MonitorWidget,
+): DashboardWidget[] => {
+  // For each metric in a monitor widget, create an application widget
+  if (monitorWidget.metrics) {
+    const appWidgets = [];
+    const { widgetWidth, widgetHeight, maxXCoord } =
+      getKPIAndGridData(monitorWidget);
+
+    let row = monitorWidget.y;
+    let column = monitorWidget.x;
+
+    for (const [index, metric] of monitorWidget.metrics.entries()) {
+      const queryConfig: QueryConfig = {
+        queryConfig: {
+          source: 'iotsitewise',
+          query: {
+            properties: [],
+            assets: [
+              {
+                assetId: metric.assetId,
+                properties: [
+                  {
+                    propertyId: metric.propertyId,
+                    resolution: '0',
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      };
+
       const newAppWidget: DashboardWidget = {
+        type: convertType(monitorWidget.type),
+        id: nanoid(12),
+        x: convertX(column),
+        y: convertY(row),
+        z: index, // Stack widgets in case of overlap
+        width: widgetWidth,
+        height: widgetHeight,
+        properties: {
+          primaryFont: {},
+          secondaryFont: {},
+          title: monitorWidget.title,
+          ...queryConfig,
+        },
+      };
+      appWidgets.push(newAppWidget);
+
+      // At end of widget width, reset to row below and start at left-most column
+      if (column >= maxXCoord) {
+        row++;
+        column = monitorWidget.x;
+      } else {
+        column++;
+      }
+    }
+
+    return appWidgets;
+  }
+  return [];
+};
+
+export const converWidget = (
+  widget: MonitorWidget,
+  index?: number,
+): DashboardWidget[] => {
+  // One-to-many relationship for KPI and Status Timeline in Monitor-to-Application conversion
+  if (
+    widget.type === MonitorWidgetType.Kpi ||
+    widget.type === MonitorWidgetType.StatusGrid
+  ) {
+    return convertKpiAndGridWidget(widget);
+  } else {
+    return [
+      {
         type: convertType(widget.type),
         id: nanoid(12),
         x: convertX(widget.x),
         y: convertY(widget.y),
-        z: index, // Stack widgets in case of overlap
+        z: index ?? 0, // Stack widgets in case of overlap
         width: convertWidth(widget.width),
         height: convertHeight(widget.height),
         properties: convertProperties(
@@ -340,9 +432,21 @@ export const convertMonitorToAppDefinition = (
           widget.annotations,
           widget.title,
         ),
-      };
+      },
+    ];
+  }
+};
 
-      newDashboardDefinition.widgets.push(newAppWidget);
+export const convertMonitorToAppDefinition = (
+  monitorDashboardDefinition: SiteWiseMonitorDashboardDefinition,
+): DashboardDefinition => {
+  const newDashboardDefinition: DashboardDefinition = { widgets: [] };
+  if (monitorDashboardDefinition.widgets) {
+    for (const [
+      index,
+      widget,
+    ] of monitorDashboardDefinition.widgets.entries()) {
+      newDashboardDefinition.widgets.push(...converWidget(widget, index));
     }
   }
 
