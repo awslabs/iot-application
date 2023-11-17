@@ -2,7 +2,6 @@ import {
   Dashboard as IoTAppKitDashboard,
   DashboardConfiguration,
 } from '@iot-app-kit/dashboard';
-import { Auth } from 'aws-amplify';
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 import { useAtomValue } from 'jotai';
@@ -20,6 +19,7 @@ import { getDashboardEditMode } from '~/store/viewMode';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 
 import './styles.css';
+import { authService } from '~/auth/auth-service';
 
 export function DashboardPage() {
   const params = useParams<{ dashboardId: string }>();
@@ -61,12 +61,12 @@ export function DashboardPage() {
     return <DashboardLoadingState />;
   }
 
-  const awsRegion = Auth.configure().region ?? 'us-west-2';
+  const awsRegion = authService.awsRegion;
 
   return (
     <IoTAppKitDashboard
       clientConfiguration={{
-        awsCredentials: () => Auth.currentCredentials(),
+        awsCredentials: () => authService.getAwsCredentials(),
         awsRegion,
       }}
       dashboardConfiguration={{
