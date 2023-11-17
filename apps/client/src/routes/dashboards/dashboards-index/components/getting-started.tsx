@@ -83,7 +83,7 @@ const GettingStarted = () => {
       headerInfo={
         <Link
           variant="info"
-          href="https://github.com/awslabs/iot-application/blob/main/docs/user-guide.md"
+          href="https://github.com/awslabs/iot-application/blob/main/userguide/README.md"
         >
           <FormattedMessage defaultMessage="Info" description="Info link" />
         </Link>
