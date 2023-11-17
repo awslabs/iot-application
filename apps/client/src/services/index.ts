@@ -3,14 +3,10 @@ export { intl } from './intl';
 
 import { v4 as uuid } from 'uuid';
 import { OpenAPI, DashboardsService, MigrationService } from './generated';
-import { Auth } from 'aws-amplify';
 
-async function getToken() {
-  const session = await Auth.currentSession();
-  return session.getAccessToken().getJwtToken();
-}
+import { authService } from '~/auth/auth-service';
 
-OpenAPI.TOKEN = getToken;
+OpenAPI.TOKEN = () => authService.getToken();
 
 function getHeaders() {
   return Promise.resolve({
