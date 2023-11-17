@@ -8,7 +8,6 @@ import { $Dashboard } from '~/services';
 import type { Control } from 'react-hook-form';
 import { CreateDashboardFormValues } from '../types/create-dashboard-form-values';
 import { isJust } from '~/helpers/predicates/is-just';
-import { Link } from '@cloudscape-design/components';
 
 interface DashboardDescriptionFieldProps {
   control: Control<CreateDashboardFormValues>;
@@ -48,7 +47,6 @@ export function DashboardDescriptionField(
             defaultMessage: 'Description',
             description: 'create dashboard form description label',
           })}
-          info={<Link variant="info">Info</Link>}
           constraintText={intl.formatMessage(
             {
               defaultMessage: 'Description must be fewer than 512 characters.',

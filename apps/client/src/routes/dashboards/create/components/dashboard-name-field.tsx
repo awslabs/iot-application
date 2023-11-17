@@ -8,7 +8,6 @@ import { $Dashboard } from '~/services';
 import type { Control } from 'react-hook-form';
 import type { CreateDashboardFormValues } from '../types/create-dashboard-form-values';
 import { isJust } from '~/helpers/predicates/is-just';
-import { Link } from '@cloudscape-design/components';
 
 interface DashboardNameFieldProps {
   control: Control<CreateDashboardFormValues>;
@@ -44,7 +43,6 @@ export function DashboardNameField(props: DashboardNameFieldProps) {
             defaultMessage: 'Name',
             description: 'create dashboard form name label',
           })}
-          info={<Link variant="info">Info</Link>}
           constraintText={intl.formatMessage(
             {
               defaultMessage:
