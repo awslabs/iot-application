@@ -68,6 +68,18 @@ export class CoreService extends Construct {
       }),
     );
 
+    serviceInstanceRole.addToPolicy(
+      new PolicyStatement({
+        actions: [
+          'iotsitewise:ListPortals',
+          'iotsitewise:ListProjects',
+          'iotsitewise:ListDashboards',
+          'iotsitewise:DescribeDashboard',
+        ],
+        resources: ['*'],
+      }),
+    );
+
     const image = new DockerImageAsset(this, 'image', {
       directory: path.join(__dirname, '../../..'),
     });
