@@ -46,7 +46,7 @@ export function DashboardNameField(props: DashboardNameFieldProps) {
           constraintText={intl.formatMessage(
             {
               defaultMessage:
-                'Name must be alphanumeric, unique and fewer than 63 characters, It can include hyphen(-) and spaces.',
+                'Name must be alphanumeric, unique and fewer than {maxLength} characters, It can include hyphen(-) and spaces.',
               description: 'create dashboard form name constraint',
             },
             {
@@ -59,7 +59,7 @@ export function DashboardNameField(props: DashboardNameFieldProps) {
           <Input
             ariaRequired
             placeholder={intl.formatMessage({
-              defaultMessage: 'dashboard name',
+              defaultMessage: 'Dashboard name',
               description: 'create dashboard form name placeholder',
             })}
             onChange={(event) => field.onChange(event.detail.value)}
