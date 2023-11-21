@@ -4,6 +4,7 @@ export const extractedMetaTags = (
   metaElements: HTMLMetaElement[],
 ): Metadata => {
   const metaTags: Metadata = {
+    applicationName: '',
     authenticationFlowType: '',
     cognitoEndpoint: '',
     identityPoolId: '',
