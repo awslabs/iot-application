@@ -1,26 +1,15 @@
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import _TopNavigation from '@cloudscape-design/components/top-navigation';
-import { useState } from 'react';
 import { useIntl } from 'react-intl';
 
-import { SettingsModal } from './components/settings-modal';
 import { ROOT_HREF } from '~/constants';
 import { preventFullPageLoad } from '~/helpers/events';
 import { useApplication } from '~/hooks/application/use-application';
 
 export function TopNavigation() {
-  const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
   const { navigate } = useApplication();
   const intl = useIntl();
   const { user, signOut } = useAuthenticator();
-
-  function openSettings() {
-    setIsSettingsModalVisible(true);
-  }
-
-  function closeSettings() {
-    setIsSettingsModalVisible(false);
-  }
 
   return (
     <div id="h" style={{ position: 'sticky', top: 0, zIndex: 1002 }}>
@@ -37,20 +26,6 @@ export function TopNavigation() {
           },
         }}
         utilities={[
-          {
-            type: 'button',
-            iconName: 'settings',
-            ariaLabel: intl.formatMessage({
-              defaultMessage: 'Settings',
-              description: 'settings button aria label',
-            }),
-            text: intl.formatMessage({
-              defaultMessage: 'Settings',
-              description: 'top navigation settings button',
-            }),
-            variant: 'link',
-            onClick: openSettings,
-          },
           {
             type: 'menu-dropdown',
             text: user.username,
@@ -100,12 +75,6 @@ export function TopNavigation() {
             description: 'top nav overflow menu triggle',
           }),
         }}
-      />
-
-      <SettingsModal
-        isVisible={isSettingsModalVisible}
-        onClose={closeSettings}
-        key={isSettingsModalVisible.toString()}
       />
     </div>
   );
