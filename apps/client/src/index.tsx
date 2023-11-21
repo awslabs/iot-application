@@ -25,6 +25,7 @@ import '@cloudscape-design/global-styles/index.css';
 // Extract metadata from <meta> tags
 const tags = Array.from(document.getElementsByTagName('meta'));
 const metadata = extractedMetaTags(tags);
+
 const {
   awsAccessKeyId,
   awsSecretAccessKey,
@@ -38,6 +39,7 @@ const {
   userPoolWebClientId,
   logMode,
   metricsMode,
+  domainName,
 } = metadata;
 
 Amplify.configure({
@@ -48,6 +50,14 @@ Amplify.configure({
     region,
     userPoolId,
     userPoolWebClientId,
+    oauth: {
+      domain: `${domainName}.auth.${region}.amazoncognito.com`,
+      scope: ['email', 'aws.cognito.signin.user.admin'],
+      redirectSignIn: '', // config in cognito
+      redirectSignOut: '', // config in cognito
+      clientId: userPoolWebClientId,
+      responseType: 'token',
+    },
   },
 });
 

@@ -11,4 +11,5 @@ export interface Metadata {
   userPoolWebClientId: string;
   logMode: string;
   metricsMode: string;
+  domainName: string;
 }
