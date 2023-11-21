@@ -146,7 +146,7 @@ export class DashboardsIndexPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.heading = page.getByRole('heading', { name: 'Dashboards' });
+    this.heading = page.getByRole('heading', { name: 'Dashboards' }).nth(1);
     this.preferencesButton = page.getByRole('button', { name: 'Preferences' });
     this.createButton = page.getByRole('button', {
       name: 'Create dashboard',

@@ -1,12 +1,12 @@
-# IoT Application User Guide
+# IoT dashboard application user guide
 
 ## Introduction
 
-IoT Application helps businesses and application users keep track of their IoT devices and data. By creating and managing custom dashboards, you can monitor your IoT devices and their data in real-time and connect to your AWS IoT SiteWise data. 
+The IoT dashboard application helps businesses and application users keep track of their IoT devices and data. By creating and managing custom dashboards, you can monitor your IoT devices and their data in real-time and connect to your AWS IoT SiteWise data. 
 
 ## Prerequisites
 
-If you don't have the IoT Application feature, contact your AWS administrator. For information about how to create a portal, see Getting started in the repository's [README.md](../README.md).
+If you don't have the IoT dashboard application feature, contact your AWS administrator. For information about how to create a portal, see Getting started in the repository's [README.md](../README.md).
 
 ## User Creation
 
@@ -14,7 +14,7 @@ NOTE: To prevent unwanted signups, that option is disabled.
 
 An AWS administrator can create application users by following these steps:
 
-1. Find the IoT Application **UserPool** by searching `UserPool` on the CloudFormation stack for IoT Application.
+1. Find the application **UserPool** by searching `UserPool` on the CloudFormation stack for the application.
     ![user-pool-resource-on-cfn](./imgs/user-pool-resource-on-cfn.png)
 1. Choose the **Physical ID** link. This displays the **UserPool** on the **Amazon Cognito** console.
     ![users-tab-on-cognito](./imgs/users-tab-on-cognito.png)
@@ -22,10 +22,10 @@ An AWS administrator can create application users by following these steps:
 
 ## User Login
 
-1. On your browser, enter the IoT Application URL. 
+1. On your browser, enter the application URL. 
     ![app-sign-in-screen](./imgs/app-sign-in-screen.png)
 1. Input your user **name** and **password** and click the **Sign in** button.
-1. You will be routed to the IoT Application home page.
+1. You will be routed to the application home page.
 
 ## Create Dashboards
 

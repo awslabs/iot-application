@@ -1,4 +1,4 @@
-# IoT Application Deployment Guide
+# IoT dashboard application deployment guide
 
 ## Deploying to AWS Cloud
 
@@ -34,7 +34,7 @@ Note: All commands should be run in the workspace root directory. We are using [
 1. View your application resources in CloudFormation. If you go to the stack IotApp -> Outputs you can see the URL that the application will be available from.
 
 ##### Updating the cloud application:
-1. Get the latest code changes using `git fetch` and `git pull` from the root directory of IoT Application.
+1. Get the latest code changes using `git fetch` and `git pull` from the root directory of the application.
 1. Run `yarn install` to install any dependency updates.
 1. Run `yarn workspace cdk cdk deploy --all` to deploy the latest changes. CDK stacks that do not have changes will be skipped.
 

@@ -163,8 +163,8 @@ export function DashboardsIndexPage() {
           <SpaceBetween size="m">
             <Header variant="h1">
               <FormattedMessage
-                defaultMessage="Centurion Home"
-                description="centurion home heading"
+                defaultMessage="Dashboards"
+                description="dashboards page heading"
               />
             </Header>
           </SpaceBetween>
