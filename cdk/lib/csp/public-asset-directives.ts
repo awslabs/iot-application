@@ -1,4 +1,5 @@
 import {
+  getCloudWatchEndpoint,
   getCognitoIdenityPoolEndpoint,
   getCognitoUserPoolEndpoint,
   getEventsControlPlaneEndpoint,
@@ -11,6 +12,7 @@ import {
 
 export function getServicesEndpoints(region: string): string[] {
   return [
+    getCloudWatchEndpoint(region),
     getCognitoIdenityPoolEndpoint(region),
     getCognitoUserPoolEndpoint(region),
     getEventsControlPlaneEndpoint(region),
