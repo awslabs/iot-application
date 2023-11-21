@@ -24,6 +24,7 @@ export class IotApplicationStack extends Stack {
       userPool: { userPoolId },
       userPoolClient: { userPoolClientId },
       identityPool: { ref: identityPoolId },
+      domain: { domainName },
     } = new AuthStack(this, 'Auth', {
       ...props,
       applicationName: id,
@@ -47,6 +48,7 @@ export class IotApplicationStack extends Stack {
         identityPoolId: identityPoolId,
         userPoolClientId: userPoolClientId,
         userPoolId: userPoolId,
+        domainName: domainName,
       },
     });
 
