@@ -49,7 +49,8 @@ export function DashboardDescriptionField(
           })}
           constraintText={intl.formatMessage(
             {
-              defaultMessage: 'Description must be fewer than 512 characters.',
+              defaultMessage:
+                'Description must be fewer than {maxLength} characters.',
               description: 'create dashboard form description constraint',
             },
             {
@@ -61,6 +62,10 @@ export function DashboardDescriptionField(
         >
           <Textarea
             ariaRequired
+            placeholder={intl.formatMessage({
+              defaultMessage: 'Dashboard description',
+              description: 'create dashboard form description placeholder',
+            })}
             onChange={(event) => field.onChange(event.detail.value)}
             value={field.value}
           />
