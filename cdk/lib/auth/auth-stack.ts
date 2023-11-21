@@ -8,7 +8,6 @@ import {
 } from 'aws-cdk-lib/aws-cognito';
 import { FederatedPrincipal, PolicyStatement, Role } from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
-import { randomUUID } from 'crypto';
 
 export interface AuthStackProps extends StackProps {
   readonly applicationName: string;
@@ -38,23 +37,19 @@ export class AuthStack extends Stack {
         flows: {
           implicitCodeGrant: true,
         },
-        callbackUrls: [
-          'https://<your-url>.awsapprunner.com'
-        ]
-      }
+        callbackUrls: ['https://<your-url>.awsapprunner.com'],
+      },
     });
-
-    // Generate a unique name for the userpool domain (required for SSO integration)
-    const domainPrefix = 'sitewise-' + randomUUID().toLowerCase().substring(0, 6);
 
     this.domain = this.userPool.addDomain('Domain', {
       cognitoDomain: {
-        domainPrefix
-      }
+        // Use the unique id for this cdk construct for naming
+        domainPrefix: `sitewise-${this.node.addr.substring(0, 6)}`,
+      },
     });
 
     this.domain.signInUrl(this.userPoolClient, {
-      redirectUri: 'https://<your-url>.awsapprunner.com'
+      redirectUri: 'https://<your-url>.awsapprunner.com',
     });
 
     this.identityPool = new CfnIdentityPool(this, 'IdentityPool', {
