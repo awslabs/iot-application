@@ -24,7 +24,7 @@ export const rootRoute = {
     activeHref: ROOT_HREF,
     crumb: () => ({
       text: intl.formatMessage({
-        defaultMessage: 'Centurion Home',
+        defaultMessage: 'Home',
         description: 'root route breadcrumb text',
       }),
       href: ROOT_HREF,

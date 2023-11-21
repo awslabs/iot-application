@@ -28,7 +28,7 @@ export function TopNavigation() {
         identity={{
           href: ROOT_HREF,
           title: intl.formatMessage({
-            defaultMessage: 'IoT Application',
+            defaultMessage: 'IoT dashboard application',
             description: 'top navigation home link',
           }),
           onFollow: (event) => {
