@@ -12,7 +12,7 @@ export class IotApplicationStack extends Stack {
       userPool: { userPoolId },
       userPoolClient: { userPoolClientId },
       identityPool: { ref: identityPoolId },
-    } = new AuthStack(this, 'Auth', props);
+    } = new AuthStack(this, 'Auth', { applicationName: id });
 
     const {
       resourceTable: { tableArn, tableName },
@@ -24,6 +24,7 @@ export class IotApplicationStack extends Stack {
       },
     } = new CoreStack(this, 'Core', {
       coreServiceProps: {
+        applicationName: id,
         databaseTableArn: tableArn,
         databaseTableName: tableName,
         identityPoolId: identityPoolId,

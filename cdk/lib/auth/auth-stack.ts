@@ -1,4 +1,4 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { Stack } from 'aws-cdk-lib';
 import {
   CfnIdentityPool,
   CfnIdentityPoolRoleAttachment,
@@ -8,13 +8,19 @@ import {
 import { FederatedPrincipal, PolicyStatement, Role } from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
+export interface AuthStackProps {
+  readonly applicationName: string;
+}
+
 export class AuthStack extends Stack {
   readonly identityPool: CfnIdentityPool;
   readonly userPool: UserPool;
   readonly userPoolClient: UserPoolClient;
 
-  constructor(scope: Construct, id: string, props?: StackProps) {
-    super(scope, id, props);
+  constructor(scope: Construct, id: string, props: AuthStackProps) {
+    super(scope, id);
+
+    const { applicationName } = props;
 
     this.userPool = new UserPool(this, 'UserPool', {
       signInCaseSensitive: false,
@@ -49,6 +55,20 @@ export class AuthStack extends Stack {
       ),
     });
 
+    // IoT CloudWatch Access
+    authenticatedRole.addToPolicy(
+      new PolicyStatement({
+        actions: ['cloudwatch:PutMetricData'],
+        resources: ['*'],
+        conditions: {
+          StringEquals: {
+            'cloudwatch:namespace': applicationName,
+          },
+        },
+      }),
+    );
+
+    // IoT Data Access
     authenticatedRole.addToPolicy(
       new PolicyStatement({
         actions: [

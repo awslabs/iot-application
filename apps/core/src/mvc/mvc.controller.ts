@@ -2,6 +2,7 @@ import { Get, Controller, Render, Inject, Header } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { Public } from '../auth/public.decorator';
 import { authConfig } from '../config/auth.config';
+import { globalConfig } from '../config/global.config';
 
 // Responds with the index page for all of the client routes.
 const CLIENT_ROUTES = ['', 'dashboards', 'dashboards/*'];
@@ -9,7 +10,8 @@ const CLIENT_ROUTES = ['', 'dashboards', 'dashboards/*'];
 @Controller()
 export class MvcController {
   constructor(
-    @Inject(authConfig.KEY) private config: ConfigType<typeof authConfig>,
+    @Inject(authConfig.KEY) private auth: ConfigType<typeof authConfig>,
+    @Inject(globalConfig.KEY) private global: ConfigType<typeof globalConfig>,
   ) {}
 
   @Public()
@@ -24,9 +26,12 @@ export class MvcController {
       region,
       userPoolWebClientId,
       userPoolId,
-    } = this.config;
+    } = this.auth;
+
+    const { applicationName } = this.global;
 
     return {
+      applicationName,
       authenticationFlowType,
       cognitoEndpoint,
       identityPoolId,

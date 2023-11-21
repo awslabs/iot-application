@@ -13,12 +13,14 @@ import { MvcModule } from './mvc/mvc.module';
 import { jwtConfig } from './config/jwt.config';
 import { MigrationModule } from './migration/migration.module';
 import { LoggerModule } from './logging/logger.module';
+import { globalConfig } from './config/global.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ load: [authConfig], isGlobal: true }),
-    ConfigModule.forRoot({ load: [databaseConfig], isGlobal: true }),
-    ConfigModule.forRoot({ load: [jwtConfig], isGlobal: true }),
+    ConfigModule.forRoot({
+      load: [authConfig, databaseConfig, globalConfig, jwtConfig],
+      isGlobal: true,
+    }),
     DashboardsModule,
     MigrationModule,
     MvcModule,

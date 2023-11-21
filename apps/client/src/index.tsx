@@ -17,11 +17,13 @@ import { registerServiceWorker } from './register-service-worker';
 
 import '@aws-amplify/ui-react/styles.css';
 import '@cloudscape-design/global-styles/index.css';
+import { cloudWatchMetricsRecorder } from './metrics/cloud-watch-metrics-recorder';
 
 // Extract metadata from <meta> tags
 const tags = Array.from(document.getElementsByTagName('meta'));
 const metadata = extractedMetaTags(tags);
 const {
+  applicationName,
   authenticationFlowType,
   cognitoEndpoint,
   identityPoolId,
@@ -61,5 +63,7 @@ if (rootEl != null) {
 }
 
 registerServiceWorker();
+
+cloudWatchMetricsRecorder.setMetricNamespace(applicationName);
 
 metricHandler.reportWebVitals();
