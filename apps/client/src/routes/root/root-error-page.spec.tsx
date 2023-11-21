@@ -21,7 +21,7 @@ describe('<RootErrorPage />', () => {
     ).toBeVisible();
 
     await user.click(
-      screen.getByRole('link', { name: 'IoT Application home page' }),
+      screen.getByRole('link', { name: 'IoT dashboard application home page' }),
     );
 
     expect(navigateMock).toHaveBeenCalledWith('/');

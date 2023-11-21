@@ -40,7 +40,7 @@ const GettingStarted = () => {
       className: 'getting-started-step1-icon',
       columnDescription: intl.formatMessage({
         defaultMessage:
-          'Create a dashboard in AWS IoT SiteWise Monitor. The dashboard provides a shared view of asset properties.',
+          'Create a dashboard in the IoT dashboard application. The dashboard provides a shared view of asset properties.',
         description: 'step 1 description',
       }),
     },

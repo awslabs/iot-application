@@ -54,7 +54,7 @@ const Migration = (props: MigrationProps) => {
       headerText={
         <FormattedMessage
           defaultMessage="Dashboard migration"
-          description="Migrate your dashboards from SiteWise Monitor to IoT Application."
+          description="Migrate your dashboards from SiteWise Monitor."
         />
       }
       headerActions={

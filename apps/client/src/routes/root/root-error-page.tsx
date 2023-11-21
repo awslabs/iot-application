@@ -36,7 +36,7 @@ export function RootErrorPage() {
           }}
         >
           <FormattedMessage
-            defaultMessage="IoT Application home page"
+            defaultMessage="IoT dashboard application home page"
             description="page not found link"
           />
         </Link>
