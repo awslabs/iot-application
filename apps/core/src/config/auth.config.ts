@@ -13,6 +13,7 @@ export const configFactory = () => {
     COGNITO_USE_LOCAL_VERIFIER: useLocalVerifier,
     COGNITO_USER_POOL_ID: userPoolId,
     COGNITO_USER_POOL_CLIENT_ID: userPoolWebClientId,
+    COGNITO_DOMAIN_NAME: domainName,
   } = process.env;
 
   invariant(
@@ -33,6 +34,7 @@ export const configFactory = () => {
       userPoolId,
       userPoolWebClientId,
       region,
+      domainName,
     };
   }
 
@@ -41,6 +43,7 @@ export const configFactory = () => {
     userPoolId,
     userPoolWebClientId,
     region,
+    domainName,
   };
 };
 
