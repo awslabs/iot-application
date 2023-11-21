@@ -1,19 +1,21 @@
-# IoT Application
+# IoT dashboard application built with IoT App Kit
 
-IoT Application is an easy-to-use tool designed for businesses and individuals who need to keep track of their IoT devices and data. By creating and managing custom dashboards, you can effortlessly monitor your IoT devices and their data in real-time, connecting to your AWS IoT SiteWise data.
+![Project Structure](./images/dashboard.png)
 
-Whether you're in manufacturing, logistics, energy, or other industries relying on IoT devices, IoT Application can help you address specific challenges such as tracking equipment performance, optimizing operational efficiency, and making data-driven decisions.
+The IoT dashboard application is an easy-to-use tool designed for businesses and individuals who need to keep track of their IoT devices and data. By creating and managing custom dashboards, you can effortlessly monitor your IoT devices and their data in real-time, connecting to your AWS IoT SiteWise data.
 
-Built using [IoT App Kit](https://github.com/awslabs/iot-app-kit), a library that simplifies connecting your applications to AWS IoT, IoT Application utilizes the AWS Cloud Development Kit (CDK) for a smooth deployment to AWS, ensuring a hassle-free setup process.
+Whether you're in manufacturing, logistics, energy, or other industries relying on IoT devices, the application can help you address specific challenges such as tracking equipment performance, optimizing operational efficiency, and making data-driven decisions.
 
-Key features of IoT Application include:
+Built using [IoT App Kit](https://github.com/awslabs/iot-app-kit), a library that simplifies connecting your applications to AWS IoT, the application utilizes the AWS Cloud Development Kit (CDK) for a smooth deployment to AWS, ensuring a hassle-free setup process.
+
+Key features of the application include:
 - **Dashboard management**: Easily create, modify, view, and organize dashboards
 - **Dashboard customization**: Design unique dashboards tailored to your specific IoT data requirements
 - **Intuitive interface**: Enjoy a user-friendly drag-and-drop experience for creating dashboards
 - **Effortless deployment**: Use the AWS CDK to deploy the application
 - **Secure authentication**: Safeguard your application with AWS Cognito for user management and authentication
 
-Start using IoT Application today to quickly create, manage, and view your IoT data in real-time from assets in your AWS IoT SiteWise service. We encourage you to try the application, contribute to the project, and provide feedback to help us improve and enhance the application further.
+Start using the application today to quickly create, manage, and view your IoT data in real-time from assets in your AWS IoT SiteWise service. We encourage you to try the application, contribute to the project, and provide feedback to help us improve and enhance the application further.
 
 ## Prerequisites
 
@@ -60,10 +62,6 @@ The table below lists the service dependencies for different environments.
 | Authentication        | [cognito-local](https://www.npmjs.com/package/cognito-local)   | [cognito-local](https://www.npmjs.com/package/cognito-local)          |
 | App API Database      | [dynamodb-local](https://www.npmjs.com/package/dynamodb-local) | [dynamodb-local](https://www.npmjs.com/package/dynamodb-local)        |
 | App API Authorization | [cognito-local](https://www.npmjs.com/package/cognito-local)   | [JWT generated from secret](./apps/core/src/testing/jwt-generator.ts) |
-
-## Project Structure
-
-![Project Structure](./images/diagram.svg)
 
 ## Security
 
