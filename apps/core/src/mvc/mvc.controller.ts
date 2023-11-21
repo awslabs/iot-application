@@ -10,8 +10,8 @@ const CLIENT_ROUTES = ['', 'dashboards', 'dashboards/*'];
 @Controller()
 export class MvcController {
   constructor(
-    @Inject(authConfig.KEY) private auth: ConfigType<typeof authConfig>,
     @Inject(globalConfig.KEY) private global: ConfigType<typeof globalConfig>,
+    @Inject(authConfig.KEY) private config: ConfigType<typeof authConfig>,
   ) {}
 
   @Public()
@@ -28,6 +28,8 @@ export class MvcController {
       userPoolId,
       domainName,
     } = this.config;
+
+    const { applicationName } = this.global;
 
     return {
       applicationName,
