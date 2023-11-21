@@ -15,6 +15,7 @@ import path from 'path';
 import { getServicesEndpoints } from '../csp/public-asset-directives';
 
 export interface CoreServiceProps {
+  readonly applicationName: string;
   readonly databaseTableArn: string;
   readonly databaseTableName: string;
   readonly identityPoolId: string;
@@ -29,6 +30,7 @@ export class CoreService extends Construct {
     super(scope, id);
 
     const {
+      applicationName,
       databaseTableArn,
       databaseTableName,
       identityPoolId,
@@ -102,6 +104,10 @@ export class CoreService extends Construct {
           imageConfiguration: {
             port: '3000',
             runtimeEnvironmentVariables: [
+              {
+                name: 'APPLICATION_NAME',
+                value: applicationName,
+              },
               {
                 name: 'COGNITO_IDENTITY_POOL_ID',
                 value: identityPoolId,

@@ -71,7 +71,7 @@ export class CloudWatchMetricsRecorder implements MetricsRecorder {
   private readonly cloudWatchClient: CloudWatchClient;
   private metricNamespace = '';
 
-  constructor(readonly authService: AuthService) {
+  constructor(authService: AuthService) {
     this.cloudWatchClient = new CloudWatchClient({
       credentials: () => authService.getAwsCredentials(),
       region: authService.awsRegion,

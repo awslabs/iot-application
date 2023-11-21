@@ -1,3 +1,8 @@
+// Endpoint from: https://docs.aws.amazon.com/general/latest/gr/cw_region.html
+export function getCloudWatchEndpoint(region: string): string {
+  return `https://monitoring.${region}.amazonaws.com`;
+}
+
 // Endpoint from: https://docs.aws.amazon.com/general/latest/gr/cognito_identity.html
 export function getCognitoIdenityPoolEndpoint(region: string): string {
   return `https://cognito-identity.${region}.amazonaws.com`;

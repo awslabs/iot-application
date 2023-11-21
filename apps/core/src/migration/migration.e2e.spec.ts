@@ -16,6 +16,7 @@ import {
   DescribeDashboardCommand,
   DescribeDashboardResponse,
   InternalFailureException,
+  PortalState,
 } from '@aws-sdk/client-iotsitewise';
 
 import { mockClient } from 'aws-sdk-client-mock';
@@ -34,7 +35,7 @@ const testPortals = {
       id: 'portalId',
       name: 'testPortal',
       startUrl: 'test',
-      status: { state: 'complete' },
+      status: { state: PortalState.ACTIVE },
     },
   ],
 };
