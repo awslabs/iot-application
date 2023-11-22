@@ -2,7 +2,6 @@ import { expect, test } from '@playwright/test';
 import { CreateDashboardPage } from '../pages/create-dashboard.page';
 import {
   DashboardsIndexPage,
-  DashboardsTable,
   DeleteDashboardDialog,
 } from '../pages/dashboards-index.page';
 import { ApplicationFrame } from '../pages/application-frame.page';
@@ -15,7 +14,6 @@ test('as a user, I can create, update, and delete my dashboard', async ({
 
   const dashboardsPage = new DashboardsIndexPage(page);
   const createDashboardPage = new CreateDashboardPage(page);
-  const dashboardsTable = new DashboardsTable(page);
   const application = new ApplicationFrame(page);
   const deleteDashboardDialog = new DeleteDashboardDialog(page);
 
@@ -59,14 +57,10 @@ test('as a user, I can create, update, and delete my dashboard', async ({
 
   await dashboardsPage.goto();
 
-  const dashboardRow = dashboardsTable.getRow({
-    name: 'My dashboard',
-    description: dashboardDescription,
-  });
-
-  await expect(dashboardRow).toBeVisible();
+  await expect(page.getByText('My Dashboard', { exact: true })).toBeVisible();
+  await expect(page.getByText(dashboardDescription)).toBeVisible();
   await expect(dashboardsPage.deleteButton).toBeDisabled();
-  await dashboardRow
+  await page
     .getByRole('checkbox', { name: 'Select dashboard My dashboard' })
     .click();
   await expect(dashboardsPage.deleteButton).toBeEnabled();
@@ -82,7 +76,7 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   await deleteDashboardDialog.deleteButton.click();
 
   await deleteDashboardDialog.expectIsNotVisible();
-  await expect(dashboardRow).toBeHidden();
+  await expect(page.getByText(dashboardDescription)).toBeHidden();
   await expect(application.notification).toBeVisible();
   await expect(application.notification).toHaveText(
     'Successfully deleted dashboard "My Dashboard".',
