@@ -47,7 +47,7 @@
     "ts-node": "^10.0.0",
     "turbo": "latest",
     "type-fest": "^4.7.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.2"
   },
   "packageManager": "yarn@1.22.19",
   "volta": {

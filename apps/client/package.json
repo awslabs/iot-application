@@ -81,7 +81,7 @@
     "sass": "^1.69.5",
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.2",
     "vitest": "^0.34.4"
   },
   "resolutions": {
