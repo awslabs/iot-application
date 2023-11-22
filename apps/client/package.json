@@ -26,10 +26,11 @@
     "@aws-sdk/client-iotsitewise": "3.450.0",
     "@aws-sdk/credential-providers": "3.450.0",
     "@cloudscape-design/collection-hooks": "^1.0.25",
-    "@cloudscape-design/components": "^3.0.342",
+    "@cloudscape-design/component-toolkit": "^1.0.0-beta.27",
+    "@cloudscape-design/components": "^3.0.443",
     "@cloudscape-design/design-tokens": "3.0.28",
     "@cloudscape-design/global-styles": "^1.0.15",
-    "@iot-app-kit/dashboard": "^9.4.0",
+    "@iot-app-kit/dashboard": "^9.7.0",
     "@tanstack/react-query": "^5.8.1",
     "aws-amplify": "^5.3.11",
     "cytoscape": "^3.27.0",
@@ -82,6 +83,9 @@
     "tsconfig": "*",
     "typescript": "^5.2.2",
     "vitest": "^0.34.4"
+  },
+  "resolutions": {
+    "@iot-app-kit/dashboard/**/@cloudscape-design/component-toolkit": "1.0.0-beta.27"
   },
   "browserslist": {
     "production": [
