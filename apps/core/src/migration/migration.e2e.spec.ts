@@ -170,7 +170,7 @@ describe('MigrationModule', () => {
   });
 
   describe('POST /api/migration HTTP/1.1', () => {
-    test('calls migration', async () => {
+    test('starts migration after receiving request', async () => {
       const response = await app.inject({
         headers: {
           Authorization: `Bearer ${bearerToken}`,
