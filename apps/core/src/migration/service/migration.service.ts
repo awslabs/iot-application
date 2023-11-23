@@ -29,29 +29,11 @@ export class MigrationService {
   private parsingErrors: Error[] = [];
 
   private sitewise = new IoTSiteWiseClient({
-    credentials: {
-      accessKeyId: this.getAccessKey(),
-      secretAccessKey: this.getSecretKey(),
-    },
     region: this.getRegion(),
   });
 
   private getRegion() {
     return process.env.AWS_REGION;
-  }
-
-  private getAccessKey() {
-    if (process.env.AWS_ACCESS_KEY_ID) {
-      return process.env.AWS_ACCESS_KEY_ID;
-    }
-    return '';
-  }
-
-  private getSecretKey() {
-    if (process.env.AWS_SECRET_ACCESS_KEY) {
-      return process.env.AWS_SECRET_ACCESS_KEY;
-    }
-    return '';
   }
 
   private async getPortals(): Promise<PortalSummary[]> {
