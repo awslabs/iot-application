@@ -38,7 +38,6 @@ import { setDashboardEditMode } from '~/store/viewMode';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 
 import './styles.css';
-import { Features, featureEnabled } from '~/helpers/featureFlag/featureFlag';
 
 const DateFormatOptions: FormatDateOptions = {
   year: 'numeric',
@@ -174,13 +173,9 @@ export function DashboardsIndexPage() {
       <Box>
         <GettingStarted />
       </Box>
-      {featureEnabled(Features.MIGRATION) && (
-        <Box padding={{ top: 'l' }}>
-          <Migration
-            onMigrationComplete={() => void dashboardsQuery.refetch()}
-          />
-        </Box>
-      )}
+      <Box padding={{ top: 'l' }}>
+        <Migration onMigrationComplete={() => void dashboardsQuery.refetch()} />
+      </Box>
       <Box padding={{ top: 'l' }}>
         <Table
           {...collectionProps}
