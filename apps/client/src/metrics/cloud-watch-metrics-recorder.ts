@@ -1,4 +1,4 @@
-import { type MetricsRecorder } from './metrics-recorder.interface';
+import { type Metric, type MetricsRecorder } from '@iot-app-kit/core';
 import {
   CloudWatchClient,
   type MetricDatum,
@@ -10,9 +10,7 @@ import { type AuthService } from '~/auth/auth-service.interface';
 import { authService } from '~/auth/auth-service';
 
 // at most one putMetrics() call every X ms
-const PUT_METRICS_THROTTLE = 3000;
-
-type Metric = Parameters<MetricsRecorder['record']>[0];
+export const PUT_METRICS_THROTTLE = 3000;
 
 class CloudWatchMetricsQueue {
   private readonly queue = new Set<MetricDatum>();
@@ -70,6 +68,8 @@ export class CloudWatchMetricsRecorder implements MetricsRecorder {
   private readonly queue = new CloudWatchMetricsQueue();
   private readonly cloudWatchClient: CloudWatchClient;
   private metricNamespace = '';
+  // Whether system is ready to send metrics to CloudWatch
+  private isInitialized = false;
 
   constructor(authService: AuthService) {
     this.cloudWatchClient = new CloudWatchClient({
@@ -78,8 +78,16 @@ export class CloudWatchMetricsRecorder implements MetricsRecorder {
     });
   }
 
-  setMetricNamespace(metricNamespace: string) {
+  init(metricNamespace: string) {
+    if (this.isInitialized) {
+      return;
+    }
+
     this.metricNamespace = metricNamespace;
+    this.isInitialized = true;
+
+    // Flush out recorded logs
+    void this.putMetricsThrottled();
   }
 
   record(metric: Parameters<MetricsRecorder['record']>[0]) {
@@ -97,6 +105,11 @@ export class CloudWatchMetricsRecorder implements MetricsRecorder {
   );
 
   private async putMetrics() {
+    if (!this.isInitialized) {
+      // NOOP until system is initialized
+      return;
+    }
+
     const metricData = this.queue.getMetricData();
 
     if (metricData.length === 0) {
@@ -114,7 +127,6 @@ export class CloudWatchMetricsRecorder implements MetricsRecorder {
     try {
       await this.cloudWatchClient.send(command);
     } catch (e) {
-      // FIXME: emit log about the failure after logger is implemented
       console.error('Error during metric recorder emitting metrics:', e);
     }
   }

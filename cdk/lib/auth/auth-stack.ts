@@ -10,6 +10,7 @@ import { Construct } from 'constructs';
 
 export interface AuthStackProps {
   readonly applicationName: string;
+  readonly logGroupArn: string;
 }
 
 export class AuthStack extends Stack {
@@ -20,7 +21,7 @@ export class AuthStack extends Stack {
   constructor(scope: Construct, id: string, props: AuthStackProps) {
     super(scope, id);
 
-    const { applicationName } = props;
+    const { applicationName, logGroupArn } = props;
 
     this.userPool = new UserPool(this, 'UserPool', {
       signInCaseSensitive: false,
@@ -65,6 +66,14 @@ export class AuthStack extends Stack {
             'cloudwatch:namespace': applicationName,
           },
         },
+      }),
+    );
+
+    // IoT CloudWatch Logs Access
+    authenticatedRole.addToPolicy(
+      new PolicyStatement({
+        actions: ['logs:CreateLogStream', 'logs:PutLogEvents'],
+        resources: [logGroupArn],
       }),
     );
 
