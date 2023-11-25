@@ -4,11 +4,15 @@ import {
   CloudWatchClient,
   PutMetricDataCommand,
 } from '@aws-sdk/client-cloudwatch';
-import { CloudWatchMetricsRecorder } from './cloud-watch-metrics-recorder';
+import {
+  CloudWatchMetricsRecorder,
+  PUT_METRICS_THROTTLE,
+} from './cloud-watch-metrics-recorder';
 import 'aws-sdk-client-mock-jest';
 
 describe('CloudWatchMetricsRecorder', () => {
   const cloudWatchClientMock = mockClient(CloudWatchClient);
+  const metricNamespace = 'testMetricNamespace';
   const mockAuthService = {
     getAwsCredentials: vi.fn().mockResolvedValue({
       accessKeyId: 'fakeMyKeyId',
@@ -16,8 +20,8 @@ describe('CloudWatchMetricsRecorder', () => {
     }),
     awsRegion: 'us-west-2',
     getToken: vi.fn(),
+    onSignedIn: vi.fn(),
   };
-  const metricNamespace = 'testMetricNamespace';
 
   beforeEach(() => {
     vi.useFakeTimers();
@@ -28,13 +32,67 @@ describe('CloudWatchMetricsRecorder', () => {
     vi.useRealTimers();
   });
 
+  test('initializes and sends prerecorded metrics to CloudWatch', () => {
+    cloudWatchClientMock.on(PutMetricDataCommand).resolves({});
+
+    const cloudWatchMetricsRecorder = new CloudWatchMetricsRecorder(
+      mockAuthService,
+    );
+
+    const current = new Date();
+    cloudWatchMetricsRecorder.record({
+      metricName: 'metric0',
+      metricValue: 0,
+    });
+
+    cloudWatchMetricsRecorder.init(metricNamespace);
+
+    vi.advanceTimersByTime(PUT_METRICS_THROTTLE);
+
+    expect(cloudWatchClientMock).toHaveReceivedCommandTimes(
+      PutMetricDataCommand,
+      1,
+    );
+    expect(cloudWatchClientMock).toHaveReceivedCommandWith(
+      PutMetricDataCommand,
+      {
+        Namespace: metricNamespace,
+        MetricData: [
+          // With no context nor timestamp
+          {
+            MetricName: 'metric0',
+            Timestamp: current,
+            Value: 0,
+          },
+        ],
+      },
+    );
+  });
+
+  test('does not send metrics before initialization', () => {
+    const cloudWatchMetricsRecorder = new CloudWatchMetricsRecorder(
+      mockAuthService,
+    );
+
+    cloudWatchMetricsRecorder.record({
+      metricName: 'metric0',
+      metricValue: 0,
+    });
+
+    vi.advanceTimersByTime(PUT_METRICS_THROTTLE);
+
+    expect(cloudWatchClientMock).not.toHaveReceivedCommand(
+      PutMetricDataCommand,
+    );
+  });
+
   test('records metrics and sends to CloudWatch', () => {
     cloudWatchClientMock.on(PutMetricDataCommand).resolves({});
 
     const cloudWatchMetricsRecorder = new CloudWatchMetricsRecorder(
       mockAuthService,
     );
-    cloudWatchMetricsRecorder.setMetricNamespace(metricNamespace);
+    cloudWatchMetricsRecorder.init(metricNamespace);
 
     const current = new Date();
 
@@ -71,8 +129,7 @@ describe('CloudWatchMetricsRecorder', () => {
       metricValue: 3333,
     });
 
-    // PUT_METRICS_THROTTLE
-    vi.advanceTimersByTime(3000);
+    vi.advanceTimersByTime(PUT_METRICS_THROTTLE);
 
     expect(cloudWatchClientMock).toHaveReceivedCommandTimes(
       PutMetricDataCommand,
@@ -134,7 +191,7 @@ describe('CloudWatchMetricsRecorder', () => {
     const cloudWatchMetricsRecorder = new CloudWatchMetricsRecorder(
       mockAuthService,
     );
-    cloudWatchMetricsRecorder.setMetricNamespace(metricNamespace);
+    cloudWatchMetricsRecorder.init(metricNamespace);
 
     const timestamp0 = new Date();
     cloudWatchMetricsRecorder.record({
@@ -142,8 +199,7 @@ describe('CloudWatchMetricsRecorder', () => {
       metricValue: 0,
     });
 
-    // PUT_METRICS_THROTTLE
-    vi.advanceTimersByTime(3000);
+    vi.advanceTimersByTime(PUT_METRICS_THROTTLE);
 
     expect(cloudWatchClientMock).toHaveReceivedCommandTimes(
       PutMetricDataCommand,
@@ -169,8 +225,7 @@ describe('CloudWatchMetricsRecorder', () => {
       metricValue: 1,
     });
 
-    // PUT_METRICS_THROTTLE
-    vi.advanceTimersByTime(3000);
+    vi.advanceTimersByTime(PUT_METRICS_THROTTLE);
 
     expect(cloudWatchClientMock).toHaveReceivedCommandTimes(
       PutMetricDataCommand,
