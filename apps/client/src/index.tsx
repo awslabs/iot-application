@@ -14,10 +14,11 @@ import { setServiceUrl } from './services';
 import metricHandler from './metrics/metric-handler';
 import { extractedMetaTags } from './helpers/meta-tags';
 import { registerServiceWorker } from './register-service-worker';
+import { authService } from './auth/auth-service';
+import { initializeAuthDependents } from './initialize-auth-dependents';
 
 import '@aws-amplify/ui-react/styles.css';
 import '@cloudscape-design/global-styles/index.css';
-import { cloudWatchMetricsRecorder } from './metrics/cloud-watch-metrics-recorder';
 
 // Extract metadata from <meta> tags
 const tags = Array.from(document.getElementsByTagName('meta'));
@@ -63,7 +64,5 @@ if (rootEl != null) {
 }
 
 registerServiceWorker();
-
-cloudWatchMetricsRecorder.setMetricNamespace(applicationName);
-
+void authService.onSignedIn(() => initializeAuthDependents(applicationName));
 metricHandler.reportWebVitals();

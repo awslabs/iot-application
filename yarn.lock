@@ -7804,7 +7804,7 @@
     "@iot-app-kit/core" "9.8.0"
     lodash.difference "4.5.0"
 
-"@iot-app-kit/core@9.8.0":
+"@iot-app-kit/core@9.8.0", "@iot-app-kit/core@^9.8.0":
   version "9.8.0"
   resolved "https://registry.yarnpkg.com/@iot-app-kit/core/-/core-9.8.0.tgz#752fb5735de131246bc9bd0c5e23763073d32479"
   integrity sha512-jb4vPzthmddH6+81DHsdp7sKR1nLYUvsEmE/2JWYjR0uAEWPGjW3teuK1RHBEZ3p6x42YaMgLcaluTOzDoZesg==
