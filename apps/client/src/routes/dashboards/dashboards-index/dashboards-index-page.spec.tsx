@@ -7,6 +7,19 @@ import { DashboardsIndexPage } from './dashboards-index-page';
 import { DashboardSummary, $Dashboard } from '~/services';
 import GettingStarted from './components/getting-started';
 
+vi.mock('./hooks/use-migration-query', () => ({
+  useMigrationQuery: () => ({
+    refetch: vi.fn(),
+  }),
+}));
+
+vi.mock('./hooks/use-migration-status-query', () => ({
+  useMigrationStatusQuery: vi.fn().mockReturnValue({
+    data: {},
+    isError: false,
+  }),
+}));
+
 const navigateMock = vi.fn();
 vi.mock('~/hooks/application/use-application', () => ({
   useApplication: () => ({
