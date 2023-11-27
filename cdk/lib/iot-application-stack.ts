@@ -6,18 +6,22 @@ import { DatabaseStack } from './database/database-stack';
 import { LoggingStack } from './logging/logging-stack';
 
 export class IotApplicationStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
 
     const {
       logGroup: { logGroupArn },
-    } = new LoggingStack(this, 'Logging', { applicationName: id });
+    } = new LoggingStack(this, 'Logging', { ...props, applicationName: id });
 
     const {
       userPool: { userPoolId },
       userPoolClient: { userPoolClientId },
       identityPool: { ref: identityPoolId },
-    } = new AuthStack(this, 'Auth', { applicationName: id, logGroupArn });
+    } = new AuthStack(this, 'Auth', {
+      ...props,
+      applicationName: id,
+      logGroupArn,
+    });
 
     const {
       resourceTable: { tableArn, tableName },

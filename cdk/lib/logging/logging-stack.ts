@@ -1,8 +1,8 @@
-import { Stack } from 'aws-cdk-lib';
+import { Stack, StackProps } from 'aws-cdk-lib';
 import { LogGroup } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 
-export interface LoggingStackProps {
+export interface LoggingStackProps extends StackProps {
   readonly applicationName: string;
 }
 
