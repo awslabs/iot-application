@@ -7,8 +7,11 @@ import {
   spaceScaledL,
 } from '@cloudscape-design/design-tokens';
 import './footer.css';
+import { useParams } from 'react-router-dom';
 
 export const Footer = () => {
+  const params = useParams();
+
   const footerStyle = {
     fontSize: spaceScaledS,
     color: colorBackgroundControlDefault,
@@ -22,6 +25,7 @@ export const Footer = () => {
       id="app-footer"
       className="dashboard-footer-container"
       data-testid="footer-component"
+      hidden={!!params.dashboardId}
     >
       <div data-testid="copy-right" className="dashboard-footer-right-content">
         <FormattedMessage
