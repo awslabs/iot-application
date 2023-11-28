@@ -14,5 +14,8 @@ export async function initializeAuthDependents(applicationName: string) {
     await cloudWatchLogger.init(applicationName, logStreamName);
   } catch (e) {
     // NOOP; application should proceed;
+    console.error(
+      'Error during CloudWatch logger initialization, no logs are sent to CloudWatch',
+    );
   }
 }
