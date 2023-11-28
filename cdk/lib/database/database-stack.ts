@@ -10,7 +10,7 @@ import { Construct } from 'constructs';
 export class DatabaseStack extends Stack {
   readonly resourceTable: Table;
 
-  constructor(scope: Construct, id: string, props?: StackProps) {
+  constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
 
     this.resourceTable = new Table(this, 'ResourceTable', {
