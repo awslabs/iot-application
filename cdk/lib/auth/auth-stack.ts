@@ -1,4 +1,4 @@
-import { Stack } from 'aws-cdk-lib';
+import { Stack, StackProps } from 'aws-cdk-lib';
 import {
   CfnIdentityPool,
   CfnIdentityPoolRoleAttachment,
@@ -8,7 +8,7 @@ import {
 import { FederatedPrincipal, PolicyStatement, Role } from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
 
-export interface AuthStackProps {
+export interface AuthStackProps extends StackProps {
   readonly applicationName: string;
   readonly logGroupArn: string;
 }
@@ -19,7 +19,7 @@ export class AuthStack extends Stack {
   readonly userPoolClient: UserPoolClient;
 
   constructor(scope: Construct, id: string, props: AuthStackProps) {
-    super(scope, id);
+    super(scope, id, props);
 
     const { applicationName, logGroupArn } = props;
 
