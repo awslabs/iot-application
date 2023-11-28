@@ -17,7 +17,11 @@ export class IotApplicationStack extends Stack {
       userPool: { userPoolId },
       userPoolClient: { userPoolClientId },
       identityPool: { ref: identityPoolId },
-    } = new AuthStack(this, 'Auth', { applicationName: id, logGroupArn });
+    } = new AuthStack(this, 'Auth', {
+      applicationName: id,
+      logGroupArn,
+      ...props,
+    });
 
     const {
       resourceTable: { tableArn, tableName },
