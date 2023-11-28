@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import AppLayout from '@cloudscape-design/components/app-layout';
 
-import { DASHBOARDS_HREF } from '~/constants';
+import { CREATE_DASHBOARD_HREF } from '~/constants';
 
 import { Breadcrumbs } from './components/breadcrumbs';
 import { Notifications } from './components/notifications';
@@ -19,13 +19,13 @@ export function Layout(props: React.PropsWithChildren) {
   const fullWidth = useFullWidth();
   const { pathname } = useLocation();
 
-  const isDashboard = pathname === DASHBOARDS_HREF;
+  const showBreadcrumb = pathname === CREATE_DASHBOARD_HREF; // show breadcrumb only for create dashboard page
 
   return (
     <>
       <TopNavigation />
       <AppLayout
-        breadcrumbs={!isDashboard ? <Breadcrumbs /> : null}
+        breadcrumbs={showBreadcrumb ? <Breadcrumbs /> : null}
         headerSelector="#h"
         footerSelector="#app-footer"
         // hide side navigation panel entirely
