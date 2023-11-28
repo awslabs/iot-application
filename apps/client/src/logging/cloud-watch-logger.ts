@@ -11,7 +11,7 @@ import { authService } from '~/auth/auth-service';
 // at most one putLogEvents() call every X ms
 export const PUT_LOG_EVENTS_THROTTLE = 3000;
 
-export enum LOG_LEVEL {
+export const enum LOG_LEVEL {
   log = 30,
   warn = 40,
   error = 50,
