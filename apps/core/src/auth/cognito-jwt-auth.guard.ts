@@ -58,14 +58,16 @@ export class CognitoJwtAuthGuard implements CanActivate {
 
     try {
       const httpRequest = context.switchToHttp().getRequest<HttpRequest>();
-      const { url } = httpRequest;
 
-      const { sub } = await this.config.cognitoJwtVerifier.verify(
+      const { sub: userId } = await this.config.cognitoJwtVerifier.verify(
         this.getBearerToken(httpRequest),
       );
-      this.logger.log(
-        `User ID "${sub}" authorized to ${controllerName}.${handlerName} (url: "${url}")`,
-      );
+
+      this.logUserAccess({
+        controllerName,
+        handlerName,
+        userId,
+      });
 
       return true;
     } catch (e) {
@@ -82,5 +84,24 @@ export class CognitoJwtAuthGuard implements CanActivate {
     const authorization = httpRequest.headers?.authorization ?? '';
 
     return authorization.replace(/^Bearer /, '');
+  }
+
+  private logUserAccess({
+    controllerName,
+    handlerName,
+    userId,
+  }: {
+    controllerName: string;
+    handlerName: string;
+    userId: string;
+  }) {
+    this.logger.log(
+      `User ID "${userId}" authorized to ${controllerName}.${handlerName}`,
+    );
+    this.logger.log({
+      controllerName,
+      handlerName,
+      userId,
+    });
   }
 }
