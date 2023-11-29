@@ -249,7 +249,7 @@ export function DashboardsIndexPage() {
               actions={
                 <SpaceBetween direction="horizontal" size="xs">
                   <Button
-                    disabled={selectedItems.length !== 1}
+                    disabled={selectedItems.length === 0}
                     onClick={() => setIsDeleteModalVisible(true)}
                   >
                     <FormattedMessage
