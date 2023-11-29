@@ -93,6 +93,8 @@ export class CloudWatchMetricsRecorder implements MetricsRecorder {
   record(metric: Parameters<MetricsRecorder['record']>[0]) {
     this.queue.enqueue(metric);
     void this.putMetricsThrottled();
+    // eslint-disable-next-line no-console
+    console.log(metric);
   }
 
   private putMetricsThrottled = throttle(

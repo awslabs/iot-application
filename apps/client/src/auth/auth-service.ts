@@ -15,10 +15,6 @@ class CognitoAuthService implements AuthService {
     return session.getAccessToken().getJwtToken();
   }
 
-  /**
-   * This function accepts a callback function to call when application is signed-in or already signed-in
-   * @param callback the callback function to call when application is signed-in
-   */
   async onSignedIn(callback: () => unknown) {
     /**
      * Either Auth.currentAuthenticatedUser() or callback of Hub.listen('auth', xxx) is executed initially;
@@ -35,6 +31,15 @@ class CognitoAuthService implements AuthService {
     // Listen for sign-in events
     Hub.listen('auth', (capsule) => {
       if (capsule.payload.event === 'signIn') {
+        callback();
+      }
+    });
+  }
+
+  onSignedOut(callback: () => unknown) {
+    // Listen for sign-out events
+    Hub.listen('auth', (capsule) => {
+      if (capsule.payload.event === 'signOut') {
         callback();
       }
     });

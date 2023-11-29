@@ -26,4 +26,10 @@ export interface AuthService {
    * @param callback the callback function to call when application is signed-in
    */
   onSignedIn(callback: () => unknown): void;
+
+  /**
+   * This function accepts a callback function to call when application is signed-out or already signed-out
+   * @param callback the callback function to call when application is signed-out
+   */
+  onSignedOut(callback: () => unknown): void;
 }
