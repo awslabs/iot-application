@@ -75,6 +75,7 @@ export function DashboardPage() {
         displaySettings: {
           numRows: 600,
           numColumns: 200,
+          cellSize: 20, // explicitly set a cell size so dashboard migration feature works as expected
         },
         viewport,
       }}

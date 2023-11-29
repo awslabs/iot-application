@@ -45,10 +45,10 @@ const defaultAggregationType = 'AVERAGE';
 
 /**
  * Default Monitor size is 3x3 squares
- * A similar sized application dashboard is 99x42 cells
+ * A similar sized application dashboard is 42x24 cells (if cellSize = 20)
  */
-const appCellsPerMonitorSquareWidth = 33; // 99 / 3
-const appCellPerMonitorSquareHeight = 14; // 42 / 3
+const appCellsPerMonitorSquareWidth = 14; // 42 / 3
+const appCellPerMonitorSquareHeight = 8; // 24 / 3
 
 const minWidth = appCellsPerMonitorSquareWidth - 0.5;
 const minHeight = appCellPerMonitorSquareHeight - 0.5;
