@@ -37,6 +37,7 @@ Start using the application today to quickly create, manage, and view your IoT d
    ```sh
    yarn dev
    ```
+1. Application is available at URL: `http://localhost:3000`
 1. Log in with local Cognito credentials found at `apps/core/.cognito/db`
 
 ## Running the tests locally
