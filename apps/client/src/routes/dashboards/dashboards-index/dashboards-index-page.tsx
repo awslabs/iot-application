@@ -328,7 +328,8 @@ export function DashboardsIndexPage() {
                 filteringFinishedText="End of results"
                 filteringEmpty="No suggestions found"
                 i18nStrings={{
-                  filteringAriaLabel: 'your choice',
+                  clearAriaLabel: 'clear filter',
+                  filteringAriaLabel: 'Find dashboards',
                   dismissAriaLabel: 'Dismiss',
                   filteringPlaceholder:
                     'Filter assets by text, property or value',
