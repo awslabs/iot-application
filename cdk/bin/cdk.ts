@@ -1,11 +1,19 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
-import { App } from 'aws-cdk-lib';
+import { App, RemovalPolicy } from 'aws-cdk-lib';
 import { IotApplicationStack } from '../lib/iot-application-stack';
 
 const app = new App();
 const stackName = app.node.tryGetContext('stackName') as string;
+const cleanupRetainedResources = app.node.tryGetContext(
+  'cleanupRetainedResources',
+) as boolean;
+const removalPolicyOverride = cleanupRetainedResources
+  ? RemovalPolicy.DESTROY
+  : undefined;
+
 new IotApplicationStack(app, stackName, {
+  removalPolicyOverride,
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
