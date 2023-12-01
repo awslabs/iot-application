@@ -73,7 +73,7 @@ export function DashboardPage() {
         ...dashboardDefinition,
         // TODO: remove display settings once dynanic sizing is released
         displaySettings: {
-          numRows: 600,
+          numRows: 1000,
           numColumns: 200,
           cellSize: 20, // explicitly set a cell size so dashboard migration feature works as expected
         },

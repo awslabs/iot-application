@@ -19,6 +19,7 @@ interface ApplicationProperty {
   aggregationType?: string;
   resolution?: string;
   refId?: string;
+  color?: string;
 }
 
 interface ApplicationAsset {
@@ -207,7 +208,11 @@ const getStaticProperties = (widgetType: MonitorWidgetType) => {
   }
 };
 
-const getProperty = (metric: MonitorMetric, widgetType: MonitorWidgetType) => {
+const getProperty = (
+  metric: MonitorMetric,
+  widgetType: MonitorWidgetType,
+  index: number,
+) => {
   let property: ApplicationProperty = {
     aggregationType: defaultAggregationType, // Monitor has no aggregationType and appliation defaults to AVERAGE
     propertyId: metric.propertyId,
@@ -224,6 +229,16 @@ const getProperty = (metric: MonitorMetric, widgetType: MonitorWidgetType) => {
       ...property,
       refId,
     };
+  } else if (
+    widgetType === MonitorWidgetType.LineChart ||
+    widgetType === MonitorWidgetType.ScatterChart
+  ) {
+    const refId = randomUUID();
+    property = {
+      ...property,
+      refId,
+      color: colorPalette[index],
+    };
   }
   return property;
 };
@@ -237,8 +252,8 @@ const convertMetricsToQueryConfig = (
   const assetMap: AssetMap = {};
   const refIds = [];
 
-  for (const metric of monitorMetrics) {
-    const property = getProperty(metric, widgetType);
+  for (const [index, metric] of monitorMetrics.entries()) {
+    const property = getProperty(metric, widgetType, index);
 
     let newProperties = [property];
     const existingAssetIds = Object.keys(assetMap);
@@ -452,3 +467,5 @@ export const convertMonitorToAppDefinition = (
 
   return newDashboardDefinition;
 };
+
+export const applicationDashboardDescription = 'Migrated from SiteWise Monitor';

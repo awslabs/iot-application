@@ -27,6 +27,7 @@ import { MigrationStatus, Status } from './entities/migration-status.entity';
 
 import { ok } from '../types';
 import { DashboardSummary } from 'src/dashboards/entities/dashboard-summary.entity';
+import { applicationDashboardDescription } from '../migration/service/convert-monitor-to-app-definition';
 
 const dashboardId = 'dashboardId';
 const testPortals = {
@@ -52,14 +53,13 @@ const testDashboards: ListDashboardsResponse = {
     {
       id: dashboardId,
       name: 'testDashboard',
-      description: 'testDescription',
     },
   ],
 };
 const testApplicationDashboard = {
   id: dashboardId,
   name: 'testDashboard',
-  description: '',
+  description: applicationDashboardDescription,
   creationDate: new Date().toString(),
   lastUpdateDate: new Date().toString(),
   definition: { widgets: [] },
@@ -75,7 +75,6 @@ const testDashboard: DescribeDashboardResponse = {
   dashboardDefinition: JSON.stringify(expectedDefinition),
   dashboardLastUpdateDate: new Date(),
   dashboardName: 'testDashboard',
-  dashboardDescription: 'testDescription',
   projectId: 'testProjectId',
 };
 
@@ -195,7 +194,49 @@ describe('MigrationModule', () => {
       expect(migrateSpy).toHaveBeenCalled();
       expect(createSpy).toHaveBeenCalledWith({
         name: testDashboard.dashboardName,
-        description: testDashboard.dashboardDescription,
+        description: applicationDashboardDescription,
+        definition: expectedDefinition,
+        sitewiseMonitorId: testDashboard.dashboardId,
+      });
+
+      expect(response.statusCode).toBe(202);
+
+      const status = await waitForStatus();
+      expect(status).toEqual({ status: Status.COMPLETE });
+    });
+
+    test('trims dashboardName to MAX_LENGTH when Monitor dashboard name is longer than max', async () => {
+      sitewiseMock.on(ListPortalsCommand).resolves(testPortals);
+      sitewiseMock.on(ListProjectsCommand).resolves(testProjects);
+      sitewiseMock.on(ListDashboardsCommand).resolves(testDashboards);
+
+      const longDashboardName =
+        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest';
+      const expectedTrimmedName =
+        'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest';
+      const maxLengthDashboard: DescribeDashboardResponse = {
+        dashboardId: dashboardId,
+        dashboardArn: 'testArn',
+        dashboardCreationDate: new Date(),
+        dashboardDefinition: JSON.stringify(expectedDefinition),
+        dashboardLastUpdateDate: new Date(),
+        dashboardName: longDashboardName,
+        projectId: 'testProjectId',
+      };
+      sitewiseMock.on(DescribeDashboardCommand).resolves(maxLengthDashboard);
+
+      const response = await app.inject({
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+        method: 'POST',
+        url: '/api/migration',
+      });
+
+      expect(migrateSpy).toHaveBeenCalled();
+      expect(createSpy).toHaveBeenCalledWith({
+        name: expectedTrimmedName,
+        description: applicationDashboardDescription,
         definition: expectedDefinition,
         sitewiseMonitorId: testDashboard.dashboardId,
       });
@@ -290,7 +331,6 @@ describe('MigrationModule', () => {
         dashboardDefinition: 'invalidJson',
         dashboardLastUpdateDate: new Date(),
         dashboardName: 'testDashboard',
-        dashboardDescription: 'testDescription',
         projectId: 'testProjectId',
       });
 
@@ -350,7 +390,7 @@ describe('MigrationModule', () => {
       expect(migrateSpy).toHaveBeenCalled();
       expect(createSpy).toHaveBeenCalledWith({
         name: testDashboard.dashboardName,
-        description: testDashboard.dashboardDescription,
+        description: applicationDashboardDescription,
         definition: expectedDefinition,
         sitewiseMonitorId: testDashboard.dashboardId,
       });

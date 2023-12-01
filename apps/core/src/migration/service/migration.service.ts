@@ -13,9 +13,13 @@ import {
   DashboardSummary,
 } from '@aws-sdk/client-iotsitewise';
 import { CreateDashboardDto } from 'src/dashboards/dto/create-dashboard.dto';
-import { convertMonitorToAppDefinition } from './convert-monitor-to-app-definition';
+import {
+  convertMonitorToAppDefinition,
+  applicationDashboardDescription,
+} from './convert-monitor-to-app-definition';
 import { SiteWiseMonitorDashboardDefinition } from './monitor-dashboard-definition';
 import { Result, err, ok, isOk, isErr } from '../../types';
+import { DASHBOARD_NAME_MAX_LENGTH } from '../../dashboards/dashboard.constants';
 
 @Injectable()
 export class MigrationService {
@@ -167,9 +171,7 @@ export class MigrationService {
       name: dashboard.dashboardName
         ? dashboard.dashboardName
         : 'SiteWise Monitor Migrated Dashboard',
-      description: dashboard.dashboardDescription
-        ? dashboard.dashboardDescription
-        : '',
+      description: applicationDashboardDescription, // Monitor has no dashboard description
       definition: convertMonitorToAppDefinition(
         this.parseDashboardDefinition(
           dashboard.dashboardDefinition,
@@ -193,7 +195,15 @@ export class MigrationService {
       (dashboard) => dashboard.sitewiseMonitorId,
     );
 
-    for (const dashboard of siteWiseMonitorDashboards) {
+    for (let dashboard of siteWiseMonitorDashboards) {
+      // Trim dashboard name if its greater than maxLength
+      if (dashboard.name.length >= DASHBOARD_NAME_MAX_LENGTH) {
+        dashboard = {
+          ...dashboard,
+          name: dashboard.name.substring(0, DASHBOARD_NAME_MAX_LENGTH),
+        };
+      }
+
       // Only create dashboards that haven't already been migrated
       if (!listDashboards.includes(dashboard.sitewiseMonitorId)) {
         const result = await this.dashboardsService.create(dashboard);
