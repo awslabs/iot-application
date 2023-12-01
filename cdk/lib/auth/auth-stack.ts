@@ -1,4 +1,4 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
 import {
   CfnIdentityPool,
   CfnIdentityPoolRoleAttachment,
@@ -11,6 +11,7 @@ import { Construct } from 'constructs';
 export interface AuthStackProps extends StackProps {
   readonly applicationName: string;
   readonly logGroupArn: string;
+  readonly removalPolicyOverride?: RemovalPolicy;
 }
 
 export class AuthStack extends Stack {
@@ -21,10 +22,11 @@ export class AuthStack extends Stack {
   constructor(scope: Construct, id: string, props: AuthStackProps) {
     super(scope, id, props);
 
-    const { applicationName, logGroupArn } = props;
+    const { applicationName, logGroupArn, removalPolicyOverride } = props;
 
     this.userPool = new UserPool(this, 'UserPool', {
       signInCaseSensitive: false,
+      removalPolicy: removalPolicyOverride,
     });
 
     this.userPoolClient = new UserPoolClient(this, 'UserPoolClient', {
