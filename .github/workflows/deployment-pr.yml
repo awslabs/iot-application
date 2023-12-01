@@ -5,10 +5,9 @@ run-name: Deployment action initiated by ${{ github.actor }}
 on:
   pull_request:
     branches: [main, rc]
-  workflow_dispatch:
 
 # Ensures that only one deployment is in progress
-concurrency: ${{ github.workflow }}
+concurrency: ${{ github.workflow }}-${{ github.head_ref }}
 
 jobs:
   deploy-pr:
@@ -48,16 +47,43 @@ jobs:
           aws-region: us-west-2
 
       - name: Deploy CDK 🚀
-        run: yarn workspace cdk cdk deploy -c stackName=IotAppPr --all --require-approval never
+        run: yarn workspace cdk cdk deploy --all --require-approval never -c stackName=IotApp-${{ github.head_ref }} -c cleanupRetainedResources=true
 
       - name: Get App URL 🔗
         id: app_url
         run: |
-          app_url=$(aws cloudformation describe-stacks --stack-name IotAppPr --query "Stacks[0].Outputs[?OutputKey=='AppURL'].OutputValue" --output text)
+          app_url=$(aws cloudformation describe-stacks --stack-name IotApp-${{ github.head_ref }} --query "Stacks[0].Outputs[?OutputKey=='AppURL'].OutputValue" --output text)
           echo "app_url=$app_url" >> $GITHUB_OUTPUT
 
-  test-pr:
+  create-test-user-pr:
     needs: deploy-pr
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # needed to interact with GitHub's OIDC Token endpoint
+      contents: read
+
+    steps:
+      - name: Configure AWS credentials 🔑
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.DEPLOYMENT_AWS_ROLE }}
+          aws-region: us-west-2
+
+      - name: Get User Pool ID 🎱
+        run: |
+          userpool_id=$(aws cloudformation describe-stacks --stack-name IotApp-${{ github.head_ref }} --query "Stacks[0].Outputs[?OutputKey=='UserPoolId'].OutputValue" --output text)
+          echo "userpool_id=$userpool_id" >> "$GITHUB_ENV"
+
+      - name: Create User 🪪
+        continue-on-error: true # the user could be created already by previous runs
+        run: aws cognito-idp admin-create-user --user-pool-id "$userpool_id" --username test-user
+
+      - name: Set User Password 🔑
+        run: aws cognito-idp admin-set-user-password --permanent --user-pool-id "$userpool_id" --username test-user --password ${{ secrets.DEPLOYMENT_PR_USER_PASSWORD }}
+
+  test-pr:
+    needs: [deploy-pr, create-test-user-pr]
     timeout-minutes: 15
     runs-on: ubuntu-latest
 
