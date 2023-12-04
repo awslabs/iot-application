@@ -13,7 +13,10 @@ import {
   DashboardSummary,
 } from '@aws-sdk/client-iotsitewise';
 import { CreateDashboardDto } from 'src/dashboards/dto/create-dashboard.dto';
-import { convertMonitorToAppDefinition } from './convert-monitor-to-app-definition';
+import {
+  convertMonitorToAppDefinition,
+  applicationDashboardDescription,
+} from './convert-monitor-to-app-definition';
 import { SiteWiseMonitorDashboardDefinition } from './monitor-dashboard-definition';
 import { Result, err, ok, isOk, isErr } from '../../types';
 
@@ -167,9 +170,7 @@ export class MigrationService {
       name: dashboard.dashboardName
         ? dashboard.dashboardName
         : 'SiteWise Monitor Migrated Dashboard',
-      description: dashboard.dashboardDescription
-        ? dashboard.dashboardDescription
-        : '',
+      description: applicationDashboardDescription, // Monitor has no dashboard description
       definition: convertMonitorToAppDefinition(
         this.parseDashboardDefinition(
           dashboard.dashboardDefinition,
