@@ -5,7 +5,7 @@ export const $UpdateDashboardDto = {
   properties: {
     name: {
       type: 'string',
-      maxLength: 100,
+      maxLength: 256,
       minLength: 1,
     },
     description: {
