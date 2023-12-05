@@ -44,7 +44,7 @@ export function DashboardDescriptionField(
       render={({ field, fieldState }) => (
         <FormField
           label={intl.formatMessage({
-            defaultMessage: 'Description',
+            defaultMessage: 'Description (required)',
             description: 'create dashboard form description label',
           })}
           constraintText={intl.formatMessage(

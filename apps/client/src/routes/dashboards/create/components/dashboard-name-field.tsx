@@ -40,7 +40,7 @@ export function DashboardNameField(props: DashboardNameFieldProps) {
       render={({ field, fieldState }) => (
         <FormField
           label={intl.formatMessage({
-            defaultMessage: 'Name',
+            defaultMessage: 'Name (required)',
             description: 'create dashboard form name label',
           })}
           constraintText={intl.formatMessage(
