@@ -11,10 +11,11 @@ const createMonitorChartWidget = (
   widgetType: MonitorWidgetType,
   metrics: MonitorMetric[],
   annotations?: MonitorAnnotations,
+  title?: string,
 ) => {
   return {
     type: widgetType,
-    title: 'test',
+    title: title ?? 'test',
     x: 0,
     y: 0,
     height: 3,
@@ -92,6 +93,7 @@ describe('Dashboard definition conversion', () => {
                   aggregationType: 'AVERAGE',
                   propertyId: 'c07c2fa5-265e-4ed4-bbf0-e94fe01e4d54',
                   resolution: '1m',
+                  color: '#7d2105',
                 },
               ],
             },
@@ -117,6 +119,7 @@ describe('Dashboard definition conversion', () => {
         assetId: '3d196ab5-85db-4c90-854f-4e29d579b898',
         propertyId: 'c07c2fa5-265e-4ed4-bbf0-e94fe01e4d54',
         dataType: 'DOUBLE',
+        color: '#7d2105',
       },
       {
         type: 'iotsitewise',
@@ -124,6 +127,7 @@ describe('Dashboard definition conversion', () => {
         assetId: '12345678-85db-4c90-854f-4e29d579b898',
         propertyId: '12345678-265e-4ed4-bbf0-e94fe01e4d54',
         dataType: 'DOUBLE',
+        color: '#3184c2',
       },
     ];
 
@@ -463,6 +467,20 @@ describe('Dashboard definition conversion', () => {
         propertyId: 'c07c2fa5-265e-4ed4-bbf0-e94fe01e4d54',
         dataType: 'DOUBLE',
       },
+      {
+        type: 'iotsitewise',
+        label: 'Total Average Power (Demo Wind Farm Asset)',
+        assetId: '3d196ab5-85db-4c90-854f-4e29d579b898',
+        propertyId: 'c07c2fa5-265e-4ed4-bbf0-e94fe01e4d54',
+        dataType: 'DOUBLE',
+      },
+      {
+        type: 'iotsitewise',
+        label: 'Total Average Power (Demo Wind Farm Asset)',
+        assetId: '3d196ab5-85db-4c90-854f-4e29d579b898',
+        propertyId: 'c07c2fa5-265e-4ed4-bbf0-e94fe01e4d54',
+        dataType: 'DOUBLE',
+      },
     ];
 
     const kpiDefinition: SiteWiseMonitorDashboardDefinition = {
@@ -517,6 +535,24 @@ describe('Dashboard definition conversion', () => {
           28,
           0,
           2,
+        ),
+        createApplicationChartDefinition(
+          'kpi',
+          expectedProperties,
+          7.5,
+          13.5,
+          0,
+          8,
+          3,
+        ),
+        createApplicationChartDefinition(
+          'kpi',
+          expectedProperties,
+          7.5,
+          13.5,
+          14,
+          8,
+          4,
         ),
       ],
     };
