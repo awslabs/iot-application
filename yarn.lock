@@ -6725,7 +6725,7 @@
   resolved "https://registry.yarnpkg.com/@cloudscape-design/collection-hooks/-/collection-hooks-1.0.25.tgz#6444158d1a6dbc2094ea068d7787525cab6d41d4"
   integrity sha512-2p6sa7eYko1VqMwjEWG3H/Ka5DlsPhwEBAqmY+pNQ9IunSLv/i3JFTSun5W1OUUXCbeqTSndagjsZG0gIlXvFw==
 
-"@cloudscape-design/component-toolkit@1.0.0-beta.27", "@cloudscape-design/component-toolkit@^1.0.0-beta", "@cloudscape-design/component-toolkit@^1.0.0-beta.27":
+"@cloudscape-design/component-toolkit@^1.0.0-beta", "@cloudscape-design/component-toolkit@^1.0.0-beta.27":
   version "1.0.0-beta.27"
   resolved "https://registry.yarnpkg.com/@cloudscape-design/component-toolkit/-/component-toolkit-1.0.0-beta.27.tgz#e695b437adc1e7f6cc35bab4795f7853ed9ff463"
   integrity sha512-quKhlNQjGw/+VAF8V938I/gCkmrRpfDJ1xAlsjYfTtipOUvCIYnZ5813OAwx+hGVHCFr+0pDSYR9+kAVGJGGRg==
@@ -6795,10 +6795,10 @@
   resolved "https://registry.yarnpkg.com/@cloudscape-design/design-tokens/-/design-tokens-3.0.28.tgz#68ef6d38f5d68951d8275e7c30b783c0a0652588"
   integrity sha512-Sf6KgArND3P/NMoq+jXRsQSx77TSTopx8a94po/8G5fB9rfOfi+FvTHjjFiWd94y16bSNDgzw2gUXtmHr2Kp0g==
 
-"@cloudscape-design/global-styles@^1.0.15":
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/global-styles/-/global-styles-1.0.15.tgz#918d2a63b8a43f11bd6224a44feb8d17ed57f86d"
-  integrity sha512-g5PJz9Zh4Yq0I4Qc8TTCRMBndi+oyGpdyfllnWCRpTIhWm5fGyI1fT1NM3ftmSR8uniHOS1fxiO6l+O8pmTsGw==
+"@cloudscape-design/global-styles@^1.0.17":
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/global-styles/-/global-styles-1.0.17.tgz#e46cbfa9ff97545629abfd954d2a8a4e45a88c13"
+  integrity sha512-fwgncp5tfaYjPf/XeH7vKbVRgT+7Vo7Z5qKqSH21beH2l9VJncWKnmkRBf77uwcUHGHyPSbTRptKuijfwvFMEA==
 
 "@cloudscape-design/test-utils-core@^1.0.0":
   version "1.0.10"
