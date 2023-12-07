@@ -10,38 +10,59 @@ import { Status } from '~/services/generated/models/MigrationStatus';
 import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
 import { LoadingNotification } from '~/structures/notifications/loading-notification';
 import { SuccessNotification } from '~/structures/notifications/success-notification';
+import { InfoNotification } from '~/structures/notifications/info-notification';
 import { ErrorNotification } from '~/structures/notifications/error-notification';
+import Modal from '@cloudscape-design/components/modal';
+import { useState } from 'react';
+import { SpaceBetween } from '@cloudscape-design/components';
+import { useDismissAllNotifications } from '~/hooks/notifications/use-dismiss-all-notifications';
 
 export interface MigrationProps {
   onMigrationComplete: () => void;
 }
 
-const Migration = (props: MigrationProps) => {
+const Migration = ({ onMigrationComplete }: MigrationProps) => {
   const { data, isError } = useMigrationStatusQuery();
-  const { refetch, isRefetching, isLoading } = useMigrationQuery();
+  const { refetch } = useMigrationQuery();
+  const dismissNotifications = useDismissAllNotifications();
   const emit = useEmitNotification();
+  const [modalVisible, setModalVisible] = useState(false);
 
-  if ((isRefetching && isLoading) || data?.status === Status.IN_PROGRESS) {
+  const handleStart = () => {
+    dismissNotifications();
+    setModalVisible(false);
+    void refetch();
+
     emit(new LoadingNotification('Migration in-progress'));
-  }
+    window.scrollTo(0, 0);
+  };
 
   if (data?.status === Status.COMPLETE) {
-    emit(new SuccessNotification('Migration complete'));
-    props.onMigrationComplete();
+    dismissNotifications();
+    if (data.message) {
+      emit(new SuccessNotification(data.message));
+    }
+    onMigrationComplete();
+  }
+
+  if (data?.status === Status.COMPLETE_NONE_CREATED) {
+    dismissNotifications();
+    if (data.message) {
+      emit(new InfoNotification(data.message));
+    }
+    onMigrationComplete();
   }
 
   if (isError) {
+    dismissNotifications();
     emit(new ErrorNotification('There was an error during migration'));
   }
 
   if (data?.status === Status.ERROR) {
-    props.onMigrationComplete();
+    onMigrationComplete();
+    dismissNotifications();
     if (data.message) {
-      emit(
-        new ErrorNotification(
-          `There was an error during migration: ${data.message}`,
-        ),
-      );
+      emit(new ErrorNotification(data.message));
     } else {
       emit(new ErrorNotification('There was an error during migration'));
     }
@@ -62,7 +83,7 @@ const Migration = (props: MigrationProps) => {
           variant="primary"
           className="btn-custom-primary"
           onClick={() => {
-            void refetch();
+            setModalVisible(true);
           }}
         >
           <span style={{ color: colorBackgroundHomeHeader }}>
@@ -79,6 +100,41 @@ const Migration = (props: MigrationProps) => {
         Application. This will migrate all dashboards you have in this region
         accross all portals.
       </Box>
+      <Modal
+        onDismiss={() => setModalVisible(false)}
+        visible={modalVisible}
+        footer={
+          <Box float="right">
+            <SpaceBetween direction="horizontal" size="xs">
+              <Button variant="link" onClick={() => setModalVisible(false)}>
+                Cancel
+              </Button>
+              <Button
+                variant="primary"
+                className="btn-custom-primary"
+                onClick={handleStart}
+              >
+                <span style={{ color: colorBackgroundHomeHeader }}>
+                  <FormattedMessage
+                    defaultMessage="Begin"
+                    description="Begin migration"
+                  />
+                </span>
+              </Button>
+            </SpaceBetween>
+          </Box>
+        }
+        header="Initiate migration?"
+      >
+        <p>
+          Migrating dashbaords from SiteWise Monitor may take approximately 3-4
+          minutes. There will be an alert when the migration is complete.
+        </p>
+        <p>
+          You will be able to view your migrated dashboards in the dashboard
+          collection table.
+        </p>
+      </Modal>
     </ExpandableSection>
   );
 };
