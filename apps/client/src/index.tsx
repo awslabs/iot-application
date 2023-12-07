@@ -16,6 +16,8 @@ import { extractedMetaTags } from './helpers/meta-tags';
 import { registerServiceWorker } from './register-service-worker';
 import { authService } from './auth/auth-service';
 import { initializeAuthDependents } from './initialize-auth-dependents';
+import { registerLogger } from './register-loggers';
+import { registerMetricsRecorder } from './register-metrics-recorder';
 
 import '@aws-amplify/ui-react/styles.css';
 import '@cloudscape-design/global-styles/index.css';
@@ -64,5 +66,7 @@ if (rootEl != null) {
 }
 
 registerServiceWorker();
+registerLogger();
+registerMetricsRecorder();
 void authService.onSignedIn(() => initializeAuthDependents(applicationName));
 metricHandler.reportWebVitals();
