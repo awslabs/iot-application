@@ -4,8 +4,10 @@ const {
   addWebpackModuleRule,
   addWebpackAlias,
   overrideDevServer,
+  addWebpackPlugin,
 } = require('customize-cra');
 const path = require('path');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
   devServer: overrideDevServer(
@@ -16,6 +18,17 @@ module.exports = {
     },
   ),
   webpack: override(
+    addWebpackPlugin(
+      new ModuleFederationPlugin({
+        shared: {
+          // maintains a single version of AppKit Core to work with AppKit Plugins
+          '@iot-app-kit/core': {
+            singleton: true,
+            eager: true,
+          },
+        },
+      }),
+    ),
     addWebpackAlias({
       '~': path.resolve(__dirname, 'src'),
     }),
