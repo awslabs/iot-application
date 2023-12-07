@@ -12,6 +12,7 @@ import { SuccessNotification } from '~/structures/notifications/success-notifica
 import { LoadingNotification } from '~/structures/notifications/loading-notification';
 import { ErrorNotification } from '~/structures/notifications/error-notification';
 
+window.scrollTo = () => undefined;
 const mockRefetch = vi.fn();
 const mockEmit = vi.fn();
 const onMigrate = vi.fn();
@@ -30,6 +31,9 @@ vi.mock('~/hooks/notifications/use-emit-notification', () => ({
 
 const getMigrationButton = () =>
   screen.getByRole('button', { name: 'Migrate' });
+
+const getMigrationStartButton = () =>
+  screen.getByRole('button', { name: 'Begin' });
 
 describe('Migration', () => {
   beforeEach(() => {
@@ -55,11 +59,12 @@ describe('Migration', () => {
     expect(screen.getByText('Dashboard migration')).toBeVisible();
 
     await userEvent.click(getMigrationButton());
+    await userEvent.click(getMigrationStartButton());
 
     expect(mockRefetch).toHaveBeenCalledTimes(1);
   });
 
-  test('display in-progress message when migration API is in progress', () => {
+  test('display in-progress message when migration API is in progress', async () => {
     vi.mocked(useMigrationStatusQuery).mockReturnValue({
       data: {
         status: Status.IN_PROGRESS,
@@ -69,6 +74,9 @@ describe('Migration', () => {
     render(<Migration onMigrationComplete={onMigrate} />);
 
     expect(screen.getByText('Dashboard migration')).toBeVisible();
+    await userEvent.click(getMigrationButton());
+    await userEvent.click(getMigrationStartButton());
+
     expect(mockEmit).toHaveBeenCalledWith(
       new LoadingNotification('Migration in-progress'),
     );
@@ -78,6 +86,7 @@ describe('Migration', () => {
     vi.mocked(useMigrationStatusQuery).mockReturnValue({
       data: {
         status: Status.COMPLETE,
+        message: 'Migration complete',
       },
     } as UseQueryResult<MigrationStatus>);
     render(<Migration onMigrationComplete={onMigrate} />);
@@ -100,9 +109,7 @@ describe('Migration', () => {
 
     expect(screen.getByText('Dashboard migration')).toBeVisible();
     expect(mockEmit).toHaveBeenCalledWith(
-      new ErrorNotification(
-        'There was an error during migration: There was a migration error',
-      ),
+      new ErrorNotification('There was a migration error'),
     );
   });
 

@@ -203,7 +203,13 @@ describe('MigrationModule', () => {
       expect(response.statusCode).toBe(202);
 
       const status = await waitForStatus();
-      expect(status).toEqual({ status: Status.COMPLETE });
+
+      const expectedMessage =
+        'Migration complete! We successfully migrated 1 dashboard from SiteWise Monitor. You can now view this dashboard under the dashboard collection table.';
+      expect(status).toEqual({
+        status: Status.COMPLETE,
+        message: expectedMessage,
+      });
     });
 
     test('handles dashboardName when Monitor dashboard name is at the max length', async () => {
@@ -244,7 +250,13 @@ describe('MigrationModule', () => {
       expect(response.statusCode).toBe(202);
 
       const status = await waitForStatus();
-      expect(status).toEqual({ status: Status.COMPLETE });
+
+      const expectedMessage =
+        'Migration complete! We successfully migrated 1 dashboard from SiteWise Monitor. You can now view this dashboard under the dashboard collection table.';
+      expect(status).toEqual({
+        status: Status.COMPLETE,
+        message: expectedMessage,
+      });
     });
 
     test('sets status to complete when no SiteWise Monitor dashboards exist', async () => {
@@ -269,7 +281,13 @@ describe('MigrationModule', () => {
       expect(response.statusCode).toBe(202);
 
       const status = await waitForStatus();
-      expect(status).toEqual({ status: Status.COMPLETE });
+
+      const expectedMessage =
+        'There were no SiteWise Monitor dashboards available to migrate.';
+      expect(status).toEqual({
+        status: Status.COMPLETE_NONE_CREATED,
+        message: expectedMessage,
+      });
     });
 
     test('dedupe - does not create dashboards that have already been migrated', async () => {
@@ -395,7 +413,12 @@ describe('MigrationModule', () => {
         sitewiseMonitorId: testDashboard.dashboardId,
       });
 
-      expect(status).toEqual({ status: Status.COMPLETE });
+      const expectedMessage =
+        'Migration complete! We successfully migrated 4 dashboards from SiteWise Monitor. You can now view them under the dashboard collection table.';
+      expect(status).toEqual({
+        status: Status.COMPLETE,
+        message: expectedMessage,
+      });
     });
 
     test('returns 401 when request is unauthenticated', async () => {
