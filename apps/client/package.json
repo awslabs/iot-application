@@ -27,7 +27,7 @@
     "@aws-sdk/credential-providers": "3.470.0",
     "@cloudscape-design/collection-hooks": "^1.0.25",
     "@cloudscape-design/component-toolkit": "^1.0.0-beta.27",
-    "@cloudscape-design/components": "^3.0.443",
+    "@cloudscape-design/components": "^3.0.456",
     "@cloudscape-design/design-tokens": "3.0.30",
     "@cloudscape-design/global-styles": "^1.0.17",
     "@iot-app-kit/core": "^9.8.0",
