@@ -1,8 +1,8 @@
-import { Features, featureEnabled } from './featureFlag';
+import { featureEnabled } from './featureFlag';
 
 describe('featureFlag', () => {
   test('Migration feature is disabled', () => {
-    const isMigrationEnabled = featureEnabled(Features.MIGRATION);
+    const isMigrationEnabled = featureEnabled('Migration');
     expect(isMigrationEnabled).toEqual(false);
   });
 });
