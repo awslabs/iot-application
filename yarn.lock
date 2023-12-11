@@ -6962,10 +6962,10 @@
     tslib "^2.4.0"
     weekstart "^1.1.0"
 
-"@cloudscape-design/components@^3.0.443":
-  version "3.0.443"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.443.tgz#975a140f2f9fe5ab92d0bf0c678387b7ad7c39cd"
-  integrity sha512-RTm/ZudrkAjKRTF084Gwj2GnIRfl15mLg1Znl8lfhGrUh7AbLhyBtnxVdGwwKYJoPEEHrIJMm0Hl2AmgC9I8qQ==
+"@cloudscape-design/components@^3.0.456":
+  version "3.0.456"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/components/-/components-3.0.456.tgz#43bdad971fe3fbd868a9542f8046e8a42ceaf785"
+  integrity sha512-EHEiZ3u22pVE8NKds8Ov6DRpuOtMb7YXWCPTy/IR+lULkkmoVKR3AFqA3tMiqmnxim5GUQEPPOHKO23/LAipNQ==
   dependencies:
     "@cloudscape-design/collection-hooks" "^1.0.0"
     "@cloudscape-design/component-toolkit" "^1.0.0-beta"
