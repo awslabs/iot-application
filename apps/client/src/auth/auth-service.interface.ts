@@ -20,4 +20,10 @@ export interface AuthService {
    * @return - the user's session token
    */
   getToken(): Promise<string>;
+
+  /**
+   * This function accepts a callback function to call when application is signed-in or already signed-in
+   * @param callback the callback function to call when application is signed-in
+   */
+  onSignedIn(callback: () => unknown): void;
 }

@@ -13,7 +13,10 @@ import {
   DashboardSummary,
 } from '@aws-sdk/client-iotsitewise';
 import { CreateDashboardDto } from 'src/dashboards/dto/create-dashboard.dto';
-import { convertMonitorToAppDefinition } from './convert-monitor-to-app-definition';
+import {
+  convertMonitorToAppDefinition,
+  applicationDashboardDescription,
+} from './convert-monitor-to-app-definition';
 import { SiteWiseMonitorDashboardDefinition } from './monitor-dashboard-definition';
 import { Result, err, ok, isOk, isErr } from '../../types';
 
@@ -29,29 +32,11 @@ export class MigrationService {
   private parsingErrors: Error[] = [];
 
   private sitewise = new IoTSiteWiseClient({
-    credentials: {
-      accessKeyId: this.getAccessKey(),
-      secretAccessKey: this.getSecretKey(),
-    },
     region: this.getRegion(),
   });
 
   private getRegion() {
     return process.env.AWS_REGION;
-  }
-
-  private getAccessKey() {
-    if (process.env.AWS_ACCESS_KEY_ID) {
-      return process.env.AWS_ACCESS_KEY_ID;
-    }
-    return '';
-  }
-
-  private getSecretKey() {
-    if (process.env.AWS_SECRET_ACCESS_KEY) {
-      return process.env.AWS_SECRET_ACCESS_KEY;
-    }
-    return '';
   }
 
   private async getPortals(): Promise<PortalSummary[]> {
@@ -185,9 +170,7 @@ export class MigrationService {
       name: dashboard.dashboardName
         ? dashboard.dashboardName
         : 'SiteWise Monitor Migrated Dashboard',
-      description: dashboard.dashboardDescription
-        ? dashboard.dashboardDescription
-        : '',
+      description: applicationDashboardDescription, // Monitor has no dashboard description
       definition: convertMonitorToAppDefinition(
         this.parseDashboardDefinition(
           dashboard.dashboardDefinition,
@@ -200,8 +183,9 @@ export class MigrationService {
 
   private async createApplicationDashboards(
     siteWiseMonitorDashboards: CreateDashboardDto[],
-  ) {
+  ): Promise<number> {
     const existingDashboardsResult = await this.dashboardsService.list();
+    let numDashboardsCreated = 0;
 
     if (isErr(existingDashboardsResult)) {
       throw existingDashboardsResult.err;
@@ -218,11 +202,14 @@ export class MigrationService {
         if (isErr(result)) {
           throw result.err;
         }
+        numDashboardsCreated++;
       }
     }
+
+    return numDashboardsCreated;
   }
 
-  private async process(): Promise<Result<Error, undefined>> {
+  private async process(): Promise<Result<Error, number>> {
     try {
       // Get SiteWise Monitor dashboards
       const dashboards: DescribeDashboardCommandOutput[] =
@@ -234,7 +221,8 @@ export class MigrationService {
           this.convertSWMToApplicationDashboards(dashboards);
 
         // Create IoT Application dashboards
-        await this.createApplicationDashboards(convertedDashboards);
+        const numDashboardsCreated =
+          await this.createApplicationDashboards(convertedDashboards);
 
         if (this.parsingErrors.length !== 0) {
           const messages = this.parsingErrors.map((error) => error.message);
@@ -246,10 +234,10 @@ export class MigrationService {
           return err(new Error(errorMessage));
         }
 
-        return ok(undefined);
+        return ok(numDashboardsCreated);
       } else {
         // No SWM dashboards to convert
-        return ok(undefined);
+        return ok(0);
       }
     } catch (error) {
       // Error during the processing
@@ -257,17 +245,42 @@ export class MigrationService {
     }
   }
 
+  private getSuccessMessage(dashboardsCreated: number) {
+    let successMessage;
+    if (dashboardsCreated > 0) {
+      successMessage = `Migration complete! We successfully migrated ${dashboardsCreated} dashboards from SiteWise Monitor. You can now view them under the dashboard collection table.`;
+      if (dashboardsCreated === 1) {
+        successMessage = `Migration complete! We successfully migrated ${dashboardsCreated} dashboard from SiteWise Monitor. You can now view this dashboard under the dashboard collection table.`;
+      }
+    } else {
+      successMessage =
+        'There were no SiteWise Monitor dashboards available to migrate.';
+    }
+    return successMessage;
+  }
+
   public async migrate() {
     if (
       this.migrationStatus.status === Status.NOT_STARTED ||
       this.migrationStatus.status === Status.COMPLETE
     ) {
-      this.migrationStatus = { status: Status.IN_PROGRESS };
+      this.migrationStatus = {
+        status: Status.IN_PROGRESS,
+      };
 
       const result = await this.process();
 
       if (isOk(result)) {
-        this.migrationStatus = { status: Status.COMPLETE };
+        let status = Status.COMPLETE_NONE_CREATED;
+
+        if (result.ok > 0) {
+          status = Status.COMPLETE;
+        }
+
+        this.migrationStatus = {
+          status,
+          message: this.getSuccessMessage(result.ok),
+        };
       }
 
       if (isErr(result)) {
@@ -289,6 +302,7 @@ export class MigrationService {
     // When migration is settled (COMPLETE or ERROR), set it back to NOT_STARTED state
     if (
       this.migrationStatus.status === Status.COMPLETE ||
+      this.migrationStatus.status === Status.COMPLETE_NONE_CREATED ||
       this.migrationStatus.status === Status.ERROR
     ) {
       const oldStatus = this.migrationStatus;

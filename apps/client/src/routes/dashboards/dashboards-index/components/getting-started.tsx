@@ -94,7 +94,8 @@ const GettingStarted = () => {
           <SpaceBetween size="l" key={`${col.columnTitle}-${idx}`}>
             <Box textAlign="center">
               <div className={col.className}>
-                <img src={col.icon} alt={col.columnTitle} />
+                {/* empty value for alt attribute to keep decorative images from screen reader */}
+                <img src={col.icon} alt="" />
               </div>
             </Box>
             <ValueWithLabel label={col.columnTitle}>

@@ -1,7 +1,5 @@
 # IoT dashboard application built with IoT App Kit
 
-![Project Structure](./images/dashboard.png)
-
 The IoT dashboard application is an easy-to-use tool designed for businesses and individuals who need to keep track of their IoT devices and data. By creating and managing custom dashboards, you can effortlessly monitor your IoT devices and their data in real-time, connecting to your AWS IoT SiteWise data.
 
 Whether you're in manufacturing, logistics, energy, or other industries relying on IoT devices, the application can help you address specific challenges such as tracking equipment performance, optimizing operational efficiency, and making data-driven decisions.
@@ -37,6 +35,7 @@ Start using the application today to quickly create, manage, and view your IoT d
    ```sh
    yarn dev
    ```
+1. Application is available at URL: `http://localhost:3000`
 1. Log in with local Cognito credentials found at `apps/core/.cognito/db`
 
 ## Running the tests locally

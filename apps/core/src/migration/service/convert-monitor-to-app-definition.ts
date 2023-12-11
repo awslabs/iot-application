@@ -19,6 +19,7 @@ interface ApplicationProperty {
   aggregationType?: string;
   resolution?: string;
   refId?: string;
+  color?: string;
 }
 
 interface ApplicationAsset {
@@ -45,10 +46,10 @@ const defaultAggregationType = 'AVERAGE';
 
 /**
  * Default Monitor size is 3x3 squares
- * A similar sized application dashboard is 99x42 cells
+ * A similar sized application dashboard is 42x24 cells (if cellSize = 20)
  */
-const appCellsPerMonitorSquareWidth = 33; // 99 / 3
-const appCellPerMonitorSquareHeight = 14; // 42 / 3
+const appCellsPerMonitorSquareWidth = 14; // 42 / 3
+const appCellPerMonitorSquareHeight = 8; // 24 / 3
 
 const minWidth = appCellsPerMonitorSquareWidth - 0.5;
 const minHeight = appCellPerMonitorSquareHeight - 0.5;
@@ -207,7 +208,11 @@ const getStaticProperties = (widgetType: MonitorWidgetType) => {
   }
 };
 
-const getProperty = (metric: MonitorMetric, widgetType: MonitorWidgetType) => {
+const getProperty = (
+  metric: MonitorMetric,
+  widgetType: MonitorWidgetType,
+  index: number,
+) => {
   let property: ApplicationProperty = {
     aggregationType: defaultAggregationType, // Monitor has no aggregationType and appliation defaults to AVERAGE
     propertyId: metric.propertyId,
@@ -224,6 +229,16 @@ const getProperty = (metric: MonitorMetric, widgetType: MonitorWidgetType) => {
       ...property,
       refId,
     };
+  } else if (
+    widgetType === MonitorWidgetType.LineChart ||
+    widgetType === MonitorWidgetType.ScatterChart
+  ) {
+    const refId = randomUUID();
+    property = {
+      ...property,
+      refId,
+      color: colorPalette[index],
+    };
   }
   return property;
 };
@@ -237,8 +252,8 @@ const convertMetricsToQueryConfig = (
   const assetMap: AssetMap = {};
   const refIds = [];
 
-  for (const metric of monitorMetrics) {
-    const property = getProperty(metric, widgetType);
+  for (const [index, metric] of monitorMetrics.entries()) {
+    const property = getProperty(metric, widgetType, index);
 
     let newProperties = [property];
     const existingAssetIds = Object.keys(assetMap);
@@ -328,18 +343,22 @@ const convertProperties = (
 
 const getKPIAndGridData = (monitorWidget: MonitorWidget) => {
   const numWidgets = monitorWidget.metrics?.length;
-  let widgetHeight = convertHeight(1);
-  let widgetWidth = convertWidth(1);
+  let widgetHeight = 1;
+  let widgetWidth = 1;
 
   if (numWidgets && numWidgets >= 1 && numWidgets < monitorWidget.width) {
-    widgetWidth = convertWidth(Math.floor(monitorWidget.width / numWidgets));
-    widgetHeight = convertHeight(monitorWidget.height);
+    widgetWidth = Math.floor(monitorWidget.width / numWidgets);
+    widgetHeight = monitorWidget.height;
   }
 
   // max x value is the end of the monitor widget (monitor x + monitor width - (individual widget length))
-  const maxXCoord = monitorWidget.x + monitorWidget.width - 1;
+  const maxXCoord = monitorWidget.x + monitorWidget.width - widgetWidth;
 
-  return { widgetWidth, widgetHeight, maxXCoord };
+  return {
+    widgetWidth,
+    widgetHeight,
+    maxXCoord,
+  };
 };
 
 const convertKpiAndGridWidget = (
@@ -353,6 +372,9 @@ const convertKpiAndGridWidget = (
 
     let row = monitorWidget.y;
     let column = monitorWidget.x;
+
+    const rowLength = widgetHeight;
+    const columnLength = widgetWidth;
 
     for (const [index, metric] of monitorWidget.metrics.entries()) {
       const queryConfig: QueryConfig = {
@@ -381,8 +403,8 @@ const convertKpiAndGridWidget = (
         x: convertX(column),
         y: convertY(row),
         z: index, // Stack widgets in case of overlap
-        width: widgetWidth,
-        height: widgetHeight,
+        width: convertWidth(widgetWidth),
+        height: convertHeight(widgetHeight),
         properties: {
           primaryFont: {},
           secondaryFont: {},
@@ -394,10 +416,10 @@ const convertKpiAndGridWidget = (
 
       // At end of widget width, reset to row below and start at left-most column
       if (column >= maxXCoord) {
-        row++;
+        row = row + rowLength;
         column = monitorWidget.x;
       } else {
-        column++;
+        column = column + columnLength;
       }
     }
 
@@ -452,3 +474,5 @@ export const convertMonitorToAppDefinition = (
 
   return newDashboardDefinition;
 };
+
+export const applicationDashboardDescription = 'Migrated from SiteWise Monitor';

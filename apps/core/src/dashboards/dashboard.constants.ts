@@ -12,6 +12,7 @@ export const MESSAGES = {
   UNKNOWN_ERROR: 'Unknown error',
 };
 
-export const DASHBOARD_NAME_MAX_LENGTH = 100;
+// SiteWise Monitor max dashboard name length is 256
+export const DASHBOARD_NAME_MAX_LENGTH = 256;
 
 export const DASHBOARD_DESCRIPTION_MAX_LENGTH = 200;

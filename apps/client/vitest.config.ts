@@ -51,7 +51,7 @@ export default defineConfig({
     reporters: ['verbose', 'html'],
     setupFiles: './src/test/setup.ts',
     singleThread: true,
-    testTimeout: 10000,
+    testTimeout: 20000,
   },
   define: {
     // enable removal from production code

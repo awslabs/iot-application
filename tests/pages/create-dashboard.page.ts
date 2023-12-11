@@ -12,7 +12,7 @@ export class CreateDashboardPage {
   readonly descriptionRequiredError: Locator;
   readonly nameMaxLengthError: Locator;
   readonly descriptionMaxLengthError: Locator;
-  readonly nameMaxLength = 100;
+  readonly nameMaxLength = 256;
   readonly descriptionMaxLength = 200;
 
   private readonly url = 'dashboards/create';
@@ -20,9 +20,9 @@ export class CreateDashboardPage {
   constructor(page: Page) {
     this.page = page;
     this.heading = page.getByRole('heading', { name: 'Create dashboard' });
-    this.nameField = page.getByRole('textbox', { name: 'Name' });
+    this.nameField = page.getByRole('textbox', { name: 'Name (required)' });
     this.descriptionField = page.getByRole('textbox', {
-      name: 'Description',
+      name: 'Description (required)',
     });
     this.createButton = page.getByRole('button', { name: 'Create' });
     this.cancelButton = page.getByRole('button', { name: 'Cancel' });
@@ -31,7 +31,7 @@ export class CreateDashboardPage {
       'Dashboard description is required.',
     );
     this.nameMaxLengthError = page.getByText(
-      'Dashboard name must be 100 characters or less.',
+      'Dashboard name must be 256 characters or less.',
     );
     this.descriptionMaxLengthError = page.getByText(
       'Dashboard description must be 200 characters or less',
