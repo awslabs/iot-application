@@ -59,7 +59,7 @@
     "jest-config": "*",
     "run-script-webpack-plugin": "^0.2.0",
     "source-map-support": "^0.5.20",
-    "ts-loader": "^9.5.0",
+    "ts-loader": "^9.5.1",
     "tsconfig": "*",
     "webpack": "^5.89.0",
     "webpack-node-externals": "^3.0.0"
