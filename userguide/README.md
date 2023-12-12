@@ -70,3 +70,13 @@ An AWS administrator can create application users by following these steps:
 1. On any page, choose the user icon (name) to sign out. 
     ![app-sign-out-screen.png](./imgs/app-sign-out-screen.png)
 1. After you sign out, you will be routed to the sign in page.
+
+## SiteWise Monitor Dashboard Migration
+
+1. Go to the dashboard home page, and under the dashboard migration header click "Migrate"
+1. Click "Begin" in the modal and wait for the migration to complete.
+1. You should see a success message and your new dashboards in the dashboards table once complete.
+
+## Limitations
+
+* In SiteWise Monitor we support [alarms](https://docs.aws.amazon.com/iot-sitewise/latest/appguide/monitor-alarms.html), but in this application we do not currently support alarms. So, if you migrate your dashboards from SiteWise Monitor, the alarms will not work.
