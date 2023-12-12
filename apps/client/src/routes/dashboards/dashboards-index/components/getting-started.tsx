@@ -95,7 +95,7 @@ const GettingStarted = () => {
             <Box textAlign="center">
               <div className={col.className}>
                 {/* empty value for alt attribute to keep decorative images from screen reader */}
-                <img src={col.icon} alt="" />
+                <img src={col.icon} alt="" aria-hidden="true" />
               </div>
             </Box>
             <ValueWithLabel label={col.columnTitle}>
