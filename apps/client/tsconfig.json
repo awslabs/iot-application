@@ -7,7 +7,7 @@
     "outDir": "./dist",
     "module": "es2020",
     "rootDir": "./src",
-    "types": ["vitest/importMeta"],
+    "types": ["node", "vite/client", "vitest/importMeta"],
     "paths": {
       "~/*": ["src/*"]
     }
