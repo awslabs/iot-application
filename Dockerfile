@@ -7,14 +7,16 @@ WORKDIR /usr/src/app-build
 # Configure Node memory allocation
 ENV NODE_OPTIONS=--max_old_space_size=4096
 
-# Install missing dep for turbo
-RUN apk add --no-cache libc6-compat
-
-# Install global dependencies
-RUN yarn add global nest turbo typescript
+# Copy package.json files
+COPY ./package.json ./package.json
+COPY ./apps/client/package.json ./apps/client/package.json
+COPY ./apps/core/package.json ./apps/core/package.json
+COPY ./cdk/package.json ./cdk/package.json
+COPY ./packages/eslint-config-custom/package.json ./packages/eslint-config-custom/package.json
+COPY ./packages/jest-config/package.json ./packages/jest-config/package.json
+COPY ./packages/tsconfig/package.json ./packages/tsconfig/package.json
 
 # Copy source code files
-COPY ./package.json ./package.json
 COPY ./yarn.lock ./yarn.lock
 COPY ./turbo.json ./turbo.json
 COPY ./apps/client ./apps/client/
@@ -22,31 +24,23 @@ COPY ./apps/core ./apps/core/
 COPY ./packages/tsconfig ./packages/tsconfig/
 
 # Install all dependencies
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 # Build both client and core
-RUN yarn build
-
-FROM --platform=linux/amd64 node:18-alpine as core-modules-installer
-
-WORKDIR /usr/src/core-modules
-
-# Copy core dependency metadata files for production install
-# This is done to isolate the core production node_modules
-COPY ./package.json ./package.json
-COPY ./yarn.lock ./yarn.lock
-COPY ./apps/core/package.json ./apps/core/package.json
+RUN yarn workspace client build
+RUN yarn workspace core build
 
 # Install dependencies for core only
-RUN yarn install --production
+RUN yarn workspace core install --frozen-lockfile --production
+
 
 FROM --platform=linux/amd64  node:18-alpine as packager
 
 WORKDIR /usr/src/app
 
 # Copy the node_modules
-COPY --from=core-modules-installer /usr/src/core-modules/node_modules ./node_modules/
-COPY --from=core-modules-installer /usr/src/core-modules/apps/core/node_modules ./apps/core/node_modules/
+COPY --from=builder /usr/src/app-build/node_modules ./node_modules/
+COPY --from=builder /usr/src/app-build/apps/core/node_modules ./apps/core/node_modules/
 
 # Copy the yarn.lock
 COPY --from=builder /usr/src/app-build/yarn.lock ./yarn.lock
