@@ -17,7 +17,8 @@
 **/.nestjs_repl_history
 **/Dockerfile
 **/.dockerignore
-**/cdk
+cdk/**
+!cdk/package.json
 
 # Editor directories and files
 **/.vscode/*
