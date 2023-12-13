@@ -23,14 +23,11 @@ This will deploy the application to your AWS account using CDK.
 Note: All commands should be run in the workspace root directory. We are using [yarn workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/) to handle individual package commands.
 
 1. Add your AWS accountId and region [here](https://github.com/awslabs/iot-application/blob/main/cdk/bin/cdk.ts#L17) to setup the cdk envrionment.
-1. Install application dependencies:
+1. Deploy the application using the deploy command:
    ```sh
-   yarn install
+   yarn deploy
    ```
-1. Deploy the Core service and resource dependencies:
-   ```sh
-   yarn workspace cdk cdk deploy --all
-   ```
+1. This will install dependencies and deploy the application to the cloud using CDK and creating CloudFormation stacks that support the aplpication.
 1. View your application resources in CloudFormation. If you go to the stack IotApp -> Outputs you can see the URL that the application will be available from.
 
 ##### Updating the cloud application:
