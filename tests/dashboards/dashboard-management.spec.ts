@@ -57,6 +57,13 @@ test('as a user, I can create, update, and delete my dashboard', async ({
 
   await dashboardsPage.goto();
 
+  // Sort the dashboards by last update date in descending to hoist the new dashboard
+  const lastUpdateDateSort = page
+    .getByTestId('last-update-date-column-header')
+    .first(); // Duplicates created by cloudscape
+  await lastUpdateDateSort.click(); // set to ascending order
+  await lastUpdateDateSort.click(); // set to descending order
+
   await expect(page.getByText('My Dashboard', { exact: true })).toBeVisible();
   await expect(page.getByText(dashboardDescription)).toBeVisible();
   await expect(dashboardsPage.deleteButton).toBeDisabled();

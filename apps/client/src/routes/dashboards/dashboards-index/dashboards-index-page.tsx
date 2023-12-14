@@ -699,10 +699,15 @@ export function DashboardsIndexPage() {
             },
             {
               id: 'lastUpdateDate',
-              header: intl.formatMessage({
-                defaultMessage: 'Date modified',
-                description: 'dashboards table last update date column header',
-              }),
+              header: (
+                <div data-testid="last-update-date-column-header">
+                  {intl.formatMessage({
+                    defaultMessage: 'Date modified',
+                    description:
+                      'dashboards table last update date column header',
+                  })}
+                </div>
+              ),
               cell: (dashboard) =>
                 intl.formatDate(dashboard.lastUpdateDate, DateFormatOptions),
               sortingField: 'lastUpdateDate',
