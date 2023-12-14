@@ -4,7 +4,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf .turbo && rimraf node_modules"
+    "clean": "rimraf .turbo",
+    "clean:full": "rimraf .turbo && rimraf node_modules"
   },
   "dependencies": {
     "eslint-config-prettier": "^9.0.0",

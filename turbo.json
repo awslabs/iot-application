@@ -10,6 +10,9 @@
     "clean": {
       "cache": false
     },
+    "clean:full": {
+      "cache": false
+    },
     "dev": {
       "cache": false,
       "persistent": true,

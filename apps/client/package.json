@@ -6,7 +6,8 @@
   "scripts": {
     "analyze": "source-map-explorer build/static/js/*.js",
     "build": "DISABLE_ESLINT_PLUGIN=true react-app-rewired build",
-    "clean": "rimraf .turbo && rimraf node_modules && rimraf dist && rimraf build && rimraf *.tsbuildinfo",
+    "clean": "rimraf .turbo && rimraf dist && rimraf build && rimraf *.tsbuildinfo",
+    "clean:full": "rimraf .turbo && rimraf node_modules && rimraf dist && rimraf build && rimraf *.tsbuildinfo",
     "predev": "mkdir -p ./build && cp ./public/service-worker.js ./build/service-worker.js",
     "dev": "DISABLE_ESLINT_PLUGIN=true BROWSER=none PORT=3001 react-app-rewired start",
     "gen:intl": "formatjs extract \"src/**/*.ts*\" --ignore=\"**/*.d.ts\" --out-file lang/en.json --id-interpolation-pattern \"[sha512:contenthash:base64:6]\"",
