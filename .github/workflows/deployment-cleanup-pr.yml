@@ -8,6 +8,18 @@ on:
     types: [ closed ]
 
 jobs:
+  set-variables:
+    runs-on: ubuntu-latest
+    outputs:
+      stack_name: ${{ steps.set_stack_name.outputs.stack_name }}
+
+    steps:
+      - name: Set Stack Name 🥞
+        id: set_stack_name
+        run: |
+          echo stack name is IotApp-PR-${{ github.head_ref }}
+          echo "stack_name=IotApp-PR-${{ github.head_ref }}" >> $GITHUB_OUTPUT
+
   cleanup-deploy-pr:
     timeout-minutes: 30
     runs-on: ubuntu-latest
@@ -45,12 +57,12 @@ jobs:
       # Destory Application stack before other stacks to prevent failure due to in use Export by dependencies
       # since CDK is not able to track the stack deployment order: https://github.com/aws/aws-cdk/issues/26491
       - name: Destory Application Stack 🎯
-        run: yarn workspace cdk cdk destroy IotApp-${{ github.head_ref }} --force -c stackName=IotApp-${{ github.head_ref }}
+        run: yarn workspace cdk cdk destroy ${{ needs.set-variables.outputs.stack_name }} --force -c stackName=${{ needs.set-variables.outputs.stack_name }}
 
       # Destory Core stack before other stacks to prevent failure due to in use Export by dependencies
       # since CDK is not able to track the stack deployment order: https://github.com/aws/aws-cdk/issues/26491
       - name: Destory Core Stack 🎯
-        run: yarn workspace cdk cdk destroy IotApp-${{ github.head_ref }}/Core --force -c stackName=IotApp-${{ github.head_ref }}
+        run: yarn workspace cdk cdk destroy ${{ needs.set-variables.outputs.stack_name }}/Core --force -c stackName=${{ needs.set-variables.outputs.stack_name }}
 
       - name: Destory CDK 💥
-        run: yarn workspace cdk cdk destroy --all --force -c stackName=IotApp-${{ github.head_ref }}
+        run: yarn workspace cdk cdk destroy --all --force -c stackName=${{ needs.set-variables.outputs.stack_name }}

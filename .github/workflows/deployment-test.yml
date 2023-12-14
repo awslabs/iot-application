@@ -1,0 +1,197 @@
+name: Deployment Test
+
+run-name: Deployment test action initiated by ${{ github.actor }}
+
+on:
+  pull_request:
+    branches: [main, rc]
+  push:
+    branches: [main, rc]
+
+# Ensures that only one deployment is in progress
+concurrency: ${{ github.workflow }}-${{ github.ref_name }}
+
+jobs:
+  set-variables:
+    runs-on: ubuntu-latest
+    outputs:
+      stack_name: ${{ steps.set_stack_name.outputs.stack_name }}
+
+    steps:
+      - name: Set Stack Name 🥞
+        id: set_stack_name
+        run: |
+          if [ ${{ github.event_name }} == 'push' ]; then
+            echo stack name is IotApp-Push-${{ github.ref_name }} for event ${{ github.event_name }}
+            echo "stack_name=IotApp-Push-${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          else
+            echo stack name is IotApp-PR-${{ github.head_ref }} for event ${{ github.event_name }}
+            echo "stack_name=IotApp-PR-${{ github.head_ref }}" >> $GITHUB_OUTPUT
+          fi
+
+  deploy:
+    needs: [set-variables]
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # needed to interact with GitHub's OIDC Token endpoint
+      contents: read
+    outputs:
+      app_url: ${{ steps.app_url.outputs.app_url }}
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Install Java 🔧
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: 17
+
+      - name: Install Node.js 🔧
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install Dependencies 🔩
+        run: yarn install --frozen-lockfile
+
+      - name: Configure AWS credentials 🔑
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.DEPLOYMENT_AWS_ROLE }}
+          aws-region: us-west-2
+
+      - name: Deploy CDK 🚀
+        run: yarn workspace cdk cdk deploy --all --require-approval never -c stackName=${{ needs.set-variables.outputs.stack_name }} -c cleanupRetainedResources=true
+
+      - name: Get App URL 🔗
+        id: app_url
+        run: |
+          app_url=$(aws cloudformation describe-stacks --stack-name ${{ needs.set-variables.outputs.stack_name }} --query "Stacks[0].Outputs[?OutputKey=='AppURL'].OutputValue" --output text)
+          echo "app_url=$app_url" >> $GITHUB_OUTPUT
+
+  create-test-user:
+    needs: [set-variables, deploy]
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # needed to interact with GitHub's OIDC Token endpoint
+      contents: read
+
+    steps:
+      - name: Configure AWS credentials 🔑
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.DEPLOYMENT_AWS_ROLE }}
+          aws-region: us-west-2
+
+      - name: Get User Pool ID 🎱
+        run: |
+          userpool_id=$(aws cloudformation describe-stacks --stack-name ${{ needs.set-variables.outputs.stack_name }} --query "Stacks[0].Outputs[?OutputKey=='UserPoolId'].OutputValue" --output text)
+          echo "userpool_id=$userpool_id" >> "$GITHUB_ENV"
+
+      - name: Create User 🪪
+        continue-on-error: true # the user could be created already by previous runs
+        run: aws cognito-idp admin-create-user --user-pool-id "$userpool_id" --username test-user
+
+      - name: Set User Password 🔑
+        run: aws cognito-idp admin-set-user-password --permanent --user-pool-id "$userpool_id" --username test-user --password ${{ secrets.DEPLOYMENT_PR_USER_PASSWORD }}
+
+  test:
+    needs: [deploy]
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Install Java 🔧
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: 17
+
+      - name: Install Node.js 🔧
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install Dependencies 🔩
+        run: yarn install --frozen-lockfile
+
+      - name: Install Playwright Browsers 🔩
+        run: yarn playwright install --with-deps
+
+      - name: Run Playwright tests 🧑‍🔬
+        env:
+          ENDPOINT: ${{ needs.deploy.outputs.app_url }}
+          LAUNCH_WEB_SERVER: false
+          USER_PASSWORD: ${{ secrets.DEPLOYMENT_PR_USER_PASSWORD }}
+        id: tests
+        run: yarn playwright test
+
+      - name: Store Test Artifacts on Failure 🥲
+        if: failure() && steps.tests.outcome == 'failure'
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+  cleanup-deploy:
+    if: github.event_name == 'push' # for "push" only; PR stacks are cleanup by another workflow
+    needs: [set-variables, test]
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # needed to interact with GitHub's OIDC Token endpoint
+      contents: read
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Install Java 🔧
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: 17
+
+      - name: Install Node.js 🔧
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install Dependencies 🔩
+        run: yarn install --frozen-lockfile
+
+      - name: Configure AWS credentials 🔑
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.DEPLOYMENT_AWS_ROLE }}
+          aws-region: us-west-2
+
+      # Destory Application stack before other stacks to prevent failure due to in use Export by dependencies
+      # since CDK is not able to track the stack deployment order: https://github.com/aws/aws-cdk/issues/26491
+      - name: Destory Application Stack 🎯
+        run: yarn workspace cdk cdk destroy ${{ needs.set-variables.outputs.stack_name }} --force -c stackName=${{ needs.set-variables.outputs.stack_name }}
+
+      # Destory Core stack before other stacks to prevent failure due to in use Export by dependencies
+      # since CDK is not able to track the stack deployment order: https://github.com/aws/aws-cdk/issues/26491
+      - name: Destory Core Stack 🎯
+        run: yarn workspace cdk cdk destroy ${{ needs.set-variables.outputs.stack_name }}/Core --force -c stackName=${{ needs.set-variables.outputs.stack_name }}
+
+      - name: Destory CDK 💥
+        run: yarn workspace cdk cdk destroy --all --force -c stackName=${{ needs.set-variables.outputs.stack_name }}
