@@ -65,6 +65,7 @@ export const emitNotificationAtom = atom(
             defaultMessage: 'Dismiss notification',
             description: 'dismiss notification aria label',
           }),
+          ariaRole: 'status',
         },
         ...get(notificationsAtom),
       ]);
