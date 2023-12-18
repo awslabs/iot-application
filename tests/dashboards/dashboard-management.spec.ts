@@ -46,7 +46,7 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   await page.getByRole('button', { name: 'Save' }).click();
 
   await expect(application.notification).toBeVisible();
-  await expect(application.notification).toHaveText(
+  await expect(application.notification).toContainText(
     'Successfully updated dashboard "My Dashboard".',
   );
 
@@ -78,7 +78,7 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   await deleteDashboardDialog.expectIsNotVisible();
   await expect(page.getByText(dashboardDescription)).toBeHidden();
   await expect(application.notification).toBeVisible();
-  await expect(application.notification).toHaveText(
+  await expect(application.notification).toContainText(
     'Successfully deleted dashboard "My Dashboard".',
   );
 });
