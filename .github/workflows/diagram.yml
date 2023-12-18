@@ -28,6 +28,6 @@ jobs:
       # retrieve diagram from workflow output
       # diagram in README.md is updated manually
       - name: Download Diagram 📝
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: diagram
