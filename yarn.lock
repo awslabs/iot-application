@@ -8746,10 +8746,10 @@
     path-to-regexp "3.2.0"
     swagger-ui-dist "5.9.1"
 
-"@nestjs/terminus@^10.1.1":
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/@nestjs/terminus/-/terminus-10.1.1.tgz#cf5d82ace23b00fc2c845cadb71fcb3d1ac169ee"
-  integrity sha512-aDoPK/uaR9PHn56xzand6zqpp+S3Ibm+y/OrG3M01F1WnScLfo29hbS6MdnIMqmVRAS11r/8X3xWTSo8TT/Lig==
+"@nestjs/terminus@^10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/terminus/-/terminus-10.2.0.tgz#3776ac21d2b1a1b8ce0a60e7f51dd6c498ca1de6"
+  integrity sha512-zPs98xvJ4ogEimRQOz8eU90mb7z+W/kd/mL4peOgrJ/VqER+ibN2Cboj65uJZW3XuNhpOqaeYOJte86InJd44A==
   dependencies:
     boxen "5.1.2"
     check-disk-space "3.4.0"
