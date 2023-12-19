@@ -6998,10 +6998,10 @@
   resolved "https://registry.yarnpkg.com/@cloudscape-design/design-tokens/-/design-tokens-3.0.30.tgz#b904a50287bed8d59b111286f7862ff4ab1da7dd"
   integrity sha512-gLfdya/DINUGDPEBdwOOnbguPczEA7ysRKNJjXyFDseYjvVze8KHKvk+NFZd5aYJmR7tl4fXwv+z2n2QBAs1Ag==
 
-"@cloudscape-design/global-styles@^1.0.17":
-  version "1.0.17"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/global-styles/-/global-styles-1.0.17.tgz#e46cbfa9ff97545629abfd954d2a8a4e45a88c13"
-  integrity sha512-fwgncp5tfaYjPf/XeH7vKbVRgT+7Vo7Z5qKqSH21beH2l9VJncWKnmkRBf77uwcUHGHyPSbTRptKuijfwvFMEA==
+"@cloudscape-design/global-styles@^1.0.20":
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/global-styles/-/global-styles-1.0.20.tgz#3d3e9a7eb55a455189b341c7949471718958e05e"
+  integrity sha512-eEU3o7fZSRtIQVcFj1vRtheDFktRdAMMIidihrpNHqWVZzazFe0Z22vll684Yzy9TQ5R0HXKKupZLgKyC+Ia8w==
 
 "@cloudscape-design/test-utils-core@^1.0.0":
   version "1.0.10"
