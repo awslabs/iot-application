@@ -4,6 +4,9 @@ export const extractedMetaTags = (
   metaElements: HTMLMetaElement[],
 ): Metadata => {
   const metaTags: Metadata = {
+    awsAccessKeyId: '',
+    awsSecretAccessKey: '',
+    awsSessionToken: '',
     applicationName: '',
     authenticationFlowType: '',
     cognitoEndpoint: '',
