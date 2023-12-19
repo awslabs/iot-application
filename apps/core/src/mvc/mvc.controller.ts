@@ -21,6 +21,9 @@ export class MvcController {
   root() {
     const {
       authenticationFlowType,
+      clientAwsAccessKeyId,
+      clientAwsSecretAccessKey,
+      clientAwsSessionToken,
       cognitoEndpoint,
       identityPoolId,
       region,
@@ -33,6 +36,9 @@ export class MvcController {
     return {
       applicationName,
       authenticationFlowType,
+      clientAwsAccessKeyId,
+      clientAwsSecretAccessKey,
+      clientAwsSessionToken,
       cognitoEndpoint,
       identityPoolId,
       region,

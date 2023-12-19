@@ -23,6 +23,7 @@ Start using the application today to quickly create, manage, and view your IoT d
 
 ## Getting Started with local development
 
+1. Install Java Runtime Environment (JRE) version 11.x or newer
 1. Install nest a global dependency for using the Nest CLI:
    ```sh
    yarn add global nest
@@ -31,12 +32,13 @@ Start using the application today to quickly create, manage, and view your IoT d
    ```sh
    yarn install
    ```
+1. Update the variables `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_SESSION_TOKEN` under file `apps/core/.env` with your development AWS credentials.
 1. Start development server:
    ```sh
    yarn dev
    ```
 1. Application is available at URL: `http://localhost:3000`
-1. Log in with local Cognito credentials found at `apps/core/.cognito/db`
+1. Log in with local Cognito credentials found at `apps/core/.cognito/db/us-west-2_h23TJjQR9.json`
 
 ## Running the tests locally
 
