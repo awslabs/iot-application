@@ -26,6 +26,9 @@ import '@cloudscape-design/global-styles/index.css';
 const tags = Array.from(document.getElementsByTagName('meta'));
 const metadata = extractedMetaTags(tags);
 const {
+  awsAccessKeyId,
+  awsSecretAccessKey,
+  awsSessionToken,
   applicationName,
   authenticationFlowType,
   cognitoEndpoint,
@@ -45,6 +48,15 @@ Amplify.configure({
     userPoolWebClientId,
   },
 });
+
+// Set AWS credentials if any provided
+if (awsAccessKeyId !== '' && awsSecretAccessKey !== '') {
+  authService.setAwsCredentials({
+    accessKeyId: awsAccessKeyId,
+    secretAccessKey: awsSecretAccessKey,
+    sessionToken: awsSessionToken !== '' ? awsSessionToken : undefined,
+  });
+}
 
 setServiceUrl('/api');
 

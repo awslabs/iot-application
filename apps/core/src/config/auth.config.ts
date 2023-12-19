@@ -26,8 +26,27 @@ export const configFactory = () => {
   );
 
   if (useLocalVerifier === 'true') {
+    // Share the AWS credentials with client
+    const {
+      AWS_ACCESS_KEY_ID: clientAwsAccessKeyId,
+      AWS_SECRET_ACCESS_KEY: clientAwsSecretAccessKey,
+      AWS_SESSION_TOKEN: clientAwsSessionToken,
+    } = process.env;
+
+    invariant(
+      isDefined(clientAwsAccessKeyId),
+      envVarRequiredMsg('AWS_ACCESS_KEY_ID'),
+    );
+    invariant(
+      isDefined(clientAwsSecretAccessKey),
+      envVarRequiredMsg('AWS_SECRET_ACCESS_KEY'),
+    );
+
     return {
       authenticationFlowType: LOCAL_AUTH_FLOW_TYPE,
+      clientAwsAccessKeyId,
+      clientAwsSecretAccessKey,
+      clientAwsSessionToken,
       cognitoEndpoint: LOCAL_COGNITO_ENDPOINT,
       identityPoolId,
       userPoolId,
