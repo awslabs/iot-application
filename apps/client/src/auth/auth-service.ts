@@ -1,8 +1,19 @@
 import { Auth, Hub } from 'aws-amplify';
 import { AuthService } from './auth-service.interface';
+import { type AwsCredentialIdentity } from '@smithy/types';
 
 class CognitoAuthService implements AuthService {
+  private credentials?: AwsCredentialIdentity;
+
+  setAwsCredentials(credentials: AwsCredentialIdentity) {
+    this.credentials = credentials;
+  }
+
   getAwsCredentials() {
+    if (this.credentials != null) {
+      return Promise.resolve(this.credentials);
+    }
+
     return Auth.currentCredentials();
   }
 
