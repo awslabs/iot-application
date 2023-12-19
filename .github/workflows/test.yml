@@ -39,7 +39,7 @@ jobs:
 
       - name: Store Client Test Artifacts 🧪
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: client-test-report
           path: apps/client/html/
@@ -47,7 +47,7 @@ jobs:
 
       - name: Store Client Test Coverage Artifacts 🧪
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cliest-test-coverage
           path: apps/client/coverage/
@@ -55,7 +55,7 @@ jobs:
 
       - name: Store Core Test Coverage Artifacts 🧪
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: core-test-coverage
           path: apps/core/coverage/
