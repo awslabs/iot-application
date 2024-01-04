@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "build": "nest build core",
-    "clean": "rimraf .turbo && rimraf dist && rimraf *.tsbuildinfo",
-    "clean:full": "rimraf .turbo && rimraf node_modules && rimraf dist && rimraf *.tsbuildinfo",
+    "clean": "rimraf .turbo && rimraf dist && rimraf *.tsbuildinfo && rimraf $(node dynamodb-local-dir.js)",
+    "clean:full": "rimraf .turbo && rimraf node_modules && rimraf dist && rimraf *.tsbuildinfo && rimraf $(node dynamodb-local-dir.js)",
     "dev": "yarn cognito-local & nest build --webpack --webpackPath webpack-hmr.config.js --watch",
     "start": "nest start",
     "start:debug": "nest start --debug --watch",
