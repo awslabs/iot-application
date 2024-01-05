@@ -39,8 +39,10 @@ test('as a user, I can create, update, and delete my dashboard', async ({
 
   // check if viewport setting persists
   await page.getByRole('button', { name: 'Preview' }).click();
-  await page.getByRole('button', { name: 'Time machine' }).click();
-  await page.getByRole('radio', { name: 'Last 5 minutes' }).click();
+  await page
+    .getByRole('button', { name: 'Last 5 minutes', exact: false })
+    .click();
+  await page.getByRole('radio', { name: 'Last 10 minutes' }).click();
   await page.getByRole('button', { name: 'Apply' }).click();
 
   await page.getByRole('button', { name: 'Save' }).click();
@@ -51,8 +53,8 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   );
 
   await page.reload();
-  await expect(page.getByRole('button', { name: 'Time machine' })).toHaveText(
-    'Last 5 minutes',
+  await expect(page.getByRole('button', { name: 'Last 5 minutes' })).toHaveText(
+    'Last 10 minutes',
   );
 
   await dashboardsPage.goto();
