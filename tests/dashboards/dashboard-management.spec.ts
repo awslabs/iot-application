@@ -37,9 +37,11 @@ test('as a user, I can create, update, and delete my dashboard', async ({
     'Successfully created dashboard "My Dashboard".',
   );
 
-  // check if viewport setting persists
+  // TODO: Need to clean up the below, we do not persist anymore
   await page.getByRole('button', { name: 'Preview' }).click();
-  await page.getByRole('button', { name: 'Time machine' }).click();
+
+  await page.getByRole('button', { name: 'Last 5 minutes' }).click();
+
   await page.getByRole('radio', { name: 'Last 5 minutes' }).click();
   await page.getByRole('button', { name: 'Apply' }).click();
 
@@ -51,7 +53,7 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   );
 
   await page.reload();
-  await expect(page.getByRole('button', { name: 'Time machine' })).toHaveText(
+  await expect(page.getByRole('button', { name: 'Last 5 minutes' })).toHaveText(
     'Last 5 minutes',
   );
 
