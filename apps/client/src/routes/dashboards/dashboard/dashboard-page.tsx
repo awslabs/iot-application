@@ -15,6 +15,7 @@ import { useUpdateDashboardMutation } from '~/routes/dashboards/dashboard/hooks/
 import type { DashboardDefinition } from '~/services';
 import { useViewport } from '~/hooks/dashboard/use-viewport';
 import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
+import { useDisplaySettings } from '~/hooks/dashboard/use-displaySettings';
 import { getDashboardEditMode } from '~/store/viewMode';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 
@@ -57,6 +58,9 @@ export function DashboardPage() {
 
   const updateDashboardMutation = useUpdateDashboardMutation();
   const [viewport, saveViewport] = useViewport(params.dashboardId);
+  const [displaySettings, saveDisplaySettings] = useDisplaySettings(
+    params.dashboardId,
+  );
   if (dashboardQuery.isInitialLoading) {
     return <DashboardLoadingState />;
   }
@@ -71,12 +75,7 @@ export function DashboardPage() {
       }}
       dashboardConfiguration={{
         ...dashboardDefinition,
-        // TODO: remove display settings once dynanic sizing is released
-        displaySettings: {
-          numRows: 1000,
-          numColumns: 200,
-          cellSize: 20, // explicitly set a cell size so dashboard migration feature works as expected
-        },
+        displaySettings,
         viewport,
       }}
       initialViewMode={editMode ? 'edit' : 'preview'}
@@ -91,6 +90,7 @@ export function DashboardPage() {
             widgets: config.widgets,
           },
         });
+        saveDisplaySettings(config.displaySettings);
         saveViewport(config.viewport);
       }}
     />
