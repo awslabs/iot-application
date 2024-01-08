@@ -34,6 +34,7 @@
     "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.8.2",
     "@playwright/test": "1.39.0",
     "@types/jest": "29.5.2",
     "@types/node": "20.10.6",

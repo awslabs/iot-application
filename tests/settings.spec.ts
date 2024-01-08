@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers';
 
 test.describe('Settings', () => {
   test('as a user, I can set my preffered content density', async ({

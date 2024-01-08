@@ -81,5 +81,6 @@ export default defineConfig({
       dependencies: ['setup'],
     },
   ],
+  updateSnapshots: 'all',
   webServer,
 });
