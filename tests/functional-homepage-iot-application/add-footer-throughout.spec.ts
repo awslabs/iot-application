@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../helpers';
 import { DashboardsIndexPage } from '../pages/dashboards-index.page';
 import { Footer } from '../pages/application-frame.page';
 
