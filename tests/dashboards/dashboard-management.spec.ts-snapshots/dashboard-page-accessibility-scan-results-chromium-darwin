@@ -1,0 +1,37 @@
+[
+  {
+    "rule": "empty-heading",
+    "targets": [
+      [
+        "h1"
+      ]
+    ]
+  },
+  {
+    "rule": "empty-table-header",
+    "targets": [
+      [
+        ".awsui_selection-control_wih1l_1km9g_221"
+      ]
+    ]
+  },
+  {
+    "rule": "heading-order",
+    "targets": [
+      [
+        ".widget-panel > h4"
+      ]
+    ]
+  },
+  {
+    "rule": "target-size",
+    "targets": [
+      [
+        ".awsui_page-number_fvjdu_m8qbw_151"
+      ],
+      [
+        ".awsui_resizer_x7peu_19okv_98"
+      ]
+    ]
+  }
+]
