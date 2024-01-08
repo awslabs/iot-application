@@ -38,6 +38,29 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   );
 
   // TODO: Need to clean up the below, we do not persist anymore
+  //check if dashboard setting persists
+  await page.getByRole('button', { name: 'Settings' }).nth(1).click();
+  await expect(page.getByLabel('Number of Rows')).toHaveValue('1000');
+  await expect(page.getByLabel('Number of Columns')).toHaveValue('200');
+  await expect(page.getByLabel('cell Size')).toHaveValue('20');
+
+  await page.getByLabel('Number of Rows').fill('100');
+  await page.getByLabel('Number of Columns').fill('100');
+  await page.getByLabel('cell Size').fill('10');
+
+  await page.getByRole('button', { name: 'Close' }).click();
+  await page.getByRole('button', { name: 'Save' }).click();
+  await page.reload();
+  await page.getByRole('button', { name: 'Edit' }).click();
+  await page.getByRole('button', { name: 'Settings' }).nth(1).click();
+
+  await expect(page.getByLabel('Number of Rows')).toHaveValue('100');
+  await expect(page.getByLabel('Number of Columns')).toHaveValue('100');
+  await expect(page.getByLabel('cell Size')).toHaveValue('10');
+
+  await page.getByRole('button', { name: 'Close' }).click();
+
+  // check if viewport setting persists
   await page.getByRole('button', { name: 'Preview' }).click();
 
   await page.getByRole('button', { name: 'Last 5 minutes' }).click();
