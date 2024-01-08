@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, violationFingerprints } from '../helpers';
 import { CreateDashboardPage } from '../pages/create-dashboard.page';
 import {
   DashboardsIndexPage,
@@ -9,6 +9,7 @@ import { randomUUID } from 'crypto';
 
 test('as a user, I can create, update, and delete my dashboard', async ({
   page,
+  makeAxeBuilder,
 }) => {
   test.slow();
 
@@ -21,6 +22,12 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   const dashboardDescription = `My dashboard description ${randomUUID()}`;
 
   await createDashboardPage.goto();
+
+  const createDashboardPageAccessibilityScanResults =
+    await makeAxeBuilder().analyze();
+  expect(
+    violationFingerprints(createDashboardPageAccessibilityScanResults),
+  ).toMatchSnapshot('create-dashboard-page-accessibility-scan-results');
 
   await createDashboardPage.nameField.type('My Dashboard');
   await createDashboardPage.descriptionField.type(dashboardDescription);
@@ -36,6 +43,12 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   await expect(application.notification).toContainText(
     'Successfully created dashboard "My Dashboard".',
   );
+
+  const dashboardPageAccessibilityScanResults =
+    await makeAxeBuilder().analyze();
+  expect(
+    violationFingerprints(dashboardPageAccessibilityScanResults),
+  ).toMatchSnapshot('dashboard-page-accessibility-scan-results');
 
   // TODO: Need to clean up the below, we do not persist anymore
   //check if dashboard setting persists
@@ -89,6 +102,12 @@ test('as a user, I can create, update, and delete my dashboard', async ({
     .getByRole('checkbox', { name: 'Select dashboard My dashboard' })
     .click();
   await expect(dashboardsPage.deleteButton).toBeEnabled();
+
+  const dashboardsPageAccessibilityScanResults =
+    await makeAxeBuilder().analyze();
+  expect(
+    violationFingerprints(dashboardsPageAccessibilityScanResults),
+  ).toMatchSnapshot('dashboards-page-accessibility-scan-results');
 
   await deleteDashboardDialog.expectIsNotVisible();
   await dashboardsPage.deleteButton.click();

@@ -1,4 +1,4 @@
-import { test as setup, expect } from '@playwright/test';
+import { test as setup, expect } from './helpers';
 
 // Read environment variables
 const userPassword = process.env.USER_PASSWORD ?? 'test-Password!';

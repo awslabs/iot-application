@@ -1,0 +1,13 @@
+[
+  {
+    "rule": "target-size",
+    "targets": [
+      [
+        ".awsui_page-number_fvjdu_m8qbw_151"
+      ],
+      [
+        "#link-self\\:r3l\\:"
+      ]
+    ]
+  }
+]
