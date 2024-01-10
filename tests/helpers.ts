@@ -2,6 +2,7 @@ import { Page, test as base } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { DashboardsIndexPage } from './pages/dashboards-index.page';
 import { ApplicationFrame } from './pages/application-frame.page';
+import { CreateDashboardPage } from './pages/create-dashboard.page';
 
 // TODO: Use type from core
 interface CreateDashboardDto {
@@ -31,6 +32,7 @@ interface Fixtures {
   }: CreateDashboardDto): Promise<Dashboard>;
   deleteDashboards({ ids }: DeleteDashboardsDto): Promise<void>;
   applicationFrame: ApplicationFrame;
+  createDashboardPage: CreateDashboardPage;
   dashboardListPage: DashboardsIndexPage;
   dashboardListPageWithDashboards: {
     dashboardListPage: DashboardsIndexPage;
@@ -71,6 +73,13 @@ export const test = base.extend<Fixtures>({
     const applicationFrame = new ApplicationFrame(page);
 
     await use(applicationFrame);
+  },
+  createDashboardPage: async ({ page }, use) => {
+    const createDashboardPage = new CreateDashboardPage(page);
+
+    await createDashboardPage.goto();
+
+    await use(createDashboardPage);
   },
   dashboardListPage: async ({ page }, use) => {
     const dashboardListPage = new DashboardsIndexPage(page);
