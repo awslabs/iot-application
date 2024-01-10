@@ -2,20 +2,19 @@ import { expect } from '@playwright/test';
 import type { Page, Locator } from '@playwright/test';
 
 export class CreateDashboardPage {
-  readonly page: Page;
-  public readonly heading: Locator;
-  readonly nameField: Locator;
-  readonly descriptionField: Locator;
-  readonly createButton: Locator;
-  readonly cancelButton: Locator;
-  readonly nameRequiredError: Locator;
-  readonly descriptionRequiredError: Locator;
-  readonly nameMaxLengthError: Locator;
-  readonly descriptionMaxLengthError: Locator;
-  readonly nameMaxLength = 256;
-  readonly descriptionMaxLength = 200;
-
+  private readonly page: Page;
   private readonly url = 'dashboards/create';
+  public readonly heading: Locator;
+  public readonly nameField: Locator;
+  public readonly nameRequiredError: Locator;
+  public readonly nameMaxLengthError: Locator;
+  public readonly descriptionField: Locator;
+  public readonly descriptionRequiredError: Locator;
+  public readonly descriptionMaxLengthError: Locator;
+  public readonly createButton: Locator;
+  public readonly cancelButton: Locator;
+  public readonly maxDashboardNameLength = 256;
+  public readonly maxDashboardDescriptionLength = 200;
 
   constructor(page: Page) {
     this.page = page;
@@ -31,49 +30,15 @@ export class CreateDashboardPage {
       'Dashboard description is required.',
     );
     this.nameMaxLengthError = page.getByText(
-      'Dashboard name must be 256 characters or less.',
+      `Dashboard name must be ${this.maxDashboardNameLength} characters or less.`,
     );
     this.descriptionMaxLengthError = page.getByText(
-      'Dashboard description must be 200 characters or less',
+      `Dashboard description must be ${this.maxDashboardDescriptionLength} characters or less`,
     );
   }
 
   async goto() {
     await this.page.goto('dashboards/create');
-  }
-
-  async typeName(name: string) {
-    await this.nameField.type(name);
-  }
-
-  async typeMaxLengthName() {
-    await this.typeName(Array(this.nameMaxLength).fill('a').join(''));
-  }
-
-  async clearName() {
-    await this.nameField.clear();
-  }
-
-  async typeDescription(description: string) {
-    await this.descriptionField.type(description);
-  }
-
-  async typeMaxLengthDescription() {
-    await this.typeDescription(
-      Array(this.descriptionMaxLength).fill('a').join(''),
-    );
-  }
-
-  async clearDescription() {
-    await this.descriptionField.clear();
-  }
-
-  async clickCreate() {
-    await this.createButton.click();
-  }
-
-  async clickCancel() {
-    await this.cancelButton.click();
   }
 
   public async expectIsCurrentPage() {

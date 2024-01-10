@@ -1,0 +1,13 @@
+[
+  {
+    "rule": "role-img-alt",
+    "targets": [
+      [
+        "#formField\\:rk\\:-error > .awsui_error-icon-shake-wrapper_14mhv_d3ru4_97 > .awsui_error-icon-scale-wrapper_14mhv_d3ru4_124[role=\"img\"]"
+      ],
+      [
+        "#formField\\:rl\\:-error > .awsui_error-icon-shake-wrapper_14mhv_d3ru4_97 > .awsui_error-icon-scale-wrapper_14mhv_d3ru4_124[role=\"img\"]"
+      ]
+    ]
+  }
+]
