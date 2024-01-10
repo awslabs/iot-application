@@ -32,7 +32,7 @@ export default defineConfig({
     trace: 'on',
     video: 'retain-on-failure',
   },
-  testDir: './tests',
+  testDir: './apps/client/src/tests',
   /* Maximum time one test can run for. */
   timeout: 60000,
   expect: {
