@@ -1,11 +1,36 @@
-import { test as base } from '@playwright/test';
+import { Page, test as base } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-interface AxeFixture {
-  makeAxeBuilder(): AxeBuilder;
+// TODO: Use type from core
+interface CreateDashboardDto {
+  name: string;
+  description: string;
+  definition: unknown;
 }
 
-export const test = base.extend<AxeFixture>({
+// TODO: Use type from core
+interface Dashboard {
+  id: string;
+  name: string;
+  description: string;
+  definition: unknown;
+}
+
+interface DeleteDashboardsDto {
+  ids: string[];
+}
+
+interface Fixtures {
+  makeAxeBuilder(): AxeBuilder;
+  createDashboard({
+    name,
+    description,
+    definition,
+  }: CreateDashboardDto): Promise<Dashboard>;
+  deleteDashboards({ ids }: DeleteDashboardsDto): Promise<void>;
+}
+
+export const test = base.extend<Fixtures>({
   makeAxeBuilder: async ({ page }, use) => {
     function makeAxeBuilder() {
       const axeBuilder = new AxeBuilder({ page }).withTags([
@@ -22,6 +47,53 @@ export const test = base.extend<AxeFixture>({
     }
 
     await use(makeAxeBuilder);
+  },
+  createDashboard: async ({ page }, use) => {
+    async function createDashboard({
+      name,
+      description,
+      definition,
+    }: CreateDashboardDto) {
+      const headersWithAuthorization =
+        await createHeadersWithAuthorization(page);
+
+      const response = await page.request.post(
+        'http://localhost:3000/api/dashboards',
+        {
+          headers: {
+            ...headersWithAuthorization,
+          },
+          data: {
+            name,
+            description,
+            definition,
+          },
+        },
+      );
+
+      const dashboard = (await response.json()) as unknown as Dashboard;
+
+      return dashboard;
+    }
+
+    await use(createDashboard);
+  },
+  deleteDashboards: async ({ page }, use) => {
+    async function deleteDashboards({ ids }: DeleteDashboardsDto) {
+      const headersWithAuthorization =
+        await createHeadersWithAuthorization(page);
+
+      await page.request.delete(`http://localhost:3000/api/dashboards/bulk`, {
+        headers: {
+          ...headersWithAuthorization,
+        },
+        data: {
+          ids,
+        },
+      });
+    }
+
+    await use(deleteDashboards);
   },
 });
 
@@ -43,4 +115,22 @@ export function violationFingerprints(
   );
 
   return JSON.stringify(violationFingerprints, null, 2);
+}
+
+async function createHeadersWithAuthorization(page: Page) {
+  const accessToken = await getAccessToken(page);
+  const headersWithAuthorization = {
+    authorization: `Bearer ${accessToken ?? ''}`,
+  };
+
+  return headersWithAuthorization;
+}
+
+async function getAccessToken(page: Page): Promise<string | undefined> {
+  const storageState = await page.context().storageState();
+  const accessToken = storageState.origins[0]?.localStorage.find(({ name }) =>
+    name.includes('accessToken'),
+  )?.value;
+
+  return accessToken;
 }
