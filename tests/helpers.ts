@@ -1,5 +1,7 @@
 import { Page, test as base } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { DashboardsIndexPage } from './pages/dashboards-index.page';
+import { ApplicationFrame } from './pages/application-frame.page';
 
 // TODO: Use type from core
 interface CreateDashboardDto {
@@ -28,6 +30,13 @@ interface Fixtures {
     definition,
   }: CreateDashboardDto): Promise<Dashboard>;
   deleteDashboards({ ids }: DeleteDashboardsDto): Promise<void>;
+  applicationFrame: ApplicationFrame;
+  dashboardListPage: DashboardsIndexPage;
+  dashboardListPageWithDashboards: {
+    dashboardListPage: DashboardsIndexPage;
+    dashboard1: Dashboard;
+    dashboard2: Dashboard;
+  };
 }
 
 export const test = base.extend<Fixtures>({
@@ -49,55 +58,101 @@ export const test = base.extend<Fixtures>({
     await use(makeAxeBuilder);
   },
   createDashboard: async ({ page }, use) => {
-    async function createDashboard({
-      name,
-      description,
-      definition,
-    }: CreateDashboardDto) {
-      const headersWithAuthorization =
-        await createHeadersWithAuthorization(page);
-
-      const response = await page.request.post(
-        'http://localhost:3000/api/dashboards',
-        {
-          headers: {
-            ...headersWithAuthorization,
-          },
-          data: {
-            name,
-            description,
-            definition,
-          },
-        },
-      );
-
-      const dashboard = (await response.json()) as unknown as Dashboard;
-
-      return dashboard;
-    }
+    const createDashboard = createCreateDashboard(page);
 
     await use(createDashboard);
   },
   deleteDashboards: async ({ page }, use) => {
-    async function deleteDashboards({ ids }: DeleteDashboardsDto) {
-      const headersWithAuthorization =
-        await createHeadersWithAuthorization(page);
-
-      await page.request.delete(`http://localhost:3000/api/dashboards/bulk`, {
-        headers: {
-          ...headersWithAuthorization,
-        },
-        data: {
-          ids,
-        },
-      });
-    }
+    const deleteDashboards = createDeleteDashboards(page);
 
     await use(deleteDashboards);
+  },
+  applicationFrame: async ({ page }, use) => {
+    const applicationFrame = new ApplicationFrame(page);
+
+    await use(applicationFrame);
+  },
+  dashboardListPage: async ({ page }, use) => {
+    const dashboardListPage = new DashboardsIndexPage(page);
+
+    await dashboardListPage.goto();
+
+    await use(dashboardListPage);
+  },
+  dashboardListPageWithDashboards: async ({ page }, use) => {
+    const dashboardListPage = new DashboardsIndexPage(page);
+    const createDashboard = createCreateDashboard(page);
+    const deleteDashboards = createDeleteDashboards(page);
+
+    const dashboard1 = await createDashboard({
+      name: 'test dashboard name 1',
+      description: 'test dashboard description 1',
+      definition: {
+        widgets: [],
+      },
+    });
+
+    const dashboard2 = await createDashboard({
+      name: 'test dashboard name 2',
+      description: 'test dashboard description 2',
+      definition: {
+        widgets: [],
+      },
+    });
+
+    await dashboardListPage.goto();
+
+    await use({
+      dashboardListPage,
+      dashboard1,
+      dashboard2,
+    });
+
+    await deleteDashboards({ ids: [dashboard1.id, dashboard2.id] });
   },
 });
 
 export { expect } from '@playwright/test';
+
+function createCreateDashboard(page: Page) {
+  return async function createDashboard({
+    name,
+    description,
+    definition,
+  }: CreateDashboardDto) {
+    const headersWithAuthorization = await createHeadersWithAuthorization(page);
+
+    const response = await page.request.post('/api/dashboards', {
+      headers: {
+        ...headersWithAuthorization,
+      },
+      data: {
+        name,
+        description,
+        definition,
+      },
+    });
+
+    const dashboard = (await response.json()) as unknown as Dashboard;
+
+    return dashboard;
+  };
+}
+
+function createDeleteDashboards(page: Page) {
+  return async function deleteDashboards({ ids }: DeleteDashboardsDto) {
+    const headersWithAuthorization = await createHeadersWithAuthorization(page);
+
+    await page.request.delete(`/api/dashboards/bulk`, {
+      headers: {
+        ...headersWithAuthorization,
+      },
+      data: {
+        ids,
+      },
+    });
+  };
+}
 
 type AccessibilityScanResults = Awaited<ReturnType<AxeBuilder['analyze']>>;
 

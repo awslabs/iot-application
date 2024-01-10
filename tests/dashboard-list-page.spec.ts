@@ -1,27 +1,75 @@
 import { test, expect } from './helpers';
-import { DashboardsIndexPage } from './pages/dashboards-index.page';
 
 test.describe('dashboard list page', () => {
-  test('dashboard is visible', async ({
+  test('empty page', async ({ page, dashboardListPage }) => {
+    await expect(
+      page.getByText('No dashboards', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('No dashboards to display', { exact: true }),
+    ).toBeVisible();
+    await expect(dashboardListPage.emptyCreateButton).toBeVisible();
+  });
+
+  test('dashboards are visible', async ({
     page,
-    createDashboard,
-    deleteDashboards,
+    dashboardListPageWithDashboards: { dashboard1, dashboard2 },
   }) => {
-    const dashboard = await createDashboard({
-      name: 'test dashboard name',
-      description: 'test dashboard description',
-      definition: {
-        widgets: [],
-      },
-    });
+    await expect(page.getByText(dashboard1.name)).toBeVisible();
+    await expect(page.getByText(dashboard1.description)).toBeVisible();
+    await expect(page.getByText(dashboard2.name)).toBeVisible();
+    await expect(page.getByText(dashboard2.description)).toBeVisible();
+  });
 
-    const dashboardsListPage = new DashboardsIndexPage(page);
+  test('a single dashboard can be deleted', async ({
+    page,
+    applicationFrame,
+    dashboardListPageWithDashboards: {
+      dashboardListPage,
+      dashboard1,
+      dashboard2,
+    },
+  }) => {
+    await page
+      .getByRole('checkbox', { name: `Select dashboard ${dashboard2.name}` })
+      .click();
+    await dashboardListPage.deleteButton.click();
+    await dashboardListPage.deleteDashboardDialog.deleteButton.click();
 
-    await dashboardsListPage.goto();
+    await expect(applicationFrame.notification).toBeVisible();
+    await applicationFrame.dismissNotificationButton.click();
 
-    await expect(page.getByText(dashboard.name)).toBeVisible();
-    await expect(page.getByText(dashboard.description)).toBeVisible();
+    await expect(page.getByText(dashboard1.name)).toBeVisible();
+    await expect(page.getByText(dashboard1.description)).toBeVisible();
+    await expect(page.getByText(dashboard2.name)).toBeHidden();
+    await expect(page.getByText(dashboard2.description)).toBeHidden();
+  });
 
-    await deleteDashboards({ ids: [dashboard.id] });
+  test('multiple dashboards can be deleted', async ({
+    page,
+    applicationFrame,
+    dashboardListPageWithDashboards: {
+      dashboardListPage,
+      dashboard1,
+      dashboard2,
+    },
+  }) => {
+    await page
+      .getByRole('checkbox', { name: `Select dashboard ${dashboard1.name}` })
+      .click();
+    await page
+      .getByRole('checkbox', { name: `Select dashboard ${dashboard2.name}` })
+      .click();
+    await dashboardListPage.deleteButton.click();
+    await dashboardListPage.deleteDashboardDialog.deleteButton.click();
+
+    await expect(applicationFrame.notification).toBeVisible();
+    await applicationFrame.dismissNotificationButton.click();
+
+    await expect(dashboardListPage.emptyCreateButton).toBeVisible();
+    await expect(page.getByText(dashboard1.name)).toBeHidden();
+    await expect(page.getByText(dashboard1.description)).toBeHidden();
+    await expect(page.getByText(dashboard2.name)).toBeHidden();
+    await expect(page.getByText(dashboard2.description)).toBeHidden();
   });
 });

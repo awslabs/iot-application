@@ -141,6 +141,7 @@ export class DashboardsIndexPage {
   public readonly deleteButton: Locator;
   public readonly emptyCreateButton: Locator;
   public readonly dashboardFilter: Locator;
+  public readonly deleteDashboardDialog: DeleteDashboardDialog;
 
   private readonly url = 'dashboards';
 
@@ -158,6 +159,7 @@ export class DashboardsIndexPage {
     this.dashboardFilter = page.getByRole('form', {
       name: 'Filter dashboards',
     });
+    this.deleteDashboardDialog = new DeleteDashboardDialog(page);
   }
 
   public async goto() {
