@@ -44,6 +44,9 @@ test('as a user, I can create, update, and delete my dashboard', async ({
     'Successfully created dashboard "My Dashboard".',
   );
 
+  // Check if dashboard name is visible on dashboard page
+  await expect(page.getByText('My Dashboard', { exact: true })).toBeVisible();
+
   const dashboardPageAccessibilityScanResults =
     await makeAxeBuilder().analyze();
   expect(
