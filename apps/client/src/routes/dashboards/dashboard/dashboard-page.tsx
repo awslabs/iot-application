@@ -53,7 +53,6 @@ export function DashboardPage() {
 
       return widget;
     }),
-    name: dashboardQuery.data?.name ?? '',
   };
 
   const updateDashboardMutation = useUpdateDashboardMutation();
@@ -79,6 +78,7 @@ export function DashboardPage() {
         viewport,
       }}
       initialViewMode={editMode ? 'edit' : 'preview'}
+      name={dashboardQuery.data?.name}
       onSave={(
         config: DashboardDefinition & Omit<DashboardConfiguration, 'widgets'>,
       ) => {
