@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { DashboardsIndexPage } from './pages/dashboards-index.page';
 import { ApplicationFrame } from './pages/application-frame.page';
 import { CreateDashboardPage } from './pages/create-dashboard.page';
+import { DashboardPage } from './pages/dashboard-page.page';
 
 // TODO: Use type from core
 interface CreateDashboardDto {
@@ -12,7 +13,7 @@ interface CreateDashboardDto {
 }
 
 // TODO: Use type from core
-interface Dashboard {
+export interface Dashboard {
   id: string;
   name: string;
   description: string;
@@ -33,6 +34,7 @@ interface Fixtures {
   deleteDashboards({ ids }: DeleteDashboardsDto): Promise<void>;
   applicationFrame: ApplicationFrame;
   createDashboardPage: CreateDashboardPage;
+  dashboardPage: DashboardPage;
   dashboardListPage: DashboardsIndexPage;
   dashboardListPageWithDashboards: {
     dashboardListPage: DashboardsIndexPage;
@@ -80,6 +82,26 @@ export const test = base.extend<Fixtures>({
     await createDashboardPage.goto();
 
     await use(createDashboardPage);
+  },
+  dashboardPage: async ({ page }, use) => {
+    const createDashboard = createCreateDashboard(page);
+    const deleteDashboards = createDeleteDashboards(page);
+
+    const dashboard = await createDashboard({
+      name: 'test dashboard name',
+      description: 'test dashboard description',
+      definition: {
+        widgets: [],
+      },
+    });
+
+    const dashboardPage = new DashboardPage({ page, dashboard });
+
+    await dashboardPage.goto();
+
+    await use(dashboardPage);
+
+    await deleteDashboards({ ids: [dashboard.id] });
   },
   dashboardListPage: async ({ page }, use) => {
     const dashboardListPage = new DashboardsIndexPage(page);
