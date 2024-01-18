@@ -16,6 +16,7 @@ import { Box, ContentLayout } from '@cloudscape-design/components';
 export function CreateDashboardPage() {
   const createDashboardMutation = useCreateDashboardMutation();
   const { control, handleSubmit } = useCreateDashboardForm();
+  const isProdEnv: boolean = process.env.NODE_ENV === 'production';
 
   function getFormErrorText() {
     return isNotFatal(createDashboardMutation.error)
@@ -68,7 +69,7 @@ export function CreateDashboardPage() {
         </Form>
       </form>
 
-      <DevTool control={control} />
+      {!isProdEnv && <DevTool control={control} />}
     </ContentLayout>
   );
 }

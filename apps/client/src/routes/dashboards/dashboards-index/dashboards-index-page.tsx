@@ -59,6 +59,8 @@ export function DashboardsIndexPage() {
   const dashboardsQuery = useDashboardsQuery();
   const emitNotification = useEmitNotification();
 
+  const isProdEnv: boolean = process.env.NODE_ENV === 'production';
+
   useEffect(() => {
     if (dashboardsQuery.isError) {
       emitNotification(new GenericErrorNotification(dashboardsQuery.error));
@@ -711,8 +713,7 @@ export function DashboardsIndexPage() {
         isVisible={isDeleteModalVisible}
         onClose={() => setIsDeleteModalVisible(false)}
       />
-
-      <DevTool control={control} />
+      {!isProdEnv && <DevTool control={control} />}
     </ContentLayout>
   );
 }
