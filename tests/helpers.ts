@@ -34,7 +34,10 @@ interface Fixtures {
   deleteDashboards({ ids }: DeleteDashboardsDto): Promise<void>;
   applicationFrame: ApplicationFrame;
   createDashboardPage: CreateDashboardPage;
-  dashboardPage: DashboardPage;
+  dashboardPage: {
+    dashboardPage: DashboardPage;
+    dashboard: Dashboard;
+  };
   dashboardListPage: DashboardsIndexPage;
   dashboardListPageWithDashboards: {
     dashboardListPage: DashboardsIndexPage;
@@ -99,7 +102,7 @@ export const test = base.extend<Fixtures>({
 
     await dashboardPage.goto();
 
-    await use(dashboardPage);
+    await use({ dashboardPage, dashboard });
 
     await deleteDashboards({ ids: [dashboard.id] });
   },
