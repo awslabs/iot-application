@@ -20,6 +20,31 @@ import { GenericErrorNotification } from '~/structures/notifications/generic-err
 
 import './styles.css';
 import { authService } from '~/auth/auth-service';
+import { IoTSiteWiseClient } from '@aws-sdk/client-iotsitewise';
+import { IoTEventsClient } from '@aws-sdk/client-iot-events';
+import { IoTTwinMakerClient } from '@aws-sdk/client-iottwinmaker';
+
+const credentials = () =>
+  Promise.resolve({
+    accessKeyId: '<mock-accessKeyId>',
+    secretAccessKey: '<mock-secretAccessKey>',
+    sessionToken: '<mock-sessionToken>',
+  });
+const endpoint = 'https://<gateway-endpoint>';
+const clientConfig = {
+  endpoint,
+  credentials,
+  region: 'edge',
+  disableHostPrefix: true,
+};
+const iotSiteWiseClient = new IoTSiteWiseClient(clientConfig);
+const iotEventsClient = new IoTEventsClient(clientConfig);
+const iotTwinMakerClient = new IoTTwinMakerClient(clientConfig);
+const clientConfiguration = {
+  iotSiteWiseClient,
+  iotEventsClient,
+  iotTwinMakerClient,
+};
 
 export function DashboardPage() {
   const params = useParams<{ dashboardId: string }>();
@@ -61,14 +86,9 @@ export function DashboardPage() {
     return <DashboardLoadingState />;
   }
 
-  const awsRegion = authService.awsRegion;
-
   return (
     <IoTAppKitDashboard
-      clientConfiguration={{
-        awsCredentials: () => authService.getAwsCredentials(),
-        awsRegion,
-      }}
+      clientConfiguration={clientConfiguration}
       dashboardConfiguration={{
         ...dashboardDefinition,
         // TODO: remove display settings once dynanic sizing is released
