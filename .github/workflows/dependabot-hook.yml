@@ -29,7 +29,7 @@ jobs:
           for check in "${REQUIRED_CHECKS[@]}"; do
             if [[ "${FAILED_CHECKS[@]}" =~ "${check}" ]]; then
               echo "Failed required check: ${check}"
-              echo "::set-output name=close_pr::true"
+              echo "close_pr=true" >> "$GITHUB_OUTPUT"
               break
             fi
           done
