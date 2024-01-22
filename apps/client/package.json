@@ -71,7 +71,7 @@
     "@vitest/ui": "^1.1.1",
     "aws-sdk-client-mock": "^3.0.0",
     "aws-sdk-client-mock-jest": "^3.0.0",
-    "babel-plugin-formatjs": "^10.5.7",
+    "babel-plugin-formatjs": "^10.5.12",
     "customize-cra": "^1.0.0",
     "eslint-config-custom": "*",
     "eslint-plugin-formatjs": "^4.11.1",
