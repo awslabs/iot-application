@@ -1,4 +1,4 @@
-import { test, expect } from './helpers';
+import { test, expect, violationFingerprints } from './helpers';
 
 test.describe('dashboard list page', () => {
   test('empty page', async ({ page, dashboardListPage }) => {
@@ -71,5 +71,24 @@ test.describe('dashboard list page', () => {
     await expect(page.getByText(dashboard1.description)).toBeHidden();
     await expect(page.getByText(dashboard2.name)).toBeHidden();
     await expect(page.getByText(dashboard2.description)).toBeHidden();
+  });
+
+  test('accessibility', async ({
+    makeAxeBuilder,
+    page,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    dashboardListPageWithDashboards: { dashboard1, dashboard2 },
+  }) => {
+    await expect(page.getByText(dashboard1.name)).toBeVisible();
+    await expect(page.getByText(dashboard1.description)).toBeVisible();
+    await expect(page.getByText(dashboard2.name)).toBeVisible();
+    await expect(page.getByText(dashboard2.description)).toBeVisible();
+
+    const accessibilityScanResults = await makeAxeBuilder().analyze();
+
+    // TODO: fix target-size violation
+    expect(violationFingerprints(accessibilityScanResults)).toMatchSnapshot(
+      'dashboard-list-page-accessibility-scan-results',
+    );
   });
 });

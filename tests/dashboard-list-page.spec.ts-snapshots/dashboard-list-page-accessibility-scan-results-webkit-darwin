@@ -1,0 +1,13 @@
+[
+  {
+    "rule": "target-size",
+    "targets": [
+      [
+        "#link-self\\:r3l\\:"
+      ],
+      [
+        "#link-self\\:r3q\\:"
+      ]
+    ]
+  }
+]
