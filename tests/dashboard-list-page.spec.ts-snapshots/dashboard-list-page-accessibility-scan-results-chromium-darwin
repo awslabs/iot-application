@@ -1,0 +1,16 @@
+[
+  {
+    "rule": "target-size",
+    "targets": [
+      [
+        ".awsui_page-number_fvjdu_ziaze_151"
+      ],
+      [
+        "#link-self\\:r3l\\:"
+      ],
+      [
+        "#link-self\\:r3q\\:"
+      ]
+    ]
+  }
+]
