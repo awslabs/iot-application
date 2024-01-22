@@ -84,7 +84,7 @@
     "jsdom": "^23.0.1",
     "react-app-rewired": "^2.2.1",
     "react-scripts": "^5.0.1",
-    "sass": "^1.69.5",
+    "sass": "^1.70.0",
     "source-map-explorer": "^2.5.3",
     "tsconfig": "*",
     "typescript": "^5.2.2",
