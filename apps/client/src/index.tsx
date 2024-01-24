@@ -36,6 +36,8 @@ const {
   region,
   userPoolId,
   userPoolWebClientId,
+  logMode,
+  metricsMode,
 } = metadata;
 
 Amplify.configure({
@@ -78,7 +80,7 @@ if (rootEl != null) {
 }
 
 registerServiceWorker();
-registerLogger();
-registerMetricsRecorder();
+registerLogger(logMode);
+registerMetricsRecorder(metricsMode);
 void authService.onSignedIn(() => initializeAuthDependents(applicationName));
 metricHandler.reportWebVitals();
