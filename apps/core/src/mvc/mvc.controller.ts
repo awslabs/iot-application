@@ -31,7 +31,7 @@ export class MvcController {
       userPoolId,
     } = this.auth;
 
-    const { applicationName } = this.global;
+    const { applicationName, logMode, metricsMode } = this.global;
 
     return {
       applicationName,
@@ -44,6 +44,8 @@ export class MvcController {
       region,
       userPoolId,
       userPoolWebClientId,
+      logMode,
+      metricsMode,
     };
   }
 }
