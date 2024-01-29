@@ -13705,7 +13705,7 @@ debug@2.6.9, debug@^2.6.0:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@4.3.4, debug@^4.0.0, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4:
+debug@4, debug@4.3.4, debug@^4.0.0, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4, debug@~4.3.1:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
   integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
@@ -14107,12 +14107,22 @@ duplexify@^4.1.1, duplexify@^4.1.2:
     readable-stream "^3.1.1"
     stream-shift "^1.0.0"
 
-dynamodb-local@0.0.32, dynamodb-local@^0.0.32:
+dynamodb-local@0.0.32:
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/dynamodb-local/-/dynamodb-local-0.0.32.tgz#4a757dcba7287da3e16e33333d1f45ed0bfe8708"
   integrity sha512-JvZYSkOJ4S1DaXtFuvP1AonWCD6EAZ/ttmsOS+eQJBQ4yE0s1/kbHIghYeRVV+arJDCr202cUqhOYD6hTBfHXA==
   dependencies:
     debug "~4.1.0"
+    mkdirp "~0.5.0"
+    q "~1.4.1"
+    tar "^4.4.19"
+
+dynamodb-local@^0.0.34:
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/dynamodb-local/-/dynamodb-local-0.0.34.tgz#dc6f4a96b0bbfd65cd9ffe6cd9554841901bfcd7"
+  integrity sha512-+PrarqrfoI7UBfQ+cl1LmPSBbl08Owb8JAKisYmZCksc0HPPDKxK2/uyf787tQEKr0btDCmt/nlqlZQGK7CQZQ==
+  dependencies:
+    debug "~4.3.1"
     mkdirp "~0.5.0"
     q "~1.4.1"
     tar "^4.4.19"
