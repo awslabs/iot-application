@@ -17,14 +17,21 @@ Start using the application today to quickly create, manage, and view your IoT d
 
 ## Prerequisites
 
+On most Unix systems including macOS, you can install the prerequisites with a single command:
+```sh
+./install-prepreqs-unix.sh
+```
+
+Alternatively, you can install the prerequisites by following the instruction below:
+
 1. [Install Volta](https://docs.volta.sh/guide/getting-started) using the environment specific commands listed below
    * Unix based environments
       ```sh
       curl https://get.volta.sh | bash
       ```
+      After installing Volta, if applicable, you may need to refresh your bash profile using `source ~/.bashrc` to use Volta commands
    * Windows environments
       * Download and run Windows installer [here](https://docs.volta.sh/guide/getting-started)
-1. After installing Volta, if applicable, you may need to refresh your bash profile using `source ~/.bashrc` to use Volta commands
 1. [Install Node.js@18](https://docs.volta.sh/guide/#features) with Volta
    ```sh
    volta install node@18

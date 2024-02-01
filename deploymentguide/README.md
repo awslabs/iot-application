@@ -11,35 +11,35 @@ This will deploy the application to your AWS account using CDK.
 
 ##### Deployment prerequisites steps:
 
-1. Complete the general [prerequisites](https://github.com/awslabs/iot-application/blob/main/README.md#prerequisites) to install Volta, Node and Yarn
-1. [Configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) AWS CLI credentials for making AWS service calls with CDK for the deployment
 1. Install docker. Docker must be running when you run the deployment commands.
    * If using an AWS environment, please follow [these instructions](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html)
    * If using a non-AWS environment, please follow the [platform specific instructions here](https://docs.docker.com/engine/install/)
-1. Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and clone repo
+1. Download and unzip the application repository from the [download link](https://github.com/awslabs/iot-application/archive/refs/heads/main.zip)
+   Alternatively, install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and clone the repository:
    ```sh
    git clone https://github.com/awslabs/iot-application.git
    ```
-1. Navigate to root directory `iot-application` and install application dependencies:
-   ```sh
-   yarn install
-   ```
+1. [Configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) AWS CLI credentials for making AWS service calls with CDK for the deployment
 
 ##### Deployment to cloud:
 
 Note: All commands should be run in the workspace root directory. We are using [yarn workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/) to handle individual package commands.
 
-1. Add your AWS accountId and region [here](https://github.com/awslabs/iot-application/blob/main/cdk/bin/cdk.ts#L17) to setup the cdk envrionment.
-1. For the initial deployment only, bootstrap cdk in your account:
-   ```sh
-   yarn workspace cdk cdk bootstrap
-   ```
-1. Deploy the application using the deploy command:
+On most Unix systems including macOS, you can deploy the application with a single command:
+```sh
+./install-deploy-unix.sh
+```
+At the end of the deployment, the output value of `IotApp.AppURL` shows the URL of the application.
+
+Alternatively, you can deploy the application by following the instruction below:
+
+1. Complete the general [prerequisites](https://github.com/awslabs/iot-application/blob/main/README.md#prerequisites) to install Volta, Node and Yarn
+1. Deploy the application using the deploy command with a single command:
    ```sh
    yarn deploy
    ```
-1. This will install dependencies and deploy the application to the cloud using CDK and creating CloudFormation stacks that support the application.
-1. View your application resources in CloudFormation. If you go to the stack `IotApp -> Outputs` you can see the URL that the application will be available from.
+   This will install dependencies and deploy the application to the cloud using CDK and creating CloudFormation stacks that support the application.
+   At the end of the deployment, the output value of `IotApp.AppURL` shows the URL of the application.
 
 ##### Updating the cloud application:
 1. Get the latest code changes using `git fetch` and `git pull` from the root directory of the application.
