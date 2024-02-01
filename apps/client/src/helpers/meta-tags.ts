@@ -14,6 +14,8 @@ export const extractedMetaTags = (
     region: '',
     userPoolId: '',
     userPoolWebClientId: '',
+    logMode: '',
+    metricsMode: '',
   };
 
   metaElements.forEach(

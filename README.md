@@ -17,9 +17,22 @@ Start using the application today to quickly create, manage, and view your IoT d
 
 ## Prerequisites
 
-1. Install [Volta](https://docs.volta.sh/guide/getting-started).
-1. Install [Node.js@18 with Volta](https://docs.volta.sh/guide/#features).
-1. Install [Yarn with Volta](https://docs.volta.sh/guide/#features).
+1. [Install Volta](https://docs.volta.sh/guide/getting-started) using the environment specific commands listed below
+   * Unix based environments
+      ```sh
+      curl https://get.volta.sh | bash
+      ```
+   * Windows environments
+      * Download and run Windows installer [here](https://docs.volta.sh/guide/getting-started)
+1. After installing Volta, if applicable, you may need to refresh your bash profile using `source ~/.bashrc` to use Volta commands
+1. [Install Node.js@18](https://docs.volta.sh/guide/#features) with Volta
+   ```sh
+   volta install node@18
+   ```
+1. [Install Yarn](https://docs.volta.sh/guide/#features) with Volta 
+   ```sh
+   volta install yarn
+   ```
 
 ## Getting Started with local development
 

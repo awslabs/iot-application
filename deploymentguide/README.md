@@ -1,21 +1,28 @@
-# IoT dashboard application deployment guide
+# IoT Dashboard Application Deployment Guide
 
 ## Deploying to AWS Cloud
 
 This will deploy the application to your AWS account using CDK.
 
-##### Cloud deployment prerequisites:
+##### Environment requirements
 
-1. Complete the general [prerequisites](https://github.com/awslabs/iot-application/blob/main/README.md#prerequisites)
-1. [Configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) AWS CLI credentials for making AWS service calls to setup the application
-1. Install docker: https://docs.docker.com/get-docker/. Docker must be running when you run the deployment commands.
-1. Install application dependencies:
+* at least 4 GB of RAM
+* at least 20 GB of free hard drive space
+
+##### Deployment prerequisites steps:
+
+1. Complete the general [prerequisites](https://github.com/awslabs/iot-application/blob/main/README.md#prerequisites) to install Volta, Node and Yarn
+1. [Configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) AWS CLI credentials for making AWS service calls with CDK for the deployment
+1. Install docker. Docker must be running when you run the deployment commands.
+   * If using an AWS environment, please follow [these instructions](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-docker.html)
+   * If using a non-AWS environment, please follow the [platform specific instructions here](https://docs.docker.com/engine/install/)
+1. Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and clone repo
+   ```sh
+   git clone https://github.com/awslabs/iot-application.git
+   ```
+1. Navigate to root directory `iot-application` and install application dependencies:
    ```sh
    yarn install
-   ```
-1. For the initial deployment, bootstrap cdk in your account:
-   ```sh
-   yarn workspace cdk cdk bootstrap
    ```
 
 ##### Deployment to cloud:
@@ -23,17 +30,21 @@ This will deploy the application to your AWS account using CDK.
 Note: All commands should be run in the workspace root directory. We are using [yarn workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/) to handle individual package commands.
 
 1. Add your AWS accountId and region [here](https://github.com/awslabs/iot-application/blob/main/cdk/bin/cdk.ts#L17) to setup the cdk envrionment.
+1. For the initial deployment only, bootstrap cdk in your account:
+   ```sh
+   yarn workspace cdk cdk bootstrap
+   ```
 1. Deploy the application using the deploy command:
    ```sh
    yarn deploy
    ```
 1. This will install dependencies and deploy the application to the cloud using CDK and creating CloudFormation stacks that support the application.
-1. View your application resources in CloudFormation. If you go to the stack IotApp -> Outputs you can see the URL that the application will be available from.
+1. View your application resources in CloudFormation. If you go to the stack `IotApp -> Outputs` you can see the URL that the application will be available from.
 
 ##### Updating the cloud application:
 1. Get the latest code changes using `git fetch` and `git pull` from the root directory of the application.
 1. Run `yarn install` to install any dependency updates.
-1. Run `yarn workspace cdk cdk deploy --all` to deploy the latest changes. CDK stacks that do not have changes will be skipped.
+1. Run `yarn deploy` to deploy the latest changes. CDK stacks that do not have changes will be skipped.
 
 ##### What is happening during an update?
 During an update, cdk will look at your local cdk code (which `git pull` ensured was the latest) to determine what to update. This will include client, server or infrastructure updates we've been making. When you run the deploy command, cdk will look at what is currently deployed in your AWS account under Cloudformation, and then make an update request to update your application with the latest changes we've made.
@@ -47,7 +58,7 @@ During an update, cdk will look at your local cdk code (which `git pull` ensured
    * This can happen if there is a circular dependency. This can be caused by the `yarn.lock` file, which keeps track of dependency versions, having an issue. Try deleting `yarn.lock` and running `yarn install` again to re-install the dependencies and fix the issue.
 
 ##### Updating a specific stack
-Most of the time you can use `yarn workspace cdk cdk deploy --all`, but if you wish to specify a stack name, use the --context (-c) option, as shown in the following example.
+Most of the time you can use `yarn deploy`, but if you wish to specify a stack name, use the --context (-c) option, as shown in the following example.
 
 ```sh
 yarn workspace cdk cdk deploy -c stackName=my-stack-name

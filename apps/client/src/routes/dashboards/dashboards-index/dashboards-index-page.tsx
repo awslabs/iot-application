@@ -325,7 +325,7 @@ export function DashboardsIndexPage() {
                 filteringFinishedText="End of results"
                 filteringEmpty="No suggestions found"
                 i18nStrings={{
-                  clearAriaLabel: 'clear filter',
+                  clearAriaLabel: 'Clear filter',
                   filteringAriaLabel: 'Find dashboards',
                   dismissAriaLabel: 'Dismiss',
                   filteringPlaceholder:
