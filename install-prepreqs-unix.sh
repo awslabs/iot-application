@@ -5,6 +5,8 @@
 # Install Volta
 echo "Installing Volta..."
 curl https://get.volta.sh | bash
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
 echo
 
 # Install Node.js@18 with Volta
