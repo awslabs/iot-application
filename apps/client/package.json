@@ -21,7 +21,7 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^5.3.2",
+    "@aws-amplify/ui-react": "^6.1.3",
     "@aws-sdk/client-cloudwatch": "3.496.0",
     "@aws-sdk/client-cloudwatch-logs": "3.496.0",
     "@aws-sdk/client-iot-events": "3.496.0",
@@ -35,7 +35,7 @@
     "@cloudscape-design/global-styles": "^1.0.23",
     "@iot-app-kit/dashboard": "^9.15.0",
     "@tanstack/react-query": "^5.17.19",
-    "aws-amplify": "^5.3.11",
+    "aws-amplify": "^6.0.15",
     "cytoscape": "^3.27.0",
     "jotai": "^2.6.2",
     "nanoid": "3.1.31",

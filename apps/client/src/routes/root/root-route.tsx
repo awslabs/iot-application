@@ -4,7 +4,7 @@ import { rootDashboardsRoute } from '../dashboards/root-dashboards';
 import { ROOT_PATH, ROOT_HREF } from '~/constants';
 import { intl } from '~/services';
 
-import type { RouteObject } from 'react-router-dom';
+import { RouteObject } from 'react-router-dom';
 import { RootErrorPage } from './root-error-page';
 import { Layout } from '~/layout/layout';
 

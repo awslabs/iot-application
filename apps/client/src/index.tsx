@@ -2,6 +2,7 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Amplify } from 'aws-amplify';
+import { signIn } from 'aws-amplify/auth';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { IntlProvider } from 'react-intl';
@@ -30,24 +31,24 @@ const {
   awsSecretAccessKey,
   awsSessionToken,
   applicationName,
-  authenticationFlowType,
   cognitoEndpoint,
   identityPoolId,
-  region,
   userPoolId,
   userPoolWebClientId,
   logMode,
   metricsMode,
+  region,
+  authenticationFlowType,
 } = metadata;
 
 Amplify.configure({
   Auth: {
-    authenticationFlowType,
-    endpoint: cognitoEndpoint,
-    identityPoolId,
-    region,
-    userPoolId,
-    userPoolWebClientId,
+    Cognito: {
+      userPoolEndpoint: cognitoEndpoint,
+      identityPoolId,
+      userPoolId,
+      userPoolClientId: userPoolWebClientId,
+    },
   },
 });
 
@@ -59,18 +60,41 @@ if (awsAccessKeyId !== '' && awsSecretAccessKey !== '') {
     sessionToken: awsSessionToken !== '' ? awsSessionToken : undefined,
   });
 }
+// Set AWS region if any provided
+if (region) {
+  authService.setAwsRegion(region);
+}
 
 setServiceUrl('/api');
 
 const rootEl = document.getElementById('root');
 
 if (rootEl != null) {
+  const services = {
+    // refer to https://ui.docs.amplify.aws/react/connected-components/authenticator/customization#override-function-calls
+    async handleSignIn({
+      username,
+      password,
+    }: {
+      username: string;
+      password?: string;
+    }) {
+      return signIn({
+        username,
+        password,
+        options: {
+          authFlowType: authenticationFlowType,
+        },
+      });
+    },
+  };
+
   ReactDOM.createRoot(rootEl).render(
     <React.StrictMode>
-      <Authenticator>
+      <Authenticator services={services}>
         <IntlProvider locale="en" defaultLocale={DEFAULT_LOCALE}>
           <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
+            <RouterProvider router={router()} />
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </IntlProvider>
