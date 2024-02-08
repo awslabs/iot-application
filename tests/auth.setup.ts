@@ -1,4 +1,5 @@
 import { test as setup, expect } from './helpers';
+import { waitForOneOf } from './waitForOneOf';
 
 // Read environment variables
 const userPassword = process.env.USER_PASSWORD ?? 'test-Password!';
@@ -18,6 +19,16 @@ setup('authenticate', async ({ page }) => {
 
   // user clicks sign-in
   await page.getByRole('button', { name: 'Sign in' }).click();
+
+  const [index] = await waitForOneOf([
+    page.getByText('Skip', { exact: true }),
+    page.getByRole('heading', { name: 'Dashboards' }).first(),
+  ]);
+
+  // if verify page is displayed
+  if (index === 0) {
+    await page.getByText('Skip', { exact: true }).click();
+  }
 
   // user lands at home page
   await expect(
