@@ -54,7 +54,7 @@ export function TopNavigation() {
           {
             type: 'menu-dropdown',
             text: user.username,
-            description: user.attributes?.email,
+            description: user.signInDetails?.loginId,
             iconName: 'user-profile',
             onItemClick: (event) => {
               if (event.detail.id === 'signout') {
