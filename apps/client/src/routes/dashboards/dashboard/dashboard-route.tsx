@@ -7,7 +7,6 @@ import { queryClient } from '~/data/query-client';
 
 import { type RouteObject } from 'react-router-dom';
 import { createDashboardQuery } from '~/data/dashboards';
-import { Auth } from 'aws-amplify';
 import invariant from 'tiny-invariant';
 import { Dashboard } from '~/services';
 import { Maybe } from '~/types';

@@ -2,6 +2,7 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Amplify } from 'aws-amplify';
+import { signIn } from 'aws-amplify/auth';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { IntlProvider } from 'react-intl';
@@ -83,6 +84,10 @@ if (awsAccessKeyId !== '' && awsSecretAccessKey !== '') {
     secretAccessKey: awsSecretAccessKey,
     sessionToken: awsSessionToken !== '' ? awsSessionToken : undefined,
   });
+}
+// Set AWS region if any provided
+if (region) {
+  authService.setAwsRegion(region);
 }
 
 setServiceUrl('/api');
