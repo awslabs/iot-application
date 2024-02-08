@@ -4,4 +4,4 @@ import { rootRoute } from './routes/root';
 
 export const routes = [rootRoute];
 
-export const router = createBrowserRouter(routes);
+export const router = () => createBrowserRouter(routes);
