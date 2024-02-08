@@ -36,9 +36,9 @@ test.describe('dashboard page', () => {
 
   test('accessibility', async ({
     makeAxeBuilder,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    dashboardPage: _dashboardPage,
+    dashboardPage: { dashboardPage, dashboard },
   }) => {
+    await expect(dashboardPage.heading).toHaveText(dashboard.name);
     const accessibilityScanResults = await makeAxeBuilder()
       .exclude('.dashboard') // dashboard accessibility tested in iot-app-kit
       .analyze();
