@@ -38,18 +38,40 @@ const {
   userPoolWebClientId,
   logMode,
   metricsMode,
+  domainName,
 } = metadata;
 
-Amplify.configure({
-  Auth: {
-    authenticationFlowType,
-    endpoint: cognitoEndpoint,
-    identityPoolId,
-    region,
-    userPoolId,
-    userPoolWebClientId,
-  },
-});
+if (domainName && domainName !== '') {
+  Amplify.configure({
+    Auth: {
+      authenticationFlowType,
+      endpoint: cognitoEndpoint,
+      identityPoolId,
+      region,
+      userPoolId,
+      userPoolWebClientId,
+      oauth: {
+        domain: `${domainName}.auth.${region}.amazoncognito.com`,
+        scope: ['email', 'aws.cognito.signin.user.admin'],
+        redirectSignIn: '', // config in cognito
+        redirectSignOut: '', // config in cognito
+        clientId: userPoolWebClientId,
+        responseType: 'token',
+      },
+    },
+  });
+} else {
+  Amplify.configure({
+    Auth: {
+      authenticationFlowType,
+      endpoint: cognitoEndpoint,
+      identityPoolId,
+      region,
+      userPoolId,
+      userPoolWebClientId,
+    },
+  });
+}
 
 // Set AWS credentials if any provided
 if (awsAccessKeyId !== '' && awsSecretAccessKey !== '') {

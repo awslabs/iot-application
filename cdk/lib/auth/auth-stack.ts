@@ -5,8 +5,8 @@ import {
   UserPool,
   UserPoolClient,
 } from 'aws-cdk-lib/aws-cognito';
-import { FederatedPrincipal, PolicyStatement, Role } from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
+import { FederatedPrincipal, PolicyStatement, Role } from 'aws-cdk-lib/aws-iam';
 
 export interface AuthStackProps extends StackProps {
   readonly applicationName: string;
@@ -31,6 +31,12 @@ export class AuthStack extends Stack {
 
     this.userPoolClient = new UserPoolClient(this, 'UserPoolClient', {
       userPool: this.userPool,
+      oAuth: {
+        flows: {
+          implicitCodeGrant: true,
+        },
+        callbackUrls: ['https://<your-url>.awsapprunner.com'],
+      },
     });
 
     this.identityPool = new CfnIdentityPool(this, 'IdentityPool', {

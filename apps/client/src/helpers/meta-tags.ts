@@ -16,6 +16,7 @@ export const extractedMetaTags = (
     userPoolWebClientId: '',
     logMode: '',
     metricsMode: '',
+    domainName: '',
   };
 
   metaElements.forEach(

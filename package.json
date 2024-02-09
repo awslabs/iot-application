@@ -17,7 +17,7 @@
     "clean": "npx turbo run clean && rimraf .turbo && rimraf --glob *.tsbuildinfo",
     "clean:full": "npx turbo run clean:full && rimraf .turbo && rimraf --glob *.tsbuildinfo && rimraf node_modules",
     "dev": "turbo run dev",
-    "deploy": "yarn install && yarn clean && yarn workspace cdk bootstrap && yarn workspace cdk deploy:no-review",
+    "deploy": "yarn install && yarn clean && node deployCdk.js",
     "gen:types": "openapi -i ${npm_package_config_docs} -o ${npm_package_config_genpath} ${npm_package_config_genconfig} && yarn format:gen:types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:gen:types": "prettier --write \"${npm_package_config_genpath}/**/*.ts\"",
