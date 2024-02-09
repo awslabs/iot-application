@@ -13,7 +13,8 @@
     "bootstrap": "cdk bootstrap",
     "cdk": "cdk",
     "deploy": "cdk deploy --all",
-    "deploy:no-review": "cdk deploy --all --require-approval never",
+    "deploy:no-review:cognito": "cdk deploy -c authMode=cognito --all --require-approval never",
+    "deploy:no-review:sso": "cdk deploy -c authMode=sso --all --require-approval never",
     "lint": "TIMING=1 eslint \"{bin,lib}/**/*.ts\" --max-warnings 0",
     "lint:commit": "tsc --noEmit && TIMING=1 eslint $(git diff --name-only HEAD HEAD~1 | grep -E \"{bin,lib}/**/*.ts\" | xargs) --max-warnings 0",
     "lint:fix": "eslint \"{bin,lib}/**/*.ts\" --fix"
