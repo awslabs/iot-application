@@ -34,7 +34,7 @@
     "@nestjs/core": "^9.4.3",
     "@nestjs/platform-fastify": "^9.4.3",
     "@nestjs/swagger": "^7.1.15",
-    "@nestjs/terminus": "^10.2.0",
+    "@nestjs/terminus": "^10.2.2",
     "@nestjs/throttler": "^4.2.1",
     "aws-jwt-verify": "^4.0.0",
     "class-transformer": "^0.5.1",
