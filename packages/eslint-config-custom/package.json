@@ -16,6 +16,6 @@
     "access": "public"
   },
   "devDependencies": {
-    "eslint-plugin-prettier": "^5.0.1"
+    "eslint-plugin-prettier": "^5.1.3"
   }
 }
