@@ -14,8 +14,8 @@
   },
   "scripts": {
     "build": "yarn clean && turbo run build",
-    "clean": "npx turbo run clean && rimraf .turbo && rimraf *.tsbuildinfo",
-    "clean:full": "npx turbo run clean:full && rimraf .turbo && rimraf *.tsbuildinfo && rimraf node_modules",
+    "clean": "npx turbo run clean && rimraf .turbo && rimraf --glob *.tsbuildinfo",
+    "clean:full": "npx turbo run clean:full && rimraf .turbo && rimraf --glob *.tsbuildinfo && rimraf node_modules",
     "dev": "turbo run dev",
     "deploy": "yarn install && yarn clean && yarn workspace cdk bootstrap && yarn workspace cdk deploy:no-review",
     "gen:types": "openapi -i ${npm_package_config_docs} -o ${npm_package_config_genpath} ${npm_package_config_genconfig} && yarn format:gen:types",
