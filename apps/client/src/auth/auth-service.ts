@@ -23,9 +23,6 @@ class ClientAuthService {
     return this.authService.getAwsCredentials();
   }
 
-  setAwsRegion(region: string) {
-    this.region = region;
-  }
   get awsRegion() {
     return this.authService.awsRegion;
   }
