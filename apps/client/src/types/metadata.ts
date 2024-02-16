@@ -1,11 +1,9 @@
-import { AuthFlowType } from '@aws-amplify/auth/dist/esm/providers/cognito/types/models';
-
 export interface Metadata {
   awsAccessKeyId: string;
   awsSecretAccessKey: string;
   awsSessionToken: string;
   applicationName: string;
-  authenticationFlowType: AuthFlowType;
+  authenticationFlowType: string;
   cognitoEndpoint: string;
   identityPoolId: string;
   region: string;
