@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { signOut } from 'aws-amplify/auth';
+import { Auth } from 'aws-amplify';
 
 export function useDetect401Unauthorized() {
   useEffect(() => {
@@ -19,6 +19,6 @@ export function useDetect401Unauthorized() {
 
 function handleServiceWorkerMessage(event: MessageEvent<{ type?: string }>) {
   if (event.data.type === '401_UNAUTHORIZED') {
-    void signOut();
+    void Auth.signOut();
   }
 }

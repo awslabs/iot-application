@@ -1,43 +1,29 @@
-import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
-import { Hub } from 'aws-amplify/utils';
+import { Auth, Hub } from 'aws-amplify';
 import { AuthService } from './auth-service.interface';
 import { type AwsCredentialIdentity } from '@smithy/types';
 
 class CognitoAuthService implements AuthService {
   private credentials?: AwsCredentialIdentity;
-  public region?: string;
 
   setAwsCredentials(credentials: AwsCredentialIdentity) {
     this.credentials = credentials;
   }
 
-  async getAwsCredentials() {
+  getAwsCredentials() {
     if (this.credentials != null) {
       return Promise.resolve(this.credentials);
     }
 
-    const session = await fetchAuthSession();
-    if (!session.credentials) {
-      throw new Error();
-    }
-
-    return Promise.resolve(session.credentials as AwsCredentialIdentity);
+    return Auth.currentCredentials();
   }
 
-  setAwsRegion(region: string) {
-    this.region = region;
-  }
   get awsRegion() {
-    return this.region ?? 'us-west-2';
+    return Auth.configure().region ?? 'us-west-2';
   }
 
   async getToken() {
-    const session = await fetchAuthSession();
-
-    if (!session.tokens?.accessToken) {
-      throw new Error();
-    }
-    return session.tokens.accessToken.toString();
+    const session = await Auth.currentSession();
+    return session.getAccessToken().getJwtToken();
   }
 
   /**
@@ -51,7 +37,7 @@ class CognitoAuthService implements AuthService {
      */
     try {
       // Check for initial authentication state
-      await getCurrentUser();
+      await Auth.currentAuthenticatedUser();
       callback();
     } catch (e) {
       // NOOP; not yet authenticated;
@@ -59,7 +45,7 @@ class CognitoAuthService implements AuthService {
 
     // Listen for sign-in events
     Hub.listen('auth', (capsule) => {
-      if (capsule.payload.event === 'signedIn') {
+      if (capsule.payload.event === 'signIn') {
         callback();
       }
     });

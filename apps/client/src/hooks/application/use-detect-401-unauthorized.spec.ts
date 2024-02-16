@@ -3,8 +3,10 @@ import { renderHook } from '~/helpers/tests/testing-library';
 import { useDetect401Unauthorized } from './use-detect-401-unauthorized';
 
 const signOutMock = vi.fn<[], unknown>();
-vi.mock('aws-amplify/auth', () => ({
-  signOut: () => signOutMock(),
+vi.mock('aws-amplify', () => ({
+  Auth: {
+    signOut: () => signOutMock(),
+  },
 }));
 
 describe('test', () => {
