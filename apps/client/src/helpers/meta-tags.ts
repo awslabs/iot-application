@@ -8,7 +8,7 @@ export const extractedMetaTags = (
     awsSecretAccessKey: '',
     awsSessionToken: '',
     applicationName: '',
-    authenticationFlowType: 'USER_PASSWORD_AUTH',
+    authenticationFlowType: '',
     cognitoEndpoint: '',
     identityPoolId: '',
     region: '',
