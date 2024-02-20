@@ -12,6 +12,7 @@ const dummyUserPoolClientId = '0123456789abcdefghijklmno';
 const dummyClientAwsAccessKeyId = 'dummyClientAwsAccessKeyId';
 const dummyClientAwsSecretAccessKey = 'clientAwsSecretAccessKey';
 const dummyClientAwsSessionToken = 'clientAwsSessionToken';
+const dummyAuthMode = 'cognito';
 
 describe('authConfig', () => {
   describe('configFactory', () => {
@@ -24,6 +25,7 @@ describe('authConfig', () => {
       process.env.COGNITO_IDENTITY_POOL_ID = dummyIdentityPoolId;
       process.env.COGNITO_USER_POOL_ID = dummyUserPoolId;
       process.env.COGNITO_USER_POOL_CLIENT_ID = dummyUserPoolClientId;
+      process.env.AUTH_MODE = dummyAuthMode;
     }
 
     function setLocalEnvs() {
@@ -35,6 +37,7 @@ describe('authConfig', () => {
       process.env.COGNITO_IDENTITY_POOL_ID = dummyIdentityPoolId;
       process.env.COGNITO_USER_POOL_ID = dummyUserPoolId;
       process.env.COGNITO_USER_POOL_CLIENT_ID = dummyUserPoolClientId;
+      process.env.AUTH_MODE = dummyAuthMode;
     }
 
     test('returns cloud configurations', () => {
@@ -47,6 +50,7 @@ describe('authConfig', () => {
         userPoolId: dummyUserPoolId,
         userPoolWebClientId: dummyUserPoolClientId,
         region: dummyRegion,
+        authMode: dummyAuthMode,
       });
     });
 
@@ -64,6 +68,7 @@ describe('authConfig', () => {
         userPoolId: dummyUserPoolId,
         userPoolWebClientId: dummyUserPoolClientId,
         region: dummyRegion,
+        authMode: dummyAuthMode,
       });
     });
 

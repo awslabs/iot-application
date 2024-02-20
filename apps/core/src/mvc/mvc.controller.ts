@@ -30,6 +30,7 @@ export class MvcController {
       userPoolWebClientId,
       userPoolId,
       domainName,
+      authMode,
     } = this.auth;
 
     const { applicationName, logMode, metricsMode } = this.global;
@@ -48,6 +49,7 @@ export class MvcController {
       logMode,
       metricsMode,
       domainName,
+      authMode,
     };
   }
 }

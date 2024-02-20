@@ -9,6 +9,7 @@ import { LoggingStack } from './logging/logging-stack';
 export const AuthModeOptions = {
   SSO: 'sso',
   COGNITO: 'cognito',
+  EDGE: 'edge',
 };
 
 export interface LoggingStackProps extends StackProps {
@@ -59,6 +60,7 @@ export class IotApplicationStack extends Stack {
           userPoolClientId: userPoolClientId,
           userPoolId: userPoolId,
           domainName: domainName,
+          authMode,
         },
       });
 
@@ -95,6 +97,7 @@ export class IotApplicationStack extends Stack {
           identityPoolId: identityPoolId,
           userPoolClientId: userPoolClientId,
           userPoolId: userPoolId,
+          authMode: authMode ? authMode : AuthModeOptions.COGNITO,
         },
       });
 
