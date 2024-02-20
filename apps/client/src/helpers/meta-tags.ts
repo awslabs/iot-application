@@ -17,6 +17,7 @@ export const extractedMetaTags = (
     logMode: '',
     metricsMode: '',
     domainName: '',
+    authMode: '',
   };
 
   metaElements.forEach(
