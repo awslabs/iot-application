@@ -21,6 +21,7 @@ export interface CoreServiceProps {
   readonly identityPoolId: string;
   readonly userPoolClientId: string;
   readonly userPoolId: string;
+  readonly authMode: string;
   readonly domainName?: string;
 }
 
@@ -37,6 +38,7 @@ export class CoreService extends Construct {
       identityPoolId,
       userPoolClientId,
       userPoolId,
+      authMode,
       domainName,
     } = props;
 
@@ -134,6 +136,10 @@ export class CoreService extends Construct {
                 name: 'SERVICE_ENDPOINTS',
                 // Space separated
                 value: getServicesEndpoints(Aws.REGION).join(' '),
+              },
+              {
+                name: 'AUTH_MODE',
+                value: authMode,
               },
             ],
           },

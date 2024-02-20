@@ -33,7 +33,8 @@
         "DATABASE_LAUNCH_LOCAL",
         "PUBLIC_URL",
         "NODE_ENV",
-        "SERVICE_ENDPOINTS"
+        "SERVICE_ENDPOINTS",
+        "AUTH_MODE"
       ]
     },
     "lint": {},
