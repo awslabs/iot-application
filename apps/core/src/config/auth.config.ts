@@ -14,6 +14,7 @@ export const configFactory = () => {
     COGNITO_USER_POOL_ID: userPoolId,
     COGNITO_USER_POOL_CLIENT_ID: userPoolWebClientId,
     COGNITO_DOMAIN_NAME: domainName,
+    AUTH_MODE: authMode,
   } = process.env;
 
   invariant(
@@ -54,6 +55,7 @@ export const configFactory = () => {
       userPoolWebClientId,
       region,
       domainName,
+      authMode,
     };
   }
 
@@ -63,6 +65,7 @@ export const configFactory = () => {
     userPoolWebClientId,
     region,
     domainName,
+    authMode,
   };
 };
 
