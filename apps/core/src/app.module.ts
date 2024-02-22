@@ -12,6 +12,7 @@ import { authConfig } from './config/auth.config';
 import { MvcModule } from './mvc/mvc.module';
 import { jwtConfig } from './config/jwt.config';
 import { MigrationModule } from './migration/migration.module';
+import { EdgeLoginModule } from './edge-login/edge-login.module';
 import { LoggerModule } from './logging/logger.module';
 import { globalConfig } from './config/global.config';
 
@@ -23,6 +24,7 @@ import { globalConfig } from './config/global.config';
     }),
     DashboardsModule,
     MigrationModule,
+    EdgeLoginModule,
     MvcModule,
     HealthModule,
     LoggerModule.forRoot(),
