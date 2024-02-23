@@ -24,4 +24,5 @@ export { $UpdateDashboardDto } from './schemas/$UpdateDashboardDto';
 
 export { DashboardsService } from './services/DashboardsService';
 export { MigrationService } from './services/MigrationService';
+export { EdgeLoginService } from './services/EdgeLoginService';
 export { DefaultService } from './services/DefaultService';
