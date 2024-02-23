@@ -10,7 +10,7 @@ import { RouterProvider } from 'react-router-dom';
 import { DEFAULT_LOCALE } from './constants';
 import { router } from './router';
 import { queryClient } from './data/query-client';
-import { setServiceUrl } from './services';
+import { setAuthMode, setServiceUrl } from './services';
 import metricHandler from './metrics/metric-handler';
 import { extractedMetaTags } from './helpers/meta-tags';
 import { registerServiceWorker } from './register-service-worker';
@@ -26,19 +26,20 @@ import '@cloudscape-design/global-styles/index.css';
 const tags = Array.from(document.getElementsByTagName('meta'));
 const metadata = extractedMetaTags(tags);
 const {
+  applicationName,
+  authMode,
   awsAccessKeyId,
   awsSecretAccessKey,
   awsSessionToken,
-  applicationName,
   authenticationFlowType,
   cognitoEndpoint,
+  domainName,
   identityPoolId,
+  logMode,
+  metricsMode,
   region,
   userPoolId,
   userPoolWebClientId,
-  logMode,
-  metricsMode,
-  domainName,
 } = metadata;
 
 if (domainName && domainName !== '') {
@@ -82,6 +83,7 @@ if (awsAccessKeyId !== '' && awsSecretAccessKey !== '') {
   });
 }
 
+setAuthMode(authMode);
 setServiceUrl('/api');
 
 const rootEl = document.getElementById('root');
