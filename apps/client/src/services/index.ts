@@ -2,7 +2,12 @@ export * from './generated';
 export { intl } from './intl';
 
 import { v4 as uuid } from 'uuid';
-import { OpenAPI, DashboardsService, MigrationService } from './generated';
+import {
+  OpenAPI,
+  DashboardsService,
+  MigrationService,
+  EdgeLoginService,
+} from './generated';
 
 import { authService } from '~/auth/auth-service';
 
@@ -55,3 +60,8 @@ export const dashboardMigration: DashboardMigration = () =>
   MigrationService.migrationControllerMigration();
 export const dashboardMigrationStatus: DashboardMigrationStatus = () =>
   MigrationService.migrationControllerGetMigrationStatus();
+
+// EdgeLogin API
+export type EdgeLogin = typeof EdgeLoginService.edgeLogin;
+
+export const edgeLogin: EdgeLogin = (body) => EdgeLoginService.edgeLogin(body);
