@@ -8,8 +8,36 @@ import {
   MigrationService,
   EdgeLoginService,
 } from './generated';
+import {
+  listDashboards as listDashboardsLocal,
+  createDashboard as createDashboardLocal,
+  readDashboard as readDashboardLocal,
+  updateDashboard as updateDashboardLocal,
+  deleteDashboard as deleteDashboardLocal,
+  bulkDeleteDashboards as bulkDeleteDashboardsLocal,
+} from './local-storage-dashboard/dashboard-service';
 
 import { authService } from '~/auth/auth-service';
+import type {
+  ListDashboards,
+  CreateDashboard,
+  ReadDashboard,
+  UpdateDashboard,
+  DeleteDashboard,
+  BulkDeleteDashboards,
+} from './types';
+import { DashboardMigration, DashboardMigrationStatus } from './types';
+import { EdgeLogin } from './types';
+
+let authMode = 'cognito';
+
+export function setAuthMode(mode: string) {
+  authMode = mode;
+}
+
+function isEdgeMode() {
+  return authMode === 'edge';
+}
 
 OpenAPI.TOKEN = () => authService.getToken();
 
@@ -26,42 +54,30 @@ export function setServiceUrl(url: string) {
 }
 
 // Dashboard API
-export type ListDashboards = typeof DashboardsService.dashboardsControllerList;
-export type CreateDashboard =
-  typeof DashboardsService.dashboardsControllerCreate;
-export type ReadDashboard = typeof DashboardsService.dashboardsControllerRead;
-export type UpdateDashboard =
-  typeof DashboardsService.dashboardsControllerUpdate;
-export type DeleteDashboard =
-  typeof DashboardsService.dashboardsControllerDelete;
-export type BulkDeleteDashboards =
-  typeof DashboardsService.dashboardsControllerBulkDelete;
-
-export const listDashboards: ListDashboards = () =>
-  DashboardsService.dashboardsControllerList();
-export const createDashboard: CreateDashboard = (dto) =>
-  DashboardsService.dashboardsControllerCreate(dto);
-export const readDashboard: ReadDashboard = (id) =>
-  DashboardsService.dashboardsControllerRead(id);
-export const updateDashboard: UpdateDashboard = (id, dto) =>
-  DashboardsService.dashboardsControllerUpdate(id, dto);
-export const deleteDashboard: DeleteDashboard = (id) =>
-  DashboardsService.dashboardsControllerDelete(id);
-export const bulkDeleteDashboards: BulkDeleteDashboards = (ids) =>
-  DashboardsService.dashboardsControllerBulkDelete(ids);
+export const listDashboards: ListDashboards = isEdgeMode()
+  ? () => listDashboardsLocal()
+  : () => DashboardsService.dashboardsControllerList();
+export const createDashboard: CreateDashboard = isEdgeMode()
+  ? (dto) => createDashboardLocal(dto)
+  : (dto) => DashboardsService.dashboardsControllerCreate(dto);
+export const readDashboard: ReadDashboard = isEdgeMode()
+  ? (id) => readDashboardLocal(id)
+  : (id) => DashboardsService.dashboardsControllerRead(id);
+export const updateDashboard: UpdateDashboard = isEdgeMode()
+  ? (id, dto) => updateDashboardLocal(id, dto)
+  : (id, dto) => DashboardsService.dashboardsControllerUpdate(id, dto);
+export const deleteDashboard: DeleteDashboard = isEdgeMode()
+  ? (id) => deleteDashboardLocal(id)
+  : (id) => DashboardsService.dashboardsControllerDelete(id);
+export const bulkDeleteDashboards: BulkDeleteDashboards = isEdgeMode()
+  ? (dto) => bulkDeleteDashboardsLocal(dto)
+  : (dto) => DashboardsService.dashboardsControllerBulkDelete(dto);
 
 // Migration API
-export type DashboardMigration =
-  typeof MigrationService.migrationControllerMigration;
-export type DashboardMigrationStatus =
-  typeof MigrationService.migrationControllerGetMigrationStatus;
-
 export const dashboardMigration: DashboardMigration = () =>
   MigrationService.migrationControllerMigration();
 export const dashboardMigrationStatus: DashboardMigrationStatus = () =>
   MigrationService.migrationControllerGetMigrationStatus();
 
 // EdgeLogin API
-export type EdgeLogin = typeof EdgeLoginService.edgeLogin;
-
 export const edgeLogin: EdgeLogin = (body) => EdgeLoginService.edgeLogin(body);
