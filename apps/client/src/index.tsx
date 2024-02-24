@@ -19,6 +19,8 @@ import { initializeAuthDependents } from './initialize-auth-dependents';
 import { registerLogger } from './register-loggers';
 import { registerMetricsRecorder } from './register-metrics-recorder';
 
+import { EdgeLoginPage } from './routes/edge-login/edge-login-page';
+
 import '@aws-amplify/ui-react/styles.css';
 import '@cloudscape-design/global-styles/index.css';
 
@@ -88,19 +90,39 @@ setServiceUrl('/api');
 
 const rootEl = document.getElementById('root');
 
-if (rootEl != null) {
-  ReactDOM.createRoot(rootEl).render(
-    <React.StrictMode>
-      <Authenticator>
-        <IntlProvider locale="en" defaultLocale={DEFAULT_LOCALE}>
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
-        </IntlProvider>
-      </Authenticator>
-    </React.StrictMode>,
-  );
+if (authMode === 'edge') {
+  if (rootEl != null) {
+    // TODO: We need a way to login without <Authenticator> component that's heavily tied to Amplify/Cognito
+    ReactDOM.createRoot(rootEl).render(
+      <React.StrictMode>
+        <Authenticator>
+          <IntlProvider locale="en" defaultLocale={DEFAULT_LOCALE}>
+            <QueryClientProvider client={queryClient}>
+              <EdgeLoginPage>
+                <RouterProvider router={router} />
+                <ReactQueryDevtools initialIsOpen={false} />
+              </EdgeLoginPage>
+            </QueryClientProvider>
+          </IntlProvider>
+        </Authenticator>
+      </React.StrictMode>,
+    );
+  }
+} else {
+  if (rootEl != null) {
+    ReactDOM.createRoot(rootEl).render(
+      <React.StrictMode>
+        <Authenticator>
+          <IntlProvider locale="en" defaultLocale={DEFAULT_LOCALE}>
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider router={router} />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </QueryClientProvider>
+          </IntlProvider>
+        </Authenticator>
+      </React.StrictMode>,
+    );
+  }
 }
 
 registerServiceWorker();
