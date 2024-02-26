@@ -15,14 +15,12 @@ const hostName = '1.2.3.4.5';
 const username = 'username';
 const password = 'password';
 
-vi.mock('./hooks/use-edge-login-query', () => ({
-  useEdgeLoginQuery: vi.fn().mockReturnValue({
-    refetch: vi.fn().mockReturnValue({
-      data: {
-        accessKey: '',
-        secretKeyId: '',
-      },
-    }),
+vi.mock('~/services', () => ({
+  edgeLogin: vi.fn().mockReturnValue({
+    data: {
+      accessKey: '',
+      secretKeyId: '',
+    },
   }),
 }));
 
