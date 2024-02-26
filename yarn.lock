@@ -8628,6 +8628,11 @@
   resolved "https://registry.yarnpkg.com/@lukeed/ms/-/ms-2.0.1.tgz#3c2bbc258affd9cc0e0cc7828477383c73afa6ee"
   integrity sha512-Xs/4RZltsAL7pkvaNStUQt7netTkyxrS0K+RILcVr3TRMS/ToOg4I6uNfhB9SlGsnWBym4U+EaXq0f0cEMNkHA==
 
+"@microsoft/tsdoc@^0.14.2":
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/@microsoft/tsdoc/-/tsdoc-0.14.2.tgz#c3ec604a0b54b9a9b87e9735dfc59e1a5da6a5fb"
+  integrity sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==
+
 "@nestjs/axios@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@nestjs/axios/-/axios-1.0.1.tgz#7a872e032b9d12037f2663a7316b81507cd7957a"
@@ -8695,10 +8700,10 @@
     path-to-regexp "3.2.0"
     tslib "2.5.3"
 
-"@nestjs/mapped-types@2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-2.0.3.tgz#f400432da6c98d02b94b14e893fd7fa46c152403"
-  integrity sha512-40Zdqg98lqoF0+7ThWIZFStxgzisK6GG22+1ABO4kZiGF/Tu2FE+DYLw+Q9D94vcFWizJ+MSjNN4ns9r6hIGxw==
+"@nestjs/mapped-types@2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-2.0.5.tgz#485d6b44e19779c98d04e52bd1d2bcc7001df0ea"
+  integrity sha512-bSJv4pd6EY99NX9CjBIyn4TVDoSit82DUZlL4I3bqNfy5Gt+gXTa86i3I/i0iIV9P4hntcGM5GyO+FhZAhxtyg==
 
 "@nestjs/platform-fastify@^9.4.3":
   version "9.4.3"
@@ -8724,16 +8729,17 @@
     jsonc-parser "3.2.0"
     pluralize "8.0.0"
 
-"@nestjs/swagger@^7.1.15":
-  version "7.1.15"
-  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-7.1.15.tgz#247c39f67bef7c4ff5ec86652a17657815d3561c"
-  integrity sha512-ZaAO90R9MQXk4iLQLijIH6jrsllkUSYoh0Su6DECGgu8Y4Q/9LfdESwsZ9nmzr/48aLOu+wrv+cdI5Wr6fLKJw==
+"@nestjs/swagger@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/swagger/-/swagger-7.3.0.tgz#0b5e397cc5a592422df9afb24c79af928fea5954"
+  integrity sha512-zLkfKZ+ioYsIZ3dfv7Bj8YHnZMNAGWFUmx2ZDuLp/fBE4P8BSjB7hldzDueFXsmwaPL90v7lgyd82P+s7KME1Q==
   dependencies:
-    "@nestjs/mapped-types" "2.0.3"
+    "@microsoft/tsdoc" "^0.14.2"
+    "@nestjs/mapped-types" "2.0.5"
     js-yaml "4.1.0"
     lodash "4.17.21"
     path-to-regexp "3.2.0"
-    swagger-ui-dist "5.9.1"
+    swagger-ui-dist "5.11.2"
 
 "@nestjs/terminus@^10.2.3":
   version "10.2.3"
@@ -22049,10 +22055,10 @@ svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
-swagger-ui-dist@5.9.1:
-  version "5.9.1"
-  resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-5.9.1.tgz#d0bcd614e3752da02df141846348f84468ae815e"
-  integrity sha512-5zAx+hUwJb9T3EAntc7TqYkV716CMqG6sZpNlAAMOMWkNXRYxGkN8ADIvD55dQZ10LxN90ZM/TQmN7y1gpICnw==
+swagger-ui-dist@5.11.2:
+  version "5.11.2"
+  resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-5.11.2.tgz#b423e820928df703586ff58f80b09ffcf2434e08"
+  integrity sha512-jQG0cRgJNMZ7aCoiFofnoojeSaa/+KgWaDlfgs8QN+BXoGMpxeMVY5OEnjq4OlNvF3yjftO8c9GRAgcHlO+u7A==
 
 symbol-observable@4.0.0:
   version "4.0.0"
