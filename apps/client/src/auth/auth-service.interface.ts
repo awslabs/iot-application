@@ -5,6 +5,11 @@ import { type AwsCredentialIdentity } from '@smithy/types';
  */
 export interface AuthService {
   /**
+   * Mode of this auth service.
+   */
+  get authMode(): string;
+
+  /**
    * Returns the user's AWS Credentials.
    * @return - the user's AWS Credentials
    */

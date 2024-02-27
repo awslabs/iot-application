@@ -10,7 +10,7 @@ import Select from '@cloudscape-design/components/select';
 import Box from '@cloudscape-design/components/box';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import { colorBackgroundHomeHeader } from '@cloudscape-design/design-tokens';
-import { authService } from '../../auth/auth-service';
+import { cognitoAuthService } from '../../auth/auth-service';
 import { PropsWithChildren } from 'react';
 import { useEdgeLoginQuery } from './hooks/use-edge-login-query';
 
@@ -38,7 +38,7 @@ export function EdgeLoginPage({ children }: PropsWithChildren<EdgeLoginProps>) {
   const getCredentials = async () => {
     const { data } = await refetch();
     if (data) {
-      authService.setAwsCredentials(data);
+      cognitoAuthService.setAwsCredentials(data);
       setIsLoggedIn(true);
     } else {
       setError('Error logging in');

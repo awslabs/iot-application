@@ -4,6 +4,7 @@ import { type AwsCredentialIdentity } from '@smithy/types';
 
 class CognitoAuthService implements AuthService {
   private credentials?: AwsCredentialIdentity;
+  public readonly authMode = 'cognito';
 
   setAwsCredentials(credentials: AwsCredentialIdentity) {
     this.credentials = credentials;
@@ -52,4 +53,5 @@ class CognitoAuthService implements AuthService {
   }
 }
 
-export const authService = new CognitoAuthService();
+export const cognitoAuthService = new CognitoAuthService();
+export const authService: AuthService = cognitoAuthService;

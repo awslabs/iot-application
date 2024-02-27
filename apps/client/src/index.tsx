@@ -14,7 +14,7 @@ import { setAuthMode, setServiceUrl } from './services';
 import metricHandler from './metrics/metric-handler';
 import { extractedMetaTags } from './helpers/meta-tags';
 import { registerServiceWorker } from './register-service-worker';
-import { authService } from './auth/auth-service';
+import { cognitoAuthService } from './auth/auth-service';
 import { initializeAuthDependents } from './initialize-auth-dependents';
 import { registerLogger } from './register-loggers';
 import { registerMetricsRecorder } from './register-metrics-recorder';
@@ -78,7 +78,7 @@ if (domainName && domainName !== '') {
 
 // Set AWS credentials if any provided
 if (awsAccessKeyId !== '' && awsSecretAccessKey !== '') {
-  authService.setAwsCredentials({
+  cognitoAuthService.setAwsCredentials({
     accessKeyId: awsAccessKeyId,
     secretAccessKey: awsSecretAccessKey,
     sessionToken: awsSessionToken !== '' ? awsSessionToken : undefined,
@@ -128,5 +128,7 @@ if (authMode === 'edge') {
 registerServiceWorker();
 registerLogger(logMode);
 registerMetricsRecorder(metricsMode);
-void authService.onSignedIn(() => initializeAuthDependents(applicationName));
+void cognitoAuthService.onSignedIn(() =>
+  initializeAuthDependents(applicationName),
+);
 metricHandler.reportWebVitals();

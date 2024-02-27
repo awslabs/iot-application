@@ -1,6 +1,6 @@
 import {
   Dashboard as IoTAppKitDashboard,
-  DashboardConfiguration,
+  type DashboardConfiguration,
 } from '@iot-app-kit/dashboard';
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
@@ -20,7 +20,10 @@ import { getDashboardEditMode } from '~/store/viewMode';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 
 import './styles.css';
-import { authService } from '~/auth/auth-service';
+import {
+  getDashboardClientConfiguration,
+  getDashboardEdgeMode,
+} from './dashboard-configurations';
 
 export function DashboardPage() {
   const params = useParams<{ dashboardId: string }>();
@@ -64,19 +67,15 @@ export function DashboardPage() {
     return <DashboardLoadingState />;
   }
 
-  const awsRegion = authService.awsRegion;
-
   return (
     <IoTAppKitDashboard
-      clientConfiguration={{
-        awsCredentials: () => authService.getAwsCredentials(),
-        awsRegion,
-      }}
+      clientConfiguration={getDashboardClientConfiguration()}
       dashboardConfiguration={{
         ...dashboardDefinition,
         displaySettings,
         viewport,
       }}
+      edgeMode={getDashboardEdgeMode()}
       initialViewMode={editMode ? 'edit' : 'preview'}
       name={dashboardQuery.data?.name}
       onSave={(
