@@ -38,6 +38,7 @@ import { setDashboardEditMode } from '~/store/viewMode';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 
 import './styles.css';
+import { getAuthMode } from '~/helpers/authMode';
 
 const DateFormatOptions: FormatDateOptions = {
   year: 'numeric',
@@ -175,9 +176,13 @@ export function DashboardsIndexPage() {
       <Box>
         <GettingStarted />
       </Box>
-      <Box padding={{ top: 'l' }}>
-        <Migration onMigrationComplete={() => void dashboardsQuery.refetch()} />
-      </Box>
+      {getAuthMode() !== 'edge' && (
+        <Box padding={{ top: 'l' }}>
+          <Migration
+            onMigrationComplete={() => void dashboardsQuery.refetch()}
+          />
+        </Box>
+      )}
       <Box padding={{ top: 'l' }}>
         <Table
           {...collectionProps}
