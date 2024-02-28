@@ -91,7 +91,6 @@ const rootEl = document.getElementById('root');
 
 if (authMode === 'edge') {
   if (rootEl != null) {
-    // TODO: We need a way to login without <Authenticator> component that's heavily tied to Amplify/Cognito
     ReactDOM.createRoot(rootEl).render(
       <React.StrictMode>
         <IntlProvider locale="en" defaultLocale={DEFAULT_LOCALE}>
