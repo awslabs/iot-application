@@ -8,11 +8,12 @@ import { ROOT_HREF } from '~/constants';
 import { preventFullPageLoad } from '~/helpers/events';
 import { useApplication } from '~/hooks/application/use-application';
 
-export function TopNavigation() {
+import { getAuthMode } from '~/helpers/authMode';
+
+function EdgeNavigation() {
   const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
   const { navigate } = useApplication();
   const intl = useIntl();
-  const { user, signOut } = useAuthenticator();
 
   function openSettings() {
     setIsSettingsModalVisible(true);
@@ -22,6 +23,108 @@ export function TopNavigation() {
     setIsSettingsModalVisible(false);
   }
 
+  return (
+    <div id="h" style={{ position: 'sticky', top: 0, zIndex: 1002 }}>
+      <_TopNavigation
+        identity={{
+          href: ROOT_HREF,
+          title: intl.formatMessage({
+            defaultMessage: 'IoT dashboard application',
+            description: 'top navigation home link',
+          }),
+          onFollow: (event) => {
+            preventFullPageLoad(event);
+            navigate(ROOT_HREF);
+          },
+        }}
+        utilities={[
+          {
+            type: 'button',
+            iconName: 'settings',
+            ariaLabel: intl.formatMessage({
+              defaultMessage: 'Settings',
+              description: 'settings button aria label',
+            }),
+            text: intl.formatMessage({
+              defaultMessage: 'Settings',
+              description: 'top navigation settings button',
+            }),
+            variant: 'link',
+            onClick: openSettings,
+          },
+          {
+            type: 'menu-dropdown',
+            text: '', // TODO: add edge user details
+            description: '',
+            iconName: 'user-profile',
+            onItemClick: (event) => {
+              if (event.detail.id === 'signout') {
+                // TODO: call signout for edge mode
+              }
+            },
+            items: [
+              {
+                id: 'documentation',
+                text: intl.formatMessage({
+                  defaultMessage: 'Documentation',
+                  description: 'top nav documentation link',
+                }),
+                href: 'https://github.com/awslabs/iot-application',
+                external: true,
+              },
+              {
+                id: 'feedback',
+                text: intl.formatMessage({
+                  defaultMessage: 'Feedback',
+                  description: 'top nav feedback link',
+                }),
+                href: 'https://github.com/awslabs/iot-application/issues',
+                external: true,
+              },
+              {
+                id: 'signout',
+                text: intl.formatMessage({
+                  defaultMessage: 'Signout',
+                  description: 'top nav signout button',
+                }),
+              },
+            ],
+          },
+        ]}
+        i18nStrings={{
+          overflowMenuTitleText: intl.formatMessage({
+            defaultMessage: 'All',
+            description: 'top nav overflow menu title',
+          }),
+          overflowMenuTriggerText: intl.formatMessage({
+            defaultMessage: 'More',
+            description: 'top nav overflow menu triggle',
+          }),
+        }}
+      />
+
+      <SettingsModal
+        isVisible={isSettingsModalVisible}
+        onClose={closeSettings}
+        key={isSettingsModalVisible.toString()}
+      />
+    </div>
+  );
+}
+
+function CognitoNavigation() {
+  const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
+  const { navigate } = useApplication();
+  const intl = useIntl();
+
+  function openSettings() {
+    setIsSettingsModalVisible(true);
+  }
+
+  function closeSettings() {
+    setIsSettingsModalVisible(false);
+  }
+  const { user, signOut } = useAuthenticator();
   return (
     <div id="h" style={{ position: 'sticky', top: 0, zIndex: 1002 }}>
       <_TopNavigation
@@ -110,3 +213,13 @@ export function TopNavigation() {
     </div>
   );
 }
+
+let Navigation;
+
+if (getAuthMode() === 'edge') {
+  Navigation = EdgeNavigation;
+} else {
+  Navigation = CognitoNavigation;
+}
+
+export const TopNavigation = Navigation;

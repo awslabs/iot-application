@@ -21,6 +21,7 @@ describe('CloudWatchMetricsRecorder', () => {
     awsRegion: 'us-west-2',
     getToken: vi.fn(),
     onSignedIn: vi.fn(),
+    setAwsCredentials: vi.fn(),
   };
 
   beforeEach(() => {

@@ -12,6 +12,8 @@ import invariant from 'tiny-invariant';
 import { Dashboard } from '~/services';
 import { Maybe } from '~/types';
 
+import { getAuthMode } from '~/helpers/authMode';
+
 export const dashboardRoute = {
   path: DASHBOARD_PATH,
   element: (
@@ -21,11 +23,16 @@ export const dashboardRoute = {
   ),
   loader: async ({ params }) => {
     invariant(params.dashboardId, 'Expected dashboardId is to be defined');
-    /**
-     * The loader is called before the element is rendered. This means we need
-     * to wait for authentication state before we can fetch the dashboard.
-     */
-    await Auth.currentAuthenticatedUser();
+
+    // Wait for Cognito user, not needed in edge mode
+    if (getAuthMode() !== 'edge') {
+      /**
+       * The loader is called before the element is rendered. This means we need
+       * to wait for authentication state before we can fetch the dashboard.
+       */
+      await Auth.currentAuthenticatedUser();
+    }
+
     return queryClient.fetchQuery(createDashboardQuery(params.dashboardId));
   },
   handle: {

@@ -10,7 +10,7 @@ import { RouterProvider } from 'react-router-dom';
 import { DEFAULT_LOCALE } from './constants';
 import { router } from './router';
 import { queryClient } from './data/query-client';
-import { setAuthMode, setServiceUrl } from './services';
+import { setServiceUrl } from './services';
 import metricHandler from './metrics/metric-handler';
 import { extractedMetaTags } from './helpers/meta-tags';
 import { registerServiceWorker } from './register-service-worker';
@@ -85,7 +85,6 @@ if (awsAccessKeyId !== '' && awsSecretAccessKey !== '') {
   });
 }
 
-setAuthMode(authMode);
 setServiceUrl('/api');
 
 const rootEl = document.getElementById('root');
@@ -95,16 +94,14 @@ if (authMode === 'edge') {
     // TODO: We need a way to login without <Authenticator> component that's heavily tied to Amplify/Cognito
     ReactDOM.createRoot(rootEl).render(
       <React.StrictMode>
-        <Authenticator>
-          <IntlProvider locale="en" defaultLocale={DEFAULT_LOCALE}>
-            <QueryClientProvider client={queryClient}>
-              <EdgeLoginPage>
-                <RouterProvider router={router} />
-                <ReactQueryDevtools initialIsOpen={false} />
-              </EdgeLoginPage>
-            </QueryClientProvider>
-          </IntlProvider>
-        </Authenticator>
+        <IntlProvider locale="en" defaultLocale={DEFAULT_LOCALE}>
+          <QueryClientProvider client={queryClient}>
+            <EdgeLoginPage>
+              <RouterProvider router={router} />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </EdgeLoginPage>
+          </QueryClientProvider>
+        </IntlProvider>
       </React.StrictMode>,
     );
   }
@@ -128,5 +125,5 @@ if (authMode === 'edge') {
 registerServiceWorker();
 registerLogger(logMode);
 registerMetricsRecorder(metricsMode);
-void authService.onSignedIn(() => initializeAuthDependents(applicationName));
+authService.onSignedIn(() => initializeAuthDependents(applicationName));
 metricHandler.reportWebVitals();

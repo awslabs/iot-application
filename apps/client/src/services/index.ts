@@ -29,14 +29,10 @@ import type {
 import { DashboardMigration, DashboardMigrationStatus } from './types';
 import { EdgeLogin } from './types';
 
-let authMode = 'cognito';
+import { getAuthMode } from '~/helpers/authMode';
 
-export function setAuthMode(mode: string) {
-  authMode = mode;
-}
-
-function isEdgeMode() {
-  return authMode === 'edge';
+export function isEdgeMode() {
+  return getAuthMode() === 'edge';
 }
 
 OpenAPI.TOKEN = () => authService.getToken();
