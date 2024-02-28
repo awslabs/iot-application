@@ -1,55 +1,39 @@
-import { Auth, Hub } from 'aws-amplify';
 import { AuthService } from './auth-service.interface';
+import { EdgeAuthService } from './edge-auth-service';
+import { CognitoAuthService } from './cognito-auth-service';
 import { type AwsCredentialIdentity } from '@smithy/types';
+import { getAuthMode } from '~/helpers/authMode';
 
-class CognitoAuthService implements AuthService {
-  private credentials?: AwsCredentialIdentity;
+class ClientAuthService {
+  private authService: AuthService;
+
+  constructor() {
+    if (getAuthMode() === 'edge') {
+      this.authService = new EdgeAuthService();
+    } else {
+      this.authService = new CognitoAuthService();
+    }
+  }
 
   setAwsCredentials(credentials: AwsCredentialIdentity) {
-    this.credentials = credentials;
+    this.authService.setAwsCredentials(credentials);
   }
 
   getAwsCredentials() {
-    if (this.credentials != null) {
-      return Promise.resolve(this.credentials);
-    }
-
-    return Auth.currentCredentials();
+    return this.authService.getAwsCredentials();
   }
 
   get awsRegion() {
-    return Auth.configure().region ?? 'us-west-2';
+    return this.authService.awsRegion;
   }
 
-  async getToken() {
-    const session = await Auth.currentSession();
-    return session.getAccessToken().getJwtToken();
+  getToken() {
+    return this.authService.getToken();
   }
 
-  /**
-   * This function accepts a callback function to call when application is signed-in or already signed-in
-   * @param callback the callback function to call when application is signed-in
-   */
-  async onSignedIn(callback: () => unknown) {
-    /**
-     * Either Auth.currentAuthenticatedUser() or callback of Hub.listen('auth', xxx) is executed initially;
-     * Callback of Hub.listen('auth', xxx) is executed for every sign-in;
-     */
-    try {
-      // Check for initial authentication state
-      await Auth.currentAuthenticatedUser();
-      callback();
-    } catch (e) {
-      // NOOP; not yet authenticated;
-    }
-
-    // Listen for sign-in events
-    Hub.listen('auth', (capsule) => {
-      if (capsule.payload.event === 'signIn') {
-        callback();
-      }
-    });
+  onSignedIn(callback: () => unknown) {
+    return this.authService.onSignedIn(callback);
   }
 }
 
-export const authService = new CognitoAuthService();
+export const authService = new ClientAuthService();

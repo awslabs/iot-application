@@ -11,6 +11,11 @@ export interface AuthService {
   getAwsCredentials(): Promise<AwsCredentialIdentity>;
 
   /**
+   * Sets the user's AWS Credentials.
+   */
+  setAwsCredentials(credentials: AwsCredentialIdentity): void;
+
+  /**
    * AWS Region to obtain the AWS Credentials from.
    */
   get awsRegion(): string;
