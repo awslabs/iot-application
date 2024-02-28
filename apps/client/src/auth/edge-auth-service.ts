@@ -34,6 +34,11 @@ export class EdgeAuthService implements AuthService {
    * @param callback the callback function to call when application is signed-in
    */
   onSignedIn(callback: () => unknown) {
-    callback();
+    if (
+      this.credentials.accessKeyId !== '' &&
+      this.credentials.secretAccessKey !== ''
+    ) {
+      callback();
+    }
   }
 }
