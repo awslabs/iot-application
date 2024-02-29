@@ -16,6 +16,12 @@ import { EdgeUsernameField } from './components/edge-username-field';
 import { EdgeMechanismField } from './components/edge-mechanism-field';
 import { EdgePasswordField } from './components/edge-password-field';
 import { edgeLogin } from '~/services';
+import { ApiError } from '~/services/generated/core/ApiError';
+
+// Adding type since ApiError types body as any
+interface ApiErrorBody {
+  message: string;
+}
 
 export function EdgeLoginPage({ children }: PropsWithChildren) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -47,8 +53,12 @@ export function EdgeLoginPage({ children }: PropsWithChildren) {
                   setIsLoading(false);
                   setIsLoggedIn(true);
                 } catch (error) {
-                  // TODO: invalid credential error handling
-                  setError('Error getting credentials');
+                  if (error instanceof ApiError) {
+                    const errorBody = error.body as ApiErrorBody;
+                    setError(errorBody.message);
+                  } else {
+                    setError('Error logging in.');
+                  }
                   setIsLoading(false);
                 }
               })();

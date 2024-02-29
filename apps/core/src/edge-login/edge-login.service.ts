@@ -1,9 +1,14 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  RequestTimeoutException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Agent } from 'https';
 import { EdgeCredentials } from './entities/edge-credentials.entity';
 import { EdgeLoginBody } from './entities/edge-login-body.entity';
 import { Result, err, ok } from '../types';
+import { isAxiosError } from '@nestjs/terminus/dist/utils';
 
 @Injectable()
 export class EdgeLoginService {
@@ -37,6 +42,20 @@ export class EdgeLoginService {
         sessionExpiryTime,
       });
     } catch (error) {
+      if (isAxiosError(error)) {
+        // If response field, server responded with status code thats not 2xx
+        if (error.response) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          if (error.response.status && error.response.status === 401) {
+            return err(
+              new UnauthorizedException('Incorrect username or password'),
+            );
+          }
+        } else if (error.request) {
+          // If request field, no response from server
+          return err(new RequestTimeoutException('Request timed out'));
+        }
+      }
       return error instanceof Error
         ? err(error)
         : err(new Error('Error getting edge credentials'));

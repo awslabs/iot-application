@@ -3,6 +3,7 @@ import { render, screen } from '~/helpers/tests/testing-library';
 import userEvent from '@testing-library/user-event';
 
 import { EdgeLoginPage } from './edge-login-page';
+import { edgeLogin } from '~/services';
 
 const getHostField = () =>
   screen.getByPlaceholderText('Enter hostname or IP address');
@@ -17,10 +18,8 @@ const password = 'password';
 
 vi.mock('~/services', () => ({
   edgeLogin: vi.fn().mockReturnValue({
-    data: {
-      accessKey: '',
-      secretKeyId: '',
-    },
+    accessKey: '',
+    secretAccessKey: '',
   }),
 }));
 
@@ -58,5 +57,44 @@ describe('<EdgeLoginPage />', () => {
     expect(signInText).not.toBeInTheDocument();
   });
 
-  // TODO: error tests
+  it('does not sign in if there was an api error', async () => {
+    vi.resetAllMocks();
+    const errorMessage = 'Incorrect username or password';
+    const errorResponse = {
+      response: {
+        body: {
+          message: errorMessage,
+        },
+        status: 401,
+      },
+      isAxiosError: true,
+      toJSON: () => {
+        return {};
+      },
+      name: '',
+      message: '',
+    };
+
+    vi.mocked(edgeLogin).mockRejectedValue(errorResponse);
+
+    const user = userEvent.setup();
+    render(<EdgeLoginPage />);
+
+    const signInText = screen.getByText('Sign in to edge gateway');
+    expect(signInText).toBeInTheDocument();
+
+    await user.type(getHostField(), hostName);
+    expect(getHostField()).toHaveValue(hostName);
+
+    await user.type(getUsernameField(), username);
+    expect(getUsernameField()).toHaveValue(username);
+
+    await user.type(getPasswordField(), password);
+    expect(getPasswordField()).toHaveValue(password);
+
+    await user.click(getSigninButton());
+
+    // Expect login failure
+    expect(signInText).toBeInTheDocument();
+  });
 });
