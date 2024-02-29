@@ -4,7 +4,7 @@ import {
 } from '@iot-app-kit/dashboard';
 import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 
 import { DashboardLoadingState } from './components/dashboard-loading-state';
@@ -16,7 +16,7 @@ import type { DashboardDefinition } from '~/services';
 import { useViewport } from '~/hooks/dashboard/use-viewport';
 import { useEmitNotification } from '~/hooks/notifications/use-emit-notification';
 import { useDisplaySettings } from '~/hooks/dashboard/use-displaySettings';
-import { getDashboardEditMode } from '~/store/viewMode';
+import { getDashboardEditMode, setDashboardEditMode } from '~/store/viewMode';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
 
 import './styles.css';
@@ -25,6 +25,7 @@ import { authService } from '~/auth/auth-service';
 export function DashboardPage() {
   const params = useParams<{ dashboardId: string }>();
   const editMode = useAtomValue(getDashboardEditMode);
+  const emitEditMode = useSetAtom(setDashboardEditMode);
   const emitNotification = useEmitNotification();
 
   invariant(
@@ -81,7 +82,11 @@ export function DashboardPage() {
       name={dashboardQuery.data?.name}
       onSave={(
         config: DashboardDefinition & Omit<DashboardConfiguration, 'widgets'>,
+        viewModeOnSave?: 'preview' | 'edit',
       ) => {
+        if ((viewModeOnSave === 'edit') !== editMode) {
+          emitEditMode(viewModeOnSave === 'edit');
+        }
         invariant(params.dashboardId, 'Expected dashboard ID to be defined');
         invariant(dashboardQuery.data, 'Expected dashboard to be loaded');
         void updateDashboardMutation.mutateAsync({
