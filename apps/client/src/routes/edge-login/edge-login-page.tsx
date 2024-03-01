@@ -11,7 +11,6 @@ import { DevTool } from '@hookform/devtools';
 import { authService } from '../../auth/auth-service';
 import { PropsWithChildren } from 'react';
 import { useEdgeLoginForm } from './hooks/use-edge-login-form';
-import { EdgeEndpointField } from './components/edge-endpoint-field';
 import { EdgeUsernameField } from './components/edge-username-field';
 import { EdgeMechanismField } from './components/edge-mechanism-field';
 import { EdgePasswordField } from './components/edge-password-field';
@@ -47,9 +46,6 @@ export function EdgeLoginPage({ children }: PropsWithChildren) {
                   setIsLoading(true);
                   const data = await edgeLogin(formData);
                   authService.setAwsCredentials(data);
-                  authService.setEdgeEndpoint(
-                    `https://${formData.edgeEndpoint}`,
-                  );
                   setIsLoading(false);
                   setIsLoggedIn(true);
                 } catch (error) {
@@ -83,7 +79,6 @@ export function EdgeLoginPage({ children }: PropsWithChildren) {
                 header={<Header variant="h2">Sign in to edge gateway</Header>}
               >
                 <SpaceBetween direction="vertical" size="l">
-                  <EdgeEndpointField control={control} />
                   <EdgeMechanismField control={control} />
                   <EdgeUsernameField control={control} />
                   <EdgePasswordField control={control} />

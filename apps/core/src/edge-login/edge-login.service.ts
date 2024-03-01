@@ -1,18 +1,26 @@
 import { HttpService } from '@nestjs/axios';
 import {
+  Inject,
   Injectable,
   RequestTimeoutException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
+import { isAxiosError } from '@nestjs/terminus/dist/utils';
 import { Agent } from 'https';
+
 import { EdgeCredentials } from './entities/edge-credentials.entity';
 import { EdgeLoginBody } from './entities/edge-login-body.entity';
+import { edgeConfig } from '../config/edge.config';
 import { Result, err, ok } from '../types';
-import { isAxiosError } from '@nestjs/terminus/dist/utils';
+import { isStringWithValue } from '../types/strings/is-string-with-value';
 
 @Injectable()
 export class EdgeLoginService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    @Inject(edgeConfig.KEY) private edge: ConfigType<typeof edgeConfig>,
+    private readonly httpService: HttpService,
+  ) {}
 
   public async login(
     body: EdgeLoginBody,
@@ -20,8 +28,13 @@ export class EdgeLoginService {
     const httpsAgent = new Agent({ rejectUnauthorized: false });
 
     try {
+      const { edgeEndpoint } = this.edge;
+      if (!isStringWithValue(edgeEndpoint)) {
+        throw new Error();
+      }
+
       const result = await this.httpService.axiosRef.post<EdgeCredentials>(
-        `https://${body.edgeEndpoint}/authenticate`,
+        `${edgeEndpoint}/authenticate`,
         {
           username: body.username,
           password: body.password,
