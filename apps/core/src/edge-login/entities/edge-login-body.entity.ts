@@ -2,12 +2,6 @@ import { IsString } from 'class-validator';
 
 export class EdgeLoginBody {
   /**
-   * @example "192.168.0.1"
-   */
-  @IsString()
-  public readonly edgeEndpoint: string;
-
-  /**
    * @example "user"
    */
   @IsString()
