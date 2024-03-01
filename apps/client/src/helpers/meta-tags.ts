@@ -10,6 +10,7 @@ export const extractedMetaTags = (
     applicationName: '',
     authenticationFlowType: '',
     cognitoEndpoint: '',
+    edgeEndpoint: '',
     identityPoolId: '',
     region: '',
     userPoolId: '',
