@@ -8,6 +8,7 @@ updates:
     versioning-strategy: increase
     schedule:
       interval: weekly
+    target-branch: rc
     open-pull-requests-limit: 10
     groups:
       aws-sdk:
@@ -20,3 +21,4 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    target-branch: rc
