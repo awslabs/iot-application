@@ -7,6 +7,15 @@ export class EdgeAuthService implements AuthService {
     accessKeyId: '',
     secretAccessKey: '',
   };
+  private edgeEndpoint = '0.0.0.0';
+
+  setEdgeEndpoint(endpoint: string) {
+    this.edgeEndpoint = endpoint;
+  }
+
+  getEdgeEndpoint() {
+    return this.edgeEndpoint;
+  }
 
   setAwsCredentials(credentials: AwsCredentialIdentity) {
     this.credentials = credentials;

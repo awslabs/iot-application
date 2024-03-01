@@ -41,6 +41,9 @@ export function EdgeLoginPage({ children }: PropsWithChildren) {
                   setIsLoading(true);
                   const data = await edgeLogin(formData);
                   authService.setAwsCredentials(data);
+                  authService.setEdgeEndpoint(
+                    `https://${formData.edgeEndpoint}`,
+                  );
                   setIsLoading(false);
                   setIsLoggedIn(true);
                 } catch (error) {
