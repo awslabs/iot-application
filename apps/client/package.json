@@ -27,7 +27,7 @@
     "@aws-sdk/client-iot-events": "3.515.0",
     "@aws-sdk/client-iotsitewise": "3.515.0",
     "@aws-sdk/credential-providers": "3.515.0",
-    "@cloudscape-design/collection-hooks": "^1.0.36",
+    "@cloudscape-design/collection-hooks": "^1.0.37",
     "@cloudscape-design/component-toolkit": "^1.0.0-beta.38",
     "@cloudscape-design/components": "^3.0.518",
     "@cloudscape-design/design-tokens": "3.0.34",
