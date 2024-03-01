@@ -5,7 +5,7 @@ import {
 } from '@nestjs/platform-fastify';
 import { Test } from '@nestjs/testing';
 import { AppModule } from '../app.module';
-import { configureTestProcessEnv } from '../testing/aws-configuration';
+import { configureEdgeTestProcessEnv } from '../testing/aws-configuration';
 import { EdgeLoginService } from './edge-login.service';
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { EdgeCredentials } from './entities/edge-credentials.entity';
@@ -35,7 +35,7 @@ describe('EdgeLoginModule', () => {
   };
 
   beforeEach(async () => {
-    configureTestProcessEnv(process.env);
+    configureEdgeTestProcessEnv(process.env);
 
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, HttpModule],
@@ -72,7 +72,6 @@ describe('EdgeLoginModule', () => {
   describe('POST /api/migration HTTP/1.1', () => {
     test('correctly proxies the edge credential request', async () => {
       const requestBody = {
-        edgeEndpoint: '1.2.3.4.5',
         username: 'testUser',
         password: 'testPassword',
         authMechanism: 'linux',
@@ -103,7 +102,6 @@ describe('EdgeLoginModule', () => {
         .mockRejectedValueOnce(errorResponse);
 
       const requestBody = {
-        edgeEndpoint: '1.2.3.4.5',
         username: 'testUser',
         password: 'testPassword',
         authMechanism: 'linux',
@@ -142,7 +140,6 @@ describe('EdgeLoginModule', () => {
         .mockRejectedValueOnce(errorResponse);
 
       const requestBody = {
-        edgeEndpoint: '1.2.3.4.5',
         username: 'testUser',
         password: 'testPassword',
         authMechanism: 'linux',
