@@ -19,7 +19,6 @@ import { authService } from './auth/auth-service';
 import { initializeAuthDependents } from './initialize-auth-dependents';
 import { registerLogger } from './register-loggers';
 import { registerMetricsRecorder } from './register-metrics-recorder';
-import { EdgeLoginPage } from './routes/edge-login/edge-login-page';
 
 import '@aws-amplify/ui-react/styles.css';
 import '@cloudscape-design/global-styles/index.css';
@@ -100,10 +99,8 @@ if (authMode === 'edge') {
       <React.StrictMode>
         <IntlProvider locale="en" defaultLocale={DEFAULT_LOCALE}>
           <QueryClientProvider client={queryClient}>
-            <EdgeLoginPage>
-              <RouterProvider router={router} />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </EdgeLoginPage>
+            <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </IntlProvider>
       </React.StrictMode>,
