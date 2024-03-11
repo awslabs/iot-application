@@ -11,6 +11,7 @@ export const DASHBOARD_PATH = ':dashboardId';
 export const ROOT_HREF = '/';
 export const DASHBOARDS_HREF = '/dashboards';
 export const CREATE_DASHBOARD_HREF = '/dashboards/create';
+export const EDGE_LOGIN_HREF = '/edge-login';
 
 export const DEFAULT_CONTENT_DENSITY: ContentDensity = 'comfortable';
 export const CONTENT_DENSITY_KEY = 'content-density';
