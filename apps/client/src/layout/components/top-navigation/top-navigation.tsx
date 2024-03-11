@@ -4,11 +4,12 @@ import { useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import { SettingsModal } from './components/settings-modal';
-import { ROOT_HREF } from '~/constants';
+import { EDGE_LOGIN_HREF, ROOT_HREF } from '~/constants';
 import { preventFullPageLoad } from '~/helpers/events';
 import { useApplication } from '~/hooks/application/use-application';
 
 import { getAuthMode } from '~/helpers/authMode';
+import { authService } from '~/auth/auth-service';
 
 function EdgeNavigation() {
   const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
@@ -59,7 +60,11 @@ function EdgeNavigation() {
             iconName: 'user-profile',
             onItemClick: (event) => {
               if (event.detail.id === 'signout') {
-                // TODO: call signout for edge mode
+                authService.setAwsCredentials({
+                  accessKeyId: '',
+                  secretAccessKey: '',
+                });
+                navigate(EDGE_LOGIN_HREF);
               }
             },
             items: [
