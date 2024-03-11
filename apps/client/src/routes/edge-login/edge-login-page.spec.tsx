@@ -20,6 +20,13 @@ vi.mock('~/services', () => ({
   }),
 }));
 
+const navigateMock = vi.fn();
+vi.mock('~/hooks/application/use-application', () => ({
+  useApplication: () => ({
+    navigate: navigateMock,
+  }),
+}));
+
 describe('<EdgeLoginPage />', () => {
   afterEach(() => {
     vi.clearAllMocks();
@@ -47,8 +54,8 @@ describe('<EdgeLoginPage />', () => {
 
     await user.click(getSigninButton());
 
-    // Sign in successful, so children are rendered instead of sign in page
-    expect(signInText).not.toBeInTheDocument();
+    // Sign in successful, so should navigate to app
+    expect(navigateMock).toBeCalledWith('/dashboards');
   });
 
   it('does not sign in if there was an api error', async () => {
