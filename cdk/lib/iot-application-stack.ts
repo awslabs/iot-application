@@ -21,6 +21,7 @@ export class IotApplicationStack extends Stack {
     super(scope, id, props);
 
     const authMode = this.node.tryGetContext('authMode') as string;
+    const edgeEndpoint = this.node.tryGetContext('edgeEndpoint') as string;
 
     const {
       logGroup: { logGroupArn },
@@ -98,6 +99,7 @@ export class IotApplicationStack extends Stack {
           userPoolClientId: userPoolClientId,
           userPoolId: userPoolId,
           authMode: authMode ? authMode : AuthModeOptions.COGNITO,
+          edgeEndpoint,
         },
       });
 
