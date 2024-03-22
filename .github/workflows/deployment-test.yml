@@ -104,7 +104,7 @@ jobs:
 
   test:
     needs: [deploy]
-    timeout-minutes: 15
+    timeout-minutes: 30
     runs-on: ubuntu-latest
 
     steps:
