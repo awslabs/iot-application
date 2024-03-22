@@ -23,6 +23,7 @@ export interface CoreServiceProps {
   readonly userPoolId: string;
   readonly authMode: string;
   readonly domainName?: string;
+  readonly edgeEndpoint?: string;
 }
 
 export class CoreService extends Construct {
@@ -40,6 +41,7 @@ export class CoreService extends Construct {
       userPoolId,
       authMode,
       domainName,
+      edgeEndpoint,
     } = props;
 
     const serviceSourceRolePrincipal = new ServicePrincipal(
@@ -140,6 +142,10 @@ export class CoreService extends Construct {
               {
                 name: 'AUTH_MODE',
                 value: authMode,
+              },
+              {
+                name: 'EDGE_ENDPOINT',
+                value: edgeEndpoint ? edgeEndpoint : '',
               },
             ],
           },

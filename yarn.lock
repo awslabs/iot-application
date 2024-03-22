@@ -1048,48 +1048,6 @@
     "@aws-sdk/util-utf8-node" "3.6.1"
     tslib "^2.0.0"
 
-"@aws-sdk/client-iot-events@3.354.0":
-  version "3.354.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-iot-events/-/client-iot-events-3.354.0.tgz#dc5932dc9315dd0b320ea3cc1e59b83ccba2d9b7"
-  integrity sha512-rD+a6qWB6wWOO97lNZdcYizR55Skmn8Tvs1WMEWw2xZBg7H0RcUJ3+ErxMPHnd41R/9fwyoNOjXPlC5eBACQ4g==
-  dependencies:
-    "@aws-crypto/sha256-browser" "3.0.0"
-    "@aws-crypto/sha256-js" "3.0.0"
-    "@aws-sdk/client-sts" "3.354.0"
-    "@aws-sdk/config-resolver" "3.354.0"
-    "@aws-sdk/credential-provider-node" "3.354.0"
-    "@aws-sdk/fetch-http-handler" "3.353.0"
-    "@aws-sdk/hash-node" "3.347.0"
-    "@aws-sdk/invalid-dependency" "3.347.0"
-    "@aws-sdk/middleware-content-length" "3.347.0"
-    "@aws-sdk/middleware-endpoint" "3.347.0"
-    "@aws-sdk/middleware-host-header" "3.347.0"
-    "@aws-sdk/middleware-logger" "3.347.0"
-    "@aws-sdk/middleware-recursion-detection" "3.347.0"
-    "@aws-sdk/middleware-retry" "3.354.0"
-    "@aws-sdk/middleware-serde" "3.347.0"
-    "@aws-sdk/middleware-signing" "3.354.0"
-    "@aws-sdk/middleware-stack" "3.347.0"
-    "@aws-sdk/middleware-user-agent" "3.352.0"
-    "@aws-sdk/node-config-provider" "3.354.0"
-    "@aws-sdk/node-http-handler" "3.350.0"
-    "@aws-sdk/smithy-client" "3.347.0"
-    "@aws-sdk/types" "3.347.0"
-    "@aws-sdk/url-parser" "3.347.0"
-    "@aws-sdk/util-base64" "3.310.0"
-    "@aws-sdk/util-body-length-browser" "3.310.0"
-    "@aws-sdk/util-body-length-node" "3.310.0"
-    "@aws-sdk/util-defaults-mode-browser" "3.353.0"
-    "@aws-sdk/util-defaults-mode-node" "3.354.0"
-    "@aws-sdk/util-endpoints" "3.352.0"
-    "@aws-sdk/util-retry" "3.347.0"
-    "@aws-sdk/util-user-agent-browser" "3.347.0"
-    "@aws-sdk/util-user-agent-node" "3.354.0"
-    "@aws-sdk/util-utf8" "3.310.0"
-    "@smithy/protocol-http" "^1.0.1"
-    "@smithy/types" "^1.0.0"
-    tslib "^2.5.0"
-
 "@aws-sdk/client-iot-events@3.515.0":
   version "3.515.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-iot-events/-/client-iot-events-3.515.0.tgz#1242849f5948a81fb82b1391c29450fd25cd31ff"
@@ -6863,15 +6821,15 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cloudscape-design/collection-hooks@1.0.36", "@cloudscape-design/collection-hooks@^1.0.36":
+"@cloudscape-design/collection-hooks@1.0.36":
   version "1.0.36"
   resolved "https://registry.yarnpkg.com/@cloudscape-design/collection-hooks/-/collection-hooks-1.0.36.tgz#689ce98918274d74bb15d03d21139192779fd638"
   integrity sha512-IInI1NLKnv4ihIglkI1se33TxiUjQ/0shZ3t8n02VLv0fhhT4p0ObISoxHScNfWk9eJ1+EYL1fTcc8yJQF/7/Q==
 
-"@cloudscape-design/collection-hooks@^1.0.0":
-  version "1.0.25"
-  resolved "https://registry.yarnpkg.com/@cloudscape-design/collection-hooks/-/collection-hooks-1.0.25.tgz#6444158d1a6dbc2094ea068d7787525cab6d41d4"
-  integrity sha512-2p6sa7eYko1VqMwjEWG3H/Ka5DlsPhwEBAqmY+pNQ9IunSLv/i3JFTSun5W1OUUXCbeqTSndagjsZG0gIlXvFw==
+"@cloudscape-design/collection-hooks@^1.0.0", "@cloudscape-design/collection-hooks@^1.0.37":
+  version "1.0.37"
+  resolved "https://registry.yarnpkg.com/@cloudscape-design/collection-hooks/-/collection-hooks-1.0.37.tgz#c91d3197275520d4fc09a1b4242300662df385ef"
+  integrity sha512-uXGfKwhF3cqLFRYDOhA9DGWcnwwZfL6N81wFdMG5qN0WsFgIUBvDCP7XWfSnMS77Y1TSdUXGWsW5Fnoi9XJpnQ==
 
 "@cloudscape-design/component-toolkit@^1.0.0-beta":
   version "1.0.0-beta.27"
@@ -7604,10 +7562,10 @@
     fastq "^1.17.0"
     glob "^10.3.4"
 
-"@fastify/view@^8.2.0":
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/@fastify/view/-/view-8.2.0.tgz#80ef9569198ca3a0f3207fa25b2dd6d0c12fc4c7"
-  integrity sha512-hBSiBofCnJNlPHEMZWpO1SL84eqOaqujJ1hR3jntFyZZCkweH5jMs12DKYyGesjVll7SJFRRxPUBB8kmUmneRQ==
+"@fastify/view@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@fastify/view/-/view-9.0.0.tgz#563386b06eb26fb9a17db872c46f8b77af23c2cb"
+  integrity sha512-4KSM75Ad7Q9adQWJK17XAJlmwNE9HhIe8TdSTnvFzDvt0aOwmS4iY6k+Xd4NWuEk0JbteS6kzo0eZOr0ZZgPVg==
   dependencies:
     fastify-plugin "^4.0.0"
     hashlru "^2.3.0"
@@ -7703,13 +7661,13 @@
     "@formatjs/icu-skeleton-parser" "1.7.0"
     tslib "^2.4.0"
 
-"@formatjs/icu-messageformat-parser@2.7.5":
-  version "2.7.5"
-  resolved "https://registry.yarnpkg.com/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-2.7.5.tgz#6c12c08544eafef874df13b30729daf7b4dbd089"
-  integrity sha512-zCB53HdGDibh6/2ISEN3TGsFQruQ6gGKMFV94qHNyVrs0tNO6ncKhV0vq0n3Ydz8ipIQ2GaYAvfCoimNOVvKqA==
+"@formatjs/icu-messageformat-parser@2.7.6":
+  version "2.7.6"
+  resolved "https://registry.yarnpkg.com/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-2.7.6.tgz#3d69806de056d2919d53dad895a5ff4851e4e9ff"
+  integrity sha512-etVau26po9+eewJKYoiBKP6743I1br0/Ie00Pb/S/PtmYfmjTcOn2YCh2yNkSZI12h6Rg+BOgQYborXk46BvkA==
   dependencies:
     "@formatjs/ecma402-abstract" "1.18.2"
-    "@formatjs/icu-skeleton-parser" "1.7.2"
+    "@formatjs/icu-skeleton-parser" "1.8.0"
     tslib "^2.4.0"
 
 "@formatjs/icu-skeleton-parser@1.6.0":
@@ -7736,10 +7694,10 @@
     "@formatjs/ecma402-abstract" "1.18.0"
     tslib "^2.4.0"
 
-"@formatjs/icu-skeleton-parser@1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@formatjs/icu-skeleton-parser/-/icu-skeleton-parser-1.7.2.tgz#ffbdd535c33249635ad0e54a34813194287a1567"
-  integrity sha512-nlIXVv280bjGW3ail5Np1+xgGKBnMhwQQIivgbk9xX0af8ESQO+y2VW9TOY7mCrs3WH786uVpZlLimXAlXH7SA==
+"@formatjs/icu-skeleton-parser@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@formatjs/icu-skeleton-parser/-/icu-skeleton-parser-1.8.0.tgz#5f3d3a620c687d6f8c180d80d1241e8f213acf79"
+  integrity sha512-QWLAYvM0n8hv7Nq5BEs4LKIjevpVpbGLAJgOaYzg9wABEoX1j0JO1q2/jVkO6CVlq0dbsxZCngS5aXbysYueqA==
   dependencies:
     "@formatjs/ecma402-abstract" "1.18.2"
     tslib "^2.4.0"
@@ -7834,12 +7792,12 @@
     intl-messageformat "10.5.8"
     tslib "^2.4.0"
 
-"@formatjs/ts-transformer@3.13.11", "@formatjs/ts-transformer@^3.13.9":
-  version "3.13.11"
-  resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-3.13.11.tgz#c3603ff59c4b3e54535a26b8e204f6ccdacd5a91"
-  integrity sha512-qOAGGUQC7GSMMaAFy2MAlC8REM58lUNi8W+VlRb57cDUpge46x2hP33Mzu5N1xmm6OCqDQTRXws5jEOcRI3C8Q==
+"@formatjs/ts-transformer@3.13.12", "@formatjs/ts-transformer@^3.13.9":
+  version "3.13.12"
+  resolved "https://registry.yarnpkg.com/@formatjs/ts-transformer/-/ts-transformer-3.13.12.tgz#5984b7b92492580bfd09deb09a5b57589b757c5f"
+  integrity sha512-uf1+DgbsCrzHAg7uIf0QlzpIkHYxRSRig5iJa9FaoUNIDZzNEE2oW/uLLLq7I9Z2FLIPhbmgq8hbW40FoQv+Fg==
   dependencies:
-    "@formatjs/icu-messageformat-parser" "2.7.5"
+    "@formatjs/icu-messageformat-parser" "2.7.6"
     "@types/json-stable-stringify" "^1.0.32"
     "@types/node" "14 || 16 || 17"
     chalk "^4.0.0"
@@ -7934,34 +7892,32 @@
   dependencies:
     "@iot-app-kit/charts-core" "^2.1.2"
 
-"@iot-app-kit/components@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/components/-/components-10.0.0.tgz#bb9800684fa8f983640f26e68994ca79ae554b97"
-  integrity sha512-icP1RqjS/+dzXPo/nzWqInLKH8+TombkCjzRczJ5VNOWilrMrvhXspW+yCRpVNl3q3gti9KpCbXjs6BI93Wu+g==
+"@iot-app-kit/components@10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/components/-/components-10.1.0.tgz#d1b74eb001f57b457c41988577d2330879518cca"
+  integrity sha512-2V0XScZ7rrai+gUoTW0LPGz3XGD23+QBx4Rl/tNLaeATpISEvh2MPZmMdkSKSEOLhmKcxq+03wvkTTwqIHbtgA==
   dependencies:
     "@awsui/collection-hooks" "^1.0.51"
     "@awsui/components-react" "^3.0.0"
     "@awsui/design-tokens" "^3.0.41"
-    "@iot-app-kit/core" "10.0.0"
-    "@iot-app-kit/related-table" "10.0.0"
+    "@iot-app-kit/core" "10.1.0"
+    "@iot-app-kit/related-table" "10.1.0"
     "@stencil/core" "^2.7.0"
     "@synchro-charts/core" "7.2.0"
     styled-components "^5.3.11"
 
-"@iot-app-kit/core-util@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/core-util/-/core-util-10.0.0.tgz#2ae41f48520d13c470dc3f80151ddca95bcc2eb8"
-  integrity sha512-Ny+ge/aLE3daaVkwSJ2EephxmTenKkmYkXy7CRd0vezkO9wuqeQiJvgbzdVO7dfujDwdnVNir7tiCny1H/1Byw==
+"@iot-app-kit/core-util@10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/core-util/-/core-util-10.1.0.tgz#a3f9eb0fdc6e61580f609c2624fbe8b4cd94a6a4"
+  integrity sha512-3PygngkcDLret+LDOAPcRNnO+PIyXp6C5u7ekZ/poVWCjFD0AzGJi9fwNpFBEI3dE+EhvbI0c4xolY9tzxCbyA==
   dependencies:
-    "@aws-sdk/client-iot-events" "3.354.0"
-    "@aws-sdk/client-iotsitewise" "3.456.0"
-    "@iot-app-kit/core" "10.0.0"
+    "@iot-app-kit/core" "10.1.0"
     lodash.difference "4.5.0"
 
-"@iot-app-kit/core@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/core/-/core-10.0.0.tgz#7aaad5e0ff7335e62e9fc4b8b3a9faffee0801d8"
-  integrity sha512-Cizxn0AtaEssThJ4CWpWwvXiLZ5NBOKUy1RvpTfjo0BFYDyM0yT7Dmqh1fvtBTe87+8F7mFSg+EoDbbglfNeHA==
+"@iot-app-kit/core@10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/core/-/core-10.1.0.tgz#8393305538846ae87bcc70e08a0d390a87452959"
+  integrity sha512-uTuwSMrh/3soUD6sH82fJok2SvmNhUVWMe6KYHe3q6S0KauidnXnJpYckWempegkzoLbI7T4SzK1W7IJ7uaWWQ==
   dependencies:
     d3-array "^3.2.4"
     intervals-fn "^3.0.3"
@@ -7970,17 +7926,17 @@
     rxjs "^7.8.1"
     uuid "^9.0.0"
 
-"@iot-app-kit/dashboard@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/dashboard/-/dashboard-10.0.0.tgz#f528662c0054746306070af3323969763abd773d"
-  integrity sha512-SLx/qLz/x1a/qLB15jBddZtd4b5oanWPKMiGxLgWJgvckqw0Ca/ENnxzPu25e8xO/MrThH63zjVJ7z/kUi4V8A==
+"@iot-app-kit/dashboard@10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/dashboard/-/dashboard-10.1.0.tgz#ae0e07634f516b457608eab8911daa08bff60d5a"
+  integrity sha512-R6LLgju1z1eJYkR6eZ1lwe4SeS00aSN2ydjHYxZDafqksFL8xrqGwZPrlFU6h8I7HXE/3292EtAEGFMKKqCUMg==
   dependencies:
     "@iot-app-kit/charts-core" "2.1.2"
-    "@iot-app-kit/components" "10.0.0"
-    "@iot-app-kit/core" "10.0.0"
-    "@iot-app-kit/core-util" "10.0.0"
-    "@iot-app-kit/react-components" "10.0.0"
-    "@iot-app-kit/source-iotsitewise" "10.0.0"
+    "@iot-app-kit/components" "10.1.0"
+    "@iot-app-kit/core" "10.1.0"
+    "@iot-app-kit/core-util" "10.1.0"
+    "@iot-app-kit/react-components" "10.1.0"
+    "@iot-app-kit/source-iotsitewise" "10.1.0"
     "@popperjs/core" "^2.11.8"
     "@tanstack/react-query" "^4.29.15"
     aws-sdk-client-mock "^3.0.0"
@@ -8001,20 +7957,20 @@
     turbowatch "^2.29.4"
     uuid "^9.0.0"
 
-"@iot-app-kit/react-components@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/react-components/-/react-components-10.0.0.tgz#3bbdf5f99743adb6d48dcf2d698be882b46fc681"
-  integrity sha512-iRB/RCnkp3SbzqdwSd/IQOUebC9JRNcZpO9Wmaf8lUGjNyZ5xRhpmo7vxEISXvWD1sPJpAvK+oDVUyX5ryxzpA==
+"@iot-app-kit/react-components@10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/react-components/-/react-components-10.1.0.tgz#60a2c1819222c06d91f193626506d185234d9df9"
+  integrity sha512-gvbe0dTkVUzAGfyWcWHW/RieccTWDps+temOBCJLgFyY+C/T8a7QOf2WzItf6gdcfhgAPxpo84pb++zQwCImPg==
   dependencies:
     "@cloudscape-design/collection-hooks" "1.0.36"
     "@cloudscape-design/components" "3.0.518"
     "@cloudscape-design/design-tokens" "3.0.34"
     "@iot-app-kit/charts" "2.1.2"
     "@iot-app-kit/charts-core" "2.1.2"
-    "@iot-app-kit/components" "10.0.0"
-    "@iot-app-kit/core" "10.0.0"
-    "@iot-app-kit/core-util" "10.0.0"
-    "@iot-app-kit/source-iottwinmaker" "10.0.0"
+    "@iot-app-kit/components" "10.1.0"
+    "@iot-app-kit/core" "10.1.0"
+    "@iot-app-kit/core-util" "10.1.0"
+    "@iot-app-kit/source-iottwinmaker" "10.1.0"
     color "^4.2.3"
     copy-to-clipboard "^3.3.3"
     d3-array "^3.2.3"
@@ -8045,22 +8001,20 @@
     video.js "8.3.0"
     zustand "^4.3.9"
 
-"@iot-app-kit/related-table@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/related-table/-/related-table-10.0.0.tgz#114066a3a276cf9529c5bb2db8747bb1f06a39fd"
-  integrity sha512-VZXshigJhKG6p9zJWPwe+r+vfglMd2mO4N5ozGrQJVSTC4Yyb1rfVpV+2fyzA+ivUvIwPjw/MRModuNr9XZjdw==
+"@iot-app-kit/related-table@10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/related-table/-/related-table-10.1.0.tgz#655d704582936921c0010eafb66dae38c4d97e74"
+  integrity sha512-si+esNlKYbdw+yAPJqpTbqUEdsUmBM8h+nWVycvs0x2n8qW7oR/nKH0NDNHaDfWGHXbXERjTxmnxqk/1cEI3yw==
   dependencies:
     uuid "^9.0.0"
 
-"@iot-app-kit/source-iotsitewise@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iotsitewise/-/source-iotsitewise-10.0.0.tgz#4a4010a5109cd1fed791b65d0a2afbb488dc066c"
-  integrity sha512-RNLPFY9e0aHfq7CirFEetWd+dSIkoeuU2aKjeeCLIkBiT+T7LQmvRUFrQW92aNykgsqILhEtB2gEtlmNls1DLA==
+"@iot-app-kit/source-iotsitewise@10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iotsitewise/-/source-iotsitewise-10.1.0.tgz#613b2589fdf91801391b198fd1638f1da0343972"
+  integrity sha512-QdUJLL2Fi4K4UWbHcH26mgA21nZNOOf3OrtRK+KlVpswQ5inlvVibVLRUKuUpWtFjK5Vz8FlwS0xgtEhpTs8Ag==
   dependencies:
-    "@aws-sdk/client-iot-events" "3.354.0"
-    "@aws-sdk/client-iotsitewise" "3.456.0"
-    "@iot-app-kit/core" "10.0.0"
-    "@iot-app-kit/core-util" "10.0.0"
+    "@iot-app-kit/core" "10.1.0"
+    "@iot-app-kit/core-util" "10.1.0"
     "@synchro-charts/core" "7.2.0"
     dataloader "^2.2.2"
     lodash.isequal "^4.5.0"
@@ -8068,10 +8022,10 @@
     lodash.uniqwith "^4.5.0"
     rxjs "^7.8.1"
 
-"@iot-app-kit/source-iottwinmaker@10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iottwinmaker/-/source-iottwinmaker-10.0.0.tgz#bad79af524dd4a43ccc9add399a42aa9e3a38e7e"
-  integrity sha512-WBMI1b7kH+M9H8joLT781e9ZZS9Wy4H8k4FVMJxDCPGvGSZJuC0n9AXp1uqXqJO1FSsWk7ejNFx6di+9qgS8rA==
+"@iot-app-kit/source-iottwinmaker@10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@iot-app-kit/source-iottwinmaker/-/source-iottwinmaker-10.1.0.tgz#56ba5b35103f81d20c6ab9a107a426158ba31449"
+  integrity sha512-QOLef7FN3r8yAMINtwDwLPelRNg8grJB/pUu5m3pRh13MfcDuy83Gj8AV/6bwriPTxSRxAcBU5Z/5InZjJDebA==
   dependencies:
     "@aws-sdk/client-iotsitewise" "3.456.0"
     "@aws-sdk/client-iottwinmaker" "3.335.0"
@@ -8080,7 +8034,7 @@
     "@aws-sdk/client-s3" "3.335.0"
     "@aws-sdk/client-secrets-manager" "3.353.0"
     "@aws-sdk/url-parser" "3.374.0"
-    "@iot-app-kit/core" "10.0.0"
+    "@iot-app-kit/core" "10.1.0"
     "@tanstack/query-core" "^4.29.15"
     lodash "^4.17.21"
     rxjs "^7.8.1"
@@ -10102,20 +10056,20 @@
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.36.1.tgz#79f8c1a539d47c83104210be2388813a7af2e524"
   integrity sha512-DJSilV5+ytBP1FbFcEJovv4rnnm/CokuVvrBEtW/Va9DvuJ3HksbXUJEpI0aV1KtuL4ZoO9AVE6PyNLzF7tLeA==
 
-"@tanstack/query-core@5.22.2":
-  version "5.22.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.22.2.tgz#af67d41b0b4a3e846c2325f32540f39ca0d4788d"
-  integrity sha512-z3PwKFUFACMUqe1eyesCIKg3Jv1mysSrYfrEW5ww5DCDUD4zlpTKBvUDaEjsfZzL3ULrFLDM9yVUxI/fega1Qg==
+"@tanstack/query-core@5.24.1":
+  version "5.24.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.24.1.tgz#d40928dec22b47df97fb2648e8c499772e8d7eb2"
+  integrity sha512-DZ6Nx9p7BhjkG50ayJ+MKPgff+lMeol7QYXkvuU5jr2ryW/4ok5eanaS9W5eooA4xN0A/GPHdLGOZGzArgf5Cg==
 
 "@tanstack/query-devtools@5.24.0":
   version "5.24.0"
   resolved "https://registry.yarnpkg.com/@tanstack/query-devtools/-/query-devtools-5.24.0.tgz#b9b7828d42d5034415b1973ff4a154e880b17d59"
   integrity sha512-pThim455t69zrZaQKa7IRkEIK8UBTS+gHVAdNfhO72Xh4rWpMc63ovRje5/n6iw63+d6QiJzVadsJVdPoodSeQ==
 
-"@tanstack/react-query-devtools@^5.24.0":
-  version "5.24.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.24.0.tgz#a3d0cfdc9ef72977e3c905230d4cd805dc377920"
-  integrity sha512-ae3TSg9hKSicLP6TZMj4hglLsLBaS8O3ex/mgHZNQ8yKCDLnVoLO1a9EqYWPzw2k+uaK5uMCKBAVbLVBLx93oA==
+"@tanstack/react-query-devtools@^5.24.1":
+  version "5.24.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.24.1.tgz#e3a8ea71115fb899119126e1507fc340ee9d9496"
+  integrity sha512-qa4SEugN+EF8JJXcpsM9Lu05HfUv5cvHvLuB0uw/81eJZyNHFdtHFBi5RLCgpBrOyVMDfH8UQ3VBMqXzFKV68A==
   dependencies:
     "@tanstack/query-devtools" "5.24.0"
 
@@ -10127,12 +10081,12 @@
     "@tanstack/query-core" "4.36.1"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/react-query@^5.22.2":
-  version "5.22.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.22.2.tgz#e5fce278fbdd026fc1d561a4505142b9f93549d7"
-  integrity sha512-TaxJDRzJ8/NWRT4lY2jguKCrNI6MRN+67dELzPjNUlvqzTxGANlMp68l7aC7hG8Bd1uHNxHl7ihv7MT50i/43A==
+"@tanstack/react-query@^5.24.1":
+  version "5.24.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.24.1.tgz#bcb913febe0d813cec1fda7783298d07aa998b20"
+  integrity sha512-4+09JEdO4d6+Gc8Y/g2M/MuxDK5IY0QV8+2wL2304wPKJgJ54cBbULd3nciJ5uvh/as8rrxx6s0mtIwpRuGd1g==
   dependencies:
-    "@tanstack/query-core" "5.22.2"
+    "@tanstack/query-core" "5.24.1"
 
 "@testing-library/dom@^9.0.0":
   version "9.2.0"
@@ -10820,10 +10774,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@16 || 17 || 18", "@types/react@^18.2.57":
-  version "18.2.57"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.57.tgz#147b516d8bdb2900219acbfc6f939bdeecca7691"
-  integrity sha512-ZvQsktJgSYrQiMirAN60y4O/LRevIV8hUzSOSNB6gfR3/o3wCBFQx3sPwIYtuDMeiVgsSS3UzCV26tEzgnfvQw==
+"@types/react@*", "@types/react@16 || 17 || 18", "@types/react@^18.2.61":
+  version "18.2.61"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.61.tgz#5607308495037436779939ec0348a5816c08799d"
+  integrity sha512-NURTN0qNnJa7O/k4XUkEW2yfygA+NxS0V5h1+kp9jPwhzZy95q3ADoGMP0+JypMhrZBTTgjKAUlTctde1zzeQA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -11917,10 +11871,10 @@ aws-amplify@^5.3.11:
     "@aws-amplify/storage" "5.9.5"
     tslib "^2.0.0"
 
-aws-cdk-lib@2.130.0:
-  version "2.130.0"
-  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.130.0.tgz#ce1b8cd1bcf9ca040d600c2570dfbac9b2df3cfb"
-  integrity sha512-yK7ibePipdjlI4AFM94fwwtsCkmpWJ0JFZTMPahahC/3Pxe/BA/nnI/4Namvl5QPxW5QlU0xQYU7cywioq3RQg==
+aws-cdk-lib@2.131.0:
+  version "2.131.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.131.0.tgz#6e336e9a3e77b07052d28c017ea020f5c9948341"
+  integrity sha512-9XLgiTgY+q0S3K93VPeJO0chIN8BZwZ3aSrILvF868Dz+0NTNrD2m5M0xGK5Rw0uoJS+N+DvGaz/2hLAiVqcBw==
   dependencies:
     "@aws-cdk/asset-awscli-v1" "^2.2.202"
     "@aws-cdk/asset-kubectl-v20" "^2.1.2"
@@ -12061,18 +12015,18 @@ babel-loader@^8.2.3:
     make-dir "^3.1.0"
     schema-utils "^2.6.5"
 
-babel-plugin-formatjs@^10.5.12:
-  version "10.5.12"
-  resolved "https://registry.yarnpkg.com/babel-plugin-formatjs/-/babel-plugin-formatjs-10.5.12.tgz#d7af7e1d224bc5fc1581371d3a9b55da38fdacfa"
-  integrity sha512-pOkJoD5nURdes/6NpL5JeEoF8Nz18yAUmbjhc0jyWtK26QDPUDLsXk2kas5jbu5TFMFI+GFUQ9cSVCewbuvC7g==
+babel-plugin-formatjs@^10.5.13:
+  version "10.5.13"
+  resolved "https://registry.yarnpkg.com/babel-plugin-formatjs/-/babel-plugin-formatjs-10.5.13.tgz#2856143aae4b7fb0376765e96053d79baadea2f1"
+  integrity sha512-0dtMhoa6q0P5lUHBphLd8/y+CRlh5IG3Rq+Wk64kOEDwUVZF8xq1qMSjC3iw1wH4tmP2qTzBL+Bz1xEjyBd/ew==
   dependencies:
     "@babel/core" "^7.10.4"
     "@babel/helper-plugin-utils" "^7.10.4"
     "@babel/plugin-syntax-jsx" "7"
     "@babel/traverse" "7"
     "@babel/types" "^7.12.11"
-    "@formatjs/icu-messageformat-parser" "2.7.5"
-    "@formatjs/ts-transformer" "3.13.11"
+    "@formatjs/icu-messageformat-parser" "2.7.6"
+    "@formatjs/ts-transformer" "3.13.12"
     "@types/babel__core" "^7.1.7"
     "@types/babel__helper-plugin-utils" "^7.10.0"
     "@types/babel__traverse" "^7.1.7"
@@ -13389,10 +13343,10 @@ cwd@0.10.0:
     find-pkg "^0.1.2"
     fs-exists-sync "^0.1.0"
 
-cytoscape@^3.27.0:
-  version "3.27.0"
-  resolved "https://registry.yarnpkg.com/cytoscape/-/cytoscape-3.27.0.tgz#5141cd694570807c91075b609181bce102e0bb88"
-  integrity sha512-pPZJilfX9BxESwujODz5pydeGi+FBrXq1rcaB1mfhFXXFJ9GjE6CNndAk+8jPzoXGD+16LtSS4xlYEIUiW4Abg==
+cytoscape@^3.28.1:
+  version "3.28.1"
+  resolved "https://registry.yarnpkg.com/cytoscape/-/cytoscape-3.28.1.tgz#f32c3e009bdf32d47845a16a4cd2be2bbc01baf7"
+  integrity sha512-xyItz4O/4zp9/239wCcH8ZcFuuZooEeF8KHRmzjDfGdXsj3OG9MFSMA0pJE0uX3uCN/ygof6hHf4L7lst+JaDg==
   dependencies:
     heap "^0.2.6"
     lodash "^4.17.21"
@@ -16086,12 +16040,7 @@ ieee754@^1.1.13, ieee754@^1.1.4, ieee754@^1.2.1:
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
   integrity sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==
 
-ignore@^5.2.0, ignore@^5.2.4:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.0.tgz#67418ae40d34d6999c95ff56016759c718c82f78"
-  integrity sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==
-
-ignore@^5.3.1:
+ignore@^5.2.0, ignore@^5.2.4, ignore@^5.3.1:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.1.tgz#5073e554cd42c5b33b394375f538b8593e34d4ef"
   integrity sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==
@@ -19893,10 +19842,10 @@ postcss@^7.0.35:
     picocolors "^0.2.1"
     source-map "^0.6.1"
 
-postcss@^8.3.5, postcss@^8.4.19, postcss@^8.4.23, postcss@^8.4.27, postcss@^8.4.32, postcss@^8.4.4:
-  version "8.4.32"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.32.tgz#1dac6ac51ab19adb21b8b34fd2d93a86440ef6c9"
-  integrity sha512-D/kj5JNu6oo2EIy+XL/26JEDTlIbB8hw85G8StOE6L74RQAVVP5rej6wxCNqyMbR4RkPfqvezVbPw81Ngd6Kcw==
+postcss@^8.3.5, postcss@^8.4.19, postcss@^8.4.23, postcss@^8.4.27, postcss@^8.4.35, postcss@^8.4.4:
+  version "8.4.35"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.35.tgz#60997775689ce09011edf083a549cea44aabe2f7"
+  integrity sha512-u5U8qYpBCpN13BsiEB0CbR1Hhh4Gc0zLFuedrHJKMctHCHAGrMdG0PRM/KErzAL3CU6/eckEtmHNB3x6e3c0vA==
   dependencies:
     nanoid "^3.3.7"
     picocolors "^1.0.0"
@@ -21235,14 +21184,7 @@ semver@^6.0.0, semver@^6.1.1, semver@^6.1.2, semver@^6.3.0, semver@^6.3.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.3.2, semver@^7.3.4, semver@^7.3.5, semver@^7.3.7, semver@^7.3.8, semver@^7.5.0, semver@^7.5.3, semver@^7.5.4:
-  version "7.5.4"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.4.tgz#483986ec4ed38e1c6c48c34894a9182dbff68a6e"
-  integrity sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==
-  dependencies:
-    lru-cache "^6.0.0"
-
-semver@^7.6.0:
+semver@^7.3.2, semver@^7.3.4, semver@^7.3.5, semver@^7.3.7, semver@^7.3.8, semver@^7.5.0, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0:
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.0.tgz#1a46a4db4bffcccd97b743b5005c8325f23d4e2d"
   integrity sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==
@@ -23083,13 +23025,13 @@ vite-plugin-dynamic-import@^1.5.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
-"vite@^3.1.0 || ^4.0.0 || ^5.0.0-0", vite@^5.0.12:
-  version "5.0.12"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-5.0.12.tgz#8a2ffd4da36c132aec4adafe05d7adde38333c47"
-  integrity sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==
+"vite@^3.1.0 || ^4.0.0 || ^5.0.0-0", vite@^5.1.5:
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-5.1.5.tgz#bdbc2b15e8000d9cc5172f059201178f9c9de5fb"
+  integrity sha512-BdN1xh0Of/oQafhU+FvopafUp6WaYenLU/NFoL5WyJL++GxkNfieKzBhM24H3HVsPQrlAqB7iJYTHabzaRed5Q==
   dependencies:
     esbuild "^0.19.3"
-    postcss "^8.4.32"
+    postcss "^8.4.35"
     rollup "^4.2.0"
   optionalDependencies:
     fsevents "~2.3.3"

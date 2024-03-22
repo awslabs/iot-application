@@ -18,9 +18,10 @@ import { useEmitNotification } from '~/hooks/notifications/use-emit-notification
 import { useDisplaySettings } from '~/hooks/dashboard/use-displaySettings';
 import { getDashboardEditMode, setDashboardEditMode } from '~/store/viewMode';
 import { GenericErrorNotification } from '~/structures/notifications/generic-error-notification';
+import { getDashboardClientConfiguration } from './dashboard-configuration';
+import { getAuthMode } from '~/helpers/authMode';
 
 import './styles.css';
-import { authService } from '~/auth/auth-service';
 
 export function DashboardPage() {
   const params = useParams<{ dashboardId: string }>();
@@ -65,14 +66,10 @@ export function DashboardPage() {
     return <DashboardLoadingState />;
   }
 
-  const awsRegion = authService.awsRegion;
-
   return (
     <IoTAppKitDashboard
-      clientConfiguration={{
-        awsCredentials: () => authService.getAwsCredentials(),
-        awsRegion,
-      }}
+      edgeMode={getAuthMode() === 'edge' ? 'enabled' : 'disabled'}
+      clientConfiguration={getDashboardClientConfiguration()}
       dashboardConfiguration={{
         ...dashboardDefinition,
         displaySettings,

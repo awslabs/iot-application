@@ -1,12 +1,25 @@
 import { RootPage } from './root-page';
-import { rootIndexRoute } from '../root-index/index';
+import { rootIndexRoute, rootIndexEdgeRoute } from '../root-index/index';
 import { rootDashboardsRoute } from '../dashboards/root-dashboards';
+import { edgeLoginRoute } from '../edge-login/edge-login-route';
 import { ROOT_PATH, ROOT_HREF } from '~/constants';
-import { intl } from '~/services';
+import { getAuthMode } from '~/helpers/authMode';
 
 import type { RouteObject } from 'react-router-dom';
 import { RootErrorPage } from './root-error-page';
 import { Layout } from '~/layout/layout';
+import { intl } from '~/services';
+
+let children: RouteObject[] = [rootIndexRoute, rootDashboardsRoute];
+
+if (getAuthMode() === 'edge') {
+  children = [
+    rootIndexEdgeRoute,
+    edgeLoginRoute,
+    rootIndexRoute,
+    rootDashboardsRoute,
+  ];
+}
 
 export const rootRoute = {
   path: ROOT_PATH,
@@ -30,5 +43,5 @@ export const rootRoute = {
       href: ROOT_HREF,
     }),
   },
-  children: [rootIndexRoute, rootDashboardsRoute],
+  children,
 } satisfies RouteObject;
