@@ -162,7 +162,17 @@ const lineChartProperties = {
     style: 'solid',
   },
   legend: {
+    width: '30%',
+    visibleContent: {
+      unit: true,
+      latestValue: true,
+      minValue: false,
+      asset: true,
+      maxValue: false,
+    },
     visible: true,
+    position: 'right',
+    height: '30%',
   },
 };
 
@@ -410,6 +420,10 @@ const convertKpiAndGridWidget = (
           secondaryFont: {},
           title: monitorWidget.title,
           ...queryConfig,
+          showTimestamp: true,
+          showAggregationAndResolution: true,
+          resolution: '0',
+          showUnit: true,
         },
       };
       appWidgets.push(newAppWidget);
