@@ -11,7 +11,7 @@ export class SsoAuthStack extends AuthStack {
     this.domain = this.userPool.addDomain('Domain', {
       cognitoDomain: {
         // Use the unique id for this cdk construct for naming
-        domainPrefix: `sitewise-${this.node.addr.substring(0, 6)}`,
+        domainPrefix: `sitewise-${this.node.addr.substring(0, 6)}asdf`,
       },
     });
 
