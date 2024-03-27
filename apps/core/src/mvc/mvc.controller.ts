@@ -33,6 +33,7 @@ export class MvcController {
       region,
       userPoolId,
       userPoolWebClientId,
+      ssoProvider,
     } = this.auth;
 
     const { edgeEndpoint } = this.edge;
@@ -55,6 +56,7 @@ export class MvcController {
       region,
       userPoolId,
       userPoolWebClientId,
+      ssoProvider,
     };
   }
 }

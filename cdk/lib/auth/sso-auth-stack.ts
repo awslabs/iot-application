@@ -11,12 +11,12 @@ export class SsoAuthStack extends AuthStack {
     this.domain = this.userPool.addDomain('Domain', {
       cognitoDomain: {
         // Use the unique id for this cdk construct for naming
-        domainPrefix: `sitewise-${this.node.addr.substring(0, 6)}`,
+        domainPrefix: `sitewise-${this.node.addr.substring(0, 6)}asdf`,
       },
     });
 
     this.domain.signInUrl(this.userPoolClient, {
-      redirectUri: 'https://<your-url>.awsapprunner.com',
+      redirectUri: 'https://wunecyq3cs.us-east-2.awsapprunner.com',
     });
   }
 }

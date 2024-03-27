@@ -21,6 +21,11 @@ export interface AuthService {
   get awsRegion(): string;
 
   /**
+   * Sets the AWS Region.
+   */
+  setAwsRegion(region: string): void;
+
+  /**
    * Returns the user's session token.
    * @return - the user's session token
    */

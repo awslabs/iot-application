@@ -62,6 +62,7 @@ export class IotApplicationStack extends Stack {
           userPoolId: userPoolId,
           domainName: domainName,
           authMode,
+          ssoProvider: '',
         },
       });
 

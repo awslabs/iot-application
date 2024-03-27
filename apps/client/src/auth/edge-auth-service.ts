@@ -29,6 +29,9 @@ export class EdgeAuthService implements AuthService {
     return this.region;
   }
 
+  // noop because region is edge
+  setAwsRegion() {}
+
   getToken() {
     if (this.credentials.sessionToken) {
       return Promise.resolve(this.credentials.sessionToken);
