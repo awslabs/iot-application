@@ -31,7 +31,6 @@
         "DATABASE_TABLE_NAME",
         "DATABASE_PORT",
         "DATABASE_LAUNCH_LOCAL",
-        "EDGE_ENDPOINT",
         "PUBLIC_URL",
         "NODE_ENV",
         "SERVICE_ENDPOINTS",
