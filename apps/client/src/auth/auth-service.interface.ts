@@ -31,9 +31,4 @@ export interface AuthService {
    * @param callback the callback function to call when application is signed-in
    */
   onSignedIn(callback: () => unknown): void;
-
-  // TODO: Refactor interface to only include shared methods
-  getEdgeEndpoint?(): string;
-
-  setEdgeEndpoint?(endpoint: string): void;
 }

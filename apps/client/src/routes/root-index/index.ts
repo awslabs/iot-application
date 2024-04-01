@@ -1,1 +1,1 @@
-export { rootIndexRoute, rootIndexEdgeRoute } from './root-index-route';
+export { rootIndexRoute } from './root-index-route';

@@ -1,13 +1,11 @@
-import { HttpModule } from '@nestjs/axios';
 import { Module, ModuleMetadata } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 
 import { EdgeLoginController } from './edge-login.controller';
 import { EdgeLoginService } from './edge-login.service';
-import { edgeConfig } from '../config/edge.config';
+import { HttpModule } from '@nestjs/axios';
 
 export const edgeLoginModuleMetadata: ModuleMetadata = {
-  imports: [ConfigModule.forFeature(edgeConfig), HttpModule],
+  imports: [HttpModule],
   controllers: [EdgeLoginController],
   providers: [EdgeLoginService],
 };

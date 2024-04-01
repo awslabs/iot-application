@@ -34,19 +34,6 @@ class ClientAuthService {
   onSignedIn(callback: () => unknown) {
     return this.authService.onSignedIn(callback);
   }
-
-  setEdgeEndpoint(endpoint: string) {
-    if (this.authService.setEdgeEndpoint) {
-      this.authService.setEdgeEndpoint(endpoint);
-    }
-  }
-
-  getEdgeEndpoint() {
-    if (this.authService.getEdgeEndpoint) {
-      return this.authService.getEdgeEndpoint();
-    }
-    return '';
-  }
 }
 
 export const authService = new ClientAuthService();

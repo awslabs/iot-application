@@ -16,16 +16,14 @@ import invariant from 'tiny-invariant';
  * @see {@link https://docs.nestjs.com/security/csrf | CSRF Protection}
  */
 export const bootstrapSecurity = async (app: NestFastifyApplication) => {
-  const { EDGE_ENDPOINT, SERVICE_ENDPOINTS } = process.env;
-
-  const edge_endpoint = isDefined(EDGE_ENDPOINT) ? [EDGE_ENDPOINT] : [];
+  const { SERVICE_ENDPOINTS } = process.env;
 
   // Split the space separated service endpoints
   invariant(
     isDefined(SERVICE_ENDPOINTS),
     envVarRequiredMsg('SERVICE_ENDPOINTS'),
   );
-  const serviceEndpoints = [...SERVICE_ENDPOINTS.split(' '), ...edge_endpoint];
+  const serviceEndpoints = SERVICE_ENDPOINTS.split(' ');
 
   // Upgrade insecure requests for all non DEV environment
   const upgradeInsecureRequests = isDevEnv() ? null : [];
