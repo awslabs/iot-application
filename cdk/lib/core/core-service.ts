@@ -24,6 +24,7 @@ export interface CoreServiceProps {
   readonly authMode: string;
   readonly domainName?: string;
   readonly edgeEndpoint?: string;
+  readonly ssoProvider?: string;
 }
 
 export class CoreService extends Construct {
@@ -42,6 +43,7 @@ export class CoreService extends Construct {
       authMode,
       domainName,
       edgeEndpoint,
+      ssoProvider,
     } = props;
 
     const serviceSourceRolePrincipal = new ServicePrincipal(
@@ -147,6 +149,10 @@ export class CoreService extends Construct {
                 name: 'EDGE_ENDPOINT',
                 value: edgeEndpoint ? edgeEndpoint : '',
               },
+              {
+                name: 'SSO_PROVIDER_NAME',
+                value: ssoProvider ? ssoProvider : ''
+              }
             ],
           },
         },

@@ -1,7 +1,7 @@
-import { useAuthenticator } from '@aws-amplify/ui-react';
 import _TopNavigation from '@cloudscape-design/components/top-navigation';
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
+import { signOut } from 'aws-amplify/auth';
 
 import { SettingsModal } from './components/settings-modal';
 import { EDGE_LOGIN_HREF, ROOT_HREF } from '~/constants';
@@ -10,6 +10,7 @@ import { useApplication } from '~/hooks/application/use-application';
 
 import { getAuthMode } from '~/helpers/authMode';
 import { authService } from '~/auth/auth-service';
+import { useAuthenticatedUser } from '~/hooks/authentication/useAuthenticatedUser';
 
 function EdgeNavigation() {
   const [isSettingsModalVisible, setIsSettingsModalVisible] = useState(false);
@@ -129,7 +130,9 @@ function CognitoNavigation() {
   function closeSettings() {
     setIsSettingsModalVisible(false);
   }
-  const { user, signOut } = useAuthenticator();
+
+  const user = useAuthenticatedUser();
+
   return (
     <div id="h" style={{ position: 'sticky', top: 0, zIndex: 1002 }}>
       <_TopNavigation
@@ -161,8 +164,8 @@ function CognitoNavigation() {
           },
           {
             type: 'menu-dropdown',
-            text: user.username,
-            description: user.attributes?.email,
+            text: user?.username,
+            description: user?.signInDetails?.loginId,
             iconName: 'user-profile',
             onItemClick: (event) => {
               if (event.detail.id === 'signout') {

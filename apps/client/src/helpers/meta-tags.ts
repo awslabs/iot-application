@@ -8,7 +8,7 @@ export const extractedMetaTags = (
     awsSecretAccessKey: '',
     awsSessionToken: '',
     applicationName: '',
-    authenticationFlowType: '',
+    authenticationFlowType: 'USER_PASSWORD_AUTH',
     cognitoEndpoint: '',
     edgeEndpoint: '',
     identityPoolId: '',
@@ -19,6 +19,7 @@ export const extractedMetaTags = (
     metricsMode: '',
     domainName: '',
     authMode: '',
+    ssoProvider: '',
   };
 
   metaElements.forEach(

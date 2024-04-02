@@ -23,5 +23,6 @@ export function getServicesEndpoints(region: string): string[] {
     getSiteWiseDataPlaneEndpoint(region),
     getTwinMakerControlPlaneEndpoint(region),
     getTwinMakerDataPlaneEndpoint(region),
+    'https://sitewise-c81050asdf.auth.us-east-2.amazoncognito.com'
   ];
 }

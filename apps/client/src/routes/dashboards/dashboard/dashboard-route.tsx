@@ -7,7 +7,7 @@ import { queryClient } from '~/data/query-client';
 
 import { type RouteObject } from 'react-router-dom';
 import { createDashboardQuery } from '~/data/dashboards';
-import { Auth } from 'aws-amplify';
+import { getCurrentUser } from 'aws-amplify/auth';
 import invariant from 'tiny-invariant';
 import { Dashboard } from '~/services';
 import { Maybe } from '~/types';
@@ -30,7 +30,7 @@ export const dashboardRoute = {
        * The loader is called before the element is rendered. This means we need
        * to wait for authentication state before we can fetch the dashboard.
        */
-      await Auth.currentAuthenticatedUser();
+      await getCurrentUser();
     }
 
     return queryClient.fetchQuery(createDashboardQuery(params.dashboardId));
