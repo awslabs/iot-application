@@ -58,7 +58,9 @@ export function DashboardPage() {
   };
 
   const updateDashboardMutation = useUpdateDashboardMutation();
-  const [viewport, saveViewport] = useViewport(params.dashboardId);
+  const [defaultViewport, saveDefaultViewport] = useViewport(
+    params.dashboardId,
+  );
   const [displaySettings, saveDisplaySettings] = useDisplaySettings(
     params.dashboardId,
   );
@@ -73,7 +75,7 @@ export function DashboardPage() {
       dashboardConfiguration={{
         ...dashboardDefinition,
         displaySettings,
-        viewport,
+        defaultViewport,
       }}
       initialViewMode={editMode ? 'edit' : 'preview'}
       name={dashboardQuery.data?.name}
@@ -93,7 +95,7 @@ export function DashboardPage() {
           },
         });
         saveDisplaySettings(config.displaySettings);
-        saveViewport(config.viewport);
+        saveDefaultViewport(config.defaultViewport);
       }}
     />
   );
