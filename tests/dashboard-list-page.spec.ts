@@ -2,9 +2,11 @@ import { test, expect, violationFingerprints } from './helpers';
 
 test.describe('dashboard list page', () => {
   test('empty page', async ({ page, dashboardListPage }) => {
-    await expect(
-      page.getByText('No dashboards', { exact: true }),
-    ).toBeVisible();
+    const noDashboardsLocator = page.getByText('No dashboards', {
+      exact: true,
+    });
+    await noDashboardsLocator.scrollIntoViewIfNeeded();
+    await expect(noDashboardsLocator).toBeVisible();
     await expect(
       page.getByText('No dashboards to display', { exact: true }),
     ).toBeVisible();
@@ -66,7 +68,10 @@ test.describe('dashboard list page', () => {
     await expect(applicationFrame.notification).toBeVisible();
     await applicationFrame.dismissNotificationButton.click();
 
-    await expect(dashboardListPage.emptyCreateButton).toBeVisible();
+    const emptyButton = dashboardListPage.emptyCreateButton;
+
+    await emptyButton.scrollIntoViewIfNeeded();
+    await expect(emptyButton).toBeVisible();
     await expect(page.getByText(dashboard1.name)).toBeHidden();
     await expect(page.getByText(dashboard1.description)).toBeHidden();
     await expect(page.getByText(dashboard2.name)).toBeHidden();
