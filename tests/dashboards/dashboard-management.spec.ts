@@ -53,8 +53,6 @@ test('as a user, I can create, update, and delete my dashboard', async ({
     violationFingerprints(dashboardPageAccessibilityScanResults),
   ).toMatchSnapshot('dashboard-page-accessibility-scan-results');
 
-  // TODO: Need to clean up the below, we do not persist anymore
-  //check if dashboard setting persists
   await page.getByRole('button', { name: 'Settings' }).nth(1).click();
   await expect(page.getByLabel('Number of Rows')).toHaveValue('1000');
   await expect(page.getByLabel('Number of Columns')).toHaveValue('200');
@@ -63,8 +61,7 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   await page.getByLabel('Number of Rows').fill('100');
   await page.getByLabel('Number of Columns').fill('100');
   await page.getByLabel('cell Size').fill('10');
-
-  await page.getByRole('button', { name: 'Close' }).click();
+  await page.getByRole('button', { name: 'Apply changes' }).click();
   await page.getByRole('button', { name: 'Save' }).click();
   await page.reload();
   await page.getByRole('button', { name: 'Edit' }).click();
@@ -79,9 +76,9 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   // check if viewport setting persists
   await page.getByRole('button', { name: 'Preview' }).click();
 
-  await page.getByRole('button', { name: 'Last 10 minutes' }).click();
+  await page.getByRole('button', { name: 'Last 5 minutes' }).click();
 
-  await page.getByRole('radio', { name: 'Last 10 minutes' }).click();
+  await page.getByRole('radio', { name: 'Last 5 minutes' }).click();
   await page.getByRole('button', { name: 'Apply' }).click();
 
   await page.getByRole('button', { name: 'Save' }).click();
@@ -92,9 +89,9 @@ test('as a user, I can create, update, and delete my dashboard', async ({
   );
 
   await page.reload();
-  await expect(
-    page.getByRole('button', { name: 'Last 10 minutes' }),
-  ).toHaveText('Last 10 minutes');
+  await expect(page.getByRole('button', { name: 'Last 5 minutes' })).toHaveText(
+    'Last 5 minutes',
+  );
 
   await dashboardsPage.goto();
 
