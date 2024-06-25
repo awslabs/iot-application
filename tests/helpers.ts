@@ -38,7 +38,7 @@ interface Fixtures {
     dashboardPage: DashboardPage;
     dashboard: Dashboard;
   };
-  dashboardListPage: DashboardsIndexPage;
+  emptyDashboardListPage: DashboardsIndexPage;
   dashboardListPageWithDashboards: {
     dashboardListPage: DashboardsIndexPage;
     dashboard1: Dashboard;
@@ -106,12 +106,12 @@ export const test = base.extend<Fixtures>({
 
     await deleteDashboards({ ids: [dashboard.id] });
   },
-  dashboardListPage: async ({ page }, use) => {
-    const dashboardListPage = new DashboardsIndexPage(page);
+  emptyDashboardListPage: async ({ page }, use) => {
+    const emptyDashboardListPage = new DashboardsIndexPage(page);
 
-    await dashboardListPage.goto();
+    await emptyDashboardListPage.goto();
 
-    await use(dashboardListPage);
+    await use(emptyDashboardListPage);
   },
   dashboardListPageWithDashboards: async ({ page }, use) => {
     const dashboardListPage = new DashboardsIndexPage(page);
