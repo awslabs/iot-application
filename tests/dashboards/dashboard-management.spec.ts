@@ -95,6 +95,7 @@ test('as a user, I can create, update, and delete my dashboard', async ({
 
   await dashboardsPage.goto();
 
+  await page.mouse.wheel(0, 300);
   await expect(page.getByText('My Dashboard', { exact: true })).toBeVisible();
   await expect(page.getByText(dashboardDescription)).toBeVisible();
   await expect(dashboardsPage.deleteButton).toBeDisabled();
