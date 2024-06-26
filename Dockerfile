@@ -1,11 +1,11 @@
 # syntax=docker/dockerfile:1
 
-FROM --platform=linux/amd64 node:18-alpine as builder
+FROM --platform=linux/amd64 node:18-alpine AS builder
 
 WORKDIR /usr/src/app-build
 
 # Configure Node memory allocation
-ENV NODE_OPTIONS=--max_old_space_size=4096
+ENV NODE_OPTIONS=--max-old-space-size=4096
 
 # Copy package.json files
 COPY ./package.json ./package.json
@@ -34,7 +34,7 @@ RUN yarn workspace core build
 RUN yarn workspace core install --frozen-lockfile --production
 
 
-FROM --platform=linux/amd64  node:18-alpine as packager
+FROM --platform=linux/amd64  node:18-alpine AS packager
 
 WORKDIR /usr/src/app
 
