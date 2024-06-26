@@ -1,10 +1,10 @@
 import { test, expect, violationFingerprints } from './helpers';
 
 test('empty page', async ({ page, emptyDashboardListPage }) => {
+  await page.mouse.wheel(0, 300);
   const noDashboardsLocator = page.getByText('No dashboards', {
     exact: true,
   });
-  await page.mouse.wheel(0, 300);
   await expect(noDashboardsLocator).toBeVisible();
   await expect(
     page.getByText('No dashboards to display', { exact: true }),
@@ -72,7 +72,6 @@ test('multiple dashboards can be deleted', async ({
 
   const emptyButton = dashboardListPage.emptyCreateButton;
 
-  await page.mouse.wheel(0, 200);
   await expect(emptyButton).toBeVisible();
   await expect(page.getByText(dashboard1.name)).toBeHidden();
   await expect(page.getByText(dashboard1.description)).toBeHidden();
