@@ -1,8 +1,18 @@
 # IoT Dashboard Application Deployment Guide
 
-## Deploying to AWS Cloud
+## Deploying to AWS Cloud with CloudFormation template
 
-This will deploy the application to your AWS account using CDK.
+This is the simplest method to deploy the application. It deploys the application to your AWS account using CloudFormation template.
+
+1. Download the provided CloudFormation template from the [download link](../app-deployment-cfn.template.yaml)
+1. Deploy the provided CloudFormation template to your AWS account using CloudFormation console or AWS CLI
+1. The deployment process could take up to 30 minutes
+1. After a successfull deployment, a CloudFormation stack is created for the application and this CloudFormation stack will delete iteself
+1. To start using the application, please refer to [user guide](../userguide/README.md)
+
+## Deploying to AWS Cloud with CDK
+
+This is the advanced method to deploy the application. It deploys the application to your AWS account using CDK.
 
 ##### Environment requirements
 
@@ -33,7 +43,7 @@ At the end of the deployment, the output value of `IotApp.AppURL` shows the URL 
 
 Alternatively, you can deploy the application by following the instruction below:
 
-1. Complete the general [prerequisites](https://github.com/awslabs/iot-application/blob/main/README.md#prerequisites) to install Volta, Node and Yarn
+1. Complete the [development prerequisites](../developmentguide/README.md#prerequisites) to install Volta, Node and Yarn
 1. Deploy the application using the deploy command with a single command:
    ```sh
    yarn deploy

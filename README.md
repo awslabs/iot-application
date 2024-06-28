@@ -15,32 +15,6 @@ Key features of the application include:
 
 Start using the application today to quickly create, manage, and view your IoT data in real-time from assets in your AWS IoT SiteWise service. We encourage you to try the application, contribute to the project, and provide feedback to help us improve and enhance the application further.
 
-## Prerequisites
-
-On most Unix systems including macOS, you can install the prerequisites with a single command:
-```sh
-./install-prepreqs-unix.sh
-```
-
-Alternatively, you can install the prerequisites by following the instruction below:
-
-1. [Install Volta](https://docs.volta.sh/guide/getting-started) using the environment specific commands listed below
-   * Unix based environments
-      ```sh
-      curl https://get.volta.sh | bash
-      ```
-      After installing Volta, if applicable, you may need to refresh your bash profile using `source ~/.bashrc` to use Volta commands
-   * Windows environments
-      * Download and run Windows installer [here](https://docs.volta.sh/guide/getting-started)
-1. [Install Node.js@18](https://docs.volta.sh/guide/#features) with Volta
-   ```sh
-   volta install node@18
-   ```
-1. [Install Yarn](https://docs.volta.sh/guide/#features) with Volta 
-   ```sh
-   volta install yarn
-   ```
-
 ## Deploying to AWS Cloud
 
 Instructions are located [here](./deploymentguide/README.md)
