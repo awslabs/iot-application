@@ -1,0 +1,94 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: A CloudFormation template to deploy IoT Application. IoT application is deployed from an EC2 instance launch script and the entire deployment process could take around 30 minutes. After a successfull deployment, a CloudFormation stack is created for the application and this CloudFormation stack will delete iteself. During deployment failure, please see failure reason under DeploymentEC2Instance system log.
+
+Parameters:
+  ApplicationStackName:
+    Description: CloudFormation stack name for IoT Application to deploy. Default is IotApp.
+    Type: String
+    Default: IotApp
+    AllowedPattern: "^[a-zA-Z0-9]*$"
+    MaxLength: 128
+    MinLength: 1
+  AuthenticationMode:
+    Description: Authentication mode of the application. Default is cognito.
+    Type: String
+    Default: cognito
+    AllowedValues:
+      - cognito
+      - sso
+
+Mappings:
+  RegionMap:
+    us-east-1:
+      ami: ami-01b799c439fd5516a
+    us-east-2:
+      ami: ami-07d7e3e669718ab45
+    us-west-2:
+      ami: ami-01572eda7c4411960
+    ap-south-1:
+      ami: ami-04f8d7ed2f1a54b14
+    ap-southeast-1:
+      ami: ami-008c09a18ce321b3c
+    ap-southeast-2:
+      ami: ami-0cb3193ac3a1520ce
+    ap-northeast-1:
+      ami: ami-061a125c7c02edb39
+    eu-central-1:
+      ami: ami-04f1b917806393faa
+    eu-west-1:
+      ami: ami-08ba52a61087f1bd6
+
+Resources:
+  DeploymentEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      LaunchTemplate:
+        LaunchTemplateId: !Ref DeploymentLaunchTemplate
+        Version: !GetAtt DeploymentLaunchTemplate.DefaultVersionNumber
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT45M
+  DeploymentLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        ImageId: !FindInMap [ RegionMap, !Ref "AWS::Region", ami ]
+        InstanceType: t3.large
+        IamInstanceProfile:
+          Arn: !GetAtt DeploymentEC2InstanceProfile.Arn
+        BlockDeviceMappings:
+          - DeviceName: "/dev/xvda"
+            Ebs:
+              VolumeSize: 20
+        UserData:
+          "Fn::Base64": !Sub |
+            #!/bin/bash
+            yum update -y
+            yum install -y docker
+            service docker start
+            yum install -y npm
+            npm install -g yarn
+            yum install -y git
+            git clone https://github.com/awslabs/iot-application.git
+            cd iot-application/
+            yarn install
+            yarn workspace cdk bootstrap
+            yarn workspace cdk deploy:no-review:${AuthenticationMode} -c stackName=${ApplicationStackName}
+            /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource DeploymentEC2Instance --region ${AWS::Region}
+            aws cloudformation delete-stack --stack-name ${AWS::StackId} --region ${AWS::Region}
+  DeploymentEC2InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+      ManagedPolicyArns:
+        - !Sub "arn:${AWS::Partition}:iam::aws:policy/AdministratorAccess"
+  DeploymentEC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - Ec2InstanceRole

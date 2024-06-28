@@ -1,5 +1,31 @@
 # IoT Dashboard Application Development Guide
 
+## Prerequisites
+
+On most Unix systems including macOS, you can install the prerequisites with a single command:
+```sh
+./install-prepreqs-unix.sh
+```
+
+Alternatively, you can install the prerequisites by following the instruction below:
+
+1. [Install Volta](https://docs.volta.sh/guide/getting-started) using the environment specific commands listed below
+   * Unix based environments
+      ```sh
+      curl https://get.volta.sh | bash
+      ```
+      After installing Volta, if applicable, you may need to refresh your bash profile using `source ~/.bashrc` to use Volta commands
+   * Windows environments
+      * Download and run Windows installer [here](https://docs.volta.sh/guide/getting-started)
+1. [Install Node.js@18](https://docs.volta.sh/guide/#features) with Volta
+   ```sh
+   volta install node@18
+   ```
+1. [Install Yarn](https://docs.volta.sh/guide/#features) with Volta 
+   ```sh
+   volta install yarn
+   ```
+
 ## Getting Started with local development
 
 1. Install Java Runtime Environment (JRE) version 11.x or newer
