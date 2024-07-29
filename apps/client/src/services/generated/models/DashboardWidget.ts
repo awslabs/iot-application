@@ -10,6 +10,7 @@ export type DashboardWidget = {
     | 'scatter-chart'
     | 'bar-chart'
     | 'kpi'
+    | 'gauge'
     | 'status'
     | 'status-timeline'
     | 'table'
