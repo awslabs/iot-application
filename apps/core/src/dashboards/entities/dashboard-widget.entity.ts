@@ -10,6 +10,7 @@ export enum DashboardWidgetType {
   ScatterChart = 'scatter-chart',
   BarChart = 'bar-chart',
   Kpi = 'kpi',
+  Gauge = 'gauge',
   Status = 'status',
   StatusTimeline = 'status-timeline',
   Table = 'table',
