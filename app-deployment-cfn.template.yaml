@@ -75,7 +75,6 @@ Resources:
             yarn workspace cdk bootstrap
             yarn workspace cdk deploy:no-review:${AuthenticationMode} -c stackName=${ApplicationStackName}
             /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource DeploymentEC2Instance --region ${AWS::Region}
-            aws cloudformation delete-stack --stack-name ${AWS::StackId} --region ${AWS::Region}
   DeploymentEC2InstanceRole:
     Type: AWS::IAM::Role
     Properties:
@@ -91,4 +90,4 @@ Resources:
     Type: AWS::IAM::InstanceProfile
     Properties:
       Roles:
-        - Ec2InstanceRole
+        - !Ref DeploymentEC2InstanceRole
