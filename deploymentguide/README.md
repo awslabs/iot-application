@@ -7,8 +7,9 @@ This is the simplest method to deploy the application. It deploys the applicatio
 1. Download the provided CloudFormation template from the [download link](../app-deployment-cfn.template.yaml)
 1. Deploy the provided CloudFormation template to your AWS account using CloudFormation console or AWS CLI
 1. The deployment process could take up to 30 minutes
-1. After a successfull deployment, a CloudFormation stack is created for the application and this CloudFormation stack will delete iteself
 1. To start using the application, please refer to [user guide](../userguide/README.md)
+1. After a successfull deployment, delete the CloudFormation stack created in step 2  
+   The CloudFormation stack created in step 2 is necessary for deployment purpose only and deleting the stack does not affect the application
 
 ## Deploying to AWS Cloud with CDK
 
