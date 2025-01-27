@@ -1,3 +1,10 @@
+> [!WARNING]
+> **Repo on path for deprecation!** IoT SiteWise Visualization team has made the decision to end support for open sourced IoT Application GitHub repository effective on **February 28th, 2025**. This decision was made as AWS IoT SiteWise has recently launched a new SiteWise Monitor portal, which offers a similar customer experience. Community members who previously used the IoT Application repository can now explore the new [SiteWise Monitor portal](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/monitor-getting-started-ai.html). 
+>
+> After **February 28th 2025**, we will archive the IoT Application repository and close all issues and pull requests. After archiving the repository, we will no longer actively maintain the codebase, but community members will still be able to access the archived repository. 
+>
+> If you require any assistance or have questions, please create an issue ticket, and we will do our best to help.
+
 # IoT dashboard application built with IoT App Kit
 
 The IoT dashboard application is an easy-to-use tool designed for businesses and individuals who need to keep track of their IoT devices and data. By creating and managing custom dashboards, you can effortlessly monitor your IoT devices and their data in real-time, connecting to your AWS IoT SiteWise data.
