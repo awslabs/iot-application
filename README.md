@@ -1,4 +1,8 @@
 # ⛔️ DEPRECATED
+
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+
 > [!CAUTION]
 > **Repo on path for deprecation!** IoT SiteWise Visualization team has made the decision to end support for open sourced IoT Application GitHub repository effective on **February 28th, 2025**. This decision was made as AWS IoT SiteWise has recently launched a new SiteWise Monitor portal, which offers a similar customer experience. Community members who previously used the IoT Application repository can now explore the new [SiteWise Monitor portal](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/monitor-getting-started-ai.html). 
 >
